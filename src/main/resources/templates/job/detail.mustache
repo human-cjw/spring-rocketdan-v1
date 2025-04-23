@@ -3,23 +3,25 @@
 <div class="bg-white py-5">
     <div class="weapp-out-job-detail">
         <div class="weapp-outer-box-job-detail">
-            <div class="weapp-left-box-job-detail">
-                <a href="#">
-                    <div class="weapp-l-1-job-detail">
-                        <div class="weapp-img2-job-detail">
-                            <img
-                                    src="/img/Screenshot_10.png"
-                                    class="weapp-img2-1-job-detail"
-                            />
-                        </div>
-                        <div>팀스파르타 &gt;</div>
-                    </div>
-                </a>
+        <div class="weapp-left-box-job-detail">
+        <a href="#">
+        <div class="weapp-l-1-job-detail">
+            <div class="weapp-img2-job-detail">
+                <img
+                        src="/img/Screenshot_10.png"
+                        class="weapp-img2-1-job-detail"
+                />
+            </div>
+
+            {{#model}}
+                <div>{{nameKr}} &gt;</div>
+            </div>
+            </a>
                 <div class="weapp-l-2-job-detail">
                     {{title}}
                 </div>
                 <div class="weapp-l-3-job-detail">
-                    {{deaeline}} | 경력 | {{createdAt}}
+                    {{deadline}} | {{careerLevel}} | {{createdAt}}
                 </div>
                 <div class="weapp-l-4-job-detail">주요업무</div>
                 <div>
@@ -27,65 +29,67 @@
                 </div>
             </div>
             <div class="weapp-sum-job-detail">
-                <div class="weapp-right-box-job-detail">
-                    <a href="#"
-                    >
-                        <div class="weapp-r-1-job-detail btn-primary btn">
-                            지원하기
-                        </div>
-                    </a
-                    >
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>마감</div>
-                        <div>{{deaeline}}</div>
+            <div class="weapp-right-box-job-detail">
+                <a href="#"
+                >
+                    <div class="weapp-r-1-job-detail btn-primary btn">
+                        지원하기
                     </div>
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>지역</div>
-                        <div>{{location}}</div>
-                    </div>
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>고용형태</div>
-                        <div>{{employmentType}}</div>
-                    </div>
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>경력</div>
-                        <div>경력</div>
-                    </div>
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>산업분야</div>
-                        <div>웹서비스</div>
-                    </div>
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>연봉</div>
-                        <div>채용담당자에게 문의</div>
-                    </div>
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>근무지</div>
-                        <div>서울특별시 강남구</div>
-                    </div>
-                    <div class="weapp-book-out-job-detail">
-                        <!-- ajax 용 버튼 -->
-                        <div class="weapp-book-job-detail">
-                            <i class="fa-regular fa-bookmark"></i>
-                            <div>공고 북마크</div>
-                        </div>
-                    </div>
+                </a
+                >
+                <div class="weapp-inner-box1-job-detail">
+                    <div>마감</div>
+                    <div>{{deadline}}</div>
+                </div>
+                <div class="weapp-inner-box1-job-detail">
+                    <div>지역</div>
+                    <div>{{location}}</div>
+                </div>
+                <div class="weapp-inner-box1-job-detail">
+                    <div>고용형태</div>
+                    <div>{{employmentType}}</div>
+                </div>
+                <div class="weapp-inner-box1-job-detail">
+                    <div>경력</div>
+                    <div>{{careerLevel}}</div>
+                </div>
+                <div class="weapp-inner-box1-job-detail">
+                    <div>산업분야</div>
+                    <div>{{workField}}</div>
+                </div>
+                <div class="weapp-inner-box1-job-detail">
+                    <div>연봉</div>
+                    <div>{{salaryRange.id}}</div>
+                </div>
+                <div class="weapp-inner-box1-job-detail">
+                    <div>근무지</div>
+                    <div>{{location}}</div>
                 </div>
 
-                <div>
-                    <div class="weapp-r-recru-job-detail">채용 문의 담당자</div>
-                </div>
-                <div class="weapp-inner-box2-job-detail">
-                    <div class="weapp-img1-job-detail">
-                        <img src="user.webp" class="weapp-img1-1-job-detail"/>
-                    </div>
-                    <div>
-                        <div>김태희</div>
-                        <div class="weapp-tuter-job-detail">튜터 리크루터</div>
-                    </div>
-                    <div class="weapp-message-job-detail">메시지</div>
+            {{/model}}
+            <div class="weapp-book-out-job-detail">
+                <!-- ajax 용 버튼 -->
+                <div class="weapp-book-job-detail">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <div>공고 북마크</div>
                 </div>
             </div>
+        </div>
+
+            <div>
+                <div class="weapp-r-recru-job-detail">채용 문의 담당자</div>
+            </div>
+            <div class="weapp-inner-box2-job-detail">
+                <div class="weapp-img1-job-detail">
+                    <img src="user.webp" class="weapp-img1-1-job-detail"/>
+                </div>
+                <div>
+                    <div>김태희</div>
+                    <div class="weapp-tuter-job-detail">튜터 리크루터</div>
+                </div>
+                <div class="weapp-message-job-detail">메시지</div>
+            </div>
+        </div>
         </div>
     </div>
 </div>
