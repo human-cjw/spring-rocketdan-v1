@@ -3,6 +3,7 @@ package com.metacoding.springrocketdanv1.resume;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class ResumeResponse {
 
@@ -23,11 +24,20 @@ public class ResumeResponse {
         private int userId;
         private String salaryRangeId;
         private String jobGroupId;
-        private String enrollmentDate; // 입학날짜
+        private String enrollmentDate;
         private String graduationDate;
         private String isDefault;
 
+        private List<CareerDTO> careers;
 
+        @Data
+        public static class CareerDTO {
+
+            private String careerId;
+            private String careerName;
+            private String startDate;
+            private String endDate;
+        }
     }
 
 }

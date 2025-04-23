@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.resume;
 
+import com.metacoding.springrocketdanv1.career.Career;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.user.User;
@@ -10,6 +11,8 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @ToString
 @NoArgsConstructor
@@ -22,7 +25,6 @@ public class Resume {
     private Integer id;
 
     private String title;
-    @Column(columnDefinition = "text")
     private String summary; // 자기소개
     private String gender; // 남 여
     private String careerLevel; // 0년차, 1년차, 2년차

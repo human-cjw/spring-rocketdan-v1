@@ -7,4 +7,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+
+    public User findById(Integer id, Integer sessionUserId) {
+        return userRepository.findById(id);
+    }
 }
