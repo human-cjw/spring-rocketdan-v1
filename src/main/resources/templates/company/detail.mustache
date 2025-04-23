@@ -1,113 +1,55 @@
 {{> layout/header }}
 
-<div class="">
-    <div class="weapp-header-company-detail bg-light"></div>
+<div class="weapp-company-info-company-detail" style="padding: 48px">
+    <div class="weapp-company-logo-company-detail">
+        {{#company.logoImageUrl}}
+            <img src="{{company.logoImageUrl}}" onerror="this.src='/images/default-logo.png'" />
+        {{/company.logoImageUrl}}
 
-    <div
-            class="weapp-company-info-company-detail position-relative"
-            style="padding: 48px"
-    >
-        <!-- 앱솔루트 버튼 -->
-        <button
-                class="btn btn-primary position-absolute"
-                style="
-                        left: 65%;
-                        transform: translateX(-70%);
-                        margin-top: 70px;
-                        padding: 12px 20px;
-                        font-size: 16px;
-                    "
-        >
-            업데이트
-        </button>
-        <div class="weapp-company-info-company-detail">
-            <div class="weapp-company-logo-company-detail">
-                <img src="Screenshot_15.png"/>
-            </div>
-            <div class="weapp-company-name">
-                <h3>셀바이뮤직</h3>
-            </div>
-            <div class="weapp-company-desc-company-detail">
-                신개념 음원 발매 시스템 셀바이뮤직
-            </div>
+        {{^company.logoImageUrl}}
+            <img src="/images/default-logo.png" />
+        {{/company.logoImageUrl}}
+    </div>
+    <div class="weapp-company-name">
+        <h3>{{company.nameKr}}</h3>
+    </div>
+    <div class="weapp-company-desc-company-detail">
+        {{company.oneLineIntro}}
+    </div>
+</div>
+
+<hr/>
+
+<div class="weapp-container-company-detail">
+    <div class="weapp-sell-company-detail">
+        <h2>기업소개</h2>
+        <p>{{company.introduction}}</p>
+        {{#company.infoImageUrl}}
+            <img src="{{company.infoImageUrl}}" onerror="this.src='/images/default-info.png'" />
+        {{/company.infoImageUrl}}
+
+        {{^company.infoImageUrl}}
+            <img src="/images/default-info.png" />
+        {{/company.infoImageUrl}}
+    </div>
+
+    <div class="weapp-sell-company-detail">
+        <h2>기술 스택</h2>
+        <div class="weapp-tech-tags-company-detail">
+            {{#company.techStackList}}
+                <span>{{.}}</span>
+            {{/company.techStackList}}
         </div>
     </div>
-    <hr/>
-    <div class="weapp-container-company-detail">
-        <div class="weapp-container-header-company-detail">
-            <h3>정보</h3>
-            <hr/>
-        </div>
 
-        <div class="weapp-sell-company-detail">
-            <div>
-                <h2>기업소개</h2>
-            </div>
-            <div class="weapp-info-card-company-detail">
-                <div>
-                    <p>
-                        AIEV는 AI Equality, Everyone's Value의 약자로,
-                        지속가능한 AI를 통해 모두를 위한 GPU 공유자원을
-                        만듭니다. 높은 자원활용성과 Cloud Native 기술을
-                        바탕으로 사용량에 맞춰 탄력 운영 가능한
-                        GPU플랫폼을 운영합니다.
-                    </p>
-                </div>
-                <div><img src="Screenshot_16.png"/></div>
-            </div>
-        </div>
-
-        <div class="weapp-sell-company-detail">
-            <div>
-                <h2>기술 스택</h2>
-            </div>
-            <div class="weapp-tech-tags-company-detail">
-                <span>Java</span><span>JavaScript</span
-            ><span>Spring</span><span>Linux</span
-            ><span>MATLAB</span> <span>embedded</span
-            ><span>UI/UX 디자인</span><span>그래픽 드라이버</span
-            ><span>보안</span> <span>딥러닝</span
-            ><span>분산 시스템</span><span>AI</span
-            ><span>클라우드</span>
-            </div>
-        </div>
-
-        <div class="weapp-sell-company-detail">
-            <div>
-                <h2>기업 정보</h2>
-            </div>
-            <div class="weapp-company-info-box-company-detail">
-                <table class="weapp-info-table-company-detail">
-                    <tr>
-                        <th>설립일</th>
-                        <td>2024-01-19 / 2년차</td>
-                    </tr>
-                    <tr>
-                        <th>이메일</th>
-                        <td>hk.kim@aieev.com</td>
-                    </tr>
-                    <tr>
-                        <th>문의 담당자</th>
-                        <td>
-                            김현경 사업전략팀
-                            <a href="#" class="weapp-link-company-detail">문의하기</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>사무실</th>
-                        <td>
-                            <strong>SW 센터</strong> 서울특별시 서초구
-                            서초동 1330-8 13층
-                            <a href="#" class="weapp-icon-link-company-detail">📍</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>산업 분야</th>
-                        <td>AI, Cloud</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+    <div class="weapp-sell-company-detail">
+        <h2>기업 정보</h2>
+        <table>
+            <tr><th>이메일</th><td>{{company.email}}</td></tr>
+            <tr><th>문의 담당자</th><td>{{company.contactManager}}</td></tr>
+            <tr><th>사무실</th><td>{{company.address}}</td></tr>
+            <tr><th>산업 분야</th><td>{{company.workFieldName}}</td></tr>
+        </table>
     </div>
 </div>
 
