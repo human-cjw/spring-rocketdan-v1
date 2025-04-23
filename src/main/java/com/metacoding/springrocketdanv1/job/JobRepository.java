@@ -1,6 +1,5 @@
 package com.metacoding.springrocketdanv1.job;
 
-import com.metacoding.springrocketdanv1.board.Board;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +12,9 @@ import java.util.List;
 public class JobRepository {
     private final EntityManager em;
 
-    public List<Board> findAll(Integer userId) {
-        String sql = "select b from Board b where b.userId = :userId";
-        TypedQuery<Board> query = em.createQuery(sql, Board.class);
-        query.setParameter("userId", userId);
+    public List<Job> findAll() {
+        String sql = "select j from Job j";
+        TypedQuery<Job> query = em.createQuery(sql, Job.class);
         return query.getResultList();
     }
 }
