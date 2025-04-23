@@ -7,4 +7,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ResumeService {
     private final ResumeRepository resumeRepository;
+
+    public Resume 이력서상세보기(Integer id, Integer userId) {
+        return resumeRepository.findByUserId(id);
+    }
 }
