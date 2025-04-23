@@ -1,7 +1,7 @@
 package com.metacoding.springrocketdanv1.job;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +13,8 @@ public class JobRepository {
     private final EntityManager em;
 
     public List<Job> findAll() {
-        String sql = "select j from Job j";
-        TypedQuery<Job> query = em.createQuery(sql, Job.class);
+        String sql = "SELECT * FROM job_tb";  // 네이티브 SQL 쿼리
+        Query query = em.createNativeQuery(sql, Job.class);
         return query.getResultList();
     }
 }

@@ -21,6 +21,8 @@ public class JobService {
             JobResponse.DTO dto = new JobResponse.DTO();
             dto.setTitle(job.getTitle());
             dto.setCareerLevel(job.getCareerLevel());
+
+            dto.setNameKr(job.getCompany().getNameKr());
             jobDTOs.add(dto);  // DTO 리스트에 추가
         }
 

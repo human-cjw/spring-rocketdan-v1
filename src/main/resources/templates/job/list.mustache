@@ -5,16 +5,17 @@
         <div class="weapp-main-wrapper-job-list">
             <div class="weapp-profile-grid-job-list">
 
-
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        {{model.title}}
+                {{#model}}
+                    <div class="weapp-profile-card-job-list">
+                        <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
+                        <img src="#" class="weapp-company-logo-job-list"/>
+                        <div class="weapp-company-name-job-list">
+                            {{title}}
+                        </div>
+                        <div class="weapp-company-desc-job-list">{{nameKr}}</div>
+                        <div class="weapp-location-job-list">{{careerLevel}}</div>
                     </div>
-                    <div class="weapp-company-desc-job-list">제네시스비즈</div>
-                    <div class="weapp-location-job-list">{{model.careerLevel}}</div>
-                </div>
+                {{/model}}
 
 
             </div>

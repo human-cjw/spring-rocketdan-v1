@@ -8,5 +8,7 @@ public class JobResponse {
     public static class DTO {
         private String title;
         private String careerLevel;
+        
+        private String nameKr;
     }
 }

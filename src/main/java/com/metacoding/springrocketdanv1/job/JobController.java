@@ -16,6 +16,7 @@ public class JobController {
     public String list(Model model) {
         List<JobResponse.DTO> jobllist = jobService.글목록보기();
         model.addAttribute("model", jobllist);
-        return "list";
+        model.addAttribute("nameKr", "한글 이름");
+        return "job/list";
     }
 }
