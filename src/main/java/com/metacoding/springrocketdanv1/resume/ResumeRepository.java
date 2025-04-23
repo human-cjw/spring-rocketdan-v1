@@ -11,9 +11,10 @@ public class ResumeRepository {
     private final EntityManager em;
 
 
-    public Resume findByUserId(int id) {
-        Query query = em.createQuery("select r from Resume r where r.id = :id", Resume.class);
+    public Resume findById(Integer id) {
+        Query query = em.createQuery("select r from Resume r join fetch r.user u join fetch r.salaryRange s join fetch r.jobGroup j where r.id = :id", Resume.class);
         query.setParameter("id", id);
         return (Resume) query.getSingleResult();
     }
+
 }

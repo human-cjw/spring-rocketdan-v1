@@ -6,10 +6,12 @@ import com.metacoding.springrocketdanv1.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@ToString
 @NoArgsConstructor
 @Getter
 @Entity

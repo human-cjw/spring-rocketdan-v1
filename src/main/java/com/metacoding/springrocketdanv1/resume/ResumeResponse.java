@@ -10,18 +10,23 @@ public class ResumeResponse {
     public static class DetailDTO {
         private int id;
         private String title;
-        private String gender;
-        private int age;
         private String summary;
-        private String careerLevel;
+        private String gender;
         private String education;
+        private String careerLevel;
         private String birthdate;
-        private String portfolioUrl;
-        private String graduationType;
         private String major;
+        private String graduationType;
         private String phone;
-        private String salaryRangeId;
+        private String portfolioUrl;
         private Timestamp createdAt;
+        private int userId;
+        private String salaryRangeId;
+        private String jobGroupId;
+        private String enrollmentDate; // 입학날짜
+        private String graduationDate;
+        private String isDefault;
+
 
     }
 
