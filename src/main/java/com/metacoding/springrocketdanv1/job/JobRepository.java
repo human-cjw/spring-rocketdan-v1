@@ -17,4 +17,8 @@ public class JobRepository {
         Query query = em.createNativeQuery(sql, Job.class);
         return query.getResultList();
     }
+
+    public Job findById(Integer id) {
+        return em.find(Job.class, id);
+    }
 }

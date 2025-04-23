@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -20,13 +21,17 @@ public class JobController {
 //        return "job/list";
 //    }
 
-    @GetMapping("/")
-    public String show(Model model) {
-        List<JobResponse.DetailDTO> jobDetail = jobService.글상세보기();
-        model.addAttribute("model", jobDetail);
-        model.addAttribute("nameKr", "한글 이름");
-        model.addAttribute("salaryRange", jobDetail.get(0).getSalaryRange());
+    @GetMapping("/{id}")
+    public String show(@PathVariable Integer id, Model model) {
+        // JobDetail을 조회
+        JobResponse.DetailDTO jobDetail = jobService.글상세보기(id);
 
+        // model에 데이터 추가
+        model.addAttribute("jobDetail", jobDetail);
+        model.addAttribute("nameKr", jobDetail.getNameKr());
+        model.addAttribute("salaryRange", jobDetail.getSalaryRange());
+
+        // job/detail 뷰 반환
         return "job/detail";
     }
 }

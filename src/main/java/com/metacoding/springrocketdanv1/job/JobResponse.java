@@ -1,7 +1,7 @@
 package com.metacoding.springrocketdanv1.job;
 
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
-import com.metacoding.springrocketdanv1.workField.WorkField;
+import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -25,9 +25,24 @@ public class JobResponse {
         private String description;
         private String location;
         private String employmentType;
-        private WorkField workField;
-        private SalaryRange salaryRange;
-
+        private String workField;
         private String nameKr;
+        private SalaryRangeResponse.SalaryRangeDTO salaryRange;
+
+        public DetailDTO(String title, Timestamp deadline, String careerLevel,
+                         Timestamp createdAt, String description, String location,
+                         String employmentType, String workField, String nameKr,
+                         SalaryRangeResponse.SalaryRangeDTO salaryRange) {
+            this.title = title;
+            this.deadline = deadline;
+            this.careerLevel = careerLevel;
+            this.createdAt = createdAt;
+            this.description = description;
+            this.location = location;
+            this.employmentType = employmentType;
+            this.workField = workField;
+            this.nameKr = nameKr;
+            this.salaryRange = salaryRange;
+        }
     }
 }
