@@ -16,4 +16,8 @@ public class WorkField {
     private Integer id;
 
     private String name; // 업무분야. it, 금융, 판매
+
+    public WorkField(String name) {
+        this.name = name;
+    }
 }

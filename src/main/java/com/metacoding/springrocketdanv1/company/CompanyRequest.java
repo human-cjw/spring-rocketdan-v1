@@ -1,5 +1,7 @@
 package com.metacoding.springrocketdanv1.company;
 
+import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
+import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import lombok.Data;
@@ -23,8 +25,8 @@ public class CompanyRequest {
         private String address;
         private String workFieldName;
 
-        public Company toEntity(User user, WorkField workField) {
-            return Company.builder()
+        public Company toEntity(User user, WorkField workField, List<TechStack> techStackList) {
+            Company company = Company.builder()
                     .nameKr(nameKr)
                     .nameEn(nameEn)
                     .introduction(introduction)
@@ -37,6 +39,13 @@ public class CompanyRequest {
                     .user(user)
                     .workField(workField)
                     .build();
+
+            for (TechStack techStack : techStackList) {
+                CompanyTechStack cts = new CompanyTechStack(company, techStack);
+                company.getCompanyTechStackList().add(cts);
+            }
+
+            return company;
         }
     }
 }

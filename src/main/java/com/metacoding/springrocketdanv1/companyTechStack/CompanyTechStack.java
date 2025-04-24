@@ -22,4 +22,9 @@ public class CompanyTechStack {
     // 기술스택 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private TechStack techStack;
+
+    public CompanyTechStack(Company company, TechStack techStack) {
+        this.company = company;
+        this.techStack = techStack;
+    }
 }
