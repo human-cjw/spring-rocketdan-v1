@@ -16,14 +16,11 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
-
     @GetMapping("/company/{id}")
     public String detail(@PathVariable Integer id, Model model) {
         CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(id);
         model.addAttribute("model", responseDTO);
         return "company/detail";
-
-
     }
 
     @GetMapping("/company")
