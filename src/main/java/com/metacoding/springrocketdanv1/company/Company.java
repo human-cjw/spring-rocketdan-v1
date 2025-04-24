@@ -3,10 +3,12 @@ package com.metacoding.springrocketdanv1.company;
 import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -21,6 +23,7 @@ public class Company {
     private String nameKr; // 한글이름
     private String nameEn; // 영어이름
     private String ceo; // 대표명
+    private Date foundedAt;
     private String businessNumber; // 사업자등록번호
     private String email;
     private String phone; // 대표번호
@@ -45,4 +48,20 @@ public class Company {
     // 업무분야 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private WorkField workField;
+
+    @Builder
+    public Company(String nameKr, String nameEn, String introduction, Date foundedAt,
+                   String businessNumber, String email, String contactManager, String address,
+                   User user, WorkField workField) {
+        this.nameKr = nameKr;
+        this.nameEn = nameEn;
+        this.introduction = introduction;
+        this.foundedAt = foundedAt;
+        this.businessNumber = businessNumber;
+        this.email = email;
+        this.contactManager = contactManager;
+        this.address = address;
+        this.user = user;
+        this.workField = workField;
+    }
 }

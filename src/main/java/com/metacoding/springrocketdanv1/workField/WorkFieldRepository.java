@@ -8,4 +8,11 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class WorkFieldRepository {
     private final EntityManager em;
+
+    public WorkField findByName(String name) {
+        String q = "SELECT w FROM WorkField w WHERE w.name = :name";
+        return em.createQuery(q, WorkField.class)
+                .setParameter("name", name)
+                .getSingleResult();
+    }
 }
