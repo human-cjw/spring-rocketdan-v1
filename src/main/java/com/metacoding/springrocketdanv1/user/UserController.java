@@ -11,7 +11,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/join-form")
-    public String joinform(User user) {
+    public String joinform() {
         return "user/join-form";
     }
     @PostMapping("/join")

@@ -35,13 +35,12 @@ public class User {
     private Company company; // 기본값 null
 
     @Builder
-    public User(Integer id,String username, String password, String email, String userType, Timestamp createdAt) {
-        this.id = id;
+    public User(String username, String password, String email, String userType, Timestamp createdAt) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.userType = userType;
         this.createdAt = createdAt;
     }
-
 }
+
