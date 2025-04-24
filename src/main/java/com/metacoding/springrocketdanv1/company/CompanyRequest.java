@@ -48,4 +48,18 @@ public class CompanyRequest {
             return company;
         }
     }
+
+    @Data
+    public static class UpdateDTO {
+        private String nameKr;
+        private String nameEn;
+        private String oneLineIntro;
+        private String introduction;
+        private String startDate;
+        private String businessNumber;
+        private String email;
+        private String contactManager;
+        private String address;
+        private String workFieldName;
+    }
 }

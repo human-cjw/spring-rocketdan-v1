@@ -57,4 +57,17 @@ public class CompanyController {
         Company savedCompany = companyService.기업등록(requestDTO, sessionUser);
         return "redirect:/company/" + savedCompany.getId();
     }
+
+    @GetMapping("/company/{id}/update-form")
+    public String updateForm(@PathVariable Integer id, Model model) {
+        Company company = companyService.기업상세보기(id);
+        model.addAttribute("model", company);
+        return "company/update-form";
+    }
+
+    @PostMapping("/company/{id}/update")
+    public String update(@PathVariable Integer id, @ModelAttribute CompanyRequest.UpdateDTO requestDTO) {
+        companyService.기업수정(id, requestDTO);
+        return "redirect:/company/" + id;
+    }
 }

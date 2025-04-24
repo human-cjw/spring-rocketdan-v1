@@ -86,6 +86,28 @@ public class CompanyService {
         Company company = requestDTO.toEntity(sessionUser, workField, techStackList);
         return companyRepository.save(company);
     }
+
+    @Transactional
+    public void 기업수정(Integer companyId, CompanyRequest.UpdateDTO dto) {
+        Company company = companyRepository.findById(companyId);
+
+        if (company == null) throw new RuntimeException("회사를 찾을 수 없습니다");
+
+        WorkField workField = workFieldRepository.findByName(dto.getWorkFieldName());
+        if (workField == null) {
+            workField = workFieldRepository.save(new WorkField(dto.getWorkFieldName()));
+        }
+
+        company.update(dto, workField);
+    }
+
+    public Company 기업상세보기(Integer id) {
+        Company company = companyRepository.findById(id);
+        if (company == null) {
+            throw new RuntimeException("회사를 찾을 수 없습니다.");
+        }
+        return company;
+    }
 }
 
 
