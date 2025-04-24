@@ -1,6 +1,8 @@
 package com.metacoding.springrocketdanv1.resume;
 
+import com.metacoding.springrocketdanv1.certification.Certification;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
+import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStack;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.user.User;
 import jakarta.persistence.*;
@@ -10,6 +12,8 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @ToString
 @NoArgsConstructor
@@ -51,4 +55,9 @@ public class Resume {
     @ManyToOne(fetch = FetchType.LAZY)
     private JobGroup jobGroup;
 
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    private List<Certification> certifications = new ArrayList<Certification>();
+
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+    private List<ResumeTechStack> resumeTechStacks = new ArrayList<ResumeTechStack>();
 }

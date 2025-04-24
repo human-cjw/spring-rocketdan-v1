@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class UserRepository {
     private final EntityManager em;
+
 }

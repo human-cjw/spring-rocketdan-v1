@@ -6,14 +6,15 @@
     <div class="container py-3">
         <div class="d-flex" style="justify-content: space-between">
             <!--1번은 제목이 들어감!-->
-            <h3 class="mb-4 fw-bold">{{model.title}}</h3>
+            <h3 class="mb-4 fw-bold">{{model.name}}의 {{model.title}}</h3>
+
             <div>
-                <a
-                        href="#"
-                        class="btn btn-outline-primary btn-sm"
-                >수정</a
-                >
+                <a href="/resume/{{model.id}}/update-form" class="btn btn-outline-primary btn-sm">
+                    수정
+                </a>
             </div>
+
+
         </div>
 
         <div class="d-flex justify-content-end mb-4">
@@ -23,6 +24,7 @@
         <!-- 기본 정보 칸 시작 -->
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <h5 class="fw-bold mb-3">기본 정보</h5>
+
             <div class="m-3 mb-1">
                 <div class="mb-2">
                     <div class="fs-6 text-muted">포트폴리오</div>
@@ -36,9 +38,9 @@
                     </div>
                     <div class="mt-1">
                         {{model.email}}
-                        <i
-                                class="fas fa-check-circle text-primary"
-                        ></i>
+                        <i class="fas fa-check-circle text-primary">
+
+                        </i>
                     </div>
                 </div>
 
@@ -57,6 +59,7 @@
                 </div>
                 <p class="m-0 text-muted">{{model.summary}}</p>
             </div>
+
         </div>
         <!-- 기본 정보 칸 끝 -->
 
@@ -107,7 +110,7 @@
                                     type="text"
                                     name="professional"
                                     class="form-control"
-                                    placeholder="1995-01-01"
+                                    placeholder={{model.birthdate}}
                                     style="pointer-events: none"
                             />
                         </div>
@@ -161,6 +164,31 @@
                 </div>
             </div>
         </div>
+        <!-- 경력 끝 -->
+
+        <!-- 커리어 칸 시작 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <div>
+                <h5 class="fw-bold mb-3">경력 사항</h5>
+
+                <div class="card m-3 mb-1">
+
+                    <div class="m-3 mb-1 text-muted">
+                        {{#model.careers}}
+                            <p class="fw-bold fs-6 mb-1">{{companyName}}</p>
+                            <div class="d-flex gap-2 mb-3">
+                                <p class="fs-6 mb-0">{{startDate}}</p>
+                                <p class="fs-6 mb-0">~</p>
+                                <p class="fs-6 mb-0">{{endDate}}</p>
+                            </div>
+                        {{/model.careers}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- 커리어 칸 끝 -->
+
         <!-- 학력 칸 -->
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <div>
@@ -245,19 +273,25 @@
         </div>
         <!-- 학력 칸 끝 -->
         <!-- 자격증 칸 -->
+
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <div>
                 <h5 class="fw-bold mb-3">자격증</h5>
 
                 <div class="card m-3 mb-1">
+
                     <div class="m-3 mb-1 text-muted">
-                        <p class="fw-bold fs-6">정보처리기사</p>
-                        <p class="fs-6">한국산업인력공단</p>
-                        <p class="fs-6">2025.04.18 취득</p>
+                        {{#model.certifications}}
+                            <p class="fw-bold fs-6">{{name}}</p>
+                            <p class="fs-6">{{issuer}}</p>
+                            <p class="fs-6">{{issuedDate}} 취득</p>
+                        {{/model.certifications}}
                     </div>
+
                 </div>
             </div>
         </div>
+
         <!-- 자격증 칸 끝 -->
         <!-- 기술 스택 칸 시작 -->
         <div class="bg-white rounded p-4 shadow-sm mb-4">
@@ -267,18 +301,11 @@
                         class="d-flex align-items-center gap-3 m-3 mb-1"
                 >
                     <div class="d-flex flex-wrap gap-2">
-                                    <span
-                                            class="border rounded-pill px-3 py-1 text-muted"
-                                    >소프트웨어개발</span
-                                    >
-                        <span
-                                class="border rounded-pill px-3 py-1 text-muted"
-                        >웹개발</span
-                        >
-                        <span
-                                class="border rounded-pill px-3 py-1 text-muted"
-                        >JavaScript</span
-                        >
+                        {{#model.resumeTechStacks}}
+                            <span class="border rounded-pill px-3 py-1 text-muted">
+                                {{name}}
+                            </span>
+                        {{/model.resumeTechStacks}}
                     </div>
                 </div>
             </div>

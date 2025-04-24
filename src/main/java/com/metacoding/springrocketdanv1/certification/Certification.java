@@ -27,4 +27,5 @@ public class Certification {
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
 
+
 }

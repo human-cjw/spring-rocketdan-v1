@@ -33,4 +33,5 @@ public class User {
     @JoinColumn(name = "company_id", unique = true)
     private Company company; // 기본값 null
 
+
 }

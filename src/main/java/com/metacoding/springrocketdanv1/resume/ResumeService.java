@@ -1,34 +1,41 @@
 package com.metacoding.springrocketdanv1.resume;
 
+import com.metacoding.springrocketdanv1.career.Career;
+import com.metacoding.springrocketdanv1.career.CareerRepository;
+import com.metacoding.springrocketdanv1.certification.Certification;
+import com.metacoding.springrocketdanv1.certification.CertificationRepository;
+import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackRepository;
+import com.metacoding.springrocketdanv1.techStack.TechStack;
+import com.metacoding.springrocketdanv1.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ResumeService {
     private final ResumeRepository resumeRepository;
+    private final CertificationRepository certificationRepository;
+    private final ResumeTechStackRepository resumeTechStackRepository;
+    private final UserRepository userRepository;
+    private final CareerRepository careerRepository;
 
-    public ResumeResponse.DetailDTO 이력서상세보기(Integer id, Integer userId) {
-        Resume resume = resumeRepository.findById(userId);
+    public ResumeResponse.DetailDTO 이력서상세보기(Integer resumeId, Integer sessionUserId) {
+        Resume resume = resumeRepository.findById(resumeId);
+        List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
+        List<TechStack> resumeTechStacks = resumeTechStackRepository.findAllByResumeId(resumeId);
+        List<Career> careers = careerRepository.findCareersByResumeId(resumeId);
 
-        ResumeResponse.DetailDTO dto = new ResumeResponse.DetailDTO();
-        dto.setId(resume.getId());
-        dto.setTitle(resume.getTitle());
-        dto.setGender(resume.getGender());
+        ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, sessionUserId, certifications,
+                resumeTechStacks, resume.getUser().getEmail(), resume.getUser().getUsername(), careers);
 
-        dto.setSummary(resume.getSummary());
-        dto.setCareerLevel(resume.getCareerLevel());
-        dto.setEducation(resume.getEducation());
-        dto.setBirthdate(resume.getBirthdate());
-        dto.setPortfolioUrl(resume.getPortfolioUrl());
-        dto.setGraduationType(resume.getGraduationType());
-        dto.setMajor(resume.getMajor());
-        dto.setPhone(resume.getPhone());
+        System.out.println(detailDTO.getCertifications());
+        System.out.println(detailDTO.getResumeTechStacks());
 
-        dto.setCreatedAt(resume.getCreatedAt());
-
-        return dto;
+        return detailDTO;
     }
+
 }
 
 
