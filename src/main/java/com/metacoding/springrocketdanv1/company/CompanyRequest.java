@@ -11,7 +11,6 @@ public class CompanyRequest {
 
     @Data
     public static class CompanySaveDTO {
-        private String oneLineIntro;
         private String nameKr;
         private String nameEn;
         private String introduction;
