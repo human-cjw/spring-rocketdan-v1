@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class ResumeRepository {
     private final EntityManager em;
+
+    public Resume findById(Integer id) {
+        return em.find(Resume.class, id);
+    }
 }

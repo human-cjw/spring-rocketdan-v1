@@ -455,3 +455,10 @@ VALUES
     (2, 2),
     -- 삼성전자(3번 회사)가 ssar(1번 유저)의 백엔드 개발자 이력서를 북마크
     (2, 1);
+
+-- =============================================
+-- Application 더미 데이터
+-- =============================================
+INSERT INTO application_tb (id, status, user_id, company_id, resume_id, job_id, created_at)
+VALUES (1, '접수', 1, 1, 1, 1, NOW()),
+       (2, '검토', 2, 2, 2, 2, NOW());

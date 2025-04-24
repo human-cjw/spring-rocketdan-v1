@@ -1,7 +1,9 @@
 package com.metacoding.springrocketdanv1.application;
 
+import com.metacoding.springrocketdanv1.company.Company;
 import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.resume.Resume;
+import com.metacoding.springrocketdanv1.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +26,6 @@ public class Application {
 
     private String status; // 지원 상태. 접수, 검토, 합격, 탈락
 
-    // 사용자 ID (이력서로부터 유래)
-    private Integer userId;
-
-    // 회사 ID (공고로부터 유래)
-    private Integer companyId;
-
     @CreationTimestamp
     private Timestamp createdAt;
 
@@ -39,5 +35,13 @@ public class Application {
 
     // 공고 FK
     @ManyToOne(fetch = FetchType.LAZY)
-    private Job job;
+    private Job job;    // 이력서 FK
+
+    // 이력서 주인 FK
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
+
+    // 공고 주인 FK
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Company company;
 }

@@ -1,43 +1,132 @@
 {{> layout/header }}
 
 <div class="bg-light py-5">
-    <div class="container" style="max-width: 50%">
+
+    <!-- id 1번 DB !-->
+    <div class="container py-3">
         <div class="d-flex" style="justify-content: space-between">
             <!--1번은 제목이 들어감!-->
-            <h3 class="mb-4 fw-bold">ssar 님의 1번 이력서</h3>
+            <h3 class="mb-4 fw-bold">{{model.name}}의 {{model.title}}</h3>
+
             <div>
-                <a
-                        href="user-resume-update.html"
-                        class="btn btn-outline-primary btn-sm"
-                >수정</a
-                >
+                <a href="/resume/{{model.id}}/update-form" class="btn btn-outline-primary btn-sm">
+                    수정
+                </a>
             </div>
+
+
         </div>
 
-        <!-- 프로필 헤더 -->
-        <div
-                class="bg-white rounded p-4 shadow-sm mb-4 d-flex justify-content-between align-items-start"
-        >
-            <div class="mb-4">
-                <h4 class="fw-bold mb-3">ssar</h4>
+        <div class="d-flex justify-content-end mb-4">
+            작성 일시 : {{model.createdAt}}
+        </div>
+
+        <!-- 기본 정보 칸 시작 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">기본 정보</h5>
+
+            <div class="m-3 mb-1">
+                <div class="mb-2">
+                    <div class="fs-6 text-muted">포트폴리오</div>
+                    <div class="mt-1">{{model.portfolioUrl}}</div>
+                </div>
+
+                <div class="mb-2">
+                    <div class="fs-6 text-muted">
+                        E-mail &nbsp<i class="fas fa-lock"></i>
+                        비공개
+                    </div>
+                    <div class="mt-1">
+                        {{model.email}}
+                        <i class="fas fa-check-circle text-primary">
+                        </i>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="fs-6 text-muted">
+                        휴대전화번호 &nbsp
+                        <i class="fas fa-lock"></i> 비공개
+                    </div>
+                    <div class="mt-1">
+                        {{model.phone}}
+                    </div>
+                </div>
                 <hr/>
-                <div class="pt-4">
-                            <span class="mb-0 text-muted"
-                            >ssar1111@gmail.com</span
+                <div>
+                    <h6>간단한 자기 소개</h6>
+                </div>
+                <p class="m-0 text-muted">{{model.summary}}</p>
+            </div>
+
+        </div>
+        <!-- 기본 정보 칸 끝 -->
+
+        <!-- 성별 & 생년월일 시작 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <div>
+                <h5 class="fw-bold mb-3">성별 & 생년월일</h5>
+                <div
+                        class="d-flex align-items-center gap-3 m-3 mb-1"
+                >
+                    <!-- 성별 선택 칸 시작 -->
+                    <form action="/action_page.php">
+                        <div class="form-check-inline">
+                            <label
+                                    class="form-check-label"
+                                    for="radio1"
                             >
-                    <span>|</span>
-                    <span class="text-muted"
-                    >등록된 휴대전화가 없습니다.</span
-                    >
+                                <input
+                                        type="radio"
+                                        class="form-check-input"
+                                        id="newbie"
+                                        value="option1"
+                                        checked
+                                        disabled
+                                />남자
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label
+                                    class="form-check-label"
+                                    for="radio2"
+                            >
+                                <input
+                                        type="radio"
+                                        class="form-check-input"
+                                        id="old"
+                                        value="option2"
+                                        disabled
+                                />여자
+                            </label>
+                        </div>
+                    </form>
+                    <!-- 성별 선택 칸 끝 -->
+                    <!-- 생년월일 입력 칸 시작 -->
+                    <div>
+                        <div class="input-group">
+                            <input
+                                    type="text"
+                                    name="professional"
+                                    class="form-control"
+                                    placeholder={{model.birthdate}}
+                                    style="pointer-events: none"
+                            />
+                        </div>
+                    </div>
+                    <!-- 생년월일 입력 칸 끝 -->
                 </div>
             </div>
         </div>
-        <!-- 프로필 헤더 끝 -->
+        <!-- 성별 & 생년월일 끝 -->
+
         <!-- 경력 -->
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <div>
                 <h5 class="fw-bold mb-3">경력</h5>
-                <div class="d-flex align-items-center gap-3">
+                <div
+                        class="d-flex align-items-center gap-3 m-3 mb-1"
+                >
                     <!-- 신입 + 경력 옵션 선택 칸 시작 -->
                     <form action="/action_page.php">
                         <div class="form-check-inline">
@@ -71,29 +160,41 @@
                         </div>
                     </form>
                     <!-- 신입 + 경력 옵션 선택 칸 끝 -->
-                    <!-- 연차 선택 칸 시작 -->
-                    <div>
-                        <div class="input-group" style="width: 100%">
-                            <input
-                                    type="text"
-                                    name="professional"
-                                    class="form-control"
-                                    placeholder="연차를 선택해주세요."
-                                    style="pointer-events: none"
-                            />
-                        </div>
-                    </div>
-                    <!--연차 선택 칸 끝 -->
                 </div>
             </div>
         </div>
+        <!-- 경력 끝 -->
+
+        <!-- 커리어 칸 시작 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <div>
+                <h5 class="fw-bold mb-3">경력 사항</h5>
+
+                <div class="card m-3 mb-1">
+
+                    <div class="m-3 mb-1 text-muted">
+                        {{#model.careers}}
+                            <p class="fw-bold fs-6 mb-1">{{companyName}}</p>
+                            <div class="d-flex gap-2 mb-3">
+                                <p class="fs-6 mb-0">{{startDate}}</p>
+                                <p class="fs-6 mb-0">~</p>
+                                <p class="fs-6 mb-0">{{endDate}}</p>
+                            </div>
+                        {{/model.careers}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- 커리어 칸 끝 -->
+
         <!-- 학력 칸 -->
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <div>
                 <h5 class="fw-bold mb-3">학력</h5>
 
                 <div
-                        class="d-flex"
+                        class="d-flex m-3 mb-1"
                         style="justify-content: start; gap: 0.5rem"
                 >
                     <!-- 학교 이름 칸 시작 -->
@@ -104,7 +205,7 @@
                                     type="text"
                                     class="form-control"
                                     name="school-name"
-                                    placeholder="부산대학교"
+                                    placeholder="{{model.education}}"
                                     style="pointer-events: none"
                             />
                         </div>
@@ -118,7 +219,7 @@
                                     type="text"
                                     name="professional"
                                     class="form-control"
-                                    placeholder="컴퓨터공학과"
+                                    placeholder="{{model.major}}"
                                     style="pointer-events: none"
                             />
                         </div>
@@ -127,98 +228,90 @@
                     <!-- 재학 기간 시작 -->
                     <div class="align-items-center">
                         <label class="mb-2">재학 기간*</label>
-                        <div class="d-flex" style="align-items: center">
-                            <div class="input-group" style="width: 50%">
+                        <div
+                                class="d-flex"
+                                style="align-items: center"
+                        >
+                            <div class="input-group">
                                 <input
                                         type="text"
                                         name="school-date"
                                         class="form-control"
-                                        placeholder="2020-03-08"
+                                        placeholder="{{model.enrollmentDate}}"
                                         style="pointer-events: none"
                                 />
                             </div>
                             <div class="px-3">-</div>
-                            <div style="pointer-events: none">
-                                <input
-                                        type="text"
-                                        name="school-date2"
-                                        class="form-control"
-                                        placeholder="2024-02-19"
-                                        style="pointer-events: none"
-                                />
-                            </div>
+
+                            <input
+                                    type="text"
+                                    name="school-date2"
+                                    class="form-control"
+                                    placeholder="{{model.graduationDate}}"
+                                    style="pointer-events: none"
+                            />
                         </div>
                     </div>
                     <!-- 재학 기간 끝 -->
+                    <!-- 현 학교 상태 시작 -->
+                    <div class="align-items-center">
+                        <label class="mb-2">상태*</label>
+                        <div class="input-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="school-name"
+                                    placeholder="{{model.graduationType}}"
+                                    style="pointer-events: none"
+                            />
+                        </div>
+                    </div>
+                    <!-- 현 학교 상태 끝 -->
                 </div>
             </div>
         </div>
         <!-- 학력 칸 끝 -->
         <!-- 자격증 칸 -->
+
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <div>
                 <h5 class="fw-bold mb-3">자격증</h5>
 
-                <div class="card m-1">
+                <div class="card m-3 mb-1">
+
                     <div class="m-3 mb-1 text-muted">
-                        <p class="fw-bold fs-6">정보처리기사</p>
-                        <p class="fs-6">한국산업인력공단</p>
-                        <p class="fs-6">2025.04.18 취득</p>
+                        {{#model.certifications}}
+                            <p class="fw-bold fs-6">{{name}}</p>
+                            <p class="fs-6">{{issuer}}</p>
+                            <p class="fs-6">{{issuedDate}} 취득</p>
+                        {{/model.certifications}}
                     </div>
+
                 </div>
             </div>
         </div>
+
         <!-- 자격증 칸 끝 -->
         <!-- 기술 스택 칸 시작 -->
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <div>
                 <h5 class="fw-bold mb-3">기술 스택</h5>
-                <div class="d-flex align-items-center gap-3">
+                <div
+                        class="d-flex align-items-center gap-3 m-3 mb-1"
+                >
                     <div class="d-flex flex-wrap gap-2">
-                                <span
-                                        class="border rounded-pill px-3 py-1 text-muted"
-                                >소프트웨어개발</span
-                                >
-                        <span
-                                class="border rounded-pill px-3 py-1 text-muted"
-                        >웹개발</span
-                        >
-                        <span
-                                class="border rounded-pill px-3 py-1 text-muted"
-                        >JavaScript</span
-                        >
+                        {{#model.resumeTechStacks}}
+                            <span class="border rounded-pill px-3 py-1 text-muted">
+                                {{name}}
+                            </span>
+                        {{/model.resumeTechStacks}}
                     </div>
                 </div>
             </div>
         </div>
         <!-- 기술 스택 칸 끝 -->
-        <!-- 기본 정보 칸 시작 -->
-        <div class="bg-white rounded p-4 shadow-sm mb-4">
-            <h5 class="fw-bold mb-3">기본 정보</h5>
-            <div class="mb-2">
-                <div class="fs-6 text-muted">포트폴리오</div>
-                <div class="mt-1">www.ssar.com/@ssar</div>
-            </div>
-
-            <div class="mb-2">
-                <div class="fs-6 text-muted">
-                    E-mail <i class="fas fa-lock"></i> 비공개
-                </div>
-                <div class="mt-1">
-                    ssar1111@nate.com
-                    <i class="fas fa-check-circle text-primary"></i>
-                </div>
-            </div>
-
-            <div>
-                <div class="fs-6 text-muted">
-                    휴대전화번호 <i class="fas fa-lock"></i> 비공개
-                </div>
-                <div class="mt-1">전화번호가 등록되지 않았습니다.</div>
-            </div>
-        </div>
-        <!-- 기본 정보 칸 끝 -->
     </div>
+
 </div>
 
 {{> layout/footer }}
