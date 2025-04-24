@@ -12,7 +12,9 @@
             rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" href="/css/index.css">
+
     <title>RocketDan</title>
 </head>
 <body>
@@ -64,16 +66,21 @@
                         >
                     </li>
                 </ul>
-                <div>
-                    <a
-                            class="btn btn-outline-primary"
-                            href="javascript:void(0)"
-                    >로그인</a
-                    >
-                    <a class="btn btn-primary" href="javascript:void(0)"
-                    >회원가입</a
-                    >
-                </div>
+                {{#sessionUser}}
+                    <div>
+                        <a class="btn btn-outline-primary"
+                           href="/logout">로그아웃</a>
+                    </div>
+                {{/sessionUser}}
+                {{^sessionUser}}
+                    <div>
+                        <a class="btn btn-outline-primary"
+                           href="/login-form">로그인</a>
+                        <a class="btn btn-primary"
+                           href="/join-form">회원가입</a
+                        >
+                    </div>
+                {{/sessionUser}}
                 <div
                         id="profilePopover"
                         class="text-center weapp-cursor-pointer weapp-fs-8"

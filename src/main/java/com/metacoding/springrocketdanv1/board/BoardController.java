@@ -7,4 +7,5 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+
 }

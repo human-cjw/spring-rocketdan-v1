@@ -8,27 +8,35 @@
             style="padding: 48px"
     >
         <!-- 앱솔루트 버튼 -->
-        <button
-                class="btn btn-primary position-absolute"
-                style="
-                        left: 65%;
-                        transform: translateX(-70%);
-                        margin-top: 70px;
-                        padding: 12px 20px;
-                        font-size: 16px;
-                    "
-        >
-            업데이트
-        </button>
+        <a href="/company/{{id}}/update-form" style="text-decoration: none;">
+            <button
+                    class="btn btn-primary position-absolute"
+                    style="
+            left: 65%;
+            transform: translateX(-70%);
+            margin-top: 70px;
+            padding: 12px 20px;
+            font-size: 16px;
+        "
+            >
+                업데이트
+            </button>
+        </a>
+
         <div class="weapp-company-info-company-detail">
             <div class="weapp-company-logo-company-detail">
-                <img src="Screenshot_15.png"/>
+                {{#model.logoImageUrl}}
+                    <img src="{{model.logoImageUrl}}" onerror="this.src='/images/default-logo.png'"/>
+                {{/model.logoImageUrl}}
+                {{^model.logoImageUrl}}
+                    <img src="/images/default-logo.png"/>
+                {{/model.logoImageUrl}}
             </div>
             <div class="weapp-company-name">
-                <h3>셀바이뮤직</h3>
+                <h3>{{model.nameKr}}</h3>
             </div>
             <div class="weapp-company-desc-company-detail">
-                신개념 음원 발매 시스템 셀바이뮤직
+                {{model.oneLineIntro}}
             </div>
         </div>
     </div>
@@ -45,15 +53,14 @@
             </div>
             <div class="weapp-info-card-company-detail">
                 <div>
-                    <p>
-                        AIEV는 AI Equality, Everyone's Value의 약자로,
-                        지속가능한 AI를 통해 모두를 위한 GPU 공유자원을
-                        만듭니다. 높은 자원활용성과 Cloud Native 기술을
-                        바탕으로 사용량에 맞춰 탄력 운영 가능한
-                        GPU플랫폼을 운영합니다.
-                    </p>
+                    <p>{{model.introduction}}</p>
                 </div>
-                <div><img src="Screenshot_16.png"/></div>
+                {{#model.infoImageUrl}}
+                    <img src="{{model.infoImageUrl}}" onerror="this.src='/images/default-info.png'"/>
+                {{/model.infoImageUrl}}
+                {{^model.infoImageUrl}}
+                    <img src="/images/default-info.png"/>
+                {{/model.infoImageUrl}}
             </div>
         </div>
 
@@ -62,13 +69,9 @@
                 <h2>기술 스택</h2>
             </div>
             <div class="weapp-tech-tags-company-detail">
-                <span>Java</span><span>JavaScript</span
-            ><span>Spring</span><span>Linux</span
-            ><span>MATLAB</span> <span>embedded</span
-            ><span>UI/UX 디자인</span><span>그래픽 드라이버</span
-            ><span>보안</span> <span>딥러닝</span
-            ><span>분산 시스템</span><span>AI</span
-            ><span>클라우드</span>
+                {{#model.techStackList}}
+                    <span>{{.}}</span>
+                {{/model.techStackList}}
             </div>
         </div>
 
@@ -80,30 +83,29 @@
                 <table class="weapp-info-table-company-detail">
                     <tr>
                         <th>설립일</th>
-                        <td>2024-01-19 / 2년차</td>
+                        <td>{{model.startDate}}</td>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td>hk.kim@aieev.com</td>
+                        <td>{{model.email}}</td>
                     </tr>
                     <tr>
                         <th>문의 담당자</th>
                         <td>
-                            김현경 사업전략팀
+                            {{model.contactManager}}
                             <a href="#" class="weapp-link-company-detail">문의하기</a>
                         </td>
                     </tr>
                     <tr>
                         <th>사무실</th>
                         <td>
-                            <strong>SW 센터</strong> 서울특별시 서초구
-                            서초동 1330-8 13층
+                            {{model.address}}
                             <a href="#" class="weapp-icon-link-company-detail">📍</a>
                         </td>
                     </tr>
                     <tr>
                         <th>산업 분야</th>
-                        <td>AI, Cloud</td>
+                        <td>{{model.workFieldName}}</td>
                     </tr>
                 </table>
             </div>

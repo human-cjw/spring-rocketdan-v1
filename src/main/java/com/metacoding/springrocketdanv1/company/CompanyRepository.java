@@ -1,11 +1,26 @@
 package com.metacoding.springrocketdanv1.company;
 
 import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-@RequiredArgsConstructor
 public class CompanyRepository {
-    private final EntityManager em;
+
+
+    @PersistenceContext
+    private EntityManager em;
+
+    public Company findById(Integer id) {
+        return em.find(Company.class, id); // Lazy loading
+    }
+
+    public List<Company> findAll() {
+
+        String q = "SELECT c FROM Company c";
+
+        return em.createQuery(q, Company.class).getResultList();
+    }
 }
