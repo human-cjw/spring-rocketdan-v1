@@ -45,7 +45,8 @@ INSERT INTO company_tb (name_kr,
                         contact_manager,
                         created_at,
                         user_id,
-                        work_field_id)
+                        work_field_id,
+                        start_date)
 VALUES ('네이버',
         'Naver',
         '이해진',
@@ -61,7 +62,8 @@ VALUES ('네이버',
         '김담당',
         NOW(),
         3,
-        1),
+        1,
+        '2000-01-01'),
        ('카카오',
         'Kakao',
         '홍은택',
@@ -77,7 +79,8 @@ VALUES ('네이버',
         '이담당',
         NOW(),
         4,
-        1);
+        1,
+        '2005-10-15');
 
 -- =============================================
 -- SalaryRange 더미 데이터
