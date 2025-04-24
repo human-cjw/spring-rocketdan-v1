@@ -6,18 +6,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class JobController {
     private final JobService jobService;
 
-//    @GetMapping("/job")
-//    public String list(Model model) {
-//        List<JobResponse.DTO> jobllist = jobService.글목록보기();
-//        model.addAttribute("model", jobllist);
-//        model.addAttribute("nameKr", "한글 이름");
-//        return "job/list";
-//    }
+    @GetMapping("/")
+    public String list(Model models) {
+        List<JobResponse.DTO> jobllist = jobService.글목록보기();
+        models.addAttribute("models", jobllist);
+        models.addAttribute("nameKr", "한글 이름");
+        return "job/list";
+    }
 
     @GetMapping("/job/{id}")
     public String show(@PathVariable Integer id, Model model) {

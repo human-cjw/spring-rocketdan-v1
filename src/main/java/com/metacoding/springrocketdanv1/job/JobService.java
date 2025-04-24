@@ -23,6 +23,7 @@ public class JobService {
 
         for (Job job : jobs) {
             JobResponse.DTO dto = new JobResponse.DTO();
+            dto.setId(job.getId());
             dto.setTitle(job.getTitle());
             dto.setCareerLevel(job.getCareerLevel());
 

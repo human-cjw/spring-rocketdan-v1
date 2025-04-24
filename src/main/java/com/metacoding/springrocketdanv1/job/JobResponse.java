@@ -9,6 +9,7 @@ public class JobResponse {
 
     @Data
     public static class DTO {
+        private int id;
         private String title;
         private String careerLevel;
 
