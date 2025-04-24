@@ -45,5 +45,4 @@ public class Company {
     // 업무분야 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private WorkField workField;
-
 }

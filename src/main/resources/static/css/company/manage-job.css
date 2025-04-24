@@ -2,14 +2,14 @@
     width: 170px;
 }
 
-.row {
+.weaapp-row {
     width: 1320px;
 
     display: flex;
     justify-content: center;
 }
 
-.container {
+.weapp-container {
     display: flex;
     justify-content: center;
 }
