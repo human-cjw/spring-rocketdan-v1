@@ -5,7 +5,9 @@ import com.metacoding.springrocketdanv1.techStack.TechStack;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @NoArgsConstructor
 @Getter
 @Entity

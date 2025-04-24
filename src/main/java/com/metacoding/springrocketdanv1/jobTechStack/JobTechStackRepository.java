@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class JobTechStackRepository {
     private final EntityManager em;
+
+
 }
