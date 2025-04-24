@@ -32,6 +32,7 @@ public class Company {
     private String logoImageUrl;
     private String infoImageUrl; // 회사소개이미지
     private String contactManager; // 문의담당자
+    private String startDate; // 설립일
 
 
     @CreationTimestamp
