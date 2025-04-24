@@ -20,7 +20,7 @@ public class CompanyController {
     @GetMapping("/company/{id}")
     public String detail(@PathVariable Integer id, Model model) {
         CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(id);
-        model.addAttribute("company", responseDTO);
+        model.addAttribute("model", responseDTO);
         return "company/detail";
 
 

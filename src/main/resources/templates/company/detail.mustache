@@ -25,18 +25,18 @@
 
         <div class="weapp-company-info-company-detail">
             <div class="weapp-company-logo-company-detail">
-                {{#company.logoImageUrl}}
-                    <img src="{{company.logoImageUrl}}" onerror="this.src='/images/default-logo.png'"/>
-                {{/company.logoImageUrl}}
-                {{^company.logoImageUrl}}
+                {{#model.logoImageUrl}}
+                    <img src="{{model.logoImageUrl}}" onerror="this.src='/images/default-logo.png'"/>
+                {{/model.logoImageUrl}}
+                {{^model.logoImageUrl}}
                     <img src="/images/default-logo.png"/>
-                {{/company.logoImageUrl}}
+                {{/model.logoImageUrl}}
             </div>
             <div class="weapp-company-name">
-                <h3>{{company.nameKr}}</h3>
+                <h3>{{model.nameKr}}</h3>
             </div>
             <div class="weapp-company-desc-company-detail">
-                {{company.oneLineIntro}}
+                {{model.oneLineIntro}}
             </div>
         </div>
     </div>
@@ -53,14 +53,14 @@
             </div>
             <div class="weapp-info-card-company-detail">
                 <div>
-                    <p>{{company.introduction}}</p>
+                    <p>{{model.introduction}}</p>
                 </div>
-                {{#company.infoImageUrl}}
-                    <img src="{{company.infoImageUrl}}" onerror="this.src='/images/default-info.png'"/>
-                {{/company.infoImageUrl}}
-                {{^company.infoImageUrl}}
+                {{#model.infoImageUrl}}
+                    <img src="{{model.infoImageUrl}}" onerror="this.src='/images/default-info.png'"/>
+                {{/model.infoImageUrl}}
+                {{^model.infoImageUrl}}
                     <img src="/images/default-info.png"/>
-                {{/company.infoImageUrl}}
+                {{/model.infoImageUrl}}
             </div>
         </div>
 
@@ -69,9 +69,9 @@
                 <h2>기술 스택</h2>
             </div>
             <div class="weapp-tech-tags-company-detail">
-                {{#company.techStackList}}
+                {{#model.techStackList}}
                     <span>{{.}}</span>
-                {{/company.techStackList}}
+                {{/model.techStackList}}
             </div>
         </div>
 
@@ -83,29 +83,29 @@
                 <table class="weapp-info-table-company-detail">
                     <tr>
                         <th>설립일</th>
-                        <td>{{company.createdAt}}</td>
+                        <td>{{model.createdAt}}</td>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td>{{company.email}}</td>
+                        <td>{{model.email}}</td>
                     </tr>
                     <tr>
                         <th>문의 담당자</th>
                         <td>
-                            {{company.contactManager}}
+                            {{model.contactManager}}
                             <a href="#" class="weapp-link-company-detail">문의하기</a>
                         </td>
                     </tr>
                     <tr>
                         <th>사무실</th>
                         <td>
-                            {{company.address}}
+                            {{model.address}}
                             <a href="#" class="weapp-icon-link-company-detail">📍</a>
                         </td>
                     </tr>
                     <tr>
                         <th>산업 분야</th>
-                        <td>{{company.workFieldName}}</td>
+                        <td>{{model.workFieldName}}</td>
                     </tr>
                 </table>
             </div>
