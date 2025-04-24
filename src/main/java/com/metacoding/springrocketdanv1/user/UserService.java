@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-<<<<<<< HEAD
 
     public User 로그인(UserRequest.LoginDTO loginDTO) {
         User user = userRepository.findByUsername(loginDTO.getUsername());
@@ -18,17 +17,8 @@ public class UserService {
         return user;
     }
 
-    @Transactional
     public void 회원가입(UserRequest.JoinDTO joinDTO) {
         userRepository.save(joinDTO.toEntity());
     }
-
 }
-=======
-@Transactional
-    public void 회원가입(UserRequest.JoinDTO joinDTO) {
-            userRepository.save(joinDTO.toEntity());
 
-    }
-}
->>>>>>> master

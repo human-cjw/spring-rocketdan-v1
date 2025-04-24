@@ -20,15 +20,10 @@ public class UserRequest {
                     .build();
         }
     }
-
-<<<<<<< HEAD
     @Data
     public static class LoginDTO {
         private String username;
         private String password;
         private String rememberMe;
         }
-
-=======
->>>>>>> master
 }
