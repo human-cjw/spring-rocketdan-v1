@@ -34,7 +34,6 @@ public class Company {
     private String contactManager; // 문의담당자
     private String startDate; // 설립일
 
-
     @CreationTimestamp
     private Timestamp createdAt;
 
