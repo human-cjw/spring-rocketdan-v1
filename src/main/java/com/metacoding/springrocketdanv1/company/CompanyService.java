@@ -2,6 +2,7 @@ package com.metacoding.springrocketdanv1.company;
 
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStackRepository;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
+import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
@@ -19,6 +20,7 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
     private final WorkFieldRepository workFieldRepository;
     private final CompanyTechStackRepository companyTechStackRepository;
+    private final TechStackRepository techStackRepository;
 
     @Transactional(readOnly = true)
     public CompanyResponse.CompanyResponseDTO 기업상세(Integer companyId) {
@@ -40,18 +42,21 @@ public class CompanyService {
         // 4. DTO로 매핑
         return new CompanyResponse.CompanyResponseDTO(
                 company.getNameKr(),
+                company.getNameEn(),
                 company.getCeo(),
+                company.getBusinessNumber(),
                 company.getEmail(),
+                company.getPhone(),
                 company.getAddress(),
-                company.getHomepageUrl(),
                 company.getIntroduction(),
                 company.getOneLineIntro(),
+                company.getHomepageUrl(),
                 company.getLogoImageUrl(),
                 company.getInfoImageUrl(),
                 company.getContactManager(),
+                startDate,
                 workFieldName,
-                techStackNames,
-                startDate
+                techStackNames
         );
     }
 
@@ -60,11 +65,31 @@ public class CompanyService {
     }
 
     @Transactional
-    public Integer 기업등록(CompanyRequest.CompanySaveDTO requestDTO, User sessionUser) {
+    public Company 기업등록(CompanyRequest.CompanySaveDTO requestDTO, User sessionUser) {
+        // 1. 산업 분야 처리
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
-        Company company = requestDTO.toEntity(sessionUser, null);
-        Company companyPC = companyRepository.save(company);
-        return companyPC.getId();
+        if (workField == null) {
+            workField = new WorkField();
+            workField.setName(requestDTO.getWorkFieldName());
+            workField = workFieldRepository.save(workField);
+        }
+
+        // 2. 회사 등록
+        Company company = requestDTO.toEntity(sessionUser, workField);
+        companyRepository.save(company);
+
+//        // 3. 기술 스택 저장
+//        if (requestDTO.getTechStack() != null) {
+//            for (String techStackName : requestDTO.getTechStack()) {
+//                TechStack techStack = techStackRepository.findByName(techStackName);
+//                if (techStack != null) {
+//                    CompanyTechStack companyTechStack = new CompanyTechStack(company, techStack);
+//                    companyTechStackRepository.save(companyTechStack);
+//                }
+//            }
+//        }
+
+        return company;
     }
 }
 

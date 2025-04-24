@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @NoArgsConstructor
@@ -23,7 +22,6 @@ public class Company {
     private String nameKr; // 한글이름
     private String nameEn; // 영어이름
     private String ceo; // 대표명
-    private Date foundedAt;
     private String businessNumber; // 사업자등록번호
     private String email;
     private String phone; // 대표번호
@@ -35,7 +33,7 @@ public class Company {
     private String logoImageUrl;
     private String infoImageUrl; // 회사소개이미지
     private String contactManager; // 문의담당자
-    private String startDate; // 설립일
+    private String startDate;
 
     @CreationTimestamp
     private Timestamp createdAt;
@@ -50,17 +48,25 @@ public class Company {
     private WorkField workField;
 
     @Builder
-    public Company(String nameKr, String nameEn, String introduction, Date foundedAt,
-                   String businessNumber, String email, String contactManager, String address,
+    public Company(String nameKr, String nameEn, String ceo, String businessNumber,
+                   String email, String phone, String address, String introduction,
+                   String oneLineIntro, String homepageUrl, String logoImageUrl,
+                   String infoImageUrl, String contactManager, String startDate,
                    User user, WorkField workField) {
         this.nameKr = nameKr;
         this.nameEn = nameEn;
-        this.introduction = introduction;
-        this.foundedAt = foundedAt;
+        this.ceo = ceo;
         this.businessNumber = businessNumber;
         this.email = email;
-        this.contactManager = contactManager;
+        this.phone = phone;
         this.address = address;
+        this.introduction = introduction;
+        this.oneLineIntro = oneLineIntro;
+        this.homepageUrl = homepageUrl;
+        this.logoImageUrl = logoImageUrl;
+        this.infoImageUrl = infoImageUrl;
+        this.contactManager = contactManager;
+        this.startDate = startDate;
         this.user = user;
         this.workField = workField;
     }

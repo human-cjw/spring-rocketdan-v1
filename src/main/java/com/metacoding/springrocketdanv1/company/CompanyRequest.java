@@ -4,7 +4,7 @@ import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.List;
 
 @Data
 public class CompanyRequest {
@@ -14,9 +14,10 @@ public class CompanyRequest {
         private String nameKr;
         private String nameEn;
         private String introduction;
-        private String foundedAt;
+        private String oneLineIntro;
+        private String startDate;
         private String businessNumber;
-        private String techStack;
+        private List<String> techStack;
         private String email;
         private String contactManager;
         private String address;
@@ -27,7 +28,8 @@ public class CompanyRequest {
                     .nameKr(nameKr)
                     .nameEn(nameEn)
                     .introduction(introduction)
-                    .foundedAt(Date.valueOf(foundedAt))
+                    .oneLineIntro(oneLineIntro)
+                    .startDate(startDate)
                     .businessNumber(businessNumber)
                     .email(email)
                     .contactManager(contactManager)

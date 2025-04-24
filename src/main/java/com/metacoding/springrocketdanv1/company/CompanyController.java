@@ -1,6 +1,10 @@
 package com.metacoding.springrocketdanv1.company;
 
+import com.metacoding.springrocketdanv1.techStack.TechStack;
+import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
+import com.metacoding.springrocketdanv1.workField.WorkField;
+import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +23,11 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final WorkFieldRepository workFieldRepository;
+    private final TechStackRepository techStackRepository;
 
     @GetMapping("/company/{id}")
-    public String detail(@PathVariable Integer id, Model model) {
+    public String detail(@PathVariable("id") Integer id, Model model) {
         CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(id);
         model.addAttribute("model", responseDTO);
         return "company/detail";
@@ -35,16 +41,21 @@ public class CompanyController {
     }
 
     @GetMapping("/company/save-form")
-    public String saveForm() {
+    public String saveForm(Model model) {
+        List<WorkField> workFields = workFieldRepository.findAll();
+        List<TechStack> techStacks = techStackRepository.findAll();
+
+        model.addAttribute("workFields", workFields);
+        model.addAttribute("techStacks", techStacks);
+
         return "company/save-form";
     }
 
     @PostMapping("/company/save")
     public String save(@ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-        Integer companyId = companyService.기업등록(requestDTO, sessionUser);
-
-        return "redirect:/company/" + companyId;
+        System.out.println(requestDTO);
+        Company savedCompany = companyService.기업등록(requestDTO, sessionUser);
+        return "redirect:/company/" + savedCompany.getId();
     }
 }
