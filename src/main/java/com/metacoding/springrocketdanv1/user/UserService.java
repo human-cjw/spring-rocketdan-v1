@@ -11,6 +11,5 @@ public class UserService {
 @Transactional
     public void 회원가입(UserRequest.JoinDTO joinDTO) {
             userRepository.save(joinDTO.toEntity());
-
     }
 }
