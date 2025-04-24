@@ -18,7 +18,7 @@ public class JobResponse {
     @Data
     public static class DetailDTO {
         private String title;
-        private Timestamp deadline;
+        private String deadline;
         private String careerLevel;
         private Timestamp createdAt;
         private String description;
@@ -29,7 +29,7 @@ public class JobResponse {
         private SalaryRangeResponse.SalaryRangeDTO salaryRange;
         private Integer companyId;
 
-        public DetailDTO(String title, Timestamp deadline, String careerLevel,
+        public DetailDTO(String title, String deadline, String careerLevel,
                          Timestamp createdAt, String description, String location,
                          String employmentType, String workField, String nameKr,
                          SalaryRangeResponse.SalaryRangeDTO salaryRange, Integer companyId) {
