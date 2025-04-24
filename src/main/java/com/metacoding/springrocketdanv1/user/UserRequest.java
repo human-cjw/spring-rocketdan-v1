@@ -21,6 +21,7 @@ public class UserRequest {
         }
     }
 
+<<<<<<< HEAD
     @Data
     public static class LoginDTO {
         private String username;
@@ -28,4 +29,6 @@ public class UserRequest {
         private String rememberMe;
         }
 
+=======
+>>>>>>> master
 }

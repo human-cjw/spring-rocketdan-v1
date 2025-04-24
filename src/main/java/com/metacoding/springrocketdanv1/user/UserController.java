@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+<<<<<<< HEAD
     private final HttpSession session;
 
 
@@ -41,11 +42,21 @@ public class UserController {
         userService.회원가입(joinDTO);
         return "redirect:/login-form";
     }
+=======
+>>>>>>> master
 
     @GetMapping("/join-form")
     public String joinform() {
         return "user/join-form";
     }
+<<<<<<< HEAD
 
 
+=======
+    @PostMapping("/join")
+    public String join(UserRequest.JoinDTO joinDTO) {
+        userService.회원가입(joinDTO);
+        return "user/login-form";
+    }
+>>>>>>> master
 }

@@ -12,6 +12,7 @@ public class UserRepository {
     public void save(User user) {
         em.persist(user);
     }
+<<<<<<< HEAD
 
     public User findByUsername(String username) {
         try {
@@ -22,4 +23,6 @@ public class UserRepository {
             return null;
         }
     }
+=======
+>>>>>>> master
 }
