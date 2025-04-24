@@ -20,9 +20,10 @@ public class CompanyService {
     }
 
     @Transactional
-    public void 기업등록(CompanyRequest.CompanySaveDTO requestDTO, User sessionUser) {
+    public Integer 기업등록(CompanyRequest.CompanySaveDTO requestDTO, User sessionUser) {
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
         Company company = requestDTO.toEntity(sessionUser, null);
-        companyRepository.save(company);
+        Company companyPC = companyRepository.save(company);
+        return companyPC.getId();
     }
 }

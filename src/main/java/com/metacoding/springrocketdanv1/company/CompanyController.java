@@ -27,13 +27,13 @@ public class CompanyController {
     public String saveForm() {
         return "company/save-form";
     }
-    
+
     @PostMapping("/company/save")
     public String save(@ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        companyService.기업등록(requestDTO, sessionUser);
+        Integer companyId = companyService.기업등록(requestDTO, sessionUser);
 
-        return "redirect:/company";
+        return "redirect:/company/" + companyId;
     }
 }

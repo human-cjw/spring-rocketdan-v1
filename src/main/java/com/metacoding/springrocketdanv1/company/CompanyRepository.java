@@ -18,7 +18,8 @@ public class CompanyRepository {
         return em.createQuery(q, Company.class).getResultList();
     }
 
-    public void save(Company company) {
+    public Company save(Company company) {
         em.persist(company);
+        return company;
     }
 }
