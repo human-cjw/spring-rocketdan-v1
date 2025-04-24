@@ -14,10 +14,10 @@ public class JobController {
     private final JobService jobService;
 
     @GetMapping("/")
-    public String list(Model models) {
+    public String list(Model models, JobResponse.DTO dto) {
         List<JobResponse.DTO> jobllist = jobService.글목록보기();
         models.addAttribute("models", jobllist);
-        models.addAttribute("nameKr", "한글 이름");
+        models.addAttribute("nameKr", dto.getNameKr());
         return "job/list";
     }
 
