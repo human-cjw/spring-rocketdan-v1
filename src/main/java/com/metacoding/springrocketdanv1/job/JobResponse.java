@@ -1,6 +1,5 @@
 package com.metacoding.springrocketdanv1.job;
 
-import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
 import lombok.Data;
 
@@ -28,11 +27,12 @@ public class JobResponse {
         private String workField;
         private String nameKr;
         private SalaryRangeResponse.SalaryRangeDTO salaryRange;
+        private Integer companyId;
 
         public DetailDTO(String title, Timestamp deadline, String careerLevel,
                          Timestamp createdAt, String description, String location,
                          String employmentType, String workField, String nameKr,
-                         SalaryRangeResponse.SalaryRangeDTO salaryRange) {
+                         SalaryRangeResponse.SalaryRangeDTO salaryRange, Integer companyId) {
             this.title = title;
             this.deadline = deadline;
             this.careerLevel = careerLevel;
@@ -43,6 +43,7 @@ public class JobResponse {
             this.workField = workField;
             this.nameKr = nameKr;
             this.salaryRange = salaryRange;
+            this.companyId = companyId;
         }
     }
 }

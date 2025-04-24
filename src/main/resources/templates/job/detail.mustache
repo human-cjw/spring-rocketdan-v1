@@ -3,20 +3,19 @@
 <div class="bg-white py-5">
     <div class="weapp-out-job-detail">
         <div class="weapp-outer-box-job-detail">
-        <div class="weapp-left-box-job-detail">
-        <a href="#">
-        <div class="weapp-l-1-job-detail">
-            <div class="weapp-img2-job-detail">
-                <img
-                        src="/img/Screenshot_10.png"
-                        class="weapp-img2-1-job-detail"
-                />
-            </div>
+            <div class="weapp-left-box-job-detail">
+                <a href="#">
+                    <div class="weapp-l-1-job-detail">
+                        <div class="weapp-img2-job-detail">
+                            <img
+                                    src="/img/Screenshot_10.png"
+                                    class="weapp-img2-1-job-detail"
+                            />
+                        </div>
+                        <a href="https://localhost:8080/company/{{jobDetail.companyId}}">{{nameKr}} &gt;</a>
 
-
-                <div>{{nameKr}} &gt;</div>
-            </div>
-            </a>
+                    </div>
+                </a>
                 <div class="weapp-l-2-job-detail">
                     {{jobDetail.title}}
                 </div>
@@ -29,67 +28,69 @@
                 </div>
             </div>
             <div class="weapp-sum-job-detail">
-            <div class="weapp-right-box-job-detail">
-                <a href="#"
-                >
-                    <div class="weapp-r-1-job-detail btn-primary btn">
-                        지원하기
+                <div class="weapp-right-box-job-detail">
+
+                    <a href="https://localhost:8080/user/job/1/apply/save">
+                        <div class="weapp-r-1-job-detail btn-primary btn">
+                            지원하기
+                        </div>
+                    </a>
+
+                    <div class="weapp-inner-box1-job-detail">
+                        <div>마감</div>
+                        <div>{{jobDetail.deadline}}</div>
                     </div>
-                </a
-                >
-                <div class="weapp-inner-box1-job-detail">
-                    <div>마감</div>
-                    <div>{{jobDetail.deadline}}</div>
-                </div>
-                <div class="weapp-inner-box1-job-detail">
-                    <div>지역</div>
-                    <div>{{jobDetail.location}}</div>
-                </div>
-                <div class="weapp-inner-box1-job-detail">
-                    <div>고용형태</div>
-                    <div>{{jobDetail.employmentType}}</div>
-                </div>
-                <div class="weapp-inner-box1-job-detail">
-                    <div>경력</div>
-                    <div>{{jobDetail.careerLevel}}</div>
-                </div>
-                <div class="weapp-inner-box1-job-detail">
-                    <div>산업분야</div>
-                    <div>{{jobDetail.workField}}</div>
-                </div>
-                <div class="weapp-inner-box1-job-detail">
-                    <div>연봉</div>
-                    <div>{{salaryRange.minSalary}} ~ {{salaryRange.maxSalary}}/div>
-                </div>
-                <div class="weapp-inner-box1-job-detail">
-                    <div>근무지</div>
-                    <div>{{jobDetail.location}}</div>
+                    <div class="weapp-inner-box1-job-detail">
+                        <div>지역</div>
+                        <div>{{jobDetail.location}}</div>
+                    </div>
+                    <div class="weapp-inner-box1-job-detail">
+                        <div>고용형태</div>
+                        <div>{{jobDetail.employmentType}}</div>
+                    </div>
+                    <div class="weapp-inner-box1-job-detail">
+                        <div>경력</div>
+                        <div>{{jobDetail.careerLevel}}</div>
+                    </div>
+                    <div class="weapp-inner-box1-job-detail">
+                        <div>산업분야</div>
+                        <div>{{jobDetail.workField}}</div>
+                    </div>
+                    <div class="weapp-inner-box1-job-detail">
+                        <div>연봉</div>
+                        <div>{{salaryRange.minSalary}} ~ {{salaryRange.maxSalary}}</div>
+                    </div>
+
+                    <div class="weapp-inner-box1-job-detail">
+                        <div>근무지</div>
+                        <div>{{jobDetail.location}}</div>
+                    </div>
+
+                    <div class="weapp-book-out-job-detail">
+                        <!-- ajax 용 버튼 -->
+                        <div class="weapp-book-job-detail">
+                            <i class="fa-regular fa-bookmark"></i>
+                            <div>공고 북마크</div>
+                        </div>
+                    </div>
+
                 </div>
 
 
-            <div class="weapp-book-out-job-detail">
-                <!-- ajax 용 버튼 -->
-                <div class="weapp-book-job-detail">
-                    <i class="fa-regular fa-bookmark"></i>
-                    <div>공고 북마크</div>
-                </div>
-            </div>
-        </div>
-
-            <div>
-                <div class="weapp-r-recru-job-detail">채용 문의 담당자</div>
-            </div>
-            <div class="weapp-inner-box2-job-detail">
-                <div class="weapp-img1-job-detail">
-                    <img src="user.webp" class="weapp-img1-1-job-detail"/>
-                </div>
                 <div>
-                    <div>김태희</div>
-                    <div class="weapp-tuter-job-detail">튜터 리크루터</div>
+                    <div class="weapp-r-recru-job-detail">채용 문의 담당자</div>
                 </div>
-                <div class="weapp-message-job-detail">메시지</div>
+                <div class="weapp-inner-box2-job-detail">
+                    <div class="weapp-img1-job-detail">
+                        <img src="user.webp" class="weapp-img1-1-job-detail"/>
+                    </div>
+                    <div>
+                        <div>김태희</div>
+                        <div class="weapp-tuter-job-detail">튜터 리크루터</div>
+                    </div>
+                    <div class="weapp-message-job-detail">메시지</div>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 </div>

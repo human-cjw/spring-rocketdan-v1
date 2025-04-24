@@ -6,14 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 public class JobController {
     private final JobService jobService;
 
-//    @GetMapping("/")
+//    @GetMapping("/job")
 //    public String list(Model model) {
 //        List<JobResponse.DTO> jobllist = jobService.글목록보기();
 //        model.addAttribute("model", jobllist);
@@ -21,7 +19,7 @@ public class JobController {
 //        return "job/list";
 //    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/job/{id}")
     public String show(@PathVariable Integer id, Model model) {
         // JobDetail을 조회
         JobResponse.DetailDTO jobDetail = jobService.글상세보기(id);
