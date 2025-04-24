@@ -7,4 +7,6 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class JobBookmarkController {
     private final JobBookmarkService jobBookmarkService;
+
+
 }
