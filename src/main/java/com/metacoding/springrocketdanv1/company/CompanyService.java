@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,9 +35,10 @@ public class CompanyService {
         // 3. 산업 분야 이름 조회
         String workFieldName = workFieldRepository.findNameById(company.getWorkField().getId());
 
-        LocalDate createdDate = company.getCreatedAt().toLocalDateTime().toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String formattedDate = createdDate.format(formatter);
+        String startDate = "";
+        if (company.getFoundedAt() != null) {
+            startDate = new SimpleDateFormat("yyyy-MM-dd").format(company.getFoundedAt());
+        }
 
         // 4. DTO로 매핑
         return new CompanyResponse.CompanyResponseDTO(
@@ -54,7 +54,7 @@ public class CompanyService {
                 company.getContactManager(),
                 workFieldName,
                 techStackNames,
-                formattedDate
+                startDate
         );
     }
 

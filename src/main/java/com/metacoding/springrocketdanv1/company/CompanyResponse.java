@@ -24,6 +24,6 @@ public class CompanyResponse {
         private String contactManager;
         private String workFieldName;
         private List<String> techStackList;
-        private String createdAt;
+        private String startDate;
     }
 }
