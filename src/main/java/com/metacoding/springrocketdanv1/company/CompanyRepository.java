@@ -11,6 +11,14 @@ import java.util.List;
 public class CompanyRepository {
     private final EntityManager em;
 
+    public void save(Company company) {
+        em.persist(company);
+    }
+
+    public Company findById(Integer id) {
+        return em.find(Company.class, id);
+    }
+
     public List<Company> findAll() {
 
         String q = "SELECT c FROM Company c";

@@ -7,6 +7,7 @@ import com.metacoding.springrocketdanv1.workField.WorkField;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "job_tb")
 public class Job {

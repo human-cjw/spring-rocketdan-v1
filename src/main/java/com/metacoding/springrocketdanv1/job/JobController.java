@@ -12,15 +12,21 @@ public class JobController {
     private final JobService jobService;
 
 
-    @GetMapping("/job/save-form")
-    public String saveForm(Model model) {
-        return "job/save-form"; // templates/job/save-form.mustache
-    }
-
-    @PostMapping("/job/save")
-    public String save() {
-        return "redirect:/";
-    }
+//    @GetMapping("/job/save-form")
+//    public String saveForm(Model model) {
+//        return "job/save-form"; // templates/job/save-form.mustache
+//    }
+//
+//    @PostMapping("/job/save")
+//    public String save() {
+//        return "redirect:/";
+//    }
+@PostMapping("/jobs")
+public String saveJob(JobRequest.saveDTO dto, Model models) {
+    jobService.process(dto);
+    models.addAttribute("title", dto.getTitle());
+    return "redirect:/jobs";
+}
 
 
 }

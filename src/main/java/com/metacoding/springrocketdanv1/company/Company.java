@@ -5,12 +5,14 @@ import com.metacoding.springrocketdanv1.workField.WorkField;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "company_tb")
 public class Company {
