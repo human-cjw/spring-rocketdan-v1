@@ -12,5 +12,4 @@ public class ResumeRepository {
     public Resume findById(Integer id) {
         return em.find(Resume.class, id);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.user;
 
+
 import com.metacoding.springrocketdanv1.company.Company;
 import jakarta.persistence.*;
 import lombok.Builder;

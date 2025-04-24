@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1.user;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,6 @@ public class UserRepository {
         em.persist(user);
     }
 
-
     public User findByUsername(String username) {
         try {
             return em.createQuery("select u from User u where u.username = :username", User.class)
@@ -22,5 +22,14 @@ public class UserRepository {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public User findById(Integer id) {
+        Query query = em.createQuery(
+                "select u  from User u " +
+                        "where u.id = :id", User.class);
+        query.setParameter("id", id);
+        return (User) query.getSingleResult();
+
     }
 }

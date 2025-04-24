@@ -25,18 +25,16 @@ public class ResumeResponse {
         private String portfolioUrl;
         private Timestamp createdAt;
         private String jobGroupId;
-        private String enrollmentDate; // 입학날짜
+        private String enrollmentDate;
         private String graduationDate;
         private String isDefault;
         private String name;
         private String email;
-
-
         private List<Certification> certifications; // 다른 테이블에서 가지고 온 것
         private List<TechStack> resumeTechStacks; // 다른 테이블에서 가지고 온 것
         private List<Career> careers;
 
-        public DetailDTO(Resume resume, Integer sessionUserId, List<Certification> certifications, List<TechStack> resumeTechStacks, String email, String name, List<Career> careers) {
+        public DetailDTO(Resume resume, List<Certification> certifications, List<TechStack> resumeTechStacks, String email, String name, List<Career> careers) {
             this.id = resume.getId();
             this.title = resume.getTitle();
             this.summary = resume.getSummary();
@@ -56,10 +54,7 @@ public class ResumeResponse {
             this.email = email;
             this.name = name;
             this.careers = careers;
-
-
         }
-
     }
 }
 
