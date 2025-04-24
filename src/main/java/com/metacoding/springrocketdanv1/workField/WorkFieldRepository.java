@@ -15,4 +15,10 @@ public class WorkFieldRepository {
                 .setParameter("name", name)
                 .getSingleResult();
     }
+
+    public String findNameById(Integer id) {
+        return em.find(WorkField.class, id).getName();
+
+    }
+
 }

@@ -4,109 +4,20 @@
     <div class="weapp-container-job-list">
         <div class="weapp-main-wrapper-job-list">
             <div class="weapp-profile-grid-job-list">
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        Java(Back-End) 개발자
-                    </div>
-                    <div class="weapp-company-desc-job-list">제네시스비즈</div>
-                    <div class="weapp-location-job-list">수시채용 | 경력</div>
-                </div>
 
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        HR/에듀테크 기업
+                {{#models}}
+                    <div class="weapp-profile-card-job-list">
+                        <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
+                        <img src="#" class="weapp-company-logo-job-list"/>
+                        <div class="weapp-company-name-job-list">
+                            <a href="http://localhost:8080/job/{{id}}">{{title}}</a>
+                        </div>
+                        <div class="weapp-company-desc-job-list">{{nameKr}}</div>
+                        <div class="weapp-location-job-list">{{careerLevel}}</div>
                     </div>
-                    <div class="weapp-company-desc-job-list">
-                        아키타임 리서치
-                    </div>
-                    <div class="weapp-location-job-list">수시채용 | 경력</div>
-                </div>
+                {{/models}}
 
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        AI 펫팟 관리 솔루션 기업
-                    </div>
-                    <div class="weapp-company-desc-job-list">
-                        아키타임 리서치
-                    </div>
-                    <div class="weapp-location-job-list">수시채용 | 경력</div>
-                </div>
 
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        스마트 에너지 솔루션 기업
-                    </div>
-                    <div class="weapp-company-desc-job-list">
-                        아키타임 리서치
-                    </div>
-                    <div class="weapp-location-job-list">수시채용 | 경력</div>
-                </div>
-
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        스마트 에너지 솔루션 기업
-                    </div>
-                    <div class="weapp-company-desc-job-list">
-                        신개념 음원 발매 시스템 셀바이뮤직
-                    </div>
-                    <div class="weapp-location-job-list">수시채용 | 경력</div>
-                </div>
-
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        스킨케어 전문기업
-                    </div>
-                    <div class="weapp-company-desc-job-list">
-                        아키타임 리서치
-                    </div>
-                    <div class="weapp-location-job-list">수시채용 | 경력</div>
-                </div>
-
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        글로벌 세일즈 테크 스타트업
-                    </div>
-                    <div class="weapp-company-desc-job-list">
-                        아키타임 리서치
-                    </div>
-                    <div class="weapp-location-job-list">05/15마감 | 경력</div>
-                </div>
-
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        시니어 풀스택 개발자
-                    </div>
-                    <div class="weapp-company-desc-job-list">
-                        아키타임 리서치
-                    </div>
-                    <div class="weapp-location-job-list">수시채용 | 경력</div>
-                </div>
-
-                <div class="weapp-profile-card-job-list">
-                    <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
-                    <img src="#" class="weapp-company-logo-job-list"/>
-                    <div class="weapp-company-name-job-list">
-                        네트워크 인프라 전문기업
-                    </div>
-                    <div class="weapp-company-desc-job-list">개발자</div>
-                    <div class="weapp-location-job-list">수시채용 | 경력</div>
-                </div>
             </div>
         </div>
 
@@ -114,7 +25,12 @@
         <div class="weapp-sidebar-job-list">
             <div class="weapp-bookmark-wrapper-job-list">
                 <div class="weapp-bookmark-btn-job-list">
-                    <i class="fas fa-bookmark"></i>
+
+
+                    <i id="bookIcon" class="fas fa-bookmark"
+                    ></i>
+
+
                     <span>채용공고 북마크</span>
                 </div>
                 <div class="weapp-bookmark-count-job-list">0</div>
