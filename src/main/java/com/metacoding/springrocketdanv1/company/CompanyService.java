@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,10 +34,7 @@ public class CompanyService {
         // 3. 산업 분야 이름 조회
         String workFieldName = workFieldRepository.findNameById(company.getWorkField().getId());
 
-        String startDate = "";
-        if (company.getFoundedAt() != null) {
-            startDate = new SimpleDateFormat("yyyy-MM-dd").format(company.getFoundedAt());
-        }
+        String startDate = company.getStartDate();
 
         // 4. DTO로 매핑
         return new CompanyResponse.CompanyResponseDTO(
