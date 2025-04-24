@@ -5,7 +5,7 @@
         <div class="weapp-main-wrapper-company-list">
 
             <div class="weapp-profile-grid-company-list">
-                {{#companyList}}
+                {{#models}}
                     <div class="weapp-profile-card-company-list">
                         {{#logoImageUrl}}
                             <img src="{{logoImageUrl}}" class="weapp-company-logo-company-list"
@@ -18,7 +18,7 @@
                         <div class="weapp-company-name-company-list">{{nameKr}}</div>
                         <div class="weapp-company-desc-company-list">{{oneLineIntro}}</div>
                     </div>
-                {{/companyList}}
+                {{/models}}
             </div>
 
             <!-- 오른쪽: 사이드바 -->

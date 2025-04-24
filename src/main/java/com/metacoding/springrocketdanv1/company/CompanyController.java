@@ -12,10 +12,10 @@ import java.util.List;
 public class CompanyController {
     private final CompanyService companyService;
 
-    @GetMapping("/companies")
+    @GetMapping("/company")
     public String list(HttpServletRequest request) {
         List<Company> companyList = companyService.기업리스트();
-        request.setAttribute("companyList", companyList);
+        request.setAttribute("models", companyList);
         return "company/list";
     }
 }

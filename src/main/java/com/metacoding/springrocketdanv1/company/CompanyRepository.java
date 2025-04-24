@@ -10,9 +10,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CompanyRepository {
     private final EntityManager em;
-    
+
     public List<Company> findAll() {
-        String q = "SELECT c FROM Company c WHERE c.user.userType = 'company'";
+        String q = "SELECT c FROM Company c";
         return em.createQuery(q, Company.class).getResultList();
     }
 }
