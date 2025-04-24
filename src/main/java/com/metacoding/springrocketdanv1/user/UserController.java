@@ -12,6 +12,12 @@ public class UserController {
     private final UserService userService;
     private final HttpSession session;
 
+    @GetMapping("/logout")
+    public String logout() {
+        session.invalidate();
+        return "redirect:/";
+    }
+
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO loginDTO) {
         User sessionUser = userService.로그인(loginDTO);
@@ -29,7 +35,6 @@ public class UserController {
         userService.회원가입(joinDTO);
         return "redirect:/login-form";
     }
-
 
     @GetMapping("/join-form")
     public String joinform() {

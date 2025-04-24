@@ -13,6 +13,7 @@ public class UserRepository {
         em.persist(user);
     }
 
+
     public User findByUsername(String username) {
         try {
             return em.createQuery("select u from User u where u.username = :username", User.class)
