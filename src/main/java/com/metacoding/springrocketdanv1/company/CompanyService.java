@@ -1,21 +1,21 @@
 package com.metacoding.springrocketdanv1.company;
 
-import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStackRepository;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
-import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
-import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
     private final CompanyRepository companyRepository;
+
     private final CompanyTechStackRepository companyTechStackRepository;
     private final WorkFieldRepository workFieldRepository;
 
@@ -50,4 +50,10 @@ public class CompanyService {
                 techStackNames
         );
     }
+
+    public List<Company> 기업리스트() {
+        return companyRepository.findAll();
+    }
 }
+
+

@@ -1,67 +1,37 @@
-{{> layout/header }}
+{{> layout/header}}
 
 <div class="bg-light py-5">
     <div class="weapp-container-company-list">
         <div class="weapp-main-wrapper-company-list">
+
             <div class="weapp-profile-grid-company-list">
-                <div class="weapp-profile-card-company-list">
-                    <img src="#" class="weapp-company-logo-company-list"/>
-                    <div class="weapp-company-name-company-list">펜인베스트먼트</div>
-                    <div class="weapp-company-desc-company-list">
-                        선진기술에 투자하는 PE입니다.
-                    </div>
-                </div>
+                {{#models}}
+                    <div class="weapp-profile-card-company-list">
+                        {{#logoImageUrl}}
+                            <img src="{{logoImageUrl}}" class="weapp-company-logo-company-list"
+                                 onerror="this.src='/images/default-logo.png'"/>
+                        {{/logoImageUrl}}
+                        {{^logoImageUrl}}
+                            <img src="/images/default-logo.png" class="weapp-company-logo-company-list"/>
+                        {{/logoImageUrl}}
 
-                <div class="weapp-profile-card-company-list">
-                    <img src="#" class="weapp-company-logo-company-list"/>
-                    <div class="weapp-company-name-company-list">마링</div>
-                    <div class="weapp-company-desc-company-list">
-                        멘탈 셀프케어 컨텐츠 스타트업
+                        <div class="weapp-company-name-company-list">{{nameKr}}</div>
+                        <div class="weapp-company-desc-company-list">{{oneLineIntro}}</div>
                     </div>
-                </div>
+                {{/models}}
+            </div>
 
-                <div class="weapp-profile-card-company-list">
-                    <img src="#" class="weapp-company-logo-company-list"/>
-                    <div class="weapp-company-name-company-list">업라이즈</div>
-                    <div class="weapp-company-desc-company-list">
-                        Robo-advisor 기업
-                    </div>
+            <!-- 오른쪽: 사이드바 -->
+            <div class="weapp-sidebar-company-list">
+                <div class="weapp-register-box-company-list">
+                    <button>기업 프로필 무료 등록</button>
                 </div>
-
-                <div class="weapp-profile-card-company-list">
-                    <img src="#" class="weapp-company-logo-company-list"/>
-                    <div class="weapp-company-name-company-list">윈 모먼트</div>
-                    <div class="weapp-company-desc-company-list">
-                        꽃이 필요한 순간, 윈모먼트
-                    </div>
-                </div>
-
-                <div class="weapp-profile-card-company-list">
-                    <img src="#" class="weapp-company-logo-company-list"/>
-                    <div class="weapp-company-name-company-list">셀바이뮤직</div>
-                    <div class="weapp-company-desc-company-list">
-                        신개념 음원 발매 시스템 셀바이뮤직
-                    </div>
-                </div>
-
-                <div class="weapp-profile-card-company-list">
-                    <img src="#" class="weapp-company-logo-company-list"/>
-                    <div class="weapp-company-name-company-list">더미 기업</div>
-                    <div class="weapp-company-desc-company-list">설명 텍스트</div>
+                <div class="weapp-search-box-company-list">
+                    <h3>기업 검색</h3>
+                    <input type="text" placeholder="검색어 입력"/>
                 </div>
             </div>
-        </div>
 
-        <!-- 사이드바 -->
-        <div class="weapp-sidebar-company-list">
-            <div class="weapp-register-box-company-list">
-                <button>기업 프로필 무료 등록</button>
-            </div>
-            <div class="weapp-search-box-company-list">
-                <h3>기업 검색</h3>
-                <div class="weapp-filters-company-list"></div>
-                <input type="text" placeholder="검색어 입력"/>
-            </div>
         </div>
     </div>
 
@@ -77,4 +47,4 @@
     </div>
 </div>
 
-{{> layout/footer }}
+{{> layout/footer}}
