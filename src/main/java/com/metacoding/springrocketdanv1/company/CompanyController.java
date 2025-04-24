@@ -17,7 +17,7 @@ public class CompanyController {
     private final CompanyService companyService;
 
 
-    @GetMapping("/companies/{id}")
+    @GetMapping("/company/{id}")
     public String detail(@PathVariable Integer id, Model model) {
         CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(id);
         model.addAttribute("company", responseDTO);
@@ -26,11 +26,11 @@ public class CompanyController {
 
     }
 
-    @GetMapping("/companies")
+    @GetMapping("/company")
     public String list(HttpServletRequest request) {
         List<Company> companyList = companyService.기업리스트();
         request.setAttribute("models", companyList);
         return "company/list";
-
     }
+
 }

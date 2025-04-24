@@ -3,7 +3,6 @@ package com.metacoding.springrocketdanv1.company;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -25,5 +24,6 @@ public class CompanyResponse {
         private String contactManager;
         private String workFieldName;
         private List<String> techStackList;
+        private String createdAt;
     }
 }
