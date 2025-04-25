@@ -66,6 +66,7 @@
                         >
                     </li>
                 </ul>
+                {{^sessionUser}}
                     <div>
                         <a class="btn btn-outline-primary"
                            href="/login-form">로그인</a>
@@ -73,21 +74,25 @@
                            href="/join-form">회원가입</a
                         >
                     </div>
-                <div
-                        id="profilePopover"
-                        class="text-center weapp-cursor-pointer weapp-fs-8"
-                >
+                {{/sessionUser}}
+
+                {{#sessionUser}}
                     <div
-                            class="d-inline-block"
-                            data-bs-toggle="popover"
-                            data-bs-html="true"
-                            data-bs-placement="bottom"
-                            data-bs-trigger="click"
+                            id="profilePopover"
+                            class="text-center weapp-cursor-pointer weapp-fs-8"
                     >
-                        <i class="fa-solid fa-user"></i>
+                        <div
+                                class="d-inline-block"
+                                data-bs-toggle="popover"
+                                data-bs-html="true"
+                                data-bs-placement="bottom"
+                                data-bs-trigger="click"
+                        >
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="cursor-pointer">프로필</div>
                     </div>
-                    <div class="cursor-pointer">프로필</div>
-                </div>
+                {{/sessionUser}}
             </div>
         </div>
     </nav>
@@ -110,10 +115,15 @@
                                 <li><a href="/user/application" class="nav-link px-0 py-1 text-dark weapp-hover-primary">지원서/지원 이력</a></li>
                                 <li><a href="user/resume" class="nav-link px-0 py-1 text-dark weapp-hover-primary">내 이력서</a></li>
                                 <li><a href="#" class="nav-link px-0 py-1 text-dark border-bottom weapp-hover-primary">받은 제안/관심</a></li>
+                                {{^sessionUser.companyId}}
                                 <li><a href="company/save-form" class="nav-link px-0 py-1 text-dark weapp-hover-primary">회사 등록</a></li>
+                                {{/sessionUser.companyId}}
+
+        {{#sessionUser.companyId}}
                                 <p class="text-secondary fw-bold mb-2 fs-6">기업 이름</p>
                                 <li><a href="company/1" class="nav-link px-0 py-1 text-dark weapp-hover-primary">기업 프로필</a></li>
                                 <li><a href="company/job" class="nav-link px-0 py-1 text-dark weapp-hover-primary">채용 관리/등록</a></li>
+                                {{/sessionUser.companyId}}
                             </ul>
                         </div>
                     </div>
