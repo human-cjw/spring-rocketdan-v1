@@ -9,7 +9,7 @@
             <h3 class="mb-4 fw-bold">{{model.name}}의 {{model.title}}</h3>
 
             <div>
-                <a href="/resume/{{model.id}}/update-form" class="btn btn-outline-primary btn-sm">
+                <a href="/resume/{{model.id}}/update" class="btn btn-outline-primary btn-sm">
                     수정
                 </a>
             </div>
@@ -27,16 +27,15 @@
 
             <div class="m-3 mb-1">
                 <div class="mb-2">
-                    <div class="fs-6 text-muted">포트폴리오</div>
-                    <div class="mt-1">{{model.portfolioUrl}}</div>
+                    <div class="fs-6">포트폴리오</div>
+                    <div class="mt-1 text-muted">{{model.portfolioUrl}}</div>
                 </div>
 
                 <div class="mb-2">
-                    <div class="fs-6 text-muted">
-                        E-mail &nbsp<i class="fas fa-lock"></i>
-                        비공개
+                    <div class="fs-6">
+                        E-mail
                     </div>
-                    <div class="mt-1">
+                    <div class="mt-1 text-muted">
                         {{model.email}}
                         <i class="fas fa-check-circle text-primary">
                         </i>
@@ -44,11 +43,10 @@
                 </div>
 
                 <div>
-                    <div class="fs-6 text-muted">
-                        휴대전화번호 &nbsp
-                        <i class="fas fa-lock"></i> 비공개
+                    <div class="fs-6">
+                        휴대전화번호
                     </div>
-                    <div class="mt-1">
+                    <div class="mt-1 text-muted">
                         {{model.phone}}
                     </div>
                 </div>
@@ -79,7 +77,7 @@
                                 <input
                                         type="radio"
                                         class="form-check-input"
-                                        id="newbie"
+                                        id="male"
                                         value="option1"
                                         checked
                                         disabled
@@ -94,7 +92,7 @@
                                 <input
                                         type="radio"
                                         class="form-check-input"
-                                        id="old"
+                                        id="female"
                                         value="option2"
                                         disabled
                                 />여자

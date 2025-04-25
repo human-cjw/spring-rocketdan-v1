@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ResumeController {
 
     private final ResumeService resumeService;
+    private final ResumeRepository resumeRepository;
 
     @GetMapping("/resume/{id}")
     public String detail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
@@ -23,9 +24,21 @@ public class ResumeController {
         return "resume/detail";
     }
 
-    @GetMapping("/resume/{id}/update-form")
-    public String updateForm(@PathVariable Integer id) {
+    @GetMapping("/resume/{id}/update")
+    public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
+
+        ResumeResponse.DetailDTO detailDTO = resumeService.이력서수정하기(resumeId);
+        request.setAttribute("model", detailDTO);
 
         return "resume/update-form";
     }
+
+//    @PostMapping("/resume/{id}/update")
+//    public String update(@PathVariable("id") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
+//        // 수정 요청 처리
+//        resumeService.이력서수정하기(resumeId, requestDTO);
+//
+//        // 상세 페이지로 리다이렉트 (새로고침된 상태로 열림)
+//        return "redirect:/resume/" + resumeId;
+//    }
 }

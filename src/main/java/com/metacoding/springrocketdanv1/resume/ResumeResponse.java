@@ -31,10 +31,17 @@ public class ResumeResponse {
         private String name;
         private String email;
         private List<Certification> certifications; // 다른 테이블에서 가지고 온 것
-        private List<TechStack> resumeTechStacks; // 다른 테이블에서 가지고 온 것
+        private List<TechStack> resumeTechStacks; // 다른 테이블에서 가지고 온 것 (유저가 갖고 있는거)
+        private List<TechStack> TechStacks; // 다른 테이블에서 가지고 온 것 (모든 테크스택)
         private List<Career> careers;
-
-        public DetailDTO(Resume resume, List<Certification> certifications, List<TechStack> resumeTechStacks, String email, String name, List<Career> careers) {
+        private boolean isCareerLevelNewbie;
+        private boolean isCareerLevelOld;
+        private boolean isFemale;
+        private boolean isMale;
+     
+        public DetailDTO(Resume resume, List<Certification> certifications, List<TechStack> resumeTechStacks,
+                         String email, String name, List<Career> careers, boolean isCareerLevelNewbie, boolean isCareerLevelOld,
+                         boolean isFemale, boolean isMale, List<TechStack> TechStacks) {
             this.id = resume.getId();
             this.title = resume.getTitle();
             this.summary = resume.getSummary();
@@ -54,8 +61,16 @@ public class ResumeResponse {
             this.email = email;
             this.name = name;
             this.careers = careers;
+            this.isCareerLevelNewbie = isCareerLevelNewbie;
+            this.isCareerLevelOld = isCareerLevelOld;
+            this.isFemale = isFemale;
+            this.isMale = isMale;
+            this.TechStacks = TechStacks;
+
         }
     }
+
+
 }
 
 
