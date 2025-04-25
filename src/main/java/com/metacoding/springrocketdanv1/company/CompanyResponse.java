@@ -13,17 +13,20 @@ public class CompanyResponse {
     @AllArgsConstructor
     public static class CompanyResponseDTO {
         private String nameKr;
+        private String nameEn;
         private String ceo;
+        private String businessNumber;
         private String email;
+        private String phone;
         private String address;
-        private String homepageUrl;
         private String introduction;
         private String oneLineIntro;
+        private String homepageUrl;
         private String logoImageUrl;
         private String infoImageUrl;
         private String contactManager;
+        private String startDate;
         private String workFieldName;
         private List<String> techStackList;
-        private String startDate;
     }
 }

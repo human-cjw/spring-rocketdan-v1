@@ -1,13 +1,17 @@
 package com.metacoding.springrocketdanv1.company;
 
+import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
 import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -32,7 +36,7 @@ public class Company {
     private String logoImageUrl;
     private String infoImageUrl; // 회사소개이미지
     private String contactManager; // 문의담당자
-    private String startDate; // 설립일
+    private String startDate;
 
     @CreationTimestamp
     private Timestamp createdAt;
@@ -45,4 +49,31 @@ public class Company {
     // 업무분야 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private WorkField workField;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.PERSIST)
+    private List<CompanyTechStack> companyTechStackList = new ArrayList<>();
+
+    @Builder
+    public Company(String nameKr, String nameEn, String ceo, String businessNumber,
+                   String email, String phone, String address, String introduction,
+                   String oneLineIntro, String homepageUrl, String logoImageUrl,
+                   String infoImageUrl, String contactManager, String startDate,
+                   User user, WorkField workField) {
+        this.nameKr = nameKr;
+        this.nameEn = nameEn;
+        this.ceo = ceo;
+        this.businessNumber = businessNumber;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.introduction = introduction;
+        this.oneLineIntro = oneLineIntro;
+        this.homepageUrl = homepageUrl;
+        this.logoImageUrl = logoImageUrl;
+        this.infoImageUrl = infoImageUrl;
+        this.contactManager = contactManager;
+        this.startDate = startDate;
+        this.user = user;
+        this.workField = workField;
+    }
 }

@@ -15,7 +15,11 @@
                             <img src="/images/default-logo.png" class="weapp-company-logo-company-list"/>
                         {{/logoImageUrl}}
 
-                        <div class="weapp-company-name-company-list">{{nameKr}}</div>
+                        <div class="weapp-company-name-company-list">
+                            <a href="/company/{{id}}" style="text-decoration: none; color: inherit;">
+                                {{nameKr}}
+                            </a>
+                        </div>
                         <div class="weapp-company-desc-company-list">{{oneLineIntro}}</div>
                     </div>
                 {{/models}}
