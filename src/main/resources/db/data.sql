@@ -16,17 +16,19 @@ VALUES ('IT/소프트웨어'),
 -- =============================================
 -- User 더미 데이터
 -- =============================================
-INSERT INTO user_tb (username,
+INSERT INTO user_tb (id,
+                     username,
                      password,
                      email,
                      file_url,
                      user_type,
                      created_at,
                      company_id)
-VALUES ('ssar', '1234', 'ssar@example.com', null, 'user', NOW(), null),
-       ('cos', '1234', 'cos@example.com', null, 'user', NOW(), null),
-       ('love', '1234', 'love@example.com', null, 'company', NOW(), 1),
-       ('haha', '1234', 'haha@example.com', null, 'company', NOW(), 2);
+VALUES (1, 'ssar', '1234', 'ssar@example.com', null, 'user', NOW(), null),
+       (2, 'cos', '1234', 'cos@example.com', null, 'user', NOW(), null),
+       (3, 'love', '1234', 'love@example.com', null, 'company', NOW(), 1),
+       (4, 'haha', '1234', 'haha@example.com', null, 'company', NOW(), 2);
+
 
 -- =============================================
 -- Company 더미 데이터

@@ -5,6 +5,7 @@ import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStackReposit
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
+import com.metacoding.springrocketdanv1.user.UserService;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class CompanyService {
     private final WorkFieldRepository workFieldRepository;
     private final CompanyTechStackRepository companyTechStackRepository;
     private final TechStackRepository techStackRepository;
+    private final UserService userService;
 
     @Transactional(readOnly = true)
     public CompanyResponse.CompanyResponseDTO 기업상세(Integer companyId) {
@@ -85,7 +87,8 @@ public class CompanyService {
 
         // 회사 + 연관 기술 스택 cascade 저장
         Company company = requestDTO.toEntity(sessionUser, workField, techStackList);
-        return companyRepository.save(company);
+        companyRepository.save(company);
+        return company;
     }
 
     public CompanyResponse.UpdateFormDTO 내기업조회(Integer userId) {
@@ -151,5 +154,6 @@ public class CompanyService {
             }
         }
     }
+
 }
 

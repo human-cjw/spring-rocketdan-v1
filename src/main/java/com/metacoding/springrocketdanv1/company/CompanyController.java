@@ -93,24 +93,21 @@ public class CompanyController {
 
     @GetMapping("/company/update-form")
     public String updateForm(HttpSession session, Model model) {
+        // 2번 유저로 임시 세션 생성
         User sessionUser = new User();
         try {
             Field field = User.class.getDeclaredField("id");
             field.setAccessible(true);
-            field.set(sessionUser, 3);
-
-            Field typeField = User.class.getDeclaredField("userType");
-            typeField.setAccessible(true);
-            typeField.set(sessionUser, "company");
-
+            field.set(sessionUser, 2); // 실제 존재하는 유저 ID (예: love)
         } catch (Exception e) {
             throw new RuntimeException("User ID 세팅 실패", e);
         }
 
+        // 세션에 유저 저장
         session.setAttribute("sessionUser", sessionUser);
 
-        Integer companyId = 1;
-        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(companyId);
+        // 회사 ID가 아닌 유저 ID로 내 기업 정보 조회
+        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(sessionUser.getId());
 
         model.addAttribute("model", dto);
         return "company/update-form";
@@ -126,5 +123,4 @@ public class CompanyController {
 
         return "redirect:/company/" + requestDTO.getId();
     }
-
 }
