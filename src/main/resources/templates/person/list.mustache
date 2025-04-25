@@ -4,65 +4,13 @@
     <div class="weapp-container-person-list">
         <div class="weapp-main-wrapper-person-list">
             <div class="weapp-profile-grid-person-list">
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">장지훈</div>
-                    <div class="weapp-company-desc-person-list">백엔드 개발자</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">정우성</div>
-                    <div class="weapp-company-desc-person-list">
-                        Backend Engineer
+                {{#models}}
+                    <div class="weapp-profile-card-person-list">
+                        <img src="#" class="weapp-company-logo-person-list"/>
+                        <div class="weapp-company-name-person-list">{{user.username}}</div>
+                        <div class="weapp-company-desc-person-list">{{title}}</div>
                     </div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">김지수</div>
-                    <div class="weapp-company-desc-person-list">CEO</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">김동신</div>
-                    <div class="weapp-company-desc-person-list">CEO</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">한바울</div>
-                    <div class="weapp-company-desc-person-list">
-                        신개념 음원 발매 시스템 셀바이뮤직
-                    </div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">고은지</div>
-                    <div class="weapp-company-desc-person-list">
-                        웹 프론트엔드/백엔드 개발
-                    </div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">조용진</div>
-                    <div class="weapp-company-desc-person-list">개발자</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">배은경</div>
-                    <div class="weapp-company-desc-person-list">인포이사(CEO)</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">김건우</div>
-                    <div class="weapp-company-desc-person-list">개발자</div>
-                </div>
+                {{/models}}
             </div>
         </div>
 
