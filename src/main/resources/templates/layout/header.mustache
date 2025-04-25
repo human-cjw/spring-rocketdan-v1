@@ -105,7 +105,6 @@
                             <p class="text-secondary fw-bold mb-2">내 프로필</p>
                             <ul class="nav flex-column small">
                                 <li><a href="/user" class="nav-link px-0 py-1 text-dark weapp-hover-primary">정보</a></li>
-                                <li><a href="/user/1/board" class="nav-link px-0 py-1 text-dark border-bottom weapp-hover-primary">게시물</a></li>
                                 <li><a href="/logout" class="nav-link px-0 py-1 text-dark weapp-hover-primary">로그아웃</a></li>
                             </ul>
                         </div>
@@ -120,8 +119,8 @@
                                 {{/sessionUser.companyId}}
 
         {{#sessionUser.companyId}}
-                                <p class="text-secondary fw-bold mb-2 fs-6">기업 이름</p>
-                                <li><a href="company/1" class="nav-link px-0 py-1 text-dark weapp-hover-primary">기업 프로필</a></li>
+                                <p class="text-secondary fw-bold mb-2 fs-6">{{sessionUser.companyName}}</p>
+                                <li><a href="company/{{sessionUser.companyId}}" class="nav-link px-0 py-1 text-dark weapp-hover-primary">기업 프로필</a></li>
                                 <li><a href="company/job" class="nav-link px-0 py-1 text-dark weapp-hover-primary">채용 관리/등록</a></li>
                                 {{/sessionUser.companyId}}
                             </ul>

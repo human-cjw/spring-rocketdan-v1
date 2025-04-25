@@ -20,8 +20,8 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(UserRequest.LoginDTO loginDTO) {
-        User sessionUser = userService.로그인(loginDTO);
-        session.setAttribute("sessionUser", sessionUser);
+        UserResponse.SessionUserDTO sessionUserDTO = userService.로그인(loginDTO);
+        session.setAttribute("sessionUser", sessionUserDTO);
         return "redirect:/";
     }
 
