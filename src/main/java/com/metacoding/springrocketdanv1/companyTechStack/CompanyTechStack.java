@@ -3,7 +3,6 @@ package com.metacoding.springrocketdanv1.companyTechStack;
 import com.metacoding.springrocketdanv1.company.Company;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,9 +23,7 @@ public class CompanyTechStack {
     @ManyToOne(fetch = FetchType.LAZY)
     private TechStack techStack;
 
-    @Builder
-    public CompanyTechStack(Integer id, Company company, TechStack techStack) {
-        this.id = id;
+    public CompanyTechStack(Company company, TechStack techStack) {
         this.company = company;
         this.techStack = techStack;
     }

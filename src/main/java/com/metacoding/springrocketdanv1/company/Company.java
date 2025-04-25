@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.company;
 
+import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
 import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import jakarta.persistence.*;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -46,6 +49,9 @@ public class Company {
     // 업무분야 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private WorkField workField;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.PERSIST)
+    private List<CompanyTechStack> companyTechStackList = new ArrayList<>();
 
     @Builder
     public Company(String nameKr, String nameEn, String ceo, String businessNumber,

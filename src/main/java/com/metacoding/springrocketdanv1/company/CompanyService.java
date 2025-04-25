@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,30 +67,24 @@ public class CompanyService {
 
     @Transactional
     public Company 기업등록(CompanyRequest.CompanySaveDTO requestDTO, User sessionUser) {
-        // 1. 산업 분야 처리
+        // 산업분야
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
         if (workField == null) {
-            workField = new WorkField();
-            workField.setName(requestDTO.getWorkFieldName());
-            workField = workFieldRepository.save(workField);
+            workField = workFieldRepository.save(new WorkField(requestDTO.getWorkFieldName()));
         }
 
-        // 2. 회사 등록
-        Company company = requestDTO.toEntity(sessionUser, workField);
-        companyRepository.save(company);
+        // 기술 스택 조회
+        List<TechStack> techStackList = new ArrayList<>();
+        if (requestDTO.getTechStack() != null) {
+            for (String name : requestDTO.getTechStack()) {
+                TechStack ts = techStackRepository.findByName(name);
+                if (ts != null) techStackList.add(ts);
+            }
+        }
 
-//        // 3. 기술 스택 저장
-//        if (requestDTO.getTechStack() != null) {
-//            for (String techStackName : requestDTO.getTechStack()) {
-//                TechStack techStack = techStackRepository.findByName(techStackName);
-//                if (techStack != null) {
-//                    CompanyTechStack companyTechStack = new CompanyTechStack(company, techStack);
-//                    companyTechStackRepository.save(companyTechStack);
-//                }
-//            }
-//        }
-
-        return company;
+        // 회사 + 연관 기술 스택 cascade 저장
+        Company company = requestDTO.toEntity(sessionUser, workField, techStackList);
+        return companyRepository.save(company);
     }
 }
 

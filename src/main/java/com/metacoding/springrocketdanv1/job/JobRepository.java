@@ -21,4 +21,5 @@ public class JobRepository {
     public Job findById(Integer id) {
         return em.find(Job.class, id);
     }
+
 }

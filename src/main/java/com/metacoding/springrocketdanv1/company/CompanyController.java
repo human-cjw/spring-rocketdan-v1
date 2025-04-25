@@ -54,7 +54,6 @@ public class CompanyController {
     @PostMapping("/company/save")
     public String save(@ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
-        System.out.println(requestDTO);
         Company savedCompany = companyService.기업등록(requestDTO, sessionUser);
         return "redirect:/company/" + savedCompany.getId();
     }
