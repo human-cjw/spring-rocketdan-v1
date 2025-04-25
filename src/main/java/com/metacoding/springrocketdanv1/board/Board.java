@@ -1,6 +1,5 @@
 package com.metacoding.springrocketdanv1.board;
 
-import com.metacoding.springrocketdanv1.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +18,13 @@ public class Board {
 
     private String title;
     private String content;
+    private String password;
 
     @CreationTimestamp
     private Timestamp createdAt;
-
+/*
     // 유저 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+*/
 }
