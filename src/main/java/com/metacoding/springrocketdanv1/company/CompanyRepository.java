@@ -27,10 +27,12 @@ public class CompanyRepository {
         return company;
     }
 
+
     public Company findByUserId(Integer userId) {
         String q = "SELECT c FROM Company c WHERE c.user.id = :userId";
         return em.createQuery(q, Company.class)
                 .setParameter("userId", userId)
                 .getSingleResult();
     }
+
 }

@@ -21,11 +21,12 @@ INSERT INTO user_tb (username,
                      email,
                      file_url,
                      user_type,
-                     created_at)
-VALUES ('ssar', '1234', 'ssar@example.com', null, 'user', NOW()),
-       ('cos', '1234', 'cos@example.com', null, 'user', NOW()),
-       ('love', '1234', 'love@example.com', null, 'company', NOW()),
-       ('haha', '1234', 'haha@example.com', null, 'company', NOW());
+                     created_at,
+                     company_id)
+VALUES ('ssar', '1234', 'ssar@example.com', null, 'user', NOW(), null),
+       ('cos', '1234', 'cos@example.com', null, 'user', NOW(), null),
+       ('love', '1234', 'love@example.com', null, 'company', NOW(), 1),
+       ('haha', '1234', 'haha@example.com', null, 'company', NOW(), 2);
 
 -- =============================================
 -- Company 더미 데이터

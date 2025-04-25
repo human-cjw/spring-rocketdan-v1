@@ -28,6 +28,7 @@ public class CompanyController {
     private final TechStackRepository techStackRepository;
     private final CompanyRepository companyRepository;
 
+
     @GetMapping("/company/{id}")
     public String detail(@PathVariable("id") Integer id, Model model) {
         CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(id);
@@ -59,6 +60,7 @@ public class CompanyController {
         Company savedCompany = companyService.기업등록(requestDTO, sessionUser);
         return "redirect:/company/" + savedCompany.getId();
     }
+
 
 //    @GetMapping("/company/update-form")
 //    public String updateForm(HttpSession session, Model model) {
@@ -109,4 +111,5 @@ public class CompanyController {
 
         return "redirect:/company/" + requestDTO.getId();
     }
+
 }

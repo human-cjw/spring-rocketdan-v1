@@ -41,7 +41,7 @@ public class Company {
     @CreationTimestamp
     private Timestamp createdAt;
 
-    
+
     // 유저 fk
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", unique = true)
@@ -90,4 +90,5 @@ public class Company {
         this.address = dto.getAddress();
         this.workField = workField;
     }
+
 }

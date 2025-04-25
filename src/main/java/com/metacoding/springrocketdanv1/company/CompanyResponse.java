@@ -54,5 +54,6 @@ public class CompanyResponse {
             this.name = name;
             this.isChecked = isChecked;
         }
+
     }
 }
