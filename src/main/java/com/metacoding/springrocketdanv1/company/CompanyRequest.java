@@ -51,6 +51,7 @@ public class CompanyRequest {
 
     @Data
     public static class UpdateDTO {
+        private Integer id;
         private String nameKr;
         private String nameEn;
         private String oneLineIntro;
@@ -61,5 +62,6 @@ public class CompanyRequest {
         private String contactManager;
         private String address;
         private String workFieldName;
+        private List<String> techStack;
     }
 }

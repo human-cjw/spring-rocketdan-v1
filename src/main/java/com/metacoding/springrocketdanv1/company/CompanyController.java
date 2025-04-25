@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 
@@ -25,6 +26,7 @@ public class CompanyController {
     private final CompanyService companyService;
     private final WorkFieldRepository workFieldRepository;
     private final TechStackRepository techStackRepository;
+    private final CompanyRepository companyRepository;
 
     @GetMapping("/company/{id}")
     public String detail(@PathVariable("id") Integer id, Model model) {
@@ -58,16 +60,53 @@ public class CompanyController {
         return "redirect:/company/" + savedCompany.getId();
     }
 
-    @GetMapping("/company/{id}/update-form")
-    public String updateForm(@PathVariable Integer id, Model model) {
-        Company company = companyService.기업상세보기(id);
-        model.addAttribute("model", company);
+//    @GetMapping("/company/update-form")
+//    public String updateForm(HttpSession session, Model model) {
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//
+//        if (sessionUser == null) {
+//            throw new RuntimeException("로그인이 필요합니다.");
+//        }
+//
+//        // 기업 기능 접근 시
+//        Company company = companyRepository.findById(companyId);
+//
+//        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(company.getId());
+//
+//        model.addAttribute("model", dto);
+//        return "company/update-form";
+//    }
+
+
+    @GetMapping("/company/update-form")
+    public String updateForm(HttpSession session, Model model) {
+        User sessionUser = new User();
+        try {
+            Field field = User.class.getDeclaredField("id");
+            field.setAccessible(true);
+            field.set(sessionUser, 4);
+        } catch (Exception e) {
+            throw new RuntimeException("User ID 세팅 실패", e);
+        }
+        session.setAttribute("sessionUser", sessionUser);
+
+        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(sessionUser.getId());
+        model.addAttribute("model", dto);
+
         return "company/update-form";
     }
 
-    @PostMapping("/company/{id}/update")
-    public String update(@PathVariable Integer id, @ModelAttribute CompanyRequest.UpdateDTO requestDTO) {
-        companyService.기업수정(id, requestDTO);
-        return "redirect:/company/" + id;
+
+    @PostMapping("/company/update")
+    public String update(@ModelAttribute CompanyRequest.UpdateDTO requestDTO, HttpSession session) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        // 기업 기능 접근 시
+//        'wQ'
+
+        companyService.기업수정(requestDTO);
+
+        return "redirect:/company/" + requestDTO.getId();
     }
 }

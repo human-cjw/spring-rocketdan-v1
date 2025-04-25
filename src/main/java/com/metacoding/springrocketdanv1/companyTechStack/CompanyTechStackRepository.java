@@ -18,4 +18,16 @@ public class CompanyTechStackRepository {
                 .setParameter("companyId", companyId)
                 .getResultList();
     }
+
+    public void save(CompanyTechStack cts) {
+        em.persist(cts);
+    }
+
+    public void deleteByCompanyId(Integer companyId) {
+        String q = "DELETE FROM CompanyTechStack cts WHERE cts.company.id = :companyId";
+        em.createQuery(q)
+                .setParameter("companyId", companyId)
+                .executeUpdate();
+    }
+
 }

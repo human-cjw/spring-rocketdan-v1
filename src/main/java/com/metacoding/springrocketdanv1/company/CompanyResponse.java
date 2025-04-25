@@ -1,15 +1,14 @@
 package com.metacoding.springrocketdanv1.company;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 public class CompanyResponse {
 
     @Getter
-    @NoArgsConstructor
     @AllArgsConstructor
     public static class CompanyResponseDTO {
         private String nameKr;
@@ -28,5 +27,32 @@ public class CompanyResponse {
         private String startDate;
         private String workFieldName;
         private List<String> techStackList;
+    }
+
+    @Data
+    public static class UpdateFormDTO {
+        private Integer id;
+        private String nameKr;
+        private String nameEn;
+        private String oneLineIntro;
+        private String introduction;
+        private String startDate;
+        private String businessNumber;
+        private String email;
+        private String contactManager;
+        private String address;
+        private String workFieldName;
+        private List<CompanyResponse.TechStackDTO> techStacks;
+    }
+
+    @Data
+    public static class TechStackDTO {
+        private String name;
+        private boolean isChecked;
+
+        public TechStackDTO(String name, boolean isChecked) {
+            this.name = name;
+            this.isChecked = isChecked;
+        }
     }
 }
