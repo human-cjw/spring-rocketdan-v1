@@ -79,6 +79,17 @@ public class CompanyController {
 //        return "company/update-form";
 //    }
 
+//    @GetMapping("/company/update-form")
+//    public String updateForm(HttpSession session, Model model) {
+//
+//        int testCompanyId = 1;
+//
+//        Company company = companyRepository.findById(testCompanyId);
+//        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(company.getId());
+//
+//        model.addAttribute("model", dto);
+//        return "company/update-form";
+//    }
 
     @GetMapping("/company/update-form")
     public String updateForm(HttpSession session, Model model) {
@@ -86,15 +97,22 @@ public class CompanyController {
         try {
             Field field = User.class.getDeclaredField("id");
             field.setAccessible(true);
-            field.set(sessionUser, 4);
+            field.set(sessionUser, 3);
+
+            Field typeField = User.class.getDeclaredField("userType");
+            typeField.setAccessible(true);
+            typeField.set(sessionUser, "company");
+
         } catch (Exception e) {
             throw new RuntimeException("User ID 세팅 실패", e);
         }
+
         session.setAttribute("sessionUser", sessionUser);
 
-        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(sessionUser.getId());
-        model.addAttribute("model", dto);
+        Integer companyId = 1;
+        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(companyId);
 
+        model.addAttribute("model", dto);
         return "company/update-form";
     }
 
@@ -103,9 +121,6 @@ public class CompanyController {
     public String update(@ModelAttribute CompanyRequest.UpdateDTO requestDTO, HttpSession session) {
 
         User sessionUser = (User) session.getAttribute("sessionUser");
-
-        // 기업 기능 접근 시
-//        'wQ'
 
         companyService.기업수정(requestDTO);
 
