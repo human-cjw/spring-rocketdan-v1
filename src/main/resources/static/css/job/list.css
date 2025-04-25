@@ -1,5 +1,6 @@
 .weapp-container-job-list {
-    display: flex;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
     max-width: 1320px;
     margin: 48px auto;
     gap: 24px;
@@ -13,7 +14,6 @@
 
 /* 사이드바 */
 .weapp-sidebar-job-list {
-    width: 25%;
 }
 
 .weapp-search-box-job-list {
