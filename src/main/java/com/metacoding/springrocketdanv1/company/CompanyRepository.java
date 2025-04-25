@@ -18,9 +18,12 @@ public class CompanyRepository {
     }
 
     public List<Company> findAll() {
-
         String q = "SELECT c FROM Company c";
-
         return em.createQuery(q, Company.class).getResultList();
+    }
+
+    public Company save(Company company) {
+        em.persist(company);
+        return company;
     }
 }
