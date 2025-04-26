@@ -5,6 +5,7 @@ import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -50,4 +51,22 @@ public class Job {
     // 직무 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private JobGroup jobGroup;
+
+    @Builder
+    public Job(Integer id, String title, String description, String location, String employmentType, String deadline, String status, String careerLevel, Timestamp createdAt, Timestamp updatedAt, Company company, SalaryRange salaryRange, WorkField workField, JobGroup jobGroup) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.employmentType = employmentType;
+        this.deadline = deadline;
+        this.status = status;
+        this.careerLevel = careerLevel;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.company = company;
+        this.salaryRange = salaryRange;
+        this.workField = workField;
+        this.jobGroup = jobGroup;
+    }
 }

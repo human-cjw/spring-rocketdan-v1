@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1.jobGroup;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,4 +15,10 @@ public class JobGroup {
     private Integer id;
 
     private String name; // 직군. 백엔드 개발자, 프론트엔드 개발자
+
+    @Builder
+    public JobGroup(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

@@ -34,4 +34,9 @@ public class JobController {
         // job/detail 뷰 반환
         return "job/detail";
     }
+
+    @GetMapping("/job/save-form")
+    public String saveForm() {
+        return "job/save-form";
+    }
 }
