@@ -31,7 +31,7 @@ public class User {
 
     // 기업 fk
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", unique = true)
+    @JoinColumn(name = "company_id")
     private Company company; // 기본값 null
 
     @Builder

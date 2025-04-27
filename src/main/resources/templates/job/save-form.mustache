@@ -28,19 +28,22 @@
                 <label>사업자등록번호</label>
                 <input type="text" placeholder="숫자만 입력"/>
 
-                기술 스택
-                {{#techStacks}}
-                    <label>
-                        <input type="checkbox" name="techStacks" value="{{techStack}}"/>
-                        {{techStack}}
-                    </label><br>
-                {{/techStacks}}
+
+                    <label>기술 스택</label>
+                    <div>
+                        {{#techStacks}}
+                            <label>
+                                <input type="checkbox" name="techStack[]" value="{{name}}"/>
+                                {{name}}
+                            </label>
+                        {{/techStacks}}
+                    </div>
 
                 <label>기업 공식 이메일</label>
                 <input type="email" placeholder="이메일 입력"/>
 
                 <label for="deadline">마감</label>
-                <select id="deadline" class="weapp-select-job-save">
+                <select id="deadline" name="status" class="weapp-select-job-save">
                     <option value="">선택하세요</option>
                     <option value="상시채용">상시채용</option>
                     <option value="공개채용">공개채용</option>
@@ -55,7 +58,7 @@
                 />
 
                 <label for="employment">고용 형태</label>
-                <select id="employment" class="weapp-select-job-save">
+                <select id="employment" name="employmentType" class="weapp-select-job-save">
                     <option value="">선택하세요</option>
                     <option value="fulltime">풀타임</option>
                     <option value="parttime">파트타임</option>
@@ -63,7 +66,7 @@
                 </select>
 
                 <label for="career">경력</label>
-                <select id="career" class="weapp-select-job-save">
+                <select id="career" name="careerLevel" class="weapp-select-job-save">
                     <option value="">선택하세요</option>
                     <option value="career">경력</option>
                     <option value="newbie">신입</option>
@@ -83,14 +86,14 @@
                         placeholder="예: 마케팅"
                 />
 
-                <label for="salary">연봉</label>
-                <select id="salary" class="weapp-select-job-save">
-                    <option value="">선택하세요</option>
-                    <option value="100-200">100~200</option>
-                    <option value="200-300">200~300</option>
-                    <option value="300-400">300~400</option>
-                    <option value="contact">담당자에게 문의</option>
-                </select>
+<label for="salary">연봉</label>
+<select name="salaryRangeId" id="salary" class="weapp-select-job-save">
+    <option value="">선택하세요</option>
+        {{#salaryRanges}}
+            <option value="{{id}}">{{label}}</option>
+        {{/salaryRanges}}
+    <option value="contact">담당자에게 문의</option>
+</select>
 
                 <label for="workplace">근무지</label>
                 <input
