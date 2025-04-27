@@ -7,7 +7,6 @@
                 <h2 class="weapp-form-title-company-save">공고 등록</h2>
                 <hr/>
                 <form action="/job/save" method="post" class="weapp-form-company-save">
-                    <input type="hidden" name="companyId" value="1"/>
                     <input type="hidden" name="status" value="OPEN"/>
 
                     <label>공고 제목</label>
@@ -46,7 +45,7 @@
                     <div>
                         {{#model.techStacks}}
                             <label>
-                                <input type="checkbox" name="techStacks" value="{{id}}"/>
+                                <input type="checkbox" name="techStackIds" value="{{id}}"/>
                                 {{name}}
                             </label>
                         {{/model.techStacks}}

@@ -1,5 +1,7 @@
 package com.metacoding.springrocketdanv1.salaryRange;
 
+import lombok.Data;
+
 public class SalaryRangeResponse {
 
     public static class SalaryRangeDTO {
@@ -25,6 +27,19 @@ public class SalaryRangeResponse {
 
         public void setMaxSalary(int maxSalary) {
             this.maxSalary = maxSalary;
+        }
+    }
+
+    @Data
+    public static class SalaryRangeUpdateDTO {
+        private Integer id;
+        private String name;
+        private boolean isSelected;
+
+        public SalaryRangeUpdateDTO(Integer id, String name, boolean isSelected) {
+            this.id = id;
+            this.name = name;
+            this.isSelected = isSelected;
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.metacoding.springrocketdanv1.job;
 
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JobController {
     private final JobService jobService;
+    private final HttpSession session;
 
     @GetMapping("/")
     public String list(Model models, JobResponse.DTO dto) {
@@ -46,8 +49,24 @@ public class JobController {
 
     @PostMapping("/job/save")
     public String save(JobRequest.JobSaveDTO reqDTO) {
-        jobService.등록하기(reqDTO);
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        jobService.등록하기(reqDTO, sessionUserDTO.getCompanyId());
 
         return "redirect:/"; // -> 나중에 공고 관리 페이지로 이동
+    }
+
+    @GetMapping("/job/{jobId}/update-form")
+    public String updateForm(@PathVariable("jobId") Integer jobId,
+                             HttpServletRequest request) {
+        JobResponse.JobUpdateDTO respDTO = jobService.수정보기(jobId);
+        request.setAttribute("model", respDTO);
+        return "job/update-form";
+    }
+
+    @PostMapping("/job/{jobId}/update")
+    public String update(@PathVariable("jobId") Integer jobId,
+                         JobRequest.JobUpdateDTO reqDTO) {
+        jobService.수정하기(jobId, reqDTO);
+        return "redirect:/job/" + jobId;
     }
 }

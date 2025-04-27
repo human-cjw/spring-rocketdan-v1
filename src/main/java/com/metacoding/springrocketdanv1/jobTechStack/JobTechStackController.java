@@ -5,6 +5,6 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @RequiredArgsConstructor
-public class JobTechController {
+public class JobTechStackController {
     private final JobTechStackService jobTechStackService;
 }

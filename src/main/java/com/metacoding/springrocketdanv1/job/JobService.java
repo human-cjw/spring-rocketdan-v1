@@ -2,6 +2,9 @@ package com.metacoding.springrocketdanv1.job;
 
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
+import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
+import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
+import com.metacoding.springrocketdanv1.jobTechStack.JobTechStackResponse;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeRepository;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
@@ -9,6 +12,7 @@ import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
+import com.metacoding.springrocketdanv1.workField.WorkFieldResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -97,8 +101,137 @@ public class JobService {
     }
 
     @Transactional
-    public void 등록하기(JobRequest.JobSaveDTO reqDTO) {
-        Job job = reqDTO.toEntity();
+    public void 등록하기(JobRequest.JobSaveDTO reqDTO, Integer companyId) {
+        Job job = reqDTO.toEntity(companyId);
         jobRepository.save(job);
+    }
+
+
+    public JobResponse.JobUpdateDTO 수정보기(Integer jobId) {
+        List<TechStack> techStacks = techStackRepository.findAll();
+        List<WorkField> workFields = workFieldRepository.findAll();
+        List<SalaryRange> salaryRanges = salaryRangeRepository.findAll();
+        List<JobGroup> jobGroups = jobGroupRepository.findAll();
+        Job job = jobRepository.findByIdJoinJobTechStackJoinTechStack(jobId);
+
+        // 선택된 상태를 표시하기 위한 List
+        List<JobResponse.JobUpdateDTO.CareerLevel> careerLevels = List.of(
+                new JobResponse.JobUpdateDTO.CareerLevel("", "선택", job.getCareerLevel().equals("")),
+                new JobResponse.JobUpdateDTO.CareerLevel("신입", "신입", job.getCareerLevel().equals("신입")),
+                new JobResponse.JobUpdateDTO.CareerLevel("경력", "경력", job.getCareerLevel().equals("경력"))
+        );
+
+        // 선택된 상태를 표시하기 위한 List
+        List<JobResponse.JobUpdateDTO.EmploymentType> employmentTypes = List.of(
+                new JobResponse.JobUpdateDTO.EmploymentType("", "선택", job.getEmploymentType().equals("")),
+                new JobResponse.JobUpdateDTO.EmploymentType("정규직", "정규직", job.getEmploymentType().equals("정규직")),
+                new JobResponse.JobUpdateDTO.EmploymentType("계약직", "계약직", job.getEmploymentType().equals("계약직")),
+                new JobResponse.JobUpdateDTO.EmploymentType("인턴", "인턴", job.getEmploymentType().equals("인턴")),
+                new JobResponse.JobUpdateDTO.EmploymentType("프리랜서", "프리랜서", job.getEmploymentType().equals("프리랜서"))
+        );
+
+        // job이 가지고 있는 techStack id 값만 들어있는 리스트
+        List<Integer> jobTechStackIds = new ArrayList<>();
+        for (JobTechStack jobTechStack : job.getJobTechStacks()) {
+            jobTechStackIds.add(jobTechStack.getTechStack().getId());
+        }
+
+        // 선택된 상태를 표시하기 위한 List
+        List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOs = new ArrayList<>();
+        for (TechStack techStack : techStacks) {
+            jobTechStackUpdateDTOs.add(
+                    new JobTechStackResponse.JobTechStackUpdateDTO(
+                            techStack.getId(),
+                            techStack.getName(),
+                            jobTechStackIds.contains(techStack.getId())
+                    )
+            );
+        }
+
+        // 선택된 상태를 표시하기 위한 List
+        List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOs = new ArrayList<>();
+        for (WorkField workField : workFields) {
+            workFieldUpdateDTOs.add(
+                    new WorkFieldResponse.WorkFieldUpdateDTO(
+                            workField.getId(),
+                            workField.getName(),
+                            job.getWorkField().getId().equals(workField.getId())
+                    )
+            );
+        }
+
+        // 선택된 상태를 표시하기 위한 List
+        List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOs = new ArrayList<>();
+        for (SalaryRange salaryRange : salaryRanges) {
+            salaryRangeUpdateDTOs.add(
+                    new SalaryRangeResponse.SalaryRangeUpdateDTO(
+                            salaryRange.getId(),
+                            salaryRange.getLabel(),
+                            job.getSalaryRange().getId().equals(salaryRange.getId())
+                    )
+            );
+        }
+
+        // 선택된 상태를 표시하기 위한 List
+        List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOs = new ArrayList<>();
+        for (JobGroup jobGroup : jobGroups) {
+            jobGroupUpdateDTOs.add(
+                    new JobGroupResponse.JobGroupUpdateDTO(
+                            jobGroup.getId(),
+                            jobGroup.getName(),
+                            job.getJobGroup().getId().equals(jobGroup.getId())
+                    )
+            );
+        }
+
+        JobResponse.JobUpdateDTO respDTO = new JobResponse.JobUpdateDTO(
+                jobId,
+                job.getTitle(),
+                job.getDescription(),
+                job.getLocation(),
+                job.getDeadline(),
+                job.getStatus(),
+                careerLevels,
+                employmentTypes,
+                jobTechStackUpdateDTOs,
+                workFieldUpdateDTOs,
+                salaryRangeUpdateDTOs,
+                jobGroupUpdateDTOs
+        );
+
+        return respDTO;
+    }
+
+    @Transactional
+    public void 수정하기(Integer jobId, JobRequest.JobUpdateDTO reqDTO) {
+        Job jobPC = jobRepository.findByIdJoinJobTechStackJoinTechStack(jobId);
+        SalaryRange salaryRange = SalaryRange.builder().id(reqDTO.getSalaryRangeId()).build();
+        WorkField workField = WorkField.builder().id(reqDTO.getWorkFieldId()).build();
+        JobGroup jobGroup = JobGroup.builder().id(reqDTO.getJobGroupId()).build();
+
+        List<JobTechStack> jobTechStacks = new ArrayList<>();
+        for (Integer techStackId : reqDTO.getTechStackIds()) {
+            TechStack techStack = TechStack.builder().id(techStackId).build();
+            jobTechStacks.add(
+                    JobTechStack.builder()
+                            .job(jobPC)
+                            .techStack(techStack)
+                            .build()
+            );
+        }
+
+        jobPC.update(
+                reqDTO.getTitle(),
+                reqDTO.getDescription(),
+                reqDTO.getLocation(),
+                reqDTO.getEmploymentType(),
+                reqDTO.getDeadline(),
+                reqDTO.getStatus(),
+                reqDTO.getCareerLevel(),
+                salaryRange,
+                workField,
+                jobGroup,
+                jobTechStacks
+        );
     }
 }

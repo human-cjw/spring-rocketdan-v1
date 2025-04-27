@@ -25,4 +25,11 @@ public class JobRepository {
     public void save(Job job) {
         em.persist(job);
     }
+
+    public Job findByIdJoinJobTechStackJoinTechStack(Integer jobId) {
+        String sql = "SELECT j FROM Job j JOIN FETCH j.jobTechStacks jts JOIN FETCH jts.techStack WHERE j.id = :jobId";
+        Query query = em.createQuery(sql, Job.class);  // createQuery를 사용해야 합니다.
+        query.setParameter("jobId", jobId);  // 파라미터 설정
+        return (Job) query.getSingleResult();
+    }
 }
