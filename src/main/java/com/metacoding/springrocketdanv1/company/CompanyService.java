@@ -70,7 +70,7 @@ public class CompanyService {
         // 산업분야
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
         if (workField == null) {
-            workField = workFieldRepository.save(new WorkField(requestDTO.getWorkFieldName()));
+            workField = workFieldRepository.save(WorkField.builder().name(requestDTO.getWorkFieldName()).build());
         }
 
         // 기술 스택 조회

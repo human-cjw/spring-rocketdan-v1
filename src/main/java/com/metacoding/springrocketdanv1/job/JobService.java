@@ -1,11 +1,17 @@
 package com.metacoding.springrocketdanv1.job;
 
-import com.metacoding.springrocketdanv1.board.BoardRepository;
-import com.metacoding.springrocketdanv1.company.CompanyRepository;
+import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
+import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
+import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeRepository;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
+import com.metacoding.springrocketdanv1.techStack.TechStack;
+import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
+import com.metacoding.springrocketdanv1.workField.WorkField;
+import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +20,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JobService {
     private final JobRepository jobRepository;
-    private final BoardRepository boardRepository;
-    private final CompanyRepository companyRepository;
+    private final TechStackRepository techStackRepository;
+    private final WorkFieldRepository workFieldRepository;
+    private final SalaryRangeRepository salaryRangeRepository;
+    private final JobGroupRepository jobGroupRepository;
 
     public List<JobResponse.DTO> 글목록보기() {
         List<Job> jobs = jobRepository.findAll();  // 모든 Job 조회
@@ -75,4 +83,22 @@ public class JobService {
     }
 
 
+    public JobResponse.JobSaveDTO 등록보기() {
+        List<TechStack> techStacks = techStackRepository.findAll();
+        List<WorkField> workFields = workFieldRepository.findAll();
+        List<SalaryRange> salaryRanges = salaryRangeRepository.findAll();
+        List<JobGroup> jobGroups = jobGroupRepository.findAll();
+        return new JobResponse.JobSaveDTO(
+                techStacks,
+                workFields,
+                salaryRanges,
+                jobGroups
+        );
+    }
+
+    @Transactional
+    public void 등록하기(JobRequest.JobSaveDTO reqDTO) {
+        Job job = reqDTO.toEntity();
+        jobRepository.save(job);
+    }
 }

@@ -1,0 +1,110 @@
+{{> layout/header }}
+
+<div class="py-5">
+    <div class="weapp-container-job-save">
+        <div class="weapp-form-wrapper-job-save">
+            <h2 class="weapp-form-title-job-save">채용 공고 등록</h2>
+            <hr/>
+            <form class="weapp-form-job-save">
+                <label>공고 제목</label>
+                <input type="text" placeholder="공고 제목 입력"/>
+
+                <label>공고 내용</label>
+                <textarea
+                        placeholder="공고 내용을 입력하세요"
+                        rows="6"
+                        style="resize: vertical"
+                ></textarea>
+
+                <label>기업소개</label>
+                <input
+                        type="text"
+                        placeholder="예: 국내 최대 비즈니스 네트워크"
+                />
+
+                <label>설립일</label>
+                <input type="date"/>
+
+                <label>사업자등록번호</label>
+                <input type="text" placeholder="숫자만 입력"/>
+
+                <label>기술 스택</label>
+                <input
+                        type="text"
+                        placeholder="예: Java, Spring, React"
+                />
+
+                <label>기업 공식 이메일</label>
+                <input type="email" placeholder="이메일 입력"/>
+
+                <label for="deadline">마감</label>
+                <select id="deadline" class="weapp-select-job-save">
+                    <option value="">선택하세요</option>
+                    <option value="상시채용">상시채용</option>
+                    <option value="공개채용">공개채용</option>
+                    <option value="수시채용">수시채용</option>
+                </select>
+
+                <label for="location">지역</label>
+                <input
+                        type="text"
+                        id="location"
+                        placeholder="예: 서울특별시 성동구"
+                />
+
+                <label for="employment">고용 형태</label>
+                <select id="employment" class="weapp-select-job-save">
+                    <option value="">선택하세요</option>
+                    <option value="fulltime">풀타임</option>
+                    <option value="parttime">파트타임</option>
+                    <option value="intern">인턴</option>
+                </select>
+
+                <label for="career">경력</label>
+                <select id="career" class="weapp-select-job-save">
+                    <option value="">선택하세요</option>
+                    <option value="career">경력</option>
+                    <option value="newbie">신입</option>
+                </select>
+
+                <label for="industry">산업 분야</label>
+                <input
+                        type="text"
+                        id="industry"
+                        placeholder="예: HR, HR-Tech 등"
+                />
+
+                <label for="field">업무 분야</label>
+                <input
+                        type="text"
+                        id="field"
+                        placeholder="예: 마케팅"
+                />
+
+                <label for="salary">연봉</label>
+                <select id="salary" class="weapp-select-job-save">
+                    <option value="">선택하세요</option>
+                    <option value="100-200">100~200</option>
+                    <option value="200-300">200~300</option>
+                    <option value="300-400">300~400</option>
+                    <option value="contact">담당자에게 문의</option>
+                </select>
+
+                <label for="workplace">근무지</label>
+                <input
+                        type="text"
+                        id="workplace"
+                        placeholder="예: 서울특별시 성동구"
+                />
+
+                <div class="weapp-submit-btn-wrapper-job-save">
+                    <button type="submit" class="btn btn-primary">
+                        등록
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{> layout/footer }}

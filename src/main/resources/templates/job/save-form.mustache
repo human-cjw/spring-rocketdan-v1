@@ -1,108 +1,93 @@
 {{> layout/header }}
 
 <div class="py-5">
-    <div class="weapp-container-job-save">
-        <div class="weapp-form-wrapper-job-save">
-            <h2 class="weapp-form-title-job-save">채용 공고 등록</h2>
-            <hr/>
-            <form class="weapp-form-job-save">
-                <label>공고 제목</label>
-                <input type="text" placeholder="공고 제목 입력"/>
+    <div class="weapp-reset-company-save">
+        <div class="weapp-container-company-save">
+            <div class="weapp-form-wrapper-company-save">
+                <h2 class="weapp-form-title-company-save">공고 등록</h2>
+                <hr/>
+                <form action="/job/save" method="post" class="weapp-form-company-save">
+                    <input type="hidden" name="companyId" value="1"/>
+                    <input type="hidden" name="status" value="OPEN"/>
 
-                <label>공고 내용</label>
-                <textarea
-                        placeholder="공고 내용을 입력하세요"
-                        rows="6"
-                        style="resize: vertical"
-                ></textarea>
+                    <label>공고 제목</label>
+                    <input type="text" name="title" placeholder="공고 제목 입력"/>
 
-                <label>기업소개</label>
-                <input
-                        type="text"
-                        placeholder="예: 국내 최대 비즈니스 네트워크"
-                />
+                    <label>공고 내용</label>
+                    <textarea class="form-control" rows="5" id="comment" name="description"></textarea>
+                    <br/>
 
-                <label>설립일</label>
-                <input type="date"/>
+                    <label>근무지</label>
+                    <input type="text" name="location" placeholder="근무지 입력"/>
 
-                <label>사업자등록번호</label>
-                <input type="text" placeholder="숫자만 입력"/>
+                    <label for="employmentType" class="form-label">고용형태</label>
+                    <select class="form-select" id="employmentType" name="employmentType">
+                        <option value="">선택</option>
+                        <option value="정규직">정규직</option>
+                        <option value="계약직">계약직</option>
+                        <option value="인턴">인턴</option>
+                        <option value="프리랜서">프리랜서</option>
+                    </select>
+                    <br/>
 
-                <label>기술 스택</label>
-                <input
-                        type="text"
-                        placeholder="예: Java, Spring, React"
-                />
+                    <label>마감일</label>
+                    <input type="date" name="deadline"/>
 
-                <label>기업 공식 이메일</label>
-                <input type="email" placeholder="이메일 입력"/>
+                    <label for="jobGroup" class="form-label">지원직무</label>
+                    <select class="form-select" id="jobGroup" name="jobGroupId">
+                        <option value="">선택</option>
+                        {{#model.jobGroups}}
+                            <option value="{{id}}">{{name}}</option>
+                        {{/model.jobGroups}}
+                    </select>
+                    <br/>
 
-                <label for="deadline">마감</label>
-                <select id="deadline" class="weapp-select-job-save">
-                    <option value="">선택하세요</option>
-                    <option value="상시채용">상시채용</option>
-                    <option value="공개채용">공개채용</option>
-                    <option value="수시채용">수시채용</option>
-                </select>
+                    <label>기술 스택</label>
+                    <div>
+                        {{#model.techStacks}}
+                            <label>
+                                <input type="checkbox" name="techStacks" value="{{id}}"/>
+                                {{name}}
+                            </label>
+                        {{/model.techStacks}}
+                    </div>
 
-                <label for="location">지역</label>
-                <input
-                        type="text"
-                        id="location"
-                        placeholder="예: 서울특별시 성동구"
-                />
+                    <label for="careerLevel" class="form-label">경력</label>
+                    <select class="form-select" id="careerLevel" name="careerLevel">
+                        <option value="">선택</option>
+                        <option value="신입">신입</option>
+                        <option value="경력">경력</option>
+                    </select>
+                    <br/>
 
-                <label for="employment">고용 형태</label>
-                <select id="employment" class="weapp-select-job-save">
-                    <option value="">선택하세요</option>
-                    <option value="fulltime">풀타임</option>
-                    <option value="parttime">파트타임</option>
-                    <option value="intern">인턴</option>
-                </select>
+                    <label for="workField" class="form-label">업무 분야</label>
+                    <select class="form-select" id="workField" name="workFieldId">
+                        <option value="">선택</option>
+                        {{#model.workFields}}
+                            <option value="{{id}}">{{name}}</option>
+                        {{/model.workFields}}
+                    </select>
+                    <br/>
 
-                <label for="career">경력</label>
-                <select id="career" class="weapp-select-job-save">
-                    <option value="">선택하세요</option>
-                    <option value="career">경력</option>
-                    <option value="newbie">신입</option>
-                </select>
+                    <label for="salaryRange" class="form-label">연봉</label>
+                    <select class="form-select" id="salaryRange" name="salaryRangeId">
+                        <option value="">선택</option>
+                        {{#model.salaryRanges}}
+                            <option value="{{id}}">{{label}}</option>
+                        {{/model.salaryRanges}}
+                    </select>
+                    <br/>
 
-                <label for="industry">산업 분야</label>
-                <input
-                        type="text"
-                        id="industry"
-                        placeholder="예: HR, HR-Tech 등"
-                />
-
-                <label for="field">업무 분야</label>
-                <input
-                        type="text"
-                        id="field"
-                        placeholder="예: 마케팅"
-                />
-
-                <label for="salary">연봉</label>
-                <select id="salary" class="weapp-select-job-save">
-                    <option value="">선택하세요</option>
-                    <option value="100-200">100~200</option>
-                    <option value="200-300">200~300</option>
-                    <option value="300-400">300~400</option>
-                    <option value="contact">담당자에게 문의</option>
-                </select>
-
-                <label for="workplace">근무지</label>
-                <input
-                        type="text"
-                        id="workplace"
-                        placeholder="예: 서울특별시 성동구"
-                />
-
-                <div class="weapp-submit-btn-wrapper-job-save">
-                    <button type="submit" class="btn btn-primary">
-                        등록
-                    </button>
-                </div>
-            </form>
+                    <div class="submit-btn-wrapper-company-save">
+                        <button
+                                type="submit"
+                                class="weapp-submit-btn-company-save btn btn-primary"
+                        >
+                            등록
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

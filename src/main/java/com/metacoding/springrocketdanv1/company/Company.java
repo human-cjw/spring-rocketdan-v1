@@ -54,11 +54,12 @@ public class Company {
     private List<CompanyTechStack> companyTechStackList = new ArrayList<>();
 
     @Builder
-    public Company(String nameKr, String nameEn, String ceo, String businessNumber,
+    public Company(Integer id, String nameKr, String nameEn, String ceo, String businessNumber,
                    String email, String phone, String address, String introduction,
                    String oneLineIntro, String homepageUrl, String logoImageUrl,
                    String infoImageUrl, String contactManager, String startDate,
                    User user, WorkField workField) {
+        this.id = id;
         this.nameKr = nameKr;
         this.nameEn = nameEn;
         this.ceo = ceo;

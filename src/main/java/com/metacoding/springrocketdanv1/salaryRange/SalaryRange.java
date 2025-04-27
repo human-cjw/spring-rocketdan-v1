@@ -1,9 +1,12 @@
 package com.metacoding.springrocketdanv1.salaryRange;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @NoArgsConstructor
 @Getter
 @Entity
@@ -16,4 +19,12 @@ public class SalaryRange {
     private Integer minSalary;
     private Integer maxSalary;
     private String label; // 구간표시 "minSalary-maxSalary"
+
+    @Builder
+    public SalaryRange(Integer id, Integer minSalary, Integer maxSalary, String label) {
+        this.id = id;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+        this.label = label;
+    }
 }

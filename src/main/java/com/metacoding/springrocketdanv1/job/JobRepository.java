@@ -22,4 +22,7 @@ public class JobRepository {
         return em.find(Job.class, id);
     }
 
+    public void save(Job job) {
+        em.persist(job);
+    }
 }
