@@ -33,6 +33,10 @@ public class ResumeService {
 
         return detailDTO;
     }
+
+    public List<Resume> 구직자목록보기() {
+        return resumeRepository.findAll();
+    }
 }
 
 
