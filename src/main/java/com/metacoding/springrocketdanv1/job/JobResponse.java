@@ -1,23 +1,16 @@
 package com.metacoding.springrocketdanv1.job;
 
-import com.metacoding.springrocketdanv1.company.Company;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
-import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
 import com.metacoding.springrocketdanv1.jobTechStack.JobTechStackResponse;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
-import com.metacoding.springrocketdanv1.techStack.TechStackResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldResponse;
-import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 public class JobResponse {

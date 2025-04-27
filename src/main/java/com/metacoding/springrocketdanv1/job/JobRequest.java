@@ -6,7 +6,6 @@ import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.workField.WorkField;
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
