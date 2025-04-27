@@ -137,14 +137,14 @@
                         <div class="mb-2">
                             <label class="form-label">입사일</label>
                             <input class="form-control"
-                                   type="date"
+                                   type="text"
                                    name="careerStartDates"
                                    value="{{startDate}}"/>
                         </div>
                         <div class="mb-2">
                             <label class="form-label">퇴사일</label>
                             <input class="form-control"
-                                   type="date"
+                                   type="text"
                                    name="careerEndDates"
                                    value="{{endDate}}"/>
                         </div>
@@ -199,7 +199,7 @@
                             <!-- 입학 날짜 -->
                             <div class="input-group">
                                 <input
-                                        type="date"
+                                        type="text"
                                         name="enrollmentDate"
                                         class="form-control"
                                         value="{{model.enrollmentDate}}"/>
@@ -209,7 +209,7 @@
 
                             <!-- 졸업 날짜 -->
                             <input
-                                    type="date"
+                                    type="text"
                                     name="graduationDate"
                                     class="form-control"
                                     value="{{model.graduationDate}}"/>
@@ -264,7 +264,7 @@
                     <div class="mb-2">
                         <label class="form-label">취득일</label>
                         <input class="form-control"
-                               type="date"
+                               type="text"
                                name="certificationDates"
                                value="{{issuedDate}}"/>
                     </div>
@@ -285,8 +285,13 @@
                 <div class="d-flex flex-wrap gap-2 align-items-center" id="tech-stack-container">
                     {{#model.TechStacks}}
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="techStacks" value="{{id}}"
-                                   id="tech-{{id}}">
+                            <input
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    name="techStacks"
+                                    value="{{id}}"
+                                    id="tech-{{id}}"
+                                    {{#isChecked}}checked{{/isChecked}}>
                             <label class="form-check-label" for="tech-{{id}}">{{name}}</label>
                         </div>
                     {{/model.TechStacks}}
@@ -301,28 +306,28 @@
 </div>
 
 
-<script>
-    // 이 부분에서 백엔드에서 넘긴 기술 ID를 배열로 저장
-    const userTechIds = [
-        {{#model.resumeTechStacks}}
-            {{id}},
-        {{/model.resumeTechStacks}}
-    ];
+<!--<script>-->
+<!--    // 이 부분에서 백엔드에서 넘긴 기술 ID를 배열로 저장-->
+<!--    const userTechIds = [-->
+        <!--        {{#model.resumeTechStacks}}-->
+<!--            {{id}},-->
+        <!--        {{/model.resumeTechStacks}}-->
+<!--    ];-->
 
-    // HTML이 모두 로드된 후 실행
-    window.onload = function () {
-        // 모든 기술 스택 체크박스들 찾기
-        const checkboxes = document.querySelectorAll('input[name="techStacks"]');
+<!--    // HTML이 모두 로드된 후 실행-->
+<!--    window.onload = function () {-->
+<!--        // 모든 기술 스택 체크박스들 찾기-->
+<!--        const checkboxes = document.querySelectorAll('input[name="techStacks"]');-->
 
-        checkboxes.forEach(function (checkbox) {
-            const techId = parseInt(checkbox.value);
+<!--        checkboxes.forEach(function (checkbox) {-->
+<!--            const techId = parseInt(checkbox.value);-->
 
-            // 유저가 가진 기술이면 체크하고 스타일도 추가
-            if (userTechIds.includes(techId)) {
-                checkbox.checked = true;
-                checkbox.closest('.form-check').classList.add('border', 'border-primary', 'rounded', 'p-2');
-            }
-        });
-    };
-</script>
+<!--            // 유저가 가진 기술이면 체크하고 스타일도 추가-->
+<!--            if (userTechIds.includes(techId)) {-->
+<!--                checkbox.checked = true;-->
+<!--                checkbox.closest('.form-check').classList.add('border', 'border-primary', 'rounded', 'p-2');-->
+<!--            }-->
+<!--        });-->
+<!--    };-->
+<!--</script>-->
 {{> layout/footer }}

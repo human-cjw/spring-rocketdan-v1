@@ -38,7 +38,7 @@ public class ResumeResponse {
         private boolean isCareerLevelOld;
         private boolean isFemale;
         private boolean isMale;
-     
+
         public DetailDTO(Resume resume, List<Certification> certifications, List<TechStack> resumeTechStacks,
                          String email, String name, List<Career> careers, boolean isCareerLevelNewbie, boolean isCareerLevelOld,
                          boolean isFemale, boolean isMale, List<TechStack> TechStacks) {

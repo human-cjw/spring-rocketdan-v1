@@ -51,4 +51,5 @@ public class Resume {
     // 직무 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private JobGroup jobGroup;
+
 }

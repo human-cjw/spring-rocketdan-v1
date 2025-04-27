@@ -252,9 +252,9 @@ VALUES
     (1, 3),  -- Spring Security
     (1, 4),  -- JPA
     (1, 5),  -- MySQL
-    (1, 16), -- Docker
-    (1, 17), -- Kubernetes
-    (1, 18), -- AWS
+    (1, 16), -- Kubernetes
+    (1, 17), -- AWS
+    (1, 18), -- GCP
 
     -- cos의 프론트엔드 개발자 이력서 기술 스택
     (2, 9),  -- JavaScript
@@ -262,9 +262,10 @@ VALUES
     (2, 11), -- React
     (2, 13), -- Next.js
     (2, 14), -- HTML/CSS
-    (2, 16), -- Docker
+    (2, 16), -- Kubernetes
     (2, 18);
--- AWS
+-- GCP
+
 
 -- =============================================
 -- CompanyTechStack 더미 데이터

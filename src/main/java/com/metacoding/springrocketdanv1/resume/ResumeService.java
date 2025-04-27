@@ -26,7 +26,7 @@ public class ResumeService {
     public ResumeResponse.DetailDTO 이력서상세보기(Integer resumeId) {
         Resume resume = resumeRepository.findById(resumeId);
         List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
-        List<TechStack> resumeTechStacks = resumeTechStackRepository.findAllByResumeId(resumeId);
+        List<ResumeTechStack> resumeTechStackList = resumeTechStackRepository.findAllByResumeId(resumeId);
         List<Career> careers = careerRepository.findCareersByResumeId(resumeId);
 
         String careerLevel = resume.getCareerLevel();
@@ -34,20 +34,34 @@ public class ResumeService {
         boolean isCareerLevelOld = "경력".equals(careerLevel);
 
         String gender = resume.getGender();
-        boolean isFemale = "여자".equals(gender);
-        boolean isMale = "남자".equals(gender);
+        boolean isFemale = "여".equals(gender);
+        boolean isMale = "남".equals(gender);
 
         List<TechStack> techStacks = techStackRepository.findAll();
 
         List<Integer> resumeTechStackIds = new ArrayList<>();
-        for (ResumeTechStack rts : resumeTechStacks) {
+        for (ResumeTechStack rts : resumeTechStackList) {
             resumeTechStackIds.add(rts.getTechStack().getId());
         }
 
+        for (TechStack techStack : techStacks) {
+            if (resumeTechStackIds.contains(techStack.getId())) {
+                techStack.setIsChecked(true);
+            } else {
+                techStack.setIsChecked(false);
+            }
+        }
+
+        // ResumeTechStack -> TechStack 변환
+
+        List<TechStack> resumeTechStacks = new ArrayList<>();
+        for (ResumeTechStack rts : resumeTechStackList) {
+            resumeTechStacks.add(rts.getTechStack());
+        }
 
         ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications,
                 resumeTechStacks, resume.getUser().getEmail(), resume.getUser().getUsername(), careers, isCareerLevelNewbie,
-                isCareerLevelOld, isFemale, isMale, techStacks, resumeTechStackIds);
+                isCareerLevelOld, isFemale, isMale, techStacks);
 
         System.out.println(detailDTO.getCertifications());
         System.out.println(detailDTO.getResumeTechStacks());
@@ -59,7 +73,7 @@ public class ResumeService {
     public ResumeResponse.DetailDTO 이력서수정하기(Integer resumeId) {
         Resume resume = resumeRepository.findById(resumeId);
         List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
-        List<TechStack> resumeTechStacks = resumeTechStackRepository.findAllByResumeId(resumeId);
+        List<ResumeTechStack> resumeTechStackList = resumeTechStackRepository.findAllByResumeId(resumeId);
         List<Career> careers = careerRepository.findCareersByResumeId(resumeId);
 
         String careerLevel = resume.getCareerLevel();
@@ -80,15 +94,32 @@ public class ResumeService {
         List<TechStack> techStacks = techStackRepository.findAll();
 
         List<Integer> resumeTechStackIds = new ArrayList<>();
-        for (ResumeTechStack rts : resumeTechStacks) {
+        for (ResumeTechStack rts : resumeTechStackList) {
             resumeTechStackIds.add(rts.getTechStack().getId());
         }
 
+        for (TechStack techStack : techStacks) {
+            if (resumeTechStackIds.contains(techStack.getId())) {
+                techStack.setIsChecked(true);
+            } else {
+                techStack.setIsChecked(false);
+            }
+        }
+
+        // ResumeTechStack -> TechStack 변환
+
+        List<TechStack> resumeTechStacks = new ArrayList<>();
+        for (ResumeTechStack rts : resumeTechStackList) {
+            resumeTechStacks.add(rts.getTechStack());
+        }
+
         System.out.println("유저가 가진 기술" + resumeTechStackIds);
+        System.out.println("모든 기술" + techStacks);
 
         ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications, resumeTechStacks,
                 resume.getUser().getEmail(), resume.getUser().getUsername(), careers,
-                isCareerLevelNewbie, isCareerLevelOld, isFemale, isMale, techStacks, resumeTechStackIds);
+                isCareerLevelNewbie, isCareerLevelOld, isFemale, isMale, techStacks);
+        
 
         return detailDTO;
     }
