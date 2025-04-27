@@ -28,6 +28,8 @@ public class ResumeRequest {
         private List<Certification> certifications; // 다른 테이블에서 가지고 온 것
         private List<TechStack> resumeTechStacks; // 다른 테이블에서 가지고 온 것 (유저가 갖고 있는거)
         private List<Career> careers;
+        private String careerLevel;
+
 
     }
 }

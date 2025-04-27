@@ -64,5 +64,11 @@ public class Resume {
         this.phone = requestDTO.getPhone();
         this.enrollmentDate = requestDTO.getEnrollmentDate();
         this.graduationDate = requestDTO.getGraduationDate();
+        this.careerLevel = requestDTO.getCareerLevel();
+
+    }
+
+    public void changeDefaultTrue() {
+        this.isDefault = true;
     }
 }

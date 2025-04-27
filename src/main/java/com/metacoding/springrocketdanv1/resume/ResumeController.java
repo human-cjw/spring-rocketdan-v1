@@ -42,4 +42,10 @@ public class ResumeController {
         // 상세 페이지로 리다이렉트 (새로고침된 상태로 열림)
         return "redirect:/resume/" + resumeId;
     }
+
+    @PostMapping("/resume/{id}/default")
+    public String setDefault(@PathVariable("id") Integer resumeId) {
+        resumeService.기본이력서설정(resumeId);
+        return "redirect:/resume/" + resumeId; // 설정 후 상세페이지로 이동
+    }
 }

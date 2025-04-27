@@ -14,17 +14,11 @@
                         기본 이력서 설정
                     </button>
                 </form>
-                <form method="POST" action="/resume/{{model.id}}/update" style="display: inline;">
-                    <button type="submit"
-                            class="btn btn-outline-primary btn-sm d-inline-flex align-items-center justify-content-center fs-6"
-                            style="height: 50%; padding: 0 12px; line-height: 1.5;">
-                        수정완료
-                    </button>
-                </form>
+                
             </div>
-
         </div>
-        <form method="POST" action="/resume/{{model.id}}/update" style="display: inline;">
+
+        <form method="POST" action="/resume/{{model.id}}/update">
             <!-- 기본 정보 칸 시작 -->
             <div class="bg-white rounded p-4 shadow-sm mb-4">
                 <h5 class="fw-bold mb-3">기본 정보</h5>
@@ -259,6 +253,13 @@
 
             </div>
             <!-- 기술 스택 칸 끝 -->
+            <div class="d-flex justify-content-end gap-1">
+                <button type="submit"
+                        class="btn btn-outline-primary btn-sm d-inline-flex align-items-center justify-content-center"
+                        style="height: 32px; padding: 0 12px; font-size: 0.875rem; line-height: 1.5;">
+                    수정완료
+                </button>
+            </div>
         </form>
     </div>
 </div>

@@ -8,6 +8,7 @@ import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStack;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackRepository;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+
 public class ResumeService {
     private final ResumeRepository resumeRepository;
     private final CertificationRepository certificationRepository;
@@ -124,11 +126,20 @@ public class ResumeService {
         return detailDTO;
     }
 
+    @Transactional
     public void 이력서수정완료(Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
         Resume resume = resumeRepository.findById(resumeId);
 
         resume.update(requestDTO);
 
+    }
+
+    @Transactional
+    public void 기본이력서설정(Integer resumeId) {
+        resumeRepository.updateAllResumeDefaultFalse();
+
+        Resume resume = resumeRepository.findById(resumeId);
+        resume.changeDefaultTrue();
     }
 }
 
