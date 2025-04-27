@@ -44,7 +44,7 @@ public class JobService {
         }
 
         // 3. SalaryRange 찾기
-        Integer salaryRangeId = Integer.parseInt(requestDTO.getSalaryRangeId()); // ★ String을 Integer로 변환
+        Integer salaryRangeId = Integer.parseInt(requestDTO.getSalaryRangeId()); // String을 Integer로 변환
         SalaryRange salaryRange = salaryRangeRepository.findById(salaryRangeId);
         if (salaryRange == null) {
             throw new RuntimeException("SalaryRange not found");
@@ -65,7 +65,7 @@ public class JobService {
             }
         }
 
-        // 6. 엔티티 변환 (★ 중요!)
+        // 6. 엔티티 변환
         Job job = requestDTO.toEntity(sessionUser, workField, techStackList, company, salaryRange, jobGroup);
 
         // 7. 저장
