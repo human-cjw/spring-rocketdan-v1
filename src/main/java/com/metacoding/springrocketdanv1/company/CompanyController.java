@@ -44,7 +44,20 @@ public class CompanyController {
     }
 
     @GetMapping("/company/save-form")
-    public String saveForm(Model model) {
+    public String saveForm(HttpSession session, Model model) {
+        // 세션에 로그인 유저가 없으면 임시로 세팅해준다
+        if (session.getAttribute("sessionUser") == null) {
+            User testUser = new User();
+            try {
+                Field field = User.class.getDeclaredField("id");
+                field.setAccessible(true);
+                field.set(testUser, 2); // 존재하는 유저 ID
+            } catch (Exception e) {
+                throw new RuntimeException("테스트 유저 생성 실패", e);
+            }
+            session.setAttribute("sessionUser", testUser);
+        }
+
         List<WorkField> workFields = workFieldRepository.findAll();
         List<TechStack> techStacks = techStackRepository.findAll();
 
@@ -54,42 +67,24 @@ public class CompanyController {
         return "company/save-form";
     }
 
+//    SELECT * FROM user_tb WHERE id = 2;
+//    @GetMapping("/company/save-form")
+//    public String saveForm(HttpSession session, Model model) {
+//        List<WorkField> workFields = workFieldRepository.findAll();
+//        List<TechStack> techStacks = techStackRepository.findAll();
+//
+//        model.addAttribute("workFields", workFields);
+//        model.addAttribute("techStacks", techStacks);
+//
+//        return "company/save-form";
+//    }
+
     @PostMapping("/company/save")
     public String save(@ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, HttpSession session) {
         User sessionUser = (User) session.getAttribute("sessionUser");
         Company savedCompany = companyService.기업등록(requestDTO, sessionUser);
         return "redirect:/company/" + savedCompany.getId();
     }
-
-
-//    @GetMapping("/company/update-form")
-//    public String updateForm(HttpSession session, Model model) {
-//        User sessionUser = (User) session.getAttribute("sessionUser");
-//
-//        if (sessionUser == null) {
-//            throw new RuntimeException("로그인이 필요합니다.");
-//        }
-//
-//        // 기업 기능 접근 시
-//        Company company = companyRepository.findById(companyId);
-//
-//        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(company.getId());
-//
-//        model.addAttribute("model", dto);
-//        return "company/update-form";
-//    }
-
-//    @GetMapping("/company/update-form")
-//    public String updateForm(HttpSession session, Model model) {
-//
-//        int testCompanyId = 1;
-//
-//        Company company = companyRepository.findById(testCompanyId);
-//        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(company.getId());
-//
-//        model.addAttribute("model", dto);
-//        return "company/update-form";
-//    }
 
     @GetMapping("/company/update-form")
     public String updateForm(HttpSession session, Model model) {
@@ -112,6 +107,22 @@ public class CompanyController {
         model.addAttribute("model", dto);
         return "company/update-form";
     }
+
+//    @GetMapping("/company/update-form")
+//    public String updateForm(HttpSession session, Model model) {
+//        // 1. 세션에서 로그인한 사용자 꺼내기
+//        User sessionUser = (User) session.getAttribute("sessionUser");
+//
+//        if (sessionUser == null) {
+//            throw new RuntimeException("로그인이 필요합니다."); // 세션 없으면 막기
+//        }
+//
+//        // 2. 유저 ID를 이용해서 내 기업 정보 조회
+//        CompanyResponse.UpdateFormDTO dto = companyService.내기업조회(sessionUser.getId());
+//
+//        model.addAttribute("model", dto);
+//        return "company/update-form";
+//    }
 
 
     @PostMapping("/company/update")
