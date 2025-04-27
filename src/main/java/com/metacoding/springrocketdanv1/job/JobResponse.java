@@ -1,9 +1,14 @@
 package com.metacoding.springrocketdanv1.job;
 
+import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
+import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
+import com.metacoding.springrocketdanv1.techStack.TechStack;
+import com.metacoding.springrocketdanv1.workField.WorkField;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class JobResponse {
 
@@ -45,6 +50,21 @@ public class JobResponse {
             this.nameKr = nameKr;
             this.salaryRange = salaryRange;
             this.companyId = companyId;
+        }
+    }
+
+    @Data
+    public static class JobSaveDTO {
+        List<TechStack> techStacks;
+        List<WorkField> workFields;
+        List<SalaryRange> salaryRanges;
+        List<JobGroup> jobGroups;
+
+        public JobSaveDTO(List<TechStack> techStacks, List<WorkField> workFields, List<SalaryRange> salaryRanges, List<JobGroup> jobGroups) {
+            this.techStacks = techStacks;
+            this.workFields = workFields;
+            this.salaryRanges = salaryRanges;
+            this.jobGroups = jobGroups;
         }
     }
 }

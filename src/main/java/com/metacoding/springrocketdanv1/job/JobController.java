@@ -1,10 +1,12 @@
 package com.metacoding.springrocketdanv1.job;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -36,7 +38,16 @@ public class JobController {
     }
 
     @GetMapping("/job/save-form")
-    public String saveForm() {
+    public String saveForm(HttpServletRequest request) {
+        JobResponse.JobSaveDTO respDTO = jobService.등록보기();
+        request.setAttribute("model", respDTO);
         return "job/save-form";
+    }
+
+    @PostMapping("/job/save")
+    public String save(JobRequest.JobSaveDTO reqDTO) {
+        jobService.등록하기(reqDTO);
+
+        return "redirect:/"; // -> 나중에 공고 관리 페이지로 이동
     }
 }

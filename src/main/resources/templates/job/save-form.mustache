@@ -7,7 +7,7 @@
                 <h2 class="weapp-form-title-company-save">공고 등록</h2>
                 <hr/>
                 <form action="/job/save" method="post" class="weapp-form-company-save">
-                    <input type="hidden" name="company" value="1"/>
+                    <input type="hidden" name="companyId" value="1"/>
                     <input type="hidden" name="status" value="OPEN"/>
 
                     <label>공고 제목</label>
@@ -34,24 +34,22 @@
                     <input type="date" name="deadline"/>
 
                     <label for="jobGroup" class="form-label">지원직무</label>
-                    <select class="form-select" id="jobGroup" name="jobGroup">
+                    <select class="form-select" id="jobGroup" name="jobGroupId">
                         <option value="">선택</option>
-                        <option value="1">백엔드 개발자</option>
-                        <option value="2">프론트엔드 개발자</option>
-                        <option value="3">풀스택 개발자</option>
-                        <option value="4">데이터 엔지니어</option>
-                        <option value="5">DevOps 엔지니어</option>
+                        {{#model.jobGroups}}
+                            <option value="{{id}}">{{name}}</option>
+                        {{/model.jobGroups}}
                     </select>
                     <br/>
 
                     <label>기술 스택</label>
                     <div>
-
-                        <label>
-                            <input type="checkbox" name="techStack[]" value="기술스택"/>
-                            기술스택
-                        </label>
-
+                        {{#model.techStacks}}
+                            <label>
+                                <input type="checkbox" name="techStacks" value="{{id}}"/>
+                                {{name}}
+                            </label>
+                        {{/model.techStacks}}
                     </div>
 
                     <label for="careerLevel" class="form-label">경력</label>
@@ -63,18 +61,20 @@
                     <br/>
 
                     <label for="workField" class="form-label">업무 분야</label>
-                    <select class="form-select" id="workField" name="workField">
+                    <select class="form-select" id="workField" name="workFieldId">
                         <option value="">선택</option>
-                        <option value="1">IT/소프트웨어</option>
-                        <option value="2">금융/보험</option>
+                        {{#model.workFields}}
+                            <option value="{{id}}">{{name}}</option>
+                        {{/model.workFields}}
                     </select>
                     <br/>
 
                     <label for="salaryRange" class="form-label">연봉</label>
-                    <select class="form-select" id="salaryRange" name="salaryRange">
+                    <select class="form-select" id="salaryRange" name="salaryRangeId">
                         <option value="">선택</option>
-                        <option value="1">3000-4000</option>
-                        <option value="2">4000-5000</option>
+                        {{#model.salaryRanges}}
+                            <option value="{{id}}">{{label}}</option>
+                        {{/model.salaryRanges}}
                     </select>
                     <br/>
 

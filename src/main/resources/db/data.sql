@@ -21,11 +21,12 @@ INSERT INTO user_tb (username,
                      email,
                      file_url,
                      user_type,
-                     company_id)
-VALUES ('ssar', '1234', 'ssar@example.com', null, 'user', null),
-       ('cos', '1234', 'cos@example.com', null, 'user', null),
-       ('love', '1234', 'love@example.com', null, 'company', 1),
-       ('haha', '1234', 'haha@example.com', null, 'company', 2);
+                     company_id,
+                     created_at)
+VALUES ('ssar', '1234', 'ssar@example.com', null, 'user', null, now()),
+       ('cos', '1234', 'cos@example.com', null, 'user', null, now()),
+       ('love', '1234', 'love@example.com', null, 'company', 1, now()),
+       ('haha', '1234', 'haha@example.com', null, 'company', 2, now());
 
 -- =============================================
 -- Company 더미 데이터
@@ -45,7 +46,8 @@ INSERT INTO company_tb (name_kr,
                         contact_manager,
                         user_id,
                         work_field_id,
-                        start_date)
+                        start_date,
+                        created_at)
 VALUES ('네이버',
         'Naver',
         '이해진',
@@ -61,7 +63,8 @@ VALUES ('네이버',
         '김담당',
         3,
         1,
-        '2000-01-01'),
+        '2000-01-01',
+        now()),
        ('카카오',
         'Kakao',
         '홍은택',
@@ -77,7 +80,8 @@ VALUES ('네이버',
         '이담당',
         4,
         1,
-        '2005-10-15');
+        '2005-10-15',
+        now());
 
 -- =============================================
 -- SalaryRange 더미 데이터
@@ -153,7 +157,8 @@ INSERT INTO resume_tb (title,
                        job_group_id,
                        enrollment_date,
                        graduation_date,
-                       is_default)
+                       is_default,
+                       created_at)
 VALUES ('백엔드 개발자 이력서',
         'Spring Boot와 Java를 주로 사용하는 백엔드 개발자입니다. RESTful API 설계와 구현에 능숙하며, 데이터베이스 설계와 최적화에도 관심이 많습니다.',
         '남',
@@ -169,7 +174,8 @@ VALUES ('백엔드 개발자 이력서',
         1,
         '2020-03-01',
         '2024-02-01',
-        true),
+        true,
+        now()),
        ('프론트엔드 개발자 이력서',
         'React와 TypeScript를 주로 사용하는 프론트엔드 개발자입니다. 사용자 경험을 중시하며, 웹 접근성과 반응형 디자인에 관심이 많습니다.',
         '여',
@@ -185,7 +191,8 @@ VALUES ('백엔드 개발자 이력서',
         2,
         '2014-03-01',
         '2020-02-01',
-        true);
+        true,
+        now());
 
 -- =============================================
 -- Job 더미 데이터
@@ -200,7 +207,8 @@ INSERT INTO job_tb (title,
                     company_id,
                     salary_range_id,
                     work_field_id,
-                    job_group_id)
+                    job_group_id,
+                    created_at)
 VALUES ('Spring Boot 기반 백엔드 엔지니어',
         'Spring Boot와 Java를 사용한 백엔드 개발자 모집합니다. RESTful API 설계와 구현 경험이 필요합니다.',
         '경기도 성남시 분당구',
@@ -211,7 +219,8 @@ VALUES ('Spring Boot 기반 백엔드 엔지니어',
         1,
         3,
         1,
-        1),
+        1,
+        now()),
        ('React & TypeScript 프론트엔드 엔지니어',
         'React와 TypeScript를 사용한 프론트엔드 개발자 모집합니다. 웹 접근성과 반응형 디자인 경험이 필요합니다.',
         '제주특별자치도 제주시',
@@ -222,7 +231,8 @@ VALUES ('Spring Boot 기반 백엔드 엔지니어',
         2,
         2,
         1,
-        2),
+        2,
+        now()),
        ('모바일 중심 소프트웨어 엔지니어 (신입 가능)',
         '모바일 앱 개발 경험이 있는 소프트웨어 엔지니어를 모집합니다.',
         '경기도 수원시',
@@ -233,7 +243,8 @@ VALUES ('Spring Boot 기반 백엔드 엔지니어',
         1,
         4,
         4,
-        2);
+        2,
+        now());
 
 -- =============================================
 -- ResumeTechStack 더미 데이터
@@ -326,31 +337,32 @@ INSERT INTO career_tb (company_name,
                        start_date,
                        end_date,
                        job_group_id,
-                       resume_id)
+                       resume_id,
+                       created_at)
 VALUES ('네이버',
         '2020-01-01',
         '2022-01-01',
         1, -- 백엔드 개발자
-        1 -- ssar의 백엔드 개발자 이력서
-       ),
+        1, -- ssar의 백엔드 개발자 이력서
+        now()),
        ('카카오',
         '2022-02-01',
         '2023-02-01',
         1, -- 백엔드 개발자
-        1 -- ssar의 백엔드 개발자 이력서
-       ),
+        1, -- ssar의 백엔드 개발자 이력서
+        now()),
        ('네이버',
         '2020-01-01',
         '2022-01-01',
         2, -- 프론트엔드 개발자
-        2 -- cos의 프론트엔드 개발자 이력서
-       ),
+        2, -- cos의 프론트엔드 개발자 이력서
+        now()),
        ('카카오',
         '2022-02-01',
         '2023-02-01',
         2, -- 프론트엔드 개발자
-        2 -- cos의 프론트엔드 개발자 이력서
-       );
+        2, -- cos의 프론트엔드 개발자 이력서
+        now());
 
 -- =============================================
 -- Certification 더미 데이터
@@ -358,42 +370,61 @@ VALUES ('네이버',
 INSERT INTO certification_tb (name,
                               issuer,
                               issued_date,
-                              resume_id)
+                              resume_id,
+                              created_at)
 VALUES ('정보처리기사',
         '한국산업인력공단',
         '2020-01-01',
-        1 -- ssar의 백엔드 개발자 이력서
-       ),
+        1, -- ssar의 백엔드 개발자 이력서
+        now()),
        ('SQLD',
         '한국데이터산업진흥원',
         '2020-02-01',
-        1 -- ssar의 백엔드 개발자 이력서
-       ),
+        1, -- ssar의 백엔드 개발자 이력서
+        now()),
        ('AWS Certified Solutions Architect',
         'Amazon Web Services',
         '2020-03-01',
-        1 -- ssar의 백엔드 개발자 이력서
-       ),
+        1, -- ssar의 백엔드 개발자 이력서
+        now()),
        ('정보처리기사',
         '한국산업인력공단',
         '2020-01-01',
-        2 -- cos의 프론트엔드 개발자 이력서
-       ),
+        2, -- cos의 프론트엔드 개발자 이력서
+        now()),
        ('웹디자인기능사',
         '한국산업인력공단',
         '2020-02-01',
-        2 -- cos의 프론트엔드 개발자 이력서
-       );
+        2, -- cos의 프론트엔드 개발자 이력서
+        now());
 
 -- =============================================
 -- Board 더미 데이터
 -- =============================================
-INSERT INTO board_tb (title, content, user_id)
-VALUES ('첫 번째 게시글', '이것은 첫 번째 게시글의 내용입니다.', 1),
-       ('스프링 프로젝트 질문', '스프링 관련 질문이 있습니다. 답변 부탁드려요!', 2),
-       ('부산 개발자 모임 안내', '부산에서 열리는 개발자 모임에 초대합니다.', 3),
-       ('자바 공부 방법', '효과적인 자바 공부 방법을 공유합니다.', 1),
-       ('프로젝트 팀원 모집', '함께 프로젝트할 팀원을 모집합니다.', 2);
+INSERT INTO board_tb (title,
+                      content,
+                      user_id,
+                      created_at)
+VALUES ('첫 번째 게시글',
+        '이것은 첫 번째 게시글의 내용입니다.',
+        1,
+        now()),
+       ('스프링 프로젝트 질문',
+        '스프링 관련 질문이 있습니다. 답변 부탁드려요!',
+        2,
+        now()),
+       ('부산 개발자 모임 안내',
+        '부산에서 열리는 개발자 모임에 초대합니다.',
+        3,
+        now()),
+       ('자바 공부 방법',
+        '효과적인 자바 공부 방법을 공유합니다.',
+        1,
+        now()),
+       ('프로젝트 팀원 모집',
+        '함께 프로젝트할 팀원을 모집합니다.',
+        2,
+        now());
 
 -- =============================================
 -- Love 더미 데이터 (작성자 본인 제외)
@@ -407,41 +438,90 @@ VALUES (2, 1), -- 2번 유저가 1번 게시글(작성자 1) 좋아요
 -- =============================================
 -- Reply 더미 데이터
 -- =============================================
-INSERT INTO reply_tb (content, user_id, board_id)
-VALUES ('첫 번째 게시글 감사합니다!', 2, 1), -- 2번 유저가 1번 게시글(작성자 1)에 댓글
-       ('좋은 정보네요!', 3, 1),        -- 3번 유저가 1번 게시글(작성자 1)에 댓글
-       ('저도 궁금했는데 답변 기다립니다.', 1, 2);
--- 1번 유저가 2번 게시글(작성자 2)에 댓글
+INSERT INTO reply_tb (content,
+                      user_id,
+                      board_id,
+                      created_at)
+VALUES ('첫 번째 게시글 감사합니다!',
+        2,
+        1, -- 2번 유저가 1번 게시글(작성자 1)에 댓글
+        now()),
+       ('좋은 정보네요!',
+        3,
+        1, -- 3번 유저가 1번 게시글(작성자 1)에 댓글
+        now()),
+       ('저도 궁금했는데 답변 기다립니다.',
+        1,
+        2, -- 1번 유저가 2번 게시글(작성자 2)에 댓글
+        now());
+
 
 -- =============================================
 -- JobBookmark 더미 데이터
 -- =============================================
-INSERT INTO job_bookmark_tb (user_id, job_id)
+INSERT INTO job_bookmark_tb (user_id,
+                             job_id,
+                             created_at)
 VALUES
     -- ssar(1번 유저)의 북마크
-    (1, 1), -- 백엔드 개발자(1번 공고)
-    (1, 2), -- 프론트엔드 개발자(2번 공고)
+    (1,
+     1, -- 백엔드 개발자(1번 공고)
+     now()),
+    (1,
+     2, -- 프론트엔드 개발자(2번 공고)
+     now()),
 
     -- cos(2번 유저)의 북마크
-    (2, 2), -- 프론트엔드 개발자(2번 공고)
-    (2, 3);
--- 소프트웨어 엔지니어(3번 공고)
+    (2,
+     2, -- 프론트엔드 개발자(2번 공고)
+     now()),
+    (2,
+     3, -- 소프트웨어 엔지니어(3번 공고)
+     now());
+
+
 
 -- =============================================
 -- ResumeBookmark 더미 데이터
 -- =============================================
-INSERT INTO resume_bookmark_tb (resume_id, company_id)
+INSERT INTO resume_bookmark_tb (resume_id,
+                                company_id,
+                                created_at)
 VALUES
     -- 네이버(1번 회사)가 ssar(1번 유저)의 백엔드 개발자 이력서를 북마크
-    (1, 1),
+    (1,
+     1,
+     now()),
     -- 카카오(2번 회사)가 cos(2번 유저)의 프론트엔드 개발자 이력서를 북마크
-    (2, 2),
+    (2,
+     2,
+     now()),
     -- 삼성전자(3번 회사)가 ssar(1번 유저)의 백엔드 개발자 이력서를 북마크
-    (2, 1);
+    (2,
+     1,
+     now());
 
 -- =============================================
 -- Application 더미 데이터
 -- =============================================
-INSERT INTO application_tb (id, status, user_id, company_id, resume_id, job_id)
-VALUES (1, '접수', 1, 1, 1, 1),
-       (2, '검토', 2, 2, 2, 2);
+INSERT INTO application_tb (id,
+                            status,
+                            user_id,
+                            company_id,
+                            resume_id,
+                            job_id,
+                            created_at)
+VALUES (1,
+        '접수',
+        1,
+        1,
+        1,
+        1,
+        now()),
+       (2,
+        '검토',
+        2,
+        2,
+        2,
+        2,
+        now());
