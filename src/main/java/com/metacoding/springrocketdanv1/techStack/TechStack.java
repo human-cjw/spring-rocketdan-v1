@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1.techStack;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -16,4 +17,10 @@ public class TechStack {
     private Integer id;
 
     private String name; // 기술명, java, python...
+
+    @Builder
+    public TechStack(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

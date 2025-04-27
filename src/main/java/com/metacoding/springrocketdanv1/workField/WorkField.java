@@ -1,10 +1,9 @@
 package com.metacoding.springrocketdanv1.workField;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@ToString
 @NoArgsConstructor
 @Getter
 @Setter
@@ -17,7 +16,9 @@ public class WorkField {
 
     private String name; // 업무분야. it, 금융, 판매
 
-    public WorkField(String name) {
+    @Builder
+    public WorkField(Integer id, String name) {
+        this.id = id;
         this.name = name;
     }
 }

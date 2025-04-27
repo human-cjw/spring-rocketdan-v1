@@ -32,13 +32,13 @@ public class User {
     @CreationTimestamp
     private Timestamp createdAt;
 
-
     @Builder
-    public User(String username, String password, String email, String userType, Timestamp createdAt) {
+    public User(String username, String password, String email, String userType, Integer companyId, String fileUrl) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.userType = userType;
-        this.createdAt = createdAt;
+        this.companyId = companyId;
+        this.fileUrl = fileUrl;
     }
 }

@@ -23,7 +23,7 @@
             class="navbar navbar-expand-sm navbar-light container-xxl py-3 px-5 fw-bold"
     >
         <div class="container-fluid">
-            <a class="navbar-brand" href="javascript:void(0)"
+            <a class="navbar-brand" href="/"
             >RocketDan</a
             >
             <button
@@ -47,31 +47,25 @@
                 </form>
                 <ul class="navbar-nav me-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="../person/list.html"
+                        <a class="nav-link" href="/person"
                         >사람</a
                         >
                     </li>
                     <li class="nav-item">
                         <a
                                 class="nav-link"
-                                href="../corporation/list.html"
+                                href="/company"
                         >기업</a
                         >
                     </li>
                     <li class="nav-item">
                         <a
                                 class="nav-link"
-                                href="../recruitment/list.html"
+                                href="/"
                         >채용</a
                         >
                     </li>
                 </ul>
-                {{#sessionUser}}
-                    <div>
-                        <a class="btn btn-outline-primary"
-                           href="/logout">로그아웃</a>
-                    </div>
-                {{/sessionUser}}
                 {{^sessionUser}}
                     <div>
                         <a class="btn btn-outline-primary"
@@ -81,21 +75,24 @@
                         >
                     </div>
                 {{/sessionUser}}
-                <div
-                        id="profilePopover"
-                        class="text-center weapp-cursor-pointer weapp-fs-8"
-                >
+
+                {{#sessionUser}}
                     <div
-                            class="d-inline-block"
-                            data-bs-toggle="popover"
-                            data-bs-html="true"
-                            data-bs-placement="bottom"
-                            data-bs-trigger="click"
+                            id="profilePopover"
+                            class="text-center weapp-cursor-pointer weapp-fs-8"
                     >
-                        <i class="fa-solid fa-user"></i>
+                        <div
+                                class="d-inline-block"
+                                data-bs-toggle="popover"
+                                data-bs-html="true"
+                                data-bs-placement="bottom"
+                                data-bs-trigger="click"
+                        >
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="cursor-pointer">프로필</div>
                     </div>
-                    <div class="cursor-pointer">프로필</div>
-                </div>
+                {{/sessionUser}}
             </div>
         </div>
     </nav>
@@ -107,22 +104,25 @@
                         <div>
                             <p class="text-secondary fw-bold mb-2">내 프로필</p>
                             <ul class="nav flex-column small">
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark weapp-hover-primary">정보</a></li>
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark border-bottom weapp-hover-primary">게시물</a></li>
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark weapp-hover-primary">계정 설정</a></li>
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark weapp-hover-primary">로그아웃</a></li>
+                                <li><a href="/user" class="nav-link px-0 py-1 text-dark weapp-hover-primary">정보</a></li>
+                                <li><a href="/logout" class="nav-link px-0 py-1 text-dark weapp-hover-primary">로그아웃</a></li>
                             </ul>
                         </div>
                         <div class="border-start ps-3">
                             <p class="text-secondary fw-bold mb-2">내 구직 관리</p>
                             <ul class="nav flex-column small">
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark weapp-hover-primary">지원서/지원 이력</a></li>
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark weapp-hover-primary">내 이력서</a></li>
+                                <li><a href="/user/application" class="nav-link px-0 py-1 text-dark weapp-hover-primary">지원서/지원 이력</a></li>
+                                <li><a href="user/resume" class="nav-link px-0 py-1 text-dark weapp-hover-primary">내 이력서</a></li>
                                 <li><a href="#" class="nav-link px-0 py-1 text-dark border-bottom weapp-hover-primary">받은 제안/관심</a></li>
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark weapp-hover-primary">회사 등록</a></li>
-                                <p class="text-secondary fw-bold mb-2">기업 이름</p>
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark weapp-hover-primary">기업 프로필</a></li>
-                                <li><a href="#" class="nav-link px-0 py-1 text-dark weapp-hover-primary">채용 관리/등록</a></li>
+                                {{^sessionUser.companyId}}
+                                <li><a href="company/save-form" class="nav-link px-0 py-1 text-dark weapp-hover-primary">회사 등록</a></li>
+                                {{/sessionUser.companyId}}
+
+        {{#sessionUser.companyId}}
+                                <p class="text-secondary fw-bold mb-2 fs-6">{{sessionUser.companyName}}</p>
+                                <li><a href="company/{{sessionUser.companyId}}" class="nav-link px-0 py-1 text-dark weapp-hover-primary">기업 프로필</a></li>
+                                <li><a href="company/job" class="nav-link px-0 py-1 text-dark weapp-hover-primary">채용 관리/등록</a></li>
+                                {{/sessionUser.companyId}}
                             </ul>
                         </div>
                     </div>

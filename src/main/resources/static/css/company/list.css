@@ -1,6 +1,7 @@
 /* 메인 컨테이너 */
 .weapp-container-company-list {
-    display: flex;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
     max-width: 1320px;
     margin: 48px auto;
     gap: 24px;
@@ -14,7 +15,7 @@
 
 /* 사이드바 */
 .weapp-sidebar-company-list {
-    width: 25%;
+
 }
 
 .weapp-register-box-company-list button {
