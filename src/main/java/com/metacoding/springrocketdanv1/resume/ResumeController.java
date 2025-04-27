@@ -6,11 +6,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
 public class ResumeController {
-
+    private final HttpServletRequest request;
     private final ResumeService resumeService;
 
     @GetMapping("/resume/{id}")
@@ -27,5 +29,12 @@ public class ResumeController {
     public String updateForm(@PathVariable Integer id) {
 
         return "resume/update-form";
+    }
+
+    @GetMapping("/person")
+    public String list(HttpServletRequest request) {
+        List<Resume> resumes = resumeService.구직자목록보기();
+        request.setAttribute("models",resumes);
+        return "person/list";
     }
 }
