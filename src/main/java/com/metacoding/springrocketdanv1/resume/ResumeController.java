@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
@@ -24,7 +25,7 @@ public class ResumeController {
         return "resume/detail";
     }
 
-    @GetMapping("/resume/{id}/update")
+    @GetMapping("/resume/{id}/update-form")
     public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
 
         ResumeResponse.DetailDTO detailDTO = resumeService.이력서수정하기(resumeId);
@@ -33,12 +34,12 @@ public class ResumeController {
         return "resume/update-form";
     }
 
-//    @PostMapping("/resume/{id}/update")
-//    public String update(@PathVariable("id") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
-//        // 수정 요청 처리
-//        resumeService.이력서수정하기(resumeId, requestDTO);
-//
-//        // 상세 페이지로 리다이렉트 (새로고침된 상태로 열림)
-//        return "redirect:/resume/" + resumeId;
-//    }
+    @PostMapping("/resume/{id}/update")
+    public String update(@PathVariable("id") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
+        // 수정 요청 처리
+        resumeService.이력서수정완료(resumeId, requestDTO);
+
+        // 상세 페이지로 리다이렉트 (새로고침된 상태로 열림)
+        return "redirect:/resume/" + resumeId;
+    }
 }

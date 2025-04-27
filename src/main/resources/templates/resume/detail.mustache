@@ -9,7 +9,7 @@
             <h3 class="mb-4 fw-bold">{{model.name}}의 {{model.title}}</h3>
 
             <div>
-                <a href="/resume/{{model.id}}/update" class="btn btn-outline-primary btn-sm">
+                <a href="/resume/{{model.id}}/update-form" class="btn btn-outline-primary btn-sm">
                     수정
                 </a>
             </div>
@@ -64,41 +64,20 @@
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <div>
                 <h5 class="fw-bold mb-3">성별 & 생년월일</h5>
-                <div
-                        class="d-flex align-items-center gap-3 m-3 mb-1"
-                >
+                <div class="d-flex align-items-center gap-3 m-3 mb-1">
                     <!-- 성별 선택 칸 시작 -->
-                    <form action="/action_page.php">
-                        <div class="form-check-inline">
-                            <label
-                                    class="form-check-label"
-                                    for="radio1"
-                            >
-                                <input
-                                        type="radio"
-                                        class="form-check-input"
-                                        id="male"
-                                        value="option1"
-                                        checked
-                                        disabled
-                                />남자
-                            </label>
-                        </div>
-                        <div class="form-check-inline">
-                            <label
-                                    class="form-check-label"
-                                    for="radio2"
-                            >
-                                <input
-                                        type="radio"
-                                        class="form-check-input"
-                                        id="female"
-                                        value="option2"
-                                        disabled
-                                />여자
-                            </label>
-                        </div>
-                    </form>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" name="gender" value="남자"
+                                   {{#model.isMale}}checked{{/model.isMale}} disabled/> 남자
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" name="gender" value="여자"
+                                   {{#model.isFemale}}checked{{/model.isFemale}} disabled/> 여자
+                        </label>
+                    </div>
                     <!-- 성별 선택 칸 끝 -->
                     <!-- 생년월일 입력 칸 시작 -->
                     <div>
@@ -122,41 +101,18 @@
         <div class="bg-white rounded p-4 shadow-sm mb-4">
             <div>
                 <h5 class="fw-bold mb-3">경력</h5>
-                <div
-                        class="d-flex align-items-center gap-3 m-3 mb-1"
-                >
+                <div class="d-flex align-items-center gap-3 m-3 mb-1">
                     <!-- 신입 + 경력 옵션 선택 칸 시작 -->
-                    <form action="/action_page.php">
-                        <div class="form-check-inline">
-                            <label
-                                    class="form-check-label"
-                                    for="radio1"
-                            >
-                                <input
-                                        type="radio"
-                                        class="form-check-input"
-                                        id="newbie"
-                                        value="option1"
-                                        checked
-                                        disabled
-                                />신입
-                            </label>
-                        </div>
-                        <div class="form-check-inline">
-                            <label
-                                    class="form-check-label"
-                                    for="radio2"
-                            >
-                                <input
-                                        type="radio"
-                                        class="form-check-input"
-                                        id="old"
-                                        value="option2"
-                                        disabled
-                                />경력
-                            </label>
-                        </div>
-                    </form>
+                    <div class="form-check-inline">
+                        <input type="radio" class="form-check-label" name="careerLevel" value="신입"
+                               {{#model.isCareerLevelNewbie}}checked{{/model.isCareerLevelNewbie}} disabled/>
+                        <label class="form-check-label">신입</label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input type="radio" class="form-check-label" name="careerLevel" value="경력"
+                               {{#model.isCareerLevelOld}}checked{{/model.isCareerLevelOld}} disabled/>
+                        <label class="form-check-label">경력</label>
+                    </div>
                     <!-- 신입 + 경력 옵션 선택 칸 끝 -->
                 </div>
             </div>

@@ -52,4 +52,17 @@ public class Resume {
     @ManyToOne(fetch = FetchType.LAZY)
     private JobGroup jobGroup;
 
+    public void update(ResumeRequest.UpdateDTO requestDTO) {
+        this.title = requestDTO.getTitle();
+        this.summary = requestDTO.getSummary();
+        this.portfolioUrl = requestDTO.getPortfolioUrl();
+        this.gender = requestDTO.getGender();
+        this.education = requestDTO.getEducation();
+        this.birthdate = requestDTO.getBirthdate();
+        this.major = requestDTO.getMajor();
+        this.graduationType = requestDTO.getGraduationType();
+        this.phone = requestDTO.getPhone();
+        this.enrollmentDate = requestDTO.getEnrollmentDate();
+        this.graduationDate = requestDTO.getGraduationDate();
+    }
 }

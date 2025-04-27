@@ -119,9 +119,16 @@ public class ResumeService {
         ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications, resumeTechStacks,
                 resume.getUser().getEmail(), resume.getUser().getUsername(), careers,
                 isCareerLevelNewbie, isCareerLevelOld, isFemale, isMale, techStacks);
-        
+
 
         return detailDTO;
+    }
+
+    public void 이력서수정완료(Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
+        Resume resume = resumeRepository.findById(resumeId);
+
+        resume.update(requestDTO);
+
     }
 }
 

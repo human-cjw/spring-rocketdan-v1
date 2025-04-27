@@ -13,20 +13,20 @@ public class ResumeResponse {
     @Data
     public static class DetailDTO {
         private Integer id;
-        private String title;
-        private String summary;
-        private String gender;
-        private String education;
-        private String careerLevel;
-        private String birthdate;
-        private String major;
-        private String graduationType;
-        private String phone;
-        private String portfolioUrl;
+        private String title; // 제목
+        private String summary; // 자기소개
+        private String gender; // 성별
+        private String education; // 학력사항
+        private String careerLevel; // 연차 (근데 안 쓰기로함)
+        private String birthdate; // 생년월일
+        private String major; // 전공
+        private String graduationType; // 졸업, 재학, 휴학
+        private String phone; // 연락처
+        private String portfolioUrl; // 포트폴리오 url
         private Timestamp createdAt;
         private String jobGroupId;
-        private String enrollmentDate;
-        private String graduationDate;
+        private String enrollmentDate; // 입학날짜
+        private String graduationDate; // 졸업날짜
         private String isDefault;
         private String name;
         private String email;
