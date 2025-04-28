@@ -1,6 +1,5 @@
 package com.metacoding.springrocketdanv1.user;
 
-import com.metacoding.springrocketdanv1.company.Company;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,17 +29,21 @@ public class User {
     private Timestamp createdAt;
 
     // 기업 fk
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
-    private Company company; // 기본값 null
+
+    @JoinColumn(name = "company_id", nullable = true)
+    private Integer companyId; // 기본값 null
 
     @Builder
-    public User(String username, String password, String email, String userType, Timestamp createdAt) {
+    public User(String username, String password, String email, String userType, Integer companyId, String fileUrl) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.userType = userType;
-        this.createdAt = createdAt;
+        this.companyId = companyId;
+        this.fileUrl = fileUrl;
+
     }
+
+
 }
 

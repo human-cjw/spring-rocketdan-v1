@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
+@Table(name = "job_tech_stack_tb")
 public class JobTechStack {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

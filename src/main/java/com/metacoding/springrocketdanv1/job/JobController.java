@@ -1,14 +1,10 @@
 package com.metacoding.springrocketdanv1.job;
 
-import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
-import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeRepository;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
-import com.metacoding.springrocketdanv1.workField.WorkField;
-import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -27,8 +23,6 @@ public class JobController {
     private final TechStackRepository techStackRepository;
 
 
-
-
     @GetMapping("/")
     public String saveForm(Model model) {
         List<SalaryRange> salaryRanges = salaryRangeRepository.findAll();
@@ -42,6 +36,7 @@ public class JobController {
 
     @PostMapping("/job/save")
     public String save(@ModelAttribute JobRequest.JobSaveDTO requestDTO, HttpSession session) {
+        System.out.println("제출된 데이터: " + requestDTO);
         User sessionUser = (User) session.getAttribute("sessionUser");
         Job savedJob = jobService.공고등록(requestDTO, sessionUser);
         return "redirect:/job/" + savedJob.getId();

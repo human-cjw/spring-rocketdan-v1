@@ -1,23 +1,30 @@
 package com.metacoding.springrocketdanv1.salaryRange;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @NoArgsConstructor
 @Getter
-@Setter
 @Entity
-@Table(name = "salary_range")
+@Table(name = "salary_range_tb")
 public class SalaryRange {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    private Integer minSalary;
+    private Integer maxSalary;
+    private String label; // 구간표시 "minSalary-maxSalary"
 
-    public SalaryRange(String name) {
-        this.name = name;
+    @Builder
+    public SalaryRange(Integer id, Integer minSalary, Integer maxSalary, String label) {
+        this.id = id;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+        this.label = label;
     }
 }

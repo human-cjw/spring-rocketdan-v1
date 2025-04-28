@@ -2,9 +2,6 @@ package com.metacoding.springrocketdanv1.job;
 
 import com.metacoding.springrocketdanv1.company.Company;
 import com.metacoding.springrocketdanv1.company.CompanyRepository;
-import com.metacoding.springrocketdanv1.job.Job;
-import com.metacoding.springrocketdanv1.job.JobRepository;
-import com.metacoding.springrocketdanv1.job.JobRequest;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
@@ -16,6 +13,7 @@ import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,10 @@ public class JobService {
     private final JobGroupRepository jobGroupRepository;
     private final SalaryRangeRepository salaryRangeRepository;
 
+    @Transactional
     public Job 공고등록(JobRequest.JobSaveDTO requestDTO, User sessionUser) {
+
+
         // 1. WorkField 찾기 or 생성
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
         if (workField == null) {
@@ -51,6 +52,7 @@ public class JobService {
         }
 
         // 4. Company 찾기
+        //Company company = companyRepository.findById(1);
         Company company = companyRepository.findByUser(sessionUser);
         if (company == null) {
             throw new RuntimeException("Company not found");
