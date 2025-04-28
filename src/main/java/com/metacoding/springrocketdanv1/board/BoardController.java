@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
@@ -14,8 +16,8 @@ public class BoardController {
 
     @GetMapping("/board")
     public String list(Model model) {
-        BoardResponse.BoardDTO boardDTO = boardService.글목록보기();
-        model.addAttribute("model", boardDTO);
+        List<BoardResponse.BoardDTO> boardDTOList = boardService.글목록보기();
+        model.addAttribute("model", boardDTOList);
         return "board/list2";
     }
 

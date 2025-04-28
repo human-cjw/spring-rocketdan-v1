@@ -27,4 +27,5 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 */
+
 }
