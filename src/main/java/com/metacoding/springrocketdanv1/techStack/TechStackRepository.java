@@ -16,4 +16,7 @@ public class TechStackRepository {
                 .getResultList();
     }
 
+    public TechStack findById(Integer techStackId) {
+        return em.find(TechStack.class, techStackId);
+    }
 }

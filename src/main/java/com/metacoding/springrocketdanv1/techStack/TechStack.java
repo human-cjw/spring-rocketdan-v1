@@ -18,7 +18,5 @@ public class TechStack {
     private Integer id;
 
     private String name; // 기술명, java, python...
-
-    @Transient
-    private Boolean isChecked;
+    
 }

@@ -5,17 +5,6 @@
     <div class="container py-3">
         <div class="d-flex" style="justify-content: space-between">
             <h3 class="mb-4 fw-bold">이력서 수정</h3>
-
-            <div class="d-flex gap-1">
-                <form method="POST" action="/resume/{{model.id}}/default" style="display: inline;">
-                    <button type="submit"
-                            class="btn btn-outline-warning btn-sm d-inline-flex align-items-center justify-content-center fs-6"
-                            style="height: 50%; padding: 0 12px; line-height: 1.5;">
-                        기본 이력서 설정
-                    </button>
-                </form>
-                
-            </div>
         </div>
 
         <form method="POST" action="/resume/{{model.id}}/update">
@@ -186,21 +175,9 @@
                         <div class="align-items-center">
                             <label class="mb-2">상태*</label>
                             <select class="form-select" name="graduationType">
-                                <option value="졸업"
-                                        {{#model.graduationTypeIsGraduated}}selected{{/model.graduationTypeIsGraduated}}>
-                                    졸업
-                                </option>
-                                <option value="재학"
-                                        {{#model.graduationTypeIsEnrolled}}selected{{/model.graduationTypeIsEnrolled}}>
-                                    재학
-                                </option>
-                                <option value="휴학"
-                                        {{#model.graduationTypeIsLeave}}selected{{/model.graduationTypeIsLeave}}>휴학
-                                </option>
-                                <option value="졸업 예정"
-                                        {{#model.graduationTypeIsExpected}}selected{{/model.graduationTypeIsExpected}}>
-                                    졸업 예정
-                                </option>
+                                {{#model.graduationTypes}}
+                                    <option value="{{value}}" {{#isSelected}}selected{{/isSelected}}>{{value}}</option>
+                                {{/model.graduationTypes}}
                             </select>
                         </div>
                         <!-- 현 학교 상태 끝 -->
@@ -253,7 +230,14 @@
 
             </div>
             <!-- 기술 스택 칸 끝 -->
-            <div class="d-flex justify-content-end gap-1">
+            <div class="d-flex justify-content-between gap-1">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="isDefault" value="true"
+                           id="isDefaultCheckbox" {{#model.isDefault}}checked{{/model.isDefault}}>
+                    <label class="form-check-label" for="isDefaultCheckbox">
+                        기본 이력서로 설정
+                    </label>
+                </div>
                 <button type="submit"
                         class="btn btn-outline-primary btn-sm d-inline-flex align-items-center justify-content-center"
                         style="height: 32px; padding: 0 12px; font-size: 0.875rem; line-height: 1.5;">

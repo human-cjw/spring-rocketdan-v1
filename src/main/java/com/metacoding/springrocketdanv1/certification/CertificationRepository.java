@@ -17,4 +17,14 @@ public class CertificationRepository {
                 .setParameter("resumeId", resumeId)
                 .getResultList();
     }
+
+    public void deleteByResumeId(Integer resumeId) {
+        em.createQuery("DELETE FROM Certification c WHERE c.resume.id = :resumeId")
+                .setParameter("resumeId", resumeId)
+                .executeUpdate();
+    }
+
+    public void save(Certification certification) {
+        em.persist(certification);
+    }
 }

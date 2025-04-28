@@ -1,11 +1,7 @@
 package com.metacoding.springrocketdanv1.resume;
 
-import com.metacoding.springrocketdanv1.career.Career;
-import com.metacoding.springrocketdanv1.certification.Certification;
-import com.metacoding.springrocketdanv1.techStack.TechStack;
 import lombok.Data;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public class ResumeRequest {
@@ -23,13 +19,34 @@ public class ResumeRequest {
         private String phone; // 연락처
         private String enrollmentDate; // 입학날짜
         private String graduationDate; // 졸업날짜
-        private String name;
-        private String email;
-        private List<Certification> certifications; // 다른 테이블에서 가지고 온 것
-        private List<TechStack> resumeTechStacks; // 다른 테이블에서 가지고 온 것 (유저가 갖고 있는거)
-        private List<Career> careers;
         private String careerLevel;
+        private List<CertificationDTO> certifications;
+        private List<ResumeTechStackDTO> resumeTechStacks;
+        private List<CareerDTO> careers;
 
+        @Data
+        public static class CertificationDTO {
+            private Integer id;
+            private String name; // 자격증이름
+            private String issuer; // 자격증발급기관
+            private String issuedDate; // 발급 날짜
+        }
+
+        @Data
+        public static class CareerDTO {
+            private Integer id;
+            private String companyName; // 이전에 다녔던 기업이름
+            private String startDate; // 시작일
+            private String endDate; // 종료일
+
+        }
+
+        @Data
+        public static class ResumeTechStackDTO {
+            private Integer techStackId;
+        }
 
     }
+
+
 }

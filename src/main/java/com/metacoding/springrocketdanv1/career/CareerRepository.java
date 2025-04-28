@@ -17,4 +17,14 @@ public class CareerRepository {
                 .setParameter("resumeId", resumeId)
                 .getResultList();
     }
+
+    public void deleteByResumeId(Integer resumeId) {
+        em.createQuery("DELETE FROM Career c WHERE c.resume.id = :resumeId")
+                .setParameter("resumeId", resumeId)
+                .executeUpdate();
+    }
+
+    public void save(Career career) {
+        em.persist(career);
+    }
 }
