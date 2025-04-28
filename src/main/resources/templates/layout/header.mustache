@@ -112,16 +112,16 @@
                             <p class="text-secondary fw-bold mb-2">내 구직 관리</p>
                             <ul class="nav flex-column small">
                                 <li><a href="/user/application" class="nav-link px-0 py-1 text-dark weapp-hover-primary">지원서/지원 이력</a></li>
-                                <li><a href="user/resume" class="nav-link px-0 py-1 text-dark weapp-hover-primary">내 이력서</a></li>
+                                <li><a href="/user/resume" class="nav-link px-0 py-1 text-dark weapp-hover-primary">내 이력서</a></li>
                                 <li><a href="#" class="nav-link px-0 py-1 text-dark border-bottom weapp-hover-primary">받은 제안/관심</a></li>
                                 {{^sessionUser.companyId}}
-                                <li><a href="company/save-form" class="nav-link px-0 py-1 text-dark weapp-hover-primary">회사 등록</a></li>
+                                <li><a href="/company/save-form" class="nav-link px-0 py-1 text-dark weapp-hover-primary">회사 등록</a></li>
                                 {{/sessionUser.companyId}}
 
         {{#sessionUser.companyId}}
                                 <p class="text-secondary fw-bold mb-2 fs-6">{{sessionUser.companyName}}</p>
-                                <li><a href="company/{{sessionUser.companyId}}" class="nav-link px-0 py-1 text-dark weapp-hover-primary">기업 프로필</a></li>
-                                <li><a href="company/job" class="nav-link px-0 py-1 text-dark weapp-hover-primary">채용 관리/등록</a></li>
+                                <li><a href="/company/{{sessionUser.companyId}}" class="nav-link px-0 py-1 text-dark weapp-hover-primary">기업 프로필</a></li>
+                                <li><a href="/company/job" class="nav-link px-0 py-1 text-dark weapp-hover-primary">채용 관리/등록</a></li>
                                 {{/sessionUser.companyId}}
                             </ul>
                         </div>

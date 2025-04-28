@@ -42,6 +42,7 @@ public class Company {
     @CreationTimestamp
     private Timestamp createdAt;
 
+
     // 유저 fk
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", unique = true)
@@ -78,4 +79,18 @@ public class Company {
         this.user = user;
         this.workField = workField;
     }
+
+    public void update(CompanyRequest.UpdateDTO dto, WorkField workField) {
+        this.nameKr = dto.getNameKr();
+        this.nameEn = dto.getNameEn();
+        this.oneLineIntro = dto.getOneLineIntro();
+        this.introduction = dto.getIntroduction();
+        this.startDate = dto.getStartDate();
+        this.businessNumber = dto.getBusinessNumber();
+        this.email = dto.getEmail();
+        this.contactManager = dto.getContactManager();
+        this.address = dto.getAddress();
+        this.workField = workField;
+    }
+
 }

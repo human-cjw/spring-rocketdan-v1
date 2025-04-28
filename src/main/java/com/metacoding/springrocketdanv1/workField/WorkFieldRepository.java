@@ -33,4 +33,8 @@ public class WorkFieldRepository {
         em.persist(workField);
         return workField;
     }
+
+    public WorkField findById(Integer id) {
+        return em.find(WorkField.class, id);
+    }
 }

@@ -1,131 +1,72 @@
 {{> layout/header }}
 
 <div class="py-5">
-    <div class="weapp-company-info">
-        <label class="weapp-company-logo">
-            이미지 업로드
-            <input type="file" accept="image/*"/>
-        </label>
-
-        <div class="weapp-company-name">
-            <input type="text" placeholder="회사 이름을 입력하세요"/>
-        </div>
-
-        <div class="weapp-company-desc">
-                    <textarea class="weapp-input" id="companyDesc">
-한 줄로 회사를 소개해주세요</textarea
-                    >
-        </div>
-    </div>
-    <hr/>
-
-    <div class="weapp-container">
-        <form id="weapp-edit-form">
-            <div class="weapp-container-header">
-                <h3>정보</h3>
+    <div class="weapp-reset-company-save">
+        <div class="weapp-container-company-save">
+            <div class="weapp-form-wrapper-company-save">
+                <h2 class="weapp-form-title-company-save">기업 수정</h2>
                 <hr/>
-            </div>
+                <form action="/company/update" method="post" class="weapp-form-company-save">
+                    <input type="hidden" name="id" value="{{model.id}}"/>
 
-            <!-- 기업 소개 -->
-            <div class="weapp-sell">
-                <div>
-                    <h2>기업소개</h2>
-                </div>
-                <div class="weapp-info-card">
-                            <textarea class="weapp-editable-textarea" rows="6">
-                      AIEV는 AI Equality, Everyone's Value의 약자로, 지속가능한 AI를 통해 모두를 위한 GPU 공유자원을 만듭니다.
-                      높은 자원활용성과 Cloud Native 기술을 바탕으로 사용량에 맞춰 탄력 운영 가능한 GPU플랫폼을 운영합니다.
-                            </textarea>
-                    <label class="weapp-company-logo">
-                        이미지 업로드
-                        <input type="file" accept="image/*"/>
-                    </label>
-                </div>
-            </div>
+                    <label>한글 기업명</label>
+                    <input type="text" name="nameKr" placeholder="한글 기업명 입력" value="{{model.nameKr}}"/>
 
-            <!-- 기술 스택 -->
-            <div class="weapp-sell">
-                <div>
-                    <h2>기술 스택</h2>
-                </div>
-                <div class="weapp-stack-box">
-                    <input
-                            type="text"
-                            class="weapp-editable-input"
-                            value="Java, JavaScript, Spring, Linux, MATLAB, embedded, UI/UX 디자인, 그래픽 드라이버, 보안, 딥러닝, 분산 시스템, AI, 클라우드"
-                    />
-                    <small style="color: #777"
-                    >쉼표(,)로 구분해 입력하세요</small
-                    >
-                </div>
-            </div>
+                    <label>영문 기업명</label>
+                    <input type="text" name="nameEn" placeholder="영문 기업명 입력" value="{{model.nameEn}}"/>
 
-            <!-- 기업 정보 -->
-            <div>
-                <h2>기업 정보</h2>
-            </div>
-            <div class="weapp-company-info-box">
-                <table class="weapp-info-table">
-                    <tr>
-                        <th>설립일</th>
-                        <td>
-                            <input
-                                    type="date"
-                                    class="weapp-editable-input"
-                                    value="2024-01-19"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>이메일</th>
-                        <td>
-                            <input
-                                    type="email"
-                                    class="weapp-editable-input"
-                                    value="hk.kim@aieev.com"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>문의 담당자</th>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="weapp-editable-input"
-                                    value="김현경 사업전략팀"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>사무실</th>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="weapp-editable-input"
-                                    value="서울특별시 서초구 서초동 1330-8 13층"
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>산업 분야</th>
-                        <td>
-                            <input
-                                    type="text"
-                                    class="weapp-editable-input"
-                                    value="AI, Cloud"
-                            />
-                        </td>
-                    </tr>
-                </table>
-            </div>
+                    <label>한 줄 소개</label>
+                    <input type="text" name="oneLineIntro" placeholder="한 줄 소개 입력" value="{{model.oneLineIntro}}"/>
 
-            <!-- 수정 완료 버튼 -->
-            <div style="text-align: right; margin-top: 20px">
-                <button type="submit" class="btn btn-primary">
-                    수정 완료
-                </button>
+                    <label>기업소개</label>
+                    <input type="text" name="introduction" placeholder="예: 국내 최대 비즈니스 네트워크"
+                           value="{{model.introduction}}"/>
+
+                    <label>설립일</label>
+                    <input type="date" name="startDate" placeholder="설립일 입력" value="{{model.startDate}}"/>
+
+                    <label>사업자등록번호</label>
+                    <input type="text" name="businessNumber" placeholder="숫자만 입력" value="{{model.businessNumber}}"/>
+
+                    <label>기술 스택</label>
+                    <div>
+                        {{#model.techStacks}}
+                            <label>
+                                <input type="checkbox" name="techStack[]" value="{{name}}"
+                                       {{#isChecked}}checked{{/isChecked}} />
+                                {{name}}
+                            </label>
+                        {{/model.techStacks}}
+                    </div>
+
+                    <label>기업 공식 이메일</label>
+                    <input type="email" name="email" placeholder="이메일 입력" value="{{model.email}}"/>
+
+                    <label>문의 담당자</label>
+                    <input type="text" name="contactManager" placeholder="담당자" value="{{model.contactManager}}"/>
+
+                    <label>사무실</label>
+                    <input type="text" name="address" placeholder="사무실 주소" value="{{model.address}}"/>
+
+                    <label>산업 분야</label>
+                    <div>
+                        {{#model.workFields}}
+                            <label>
+                                <input type="radio" name="workFieldId" value="{{id}}"
+                                       {{#isChecked}}checked{{/isChecked}} />
+                                {{name}}
+                            </label>
+                        {{/model.workFields}}
+                    </div>
+                    
+                    <div class="submit-btn-wrapper-company-save">
+                        <button type="submit" class="weapp-submit-btn-company-save btn btn-primary">
+                            수정 완료
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 

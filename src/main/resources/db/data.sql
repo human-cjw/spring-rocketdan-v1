@@ -21,12 +21,12 @@ INSERT INTO user_tb (username,
                      email,
                      file_url,
                      user_type,
-                     company_id,
-                     created_at)
-VALUES ('ssar', '1234', 'ssar@example.com', null, 'user', null, now()),
-       ('cos', '1234', 'cos@example.com', null, 'user', null, now()),
-       ('love', '1234', 'love@example.com', null, 'company', 1, now()),
-       ('haha', '1234', 'haha@example.com', null, 'company', 2, now());
+                     created_at,
+                     company_id)
+VALUES ( 'ssar', '1234', 'ssar@example.com', null, 'user', NOW(), null),
+       ( 'cos', '1234', 'cos@example.com', null, 'user', NOW(), null),
+       ( 'love', '1234', 'love@example.com', null, 'company', NOW(), 1),
+       ( 'haha', '1234', 'haha@example.com', null, 'company', NOW(), 2);
 
 -- =============================================
 -- Company 더미 데이터
@@ -82,6 +82,7 @@ VALUES ('네이버',
         1,
         '2005-10-15',
         now());
+
 
 -- =============================================
 -- SalaryRange 더미 데이터
