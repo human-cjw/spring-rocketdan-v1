@@ -5,12 +5,15 @@ import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.resume.Resume;
 import com.metacoding.springrocketdanv1.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@ToString
 @NoArgsConstructor
 @Getter
 @Entity
@@ -44,4 +47,15 @@ public class Application {
     // 공고 주인 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private Company company;
+
+    @Builder
+    public Application(Integer id, String status, Timestamp createdAt, Resume resume, Job job, User user, Company company) {
+        this.id = id;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.resume = resume;
+        this.job = job;
+        this.user = user;
+        this.company = company;
+    }
 }
