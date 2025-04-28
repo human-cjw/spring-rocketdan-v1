@@ -1,5 +1,6 @@
 .weapp-date {
     width: 170px;
+<<<<<<< HEAD
 }
 
 .weapp-row {
@@ -12,4 +13,6 @@
 .weapp-container {
     display: flex;
     justify-content: center;
+=======
+>>>>>>> 9df7e4eb489ec81a5564f496b1ed467784531b93
 }

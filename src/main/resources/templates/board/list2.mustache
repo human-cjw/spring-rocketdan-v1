@@ -1,0 +1,72 @@
+{{> layout/header }}
+
+<div class="bg-light py-5">
+    <main class="container">
+        <div class="card p-3 mt-4 mb-4 shadow-sm">
+            <div class="d-flex" style="justify-content: space-between">
+                <div class="d-flex align-items-center mb-3">
+                    <img
+                            src="https://image.rocketpunch.com/images/user/user.png?s=200x200&t=cover"
+                            class="rounded-circle me-2"
+                            width="40"
+                            height="40"
+                    />
+                    <div>익명</div>
+                </div>
+                <form action="/board/update-form" class="text-end d-flex gap-2"
+                      style="margin-bottom: 1rem">
+                    <input type="hidden" name="boardId" value="1"/>
+                    <input type="password" class="form-control" placeholder="Enter password" name="password">
+
+                    <button class="btn btn-warning flex-shrink-0"
+                    >수정
+                    </button>
+
+                </form>
+            </div>
+            <form>
+                <h3 class="h3">제목</h3>
+                <textarea
+                        class="form-control mb-3 mr-3"
+                        rows="5"
+                        readonly
+                >안녕하세요</textarea>
+            </form>
+            <hr/>
+        </div>
+        <div class="card p-3 mt-4 mb-4 shadow-sm">
+            <div class="d-flex" style="justify-content: space-between">
+                <div class="d-flex align-items-center mb-3">
+                    <img
+                            src="https://image.rocketpunch.com/images/user/user.png?s=200x200&t=cover"
+                            class="rounded-circle me-2"
+                            width="40"
+                            height="40"
+                    />
+                    <div>익명</div>
+                </div>
+                <form action="/board/update-form" class="text-end d-flex gap-2"
+                      style="margin-bottom: 1rem">
+                    <input type="hidden" name="boardId" value="1"/>
+                    <input type="password" class="form-control" placeholder="Enter password" name="password">
+
+                    <button class="btn btn-warning flex-shrink-0"
+                    >수정
+                    </button>
+
+                </form>
+            </div>
+            <form>
+                <h3 class="h3">제목</h3>
+                <textarea
+                        class="form-control mb-3 mr-3"
+                        rows="5"
+                        readonly
+                >안녕하세요</textarea>
+            </form>
+            <hr/>
+        </div>
+    </main>
+</div>
+
+{{> layout/footer }}

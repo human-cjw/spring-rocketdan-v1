@@ -10,6 +10,8 @@ import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
+import com.metacoding.springrocketdanv1.user.UserRepository;
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +31,13 @@ public class JobService {
     private final WorkFieldRepository workFieldRepository;
     private final JobGroupRepository jobGroupRepository;
     private final SalaryRangeRepository salaryRangeRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public Job 공고등록(JobRequest.JobSaveDTO requestDTO, User sessionUser) {
+    public Job 공고등록(JobRequest.JobSaveDTO requestDTO, UserResponse.SessionUserDTO sessionUserDTO) {
 
+        User sessionUser = userRepository.findById(sessionUserDTO.getId());
+        
 
         // 1. WorkField 찾기 or 생성
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
