@@ -2,6 +2,7 @@ package com.metacoding.springrocketdanv1.board;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -12,7 +13,9 @@ public class BoardController {
 
 
     @GetMapping("/board")
-    public String list() {
+    public String list(Model model) {
+        BoardResponse.BoardDTO boardDTO = boardService.글목록보기();
+        model.addAttribute("model", boardDTO);
         return "board/list2";
     }
 
