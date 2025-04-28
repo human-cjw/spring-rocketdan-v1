@@ -40,6 +40,8 @@ public class CompanyService {
         List<String> techStackNames = techStacks.stream()
                 .map(TechStack::getName)
                 .collect(Collectors.toList());
+        
+        boolean isOwner = false;
 
         String workFieldName = workFieldRepository.findNameById(company.getWorkField().getId());
         return new CompanyResponse.CompanyResponseDTO(
@@ -58,7 +60,8 @@ public class CompanyService {
                 company.getContactManager(),
                 company.getStartDate(),
                 workFieldName,
-                techStackNames
+                techStackNames,
+                isOwner
         );
     }
 

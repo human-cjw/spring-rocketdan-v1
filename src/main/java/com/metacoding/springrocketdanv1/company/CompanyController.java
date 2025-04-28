@@ -29,8 +29,23 @@ public class CompanyController {
 
 
     @GetMapping("/company/{id}")
-    public String detail(@PathVariable("id") Integer id, Model model) {
-        CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(id);
+    public String detail(@PathVariable("id") Integer companyId, Model model, HttpSession session) {
+        CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(companyId);
+
+        // 현재 로그인한 유저 정보 가져오기
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+
+        boolean isOwner = false;
+        if (sessionUser != null) {
+            if ("company".equals(sessionUser.getUserType()) && sessionUser.getCompanyId() != null) {
+                if (sessionUser.getCompanyId().equals(companyId)) {
+                    isOwner = true;
+                }
+            }
+        }
+
+        responseDTO.setOwner(isOwner);
+
         model.addAttribute("model", responseDTO);
         return "company/detail";
     }

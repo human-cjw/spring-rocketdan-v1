@@ -3,12 +3,14 @@ package com.metacoding.springrocketdanv1.company;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 public class CompanyResponse {
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class CompanyResponseDTO {
         private String nameKr;
@@ -27,6 +29,7 @@ public class CompanyResponse {
         private String startDate;
         private String workFieldName;
         private List<String> techStackList;
+        private boolean isOwner;
     }
 
     @Data
