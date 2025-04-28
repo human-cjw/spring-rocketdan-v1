@@ -46,16 +46,21 @@
                     <input type="text" name="contactManager" placeholder="담당자" value="{{model.contactManager}}"/>
 
                     <label>사무실</label>
-                    <input type="text" name="address" placeholder="사무실 주소" value="{{model.address}}">
+                    <input type="text" name="address" placeholder="사무실 주소" value="{{model.address}}"/>
 
                     <label>산업 분야</label>
-                    <input type="text" name="workFieldName" placeholder="산업 분야 입력" value="{{model.workFieldName}}"/>
-
+                    <div>
+                        {{#model.workFields}}
+                            <label>
+                                <input type="radio" name="workFieldId" value="{{id}}"
+                                       {{#isChecked}}checked{{/isChecked}} />
+                                {{name}}
+                            </label>
+                        {{/model.workFields}}
+                    </div>
+                    
                     <div class="submit-btn-wrapper-company-save">
-                        <button
-                                type="submit"
-                                class="weapp-submit-btn-company-save btn btn-primary"
-                        >
+                        <button type="submit" class="weapp-submit-btn-company-save btn btn-primary">
                             수정 완료
                         </button>
                     </div>

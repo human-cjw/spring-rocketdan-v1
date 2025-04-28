@@ -43,6 +43,7 @@ public class CompanyResponse {
         private String address;
         private String workFieldName;
         private List<CompanyResponse.TechStackDTO> techStacks;
+        private List<CompanyResponse.WorkFieldDTO> workFields;
     }
 
     @Data
@@ -54,6 +55,18 @@ public class CompanyResponse {
             this.name = name;
             this.isChecked = isChecked;
         }
+    }
 
+    @Data
+    public static class WorkFieldDTO {
+        private Integer id;
+        private String name;
+        private boolean isChecked;
+
+        public WorkFieldDTO(Integer id, String name, boolean isChecked) {
+            this.id = id;
+            this.name = name;
+            this.isChecked = isChecked;
+        }
     }
 }

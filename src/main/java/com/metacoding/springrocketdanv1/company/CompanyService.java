@@ -5,6 +5,7 @@ import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStackReposit
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import jakarta.persistence.EntityManager;
@@ -30,6 +31,7 @@ public class CompanyService {
     @PersistenceContext
     private EntityManager em;
 
+    // 기업 상세보기
     @Transactional(readOnly = true)
     public CompanyResponse.CompanyResponseDTO 기업상세(Integer companyId) {
         Company company = companyRepository.findById(companyId);
@@ -40,7 +42,6 @@ public class CompanyService {
                 .collect(Collectors.toList());
 
         String workFieldName = workFieldRepository.findNameById(company.getWorkField().getId());
-
         return new CompanyResponse.CompanyResponseDTO(
                 company.getNameKr(),
                 company.getNameEn(),
@@ -61,13 +62,15 @@ public class CompanyService {
         );
     }
 
+    // 기업 리스트
     @Transactional(readOnly = true)
     public List<Company> 기업리스트() {
         return companyRepository.findAll();
     }
 
+    // 기업 등록
     @Transactional
-    public Company 기업등록(CompanyRequest.CompanySaveDTO requestDTO, User sessionUser) {
+    public Company 기업등록(CompanyRequest.CompanySaveDTO requestDTO, UserResponse.SessionUserDTO sessionUser) {
         // 산업분야 조회 또는 저장
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
         if (workField == null) {
@@ -79,7 +82,9 @@ public class CompanyService {
         if (requestDTO.getTechStack() != null) {
             for (String name : requestDTO.getTechStack()) {
                 TechStack ts = techStackRepository.findByName(name);
-                if (ts != null) techStackList.add(ts);
+                if (ts != null) {
+                    techStackList.add(ts);
+                }
             }
         }
 
@@ -91,12 +96,11 @@ public class CompanyService {
         User user = em.find(User.class, sessionUser.getId());
 
         try {
-            // userType = 'company' 로 변경
+            // userType, companyId 수정
             Field userTypeField = User.class.getDeclaredField("userType");
             userTypeField.setAccessible(true);
             userTypeField.set(user, "company");
 
-            // companyId 세팅
             Field companyIdField = User.class.getDeclaredField("companyId");
             companyIdField.setAccessible(true);
             companyIdField.set(user, company.getId());
@@ -108,10 +112,12 @@ public class CompanyService {
         return company;
     }
 
+    // 내 기업 조회 (업데이트 폼)
     @Transactional(readOnly = true)
     public CompanyResponse.UpdateFormDTO 내기업조회(Integer userId) {
         Company company = companyRepository.findByUserId(userId);
 
+        // 기술 스택 전체 조회 + 선택 여부 매핑
         List<TechStack> allTechStacks = techStackRepository.findAll();
         List<TechStack> selectedTechStacks = companyTechStackRepository.findByCompanyId(company.getId());
 
@@ -125,6 +131,17 @@ public class CompanyService {
             techStackDTOs.add(new CompanyResponse.TechStackDTO(ts.getName(), isChecked));
         }
 
+        // 산업 분야 전체 조회 + 선택 여부 매핑
+        List<WorkField> allWorkFields = workFieldRepository.findAll();
+        Integer selectedWorkFieldId = company.getWorkField().getId();
+
+        List<CompanyResponse.WorkFieldDTO> workFieldDTOs = new ArrayList<>();
+        for (WorkField wf : allWorkFields) {
+            boolean isChecked = wf.getId().equals(selectedWorkFieldId);
+            workFieldDTOs.add(new CompanyResponse.WorkFieldDTO(wf.getId(), wf.getName(), isChecked));
+        }
+
+        // DTO 조립
         CompanyResponse.UpdateFormDTO dto = new CompanyResponse.UpdateFormDTO();
         dto.setId(company.getId());
         dto.setNameKr(company.getNameKr());
@@ -136,31 +153,36 @@ public class CompanyService {
         dto.setEmail(company.getEmail());
         dto.setContactManager(company.getContactManager());
         dto.setAddress(company.getAddress());
-        dto.setWorkFieldName(company.getWorkField().getName());
         dto.setTechStacks(techStackDTOs);
+        dto.setWorkFields(workFieldDTOs);
 
         return dto;
     }
 
+    // 기업 수정
     @Transactional
     public void 기업수정(CompanyRequest.UpdateDTO dto) {
         Company company = companyRepository.findById(dto.getId());
 
-        WorkField workField = workFieldRepository.findByName(dto.getWorkFieldName());
+        // workFieldId로 조회
+        WorkField workField = workFieldRepository.findById(dto.getWorkFieldId());
         if (workField == null) {
-            workField = workFieldRepository.save(new WorkField(dto.getWorkFieldName()));
+            throw new RuntimeException("선택한 산업 분야가 존재하지 않습니다.");
         }
 
         company.update(dto, workField);
 
+        // 기존 기술 스택 삭제 후 새로 저장
         companyTechStackRepository.deleteByCompanyId(company.getId());
 
         List<String> techStackList = dto.getTechStack();
         if (techStackList != null) {
             for (String techName : techStackList) {
                 TechStack techStack = techStackRepository.findByName(techName);
-                CompanyTechStack cts = new CompanyTechStack(company, techStack);
-                companyTechStackRepository.save(cts);
+                if (techStack != null) {
+                    CompanyTechStack cts = new CompanyTechStack(company, techStack);
+                    companyTechStackRepository.save(cts);
+                }
             }
         }
     }

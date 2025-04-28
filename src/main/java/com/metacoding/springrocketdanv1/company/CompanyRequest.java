@@ -3,6 +3,7 @@ package com.metacoding.springrocketdanv1.company;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.user.User;
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import lombok.Data;
 
@@ -25,7 +26,7 @@ public class CompanyRequest {
         private String address;
         private String workFieldName;
 
-        public Company toEntity(User user, WorkField workField, List<TechStack> techStackList) {
+        public Company toEntity(UserResponse.SessionUserDTO sessionUserDTO, WorkField workField, List<TechStack> techStackList) {
             Company company = Company.builder()
                     .nameKr(nameKr)
                     .nameEn(nameEn)
@@ -36,7 +37,9 @@ public class CompanyRequest {
                     .email(email)
                     .contactManager(contactManager)
                     .address(address)
-                    .user(user)
+                    .user(User.builder()
+                            .id(sessionUserDTO.getId())
+                            .build())
                     .workField(workField)
                     .build();
 
@@ -61,7 +64,7 @@ public class CompanyRequest {
         private String email;
         private String contactManager;
         private String address;
-        private String workFieldName;
+        private Integer workFieldId;
         private List<String> techStack;
     }
 }
