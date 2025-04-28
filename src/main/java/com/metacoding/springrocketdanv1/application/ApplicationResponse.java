@@ -40,4 +40,23 @@ public class ApplicationResponse {
             }
         }
     }
+
+    @Data
+    public static class ApplyDoneDTO {
+        private String title;
+        private String deadline;
+        private String employmentType;
+        private String careerLevel;
+        private String updatedAt;
+        private String description;
+
+        public ApplyDoneDTO(Job job) {
+            this.title = job.getTitle();
+            this.deadline = job.getDeadline();
+            this.employmentType = job.getEmploymentType();
+            this.careerLevel = job.getCareerLevel();
+            this.updatedAt = job.getUpdatedAt() != null ? job.getUpdatedAt().toString().substring(0, 10) : null;
+            this.description = job.getDescription();
+        }
+    }
 }

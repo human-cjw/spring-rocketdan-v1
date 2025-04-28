@@ -28,10 +28,26 @@ public class ApplicationController {
     }
 
     @PostMapping("/user/job/{jobId}/apply/save")
-    public String applyForm(@PathVariable("jobId") Integer jobId,
+    public String applySave(@PathVariable("jobId") Integer jobId,
                             ApplicationRequest.SaveDTO reqDTO) {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         applicationService.지원하기(jobId, reqDTO, sessionUserDTO.getId());
-        return "redirect:/";
+        return "redirect:/user/job/" + jobId + "/apply-done";
+    }
+
+    @GetMapping("/user/job/{jobId}/apply-done")
+    public String applyDone(@PathVariable("jobId") Integer jobId,
+                            HttpServletRequest request) {
+        ApplicationResponse.ApplyDoneDTO respDTO = applicationService.지원완료(jobId);
+
+        request.setAttribute("model", respDTO);
+
+        return "user/application/apply-done";
+    }
+
+    @GetMapping("/user/application")
+    public String userApplication(HttpServletRequest request) {
+        // 유저 지원 관리 페이지 데이터 가져와서 DTO로 던져주기
+        return "user/application/list";
     }
 }

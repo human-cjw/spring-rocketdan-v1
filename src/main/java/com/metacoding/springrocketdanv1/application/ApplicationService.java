@@ -35,4 +35,14 @@ public class ApplicationService {
 
         applicationRepository.save(application);
     }
+
+    public ApplicationResponse.ApplyDoneDTO 지원완료(Integer jobId) {
+        // 공고 정보 가져오기
+        Job jobPC = jobRepository.findById(jobId);
+
+        // 공고 정보 DTO에 담기
+        ApplicationResponse.ApplyDoneDTO respDTO = new ApplicationResponse.ApplyDoneDTO(jobPC);
+
+        return respDTO;
+    }
 }
