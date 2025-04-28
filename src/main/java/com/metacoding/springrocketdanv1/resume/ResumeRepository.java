@@ -4,6 +4,8 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class ResumeRepository {
@@ -20,5 +22,11 @@ public class ResumeRepository {
         } else {
             return em.merge(resume); // 기존 객체 수정
         }
+    }
+
+    public List<Resume> findAllByUserId(Integer userId) {
+        return em.createQuery("SELECT r FROM Resume r WHERE r.user.id = :userId", Resume.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 }

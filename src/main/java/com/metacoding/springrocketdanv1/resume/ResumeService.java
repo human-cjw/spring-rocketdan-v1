@@ -136,10 +136,20 @@ public class ResumeService {
 
     @Transactional
     public void 기본이력서설정(Integer resumeId) {
-        resumeRepository.updateAllResumeDefaultFalse();
+        // 1. 선택한 이력서 불러오기
+        Resume selectedResume = resumeRepository.findById(resumeId);
+        Integer userId = selectedResume.getUser().getId();
 
-        Resume resume = resumeRepository.findById(resumeId);
-        resume.changeDefaultTrue();
+        // 2. 해당 유저의 모든 이력서를 가져오기
+        List<Resume> resumeList = resumeRepository.findAllByUserId(userId);
+
+        // 3. 모두 isDefault = false로 만들기
+        for (Resume resume : resumeList) {
+            resume.setIsDefault(false); // isDefault = false
+        }
+
+        // 4. 선택한 이력서만 isDefault = true
+        selectedResume.changeDefaultTrue();
     }
 }
 
