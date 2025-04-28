@@ -12,91 +12,60 @@
                                     class="weapp-img2-1-job-detail"
                             />
                         </div>
-                        <div>팀스파르타 &gt;</div>
+                        <a href="https://localhost:8080/company/{{jobDetail.companyId}}">{{nameKr}} &gt;</a>
+
                     </div>
                 </a>
                 <div class="weapp-l-2-job-detail">
-                    [내일배움캠프] 온라인튜터 (Unreal)
+                    {{jobDetail.title}}
                 </div>
                 <div class="weapp-l-3-job-detail">
-                    수시채용 | 경력 | 03월06일 공고 업데이트
+                    {{jobDetail.deadline}} | {{jobDetail.careerLevel}} | {{jobDetail.createdAt}}
                 </div>
                 <div class="weapp-l-4-job-detail">주요업무</div>
                 <div>
-                    ⚙️ 내일배움캠프와 함께 할 Unreal 튜터님을
-                    모집합니다! 코딩 교육 부문 1위! 팀스파르타의
-                    비전공자 전문 취업 부트캠프 "내일배움캠프"와 함께 할
-                    튜터를 모집합니다! 내일배움캠프는 탄탄한 커리큘럼을
-                    갖춘 수준별 맞춤 학습을 통해 왕초보도 취업할 수 있는
-                    차별화된 교육을 제공하고 있습니다. 그리고 기술적인
-                    교육 외에도 개발자로 성장하기 위한 습관, 스스로
-                    문제를 정의하고 해결 방법을 찾는 법 등을 가르쳐
-                    취업을 넘어 훌륭한 주니어 개발자가 될 수 있는 역량을
-                    키워주는 교육을 만들고 있습니다. 이 과정에 함께
-                    하며, 새로운 커리어에 도전하는 왕초보 수강생을 도와
-                    그들이 주니어 개발자로의 첫걸음을 무사히 뗄 수
-                    있도록 진심으로 함께 해주실 튜터님을 찾고 있어요!
-                    아직 튜터 경력이 없으시더라도 괜찮습니다. 교육자로서
-                    "잘 가르쳐 주고 싶은 마음"을 가지신 분이라면, 지금
-                    바로 지원해 주세요! 누구나 SW로 큰일 낼 수 있도록,
-                    함께 멋진 세상을 만들어 나가요!
-                    <br/>
-                    <br/>
-                    💭 더 자세히 알아보고
-                    <br/>
-                    싶으시다면? ▪ 내일배움캠프 더 알아보기 👉
-                    <br/>
-                    https://nbcamp.spartacodingclub.kr/ ▪ 3D 게임 개발
-                    코스 더 알아보기
-                    <br/>
-                    👉 https://nbcamp.spartacodingclub.kr/unreal
+                    {{jobDetail.description}}
                 </div>
             </div>
             <div class="weapp-sum-job-detail">
                 <div class="weapp-right-box-job-detail">
-                    <a href="#"
-                    >
+
+                    <a href="https://localhost:8080/user/job/1/apply">
                         <div class="weapp-r-1-job-detail btn-primary btn">
                             지원하기
                         </div>
-                    </a
-                    >
+                    </a>
+
                     <div class="weapp-inner-box1-job-detail">
                         <div>마감</div>
-                        <div>수시채용</div>
+                        <div>{{jobDetail.deadline}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>지역</div>
-                        <div>서울특별시 강남구</div>
+                        <div>{{jobDetail.location}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>고용형태</div>
-                        <div>프리랜서</div>
-                    </div>
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>원격근무</div>
-                        <div>원격근무 가능</div>
+                        <div>{{jobDetail.employmentType}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>경력</div>
-                        <div>경력</div>
+                        <div>{{jobDetail.careerLevel}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>산업분야</div>
-                        <div>웹서비스</div>
-                    </div>
-                    <div class="weapp-inner-box1-job-detail">
-                        <div>업무분야</div>
-                        <div>운영</div>
+                        <div>{{jobDetail.workField}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>연봉</div>
-                        <div>채용담당자에게 문의</div>
+                        <div>{{salaryRange.minSalary}} ~ {{salaryRange.maxSalary}}</div>
                     </div>
+
                     <div class="weapp-inner-box1-job-detail">
                         <div>근무지</div>
-                        <div>서울특별시 강남구</div>
+                        <div>{{jobDetail.location}}</div>
                     </div>
+
                     <div class="weapp-book-out-job-detail">
                         <!-- ajax 용 버튼 -->
                         <div class="weapp-book-job-detail">
@@ -104,7 +73,9 @@
                             <div>공고 북마크</div>
                         </div>
                     </div>
+
                 </div>
+
 
                 <div>
                     <div class="weapp-r-recru-job-detail">채용 문의 담당자</div>

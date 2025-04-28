@@ -1,15 +1,18 @@
 package com.metacoding.springrocketdanv1.resume;
 
+
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@ToString
 @NoArgsConstructor
 @Getter
 @Entity
@@ -48,5 +51,4 @@ public class Resume {
     // 직무 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private JobGroup jobGroup;
-
 }

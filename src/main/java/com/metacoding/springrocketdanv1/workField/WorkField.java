@@ -16,15 +16,14 @@ public class WorkField {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    private String name; // 업무분야. it, 금융, 판매
 
+
+    @Builder
     public WorkField(String name) {
         this.name = name;
     }
-
-    @Builder
-    public WorkField(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }
+
+
+

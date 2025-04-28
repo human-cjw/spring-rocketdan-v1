@@ -1,7 +1,5 @@
 package com.metacoding.springrocketdanv1.techStack;
 
-import com.metacoding.springrocketdanv1.job.Job;
-import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TechStackRepository {
     private final EntityManager em;
+
     public void save(TechStack techStack) {
         em.persist(techStack);
     }
@@ -21,6 +20,7 @@ public class TechStackRepository {
         String jpql = "SELECT t FROM TechStack t"; // JPQL 쿼리
         Query query = em.createQuery(jpql);
         return query.getResultList(); // 결과를 List로 반환
+
     }
 
     public TechStack findByName(String name) {

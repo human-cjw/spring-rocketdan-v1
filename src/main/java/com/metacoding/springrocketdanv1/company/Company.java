@@ -54,6 +54,7 @@ public class Company {
     private List<CompanyTechStack> companyTechStackList = new ArrayList<>();
 
     @Builder
+
     public Company(Integer id, String nameKr, String nameEn, String ceo, String businessNumber,
                    String email, String phone, String address, String introduction,
                    String oneLineIntro, String homepageUrl, String logoImageUrl,
@@ -77,4 +78,5 @@ public class Company {
         this.user = user;
         this.workField = workField;
     }
+
 }

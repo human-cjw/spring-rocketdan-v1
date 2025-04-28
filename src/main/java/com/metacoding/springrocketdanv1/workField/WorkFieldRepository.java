@@ -1,7 +1,6 @@
 package com.metacoding.springrocketdanv1.workField;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +17,15 @@ public class WorkFieldRepository {
                 .setParameter("name", name)
                 .getResultList();
         return result.isEmpty() ? null : result.get(0);
+    }
+
+    public String findNameById(Integer id) {
+        return em.find(WorkField.class, id).getName();
+    }
+
+    public List<WorkField> findAll() {
+        String q = "SELECT w FROM WorkField w";
+        return em.createQuery(q, WorkField.class).getResultList();
     }
 
     public WorkField save(WorkField workField) {

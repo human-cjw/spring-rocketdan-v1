@@ -25,13 +25,11 @@ public class User {
     @Column(nullable = false)
     private String userType; // 일반유저, 기업유저 값 : user or company
 
+    // 기업 fk
+    private Integer companyId; // userType이 user 면 null
+
     @CreationTimestamp
     private Timestamp createdAt;
-
-    // 기업 fk
-
-    @JoinColumn(name = "company_id", nullable = true)
-    private Integer companyId; // 기본값 null
 
     @Builder
     public User(String username, String password, String email, String userType, Integer companyId, String fileUrl) {
@@ -41,9 +39,6 @@ public class User {
         this.userType = userType;
         this.companyId = companyId;
         this.fileUrl = fileUrl;
-
     }
 
-
 }
-

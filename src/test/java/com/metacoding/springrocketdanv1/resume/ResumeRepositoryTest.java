@@ -1,6 +1,6 @@
 package com.metacoding.springrocketdanv1.resume;
 
-import com.metacoding.springrocketdanv1.reply.ReplyRepository;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
@@ -10,4 +10,16 @@ import org.springframework.context.annotation.Import;
 public class ResumeRepositoryTest {
     @Autowired
     private ResumeRepository resumeRepository;
+
+    @Test
+    public void findById_test() {
+        //given
+        Integer user = 1;
+
+        // when
+        Resume resume = resumeRepository.findById(user);
+
+        // eye
+        System.out.println("출력 : " + resume);
+    }
 }
