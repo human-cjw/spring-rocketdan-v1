@@ -31,14 +31,6 @@ public class ApplicationService {
 
     @Transactional
     public void 지원하기(Integer jobId, ApplicationRequest.SaveDTO reqDTO, Integer userId) {
-
-//        Job job = jobRepository.findById(jobId);
-//        Company company = job.getCompany();
-//        Resume resume = resumeRepository.findById(reqDTO.getResumeId());
-//        User user = resume.getUser();
-
-//        Application application = reqDTO.toEntity(job, company, resume, user);
-
         Application application = reqDTO.toEntity(jobId, userId);
 
         applicationRepository.save(application);
