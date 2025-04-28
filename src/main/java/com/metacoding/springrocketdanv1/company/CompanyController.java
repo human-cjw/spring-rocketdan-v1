@@ -36,14 +36,28 @@ public class CompanyController {
     }
 
     @GetMapping("/company")
-    public String list(HttpServletRequest request) {
+    public String list(HttpServletRequest request, HttpSession session, Model model) {
         List<Company> companyList = companyService.기업리스트();
         request.setAttribute("models", companyList);
+
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        if (sessionUser != null) {
+            model.addAttribute("isCompany", "company".equals(sessionUser.getUserType()));
+        } else {
+            model.addAttribute("isCompany", false);
+        }
+
         return "company/list";
     }
 
     @GetMapping("/company/save-form")
     public String saveForm(HttpSession session, Model model) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            // 로그인 안했으면 로그인 페이지로 리다이렉트
+            return "redirect:/login-form";
+        }
+
         List<WorkField> workFields = workFieldRepository.findAll();
         List<TechStack> techStacks = techStackRepository.findAll();
 
