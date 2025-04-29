@@ -14,18 +14,6 @@ public class ApplicationRequest {
         private Integer companyId;
         private String status;
 
-        // user, job, company, resume,
-
-//        public Application toEntity(Job job, Company company, Resume resume, User user) {
-//            return Application.builder()
-//                    .job(job)
-//                    .company(company)
-//                    .resume(resume)
-//                    .user(user)
-//                    .status(this.status)
-//                    .build();
-//        }
-
         public Application toEntity(Integer jobId, Integer userId) {
             return Application.builder()
                     .job(Job.builder().id(jobId).build())
