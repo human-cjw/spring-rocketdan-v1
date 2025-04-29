@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.company;
 
+import com.metacoding.springrocketdanv1.application.Application;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -32,4 +33,10 @@ public class CompanyRepository {
                 .getSingleResult();
     }
 
+    public List<Application> findApplicationsByCompanyId(Integer companyId) {
+        String q = "SELECT a FROM Application a WHERE a.company.id = :companyId";
+        return em.createQuery(q, Application.class)
+                .setParameter("companyId", companyId)
+                .getResultList();
+    }
 }

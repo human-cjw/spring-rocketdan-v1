@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class CompanyResponse {
@@ -67,6 +69,21 @@ public class CompanyResponse {
             this.id = id;
             this.name = name;
             this.isChecked = isChecked;
+        }
+    }
+
+    @Getter
+    public static class CompanyManageDTO {
+        private String title;
+        private String careerLevel;
+        private String createdAt;
+        private String jobGroupName;
+
+        public CompanyManageDTO(String title, String careerLevel, LocalDateTime createdAt, String jobGroupName) {
+            this.title = title;
+            this.careerLevel = careerLevel;
+            this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            this.jobGroupName = jobGroupName;
         }
     }
 }

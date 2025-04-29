@@ -103,4 +103,19 @@ public class CompanyController {
 
         return "redirect:/company/" + requestDTO.getId();
     }
+
+    @GetMapping("/company/manage")
+    public String manage(HttpSession session, Model model) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+
+        if (sessionUser == null) {
+            throw new RuntimeException("로그인이 필요합니다.");
+        }
+
+        List<CompanyResponse.CompanyManageDTO> resDTO = companyService.기업공고관리(sessionUser.getCompanyId());
+
+        model.addAttribute("model", resDTO);
+
+        return "company/manage-job";
+    }
 }
