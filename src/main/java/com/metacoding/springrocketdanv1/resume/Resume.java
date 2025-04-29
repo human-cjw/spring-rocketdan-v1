@@ -67,7 +67,6 @@ public class Resume {
         this.enrollmentDate = requestDTO.getEnrollmentDate();
         this.graduationDate = requestDTO.getGraduationDate();
         this.careerLevel = requestDTO.getCareerLevel();
-
     }
 
     public void changeDefaultTrue() {

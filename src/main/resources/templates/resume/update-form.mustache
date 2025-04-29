@@ -16,7 +16,7 @@
                     <div class="mb-2">
                         <div class="fs-6">제목 변경</div>
                         <input class="form-control mb-4" type="text" name="title"
-                               value="{{model.name}}의 {{model.title}}"/>
+                               value="{{model.title}}"/>
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@
                     <div class="mb-2">
                         <div class="fs-6">E-mail</div>
                         <div class="mt-1">
-                            <input class="form-control" type="email" name="email" value="{{model.email}}"/>
+                            <div>{{model.email}}</div>
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@
                         <!-- 생년월일 입력 칸 시작 -->
                         <div>
                             <div class="input-group">
-                                <input class="form-control" type="text" name="birthdate"
+                                <input class="form-control" type="date" name="birthdate"
                                        value="{{model.birthdate}}"/>
                             </div>
                         </div>
@@ -100,43 +100,31 @@
 
             <!-- 경력 사항 칸 -->
             <div class="bg-white rounded p-4 shadow-sm mb-4">
-                <div>
-                    <h5 class="fw-bold mb-3">경력 사항</h5>
 
-                    <!-- 여기에 커리어가 추가된다 -->
-                    <div id="career-container">
-                        {{#model.careers}}
-                            <div class="card m-3 mb-3 p-3">
-                                <div class="mb-2">
-                                    <label class="form-label">회사명</label>
-                                    <input class="form-control" type="text" name="careerCompanyNames"
-                                           value="{{companyName}}"/>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">입사일</label>
-                                    <input class="form-control" type="text" name="careerStartDates"
-                                           value="{{startDate}}"/>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">퇴사일</label>
-                                    <input class="form-control" type="text" name="careerEndDates" value="{{endDate}}"/>
-                                </div>
-                                <div class="d-flex" style="justify-content: end">
-                                    <button type="button" class="btn btn-danger btn-sm mt-2"
-                                            onclick="deleteCard(this)">삭제
-                                    </button>
-                                </div>
+                <h5 class="fw-bold mb-3">경력 사항</h5>
+
+                <!-- 여기에 커리어가 추가된다 -->
+                <div id="career-container">
+                    {{#model.careers}}
+                        <div class="card m-3 mb-3 p-3">
+                            <div class="mb-2">
+                                <label class="form-label">회사명</label>
+                                <input class="form-control" type="text" name="careerCompanyNames"
+                                       value="{{companyName}}"/>
                             </div>
-                        {{/model.careers}}
-                    </div>
-                    <!-- 추가 버튼 -->
-                    <div>
-
-                    </div>
-                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="addCareer()">
-                        + 경력 추가
-                    </button>
+                            <div class="mb-2">
+                                <label class="form-label">입사일</label>
+                                <input class="form-control" type="date" name="careerStartDates"
+                                       value="{{startDate}}"/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">퇴사일</label>
+                                <input class="form-control" type="date" name="careerEndDates" value="{{endDate}}"/>
+                            </div>
+                        </div>
+                    {{/model.careers}}
                 </div>
+
             </div>
             <!-- 커리어 칸 끝 -->
 
@@ -169,11 +157,11 @@
                             <label class="mb-2">재학 기간*</label>
                             <div class="d-flex" style="align-items: center">
                                 <div class="input-group">
-                                    <input type="text" name="enrollmentDate" class="form-control"
+                                    <input type="date" name="enrollmentDate" class="form-control"
                                            value="{{model.enrollmentDate}}"/>
                                 </div>
                                 <div class="px-3">-</div>
-                                <input type="text" name="graduationDate" class="form-control"
+                                <input type="date" name="graduationDate" class="form-control"
                                        value="{{model.graduationDate}}"/>
                             </div>
                         </div>
@@ -212,20 +200,12 @@
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">취득일</label>
-                                <input class="form-control" type="text" name="certificationDates"
+                                <input class="form-control" type="date" name="certificationDates"
                                        value="{{issuedDate}}"/>
-                            </div>
-                            <div class="d-flex" style="justify-content: end">
-                                <button type="button" class="btn btn-danger btn-sm mt-2"
-                                        onclick="deleteCard(this)">삭제
-                                </button>
                             </div>
                         </div>
                     {{/model.certifications}}
                 </div>
-                <button type="button" class="btn btn-outline-primary btn-sm mt-2 " onclick="addCertification()">
-                    + 자격증 추가
-                </button>
             </div>
             <!-- 자격증 칸 끝 -->
 
@@ -267,68 +247,5 @@
         </form>
     </div>
 </div>
-
-<script>
-    function addCareer() {
-        const container = document.getElementById('career-container');
-        const newCareer = `
-        <div class="card m-3 mb-3 p-3">
-            <div class="mb-2">
-                <label class="form-label">회사명</label>
-                <input class="form-control" type="text" name="careerCompanyNames" />
-            </div>
-            <div class="mb-2">
-                <label class="form-label">입사일</label>
-                <input class="form-control" type="text" name="careerStartDates" />
-            </div>
-            <div class="mb-2">
-                <label class="form-label">퇴사일</label>
-                <input class="form-control" type="text" name="careerEndDates" />
-            </div>
-            <div class="d-flex" style="justify-content: end">
-                 <button type="button" class="btn btn-danger btn-sm mt-2"
-                         onclick="deleteCard(this)">삭제
-                 </button>
-            </div>
-        </div>
-    `;
-        container.innerHTML += newCareer;
-    }
-
-    function addCertification() {
-        const container = document.getElementById('certification-container');
-        const newCertification = `
-        <div class="card m-3 mb-3 p-3">
-            <div class="mb-2">
-                <label class="form-label">자격증 이름</label>
-                <input class="form-control" type="text" name="certificationNames" />
-            </div>
-            <div class="mb-2">
-                <label class="form-label">발급 기관</label>
-                <input class="form-control" type="text" name="certificationIssuers" />
-            </div>
-            <div class="mb-2">
-                <label class="form-label">취득일</label>
-                <input class="form-control" type="text" name="certificationDates" />
-            </div>
-            <div class="d-flex" style="justify-content: end">
-                 <button type="button" class="btn btn-danger btn-sm mt-2"
-                         onclick="deleteCard(this)">삭제
-                 </button>
-            </div>
-        </div>
-    `;
-        container.innerHTML += newCertification;
-    }
-
-    function deleteCard(button) {
-        const card = button.closest('.card');
-        if (card) {
-            card.remove();
-        }
-    }
-</script>
-</form>
-
 
 {{> layout/footer }}

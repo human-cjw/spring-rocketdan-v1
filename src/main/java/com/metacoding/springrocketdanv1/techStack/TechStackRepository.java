@@ -12,16 +12,14 @@ public class TechStackRepository {
     private final EntityManager em;
 
     public List<TechStack> findAll() {
-<<<<<<< HEAD
-        return em.createQuery("SELECT t FROM TechStack t", TechStack.class)
-                .getResultList();
+        String q = "SELECT t FROM TechStack t";
+        return em.createQuery(q, TechStack.class).getResultList();
     }
 
     public TechStack findById(Integer techStackId) {
         return em.find(TechStack.class, techStackId);
-=======
-        String q = "SELECT t FROM TechStack t";
-        return em.createQuery(q, TechStack.class).getResultList();
+
+
     }
 
     public TechStack findByName(String name) {
@@ -30,6 +28,6 @@ public class TechStackRepository {
                 .setParameter("name", name)
                 .getResultList();
         return result.isEmpty() ? null : result.get(0);
->>>>>>> master
+
     }
 }

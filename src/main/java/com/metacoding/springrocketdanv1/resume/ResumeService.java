@@ -88,7 +88,7 @@ public class ResumeService {
     }
 
 
-    public ResumeResponse.DetailDTO 이력서수정하기(Integer resumeId) {
+    public ResumeResponse.DetailDTO 이력서수정보기(Integer resumeId) {
         Resume resume = resumeRepository.findById(resumeId);
         List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
         List<ResumeTechStack> resumeTechStackList = resumeTechStackRepository.findAllByResumeId(resumeId);
@@ -148,7 +148,7 @@ public class ResumeService {
 
 
     @Transactional
-    public void 이력서수정완료보기(Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
+    public void 이력서수정하기(Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
         Resume resume = resumeRepository.findById(resumeId);
 
         // 1. 기본 Resume 수정
