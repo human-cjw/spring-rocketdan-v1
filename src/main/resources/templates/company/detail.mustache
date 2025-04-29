@@ -8,20 +8,22 @@
             style="padding: 48px"
     >
         <!-- 앱솔루트 버튼 -->
-        <a href="/company/update-form" style="text-decoration: none;">
-            <button
-                    class="btn btn-primary position-absolute"
-                    style="
+        {{#model.isOwner}}
+            <a href="/company/update-form" style="text-decoration: none;">
+                <button
+                        class="btn btn-primary position-absolute"
+                        style="
             left: 65%;
             transform: translateX(-70%);
             margin-top: 70px;
             padding: 12px 20px;
             font-size: 16px;
         "
-            >
-                업데이트
-            </button>
-        </a>
+                >
+                    업데이트
+                </button>
+            </a>
+        {{/model.isOwner}}
 
         <div class="weapp-company-info-company-detail">
             <div class="weapp-company-logo-company-detail">
