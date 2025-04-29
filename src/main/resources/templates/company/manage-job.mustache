@@ -1,255 +1,44 @@
 {{> layout/header }}
 
-
-
 <div class="bg-light py-5">
     <div class="weapp-container">
         <div class="weapp-row">
             <!-- 오른쪽 내용 -->
             <div class="col-md-9">
-                <p class="fs-6 fw-bold mb-3">
-                    아키타입 리서치의 채용 공고
-                </p>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="fs-6 fw-bold mb-0">아키타입 리서치의 채용 공고</p>
+                    <a href="/job/save-form" class="btn btn-primary">공고 등록</a>
+                </div>
+
                 <!-- 흰 네모박스 -->
-                <div
-                        class="border rounded bg-white p-5 text-start"
-                        style="height: auto"
-                >
-                    <!-- 샘플 2  -->
-                    <div
-                            class="list-group wid"
-                            style="height: 50%; margin: 1rem"
-                    >
-                        <a
-                                href="#"
-                                class="list-group-item list-group-item-action"
-                        >
-                            <div
-                                    class="d-flex"
-                                    style="justify-content: space-between"
-                            >
-                                <div class="d-flex align-items-center">
-                                    <div class="weapp-company">
-                                        <div
-                                                class="fs-5 fw-bold"
-                                                style="margin: 1rem"
-                                        >
-                                            [AI 콘텐츠 스타트업] 백엔드
-                                            엔지니어 (3년 이상)
-                                        </div>
-                                        <div
-                                                class="fs-6 fw-nomal"
-                                                style="margin: 1rem"
-                                        >
-                                            JAVA (Back-End) 개발자
-                                        </div>
-                                        <div
-                                                class="text-muted"
-                                                style="margin: 1rem"
-                                        >
-                                            신입
+                <div class="border rounded bg-white p-5 text-start" style="height: auto;">
+
+                    {{#model}}
+                        <div class="list-group" style="margin: 1rem;">
+                            <a href="/company/job/{{id}}" class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="weapp-company">
+                                            <div class="fs-5 fw-bold" style="margin: 1rem;">
+                                                {{title}}
+                                            </div>
+                                            <div class="fs-6 fw-nomal" style="margin: 1rem;">
+                                                {{jobGroupName}}
+                                            </div>
+                                            <div class="text-muted" style="margin: 1rem;">
+                                                {{careerLevel}}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div
-                                        class="weapp-date"
-                                        style="padding: 1rem"
-                                >
-                                    2025.04.17. 16:59
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- 샘플 2 끝 -->
-
-                    <!-- 샘플 2  -->
-                    <div
-                            class="list-group"
-                            style="height: 50%; margin: 1rem"
-                    >
-                        <a
-                                href="#"
-                                class="list-group-item list-group-item-action"
-                        >
-                            <div
-                                    class="d-flex"
-                                    style="justify-content: space-between"
-                            >
-                                <div class="d-flex align-items-center">
-                                    <div class="weapp-company">
-                                        <div
-                                                class="fs-5 fw-bold"
-                                                style="margin: 1rem"
-                                        >
-                                            [AI 콘텐츠 스타트업] 백엔드
-                                            엔지니어 (3년 이상)
-                                        </div>
-                                        <div
-                                                class="fs-6 fw-nomal"
-                                                style="margin: 1rem"
-                                        >
-                                            JAVA (Back-End) 개발자
-                                        </div>
-                                        <div
-                                                class="text-muted"
-                                                style="margin: 1rem"
-                                        >
-                                            신입
-                                        </div>
+                                    <div class="weapp-date" style="padding: 1rem;">
+                                        {{createdAt}}
                                     </div>
                                 </div>
-                                <div
-                                        class="weapp-date"
-                                        style="padding: 1rem"
-                                >
-                                    2025.04.17. 16:59
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- 샘플 2 끝 -->
+                            </a>
+                        </div>
+                    {{/model}}
 
-                    <!-- 샘플 2  -->
-                    <div
-                            class="list-group"
-                            style="height: 50%; margin: 1rem"
-                    >
-                        <a
-                                href="#"
-                                class="list-group-item list-group-item-action"
-                        >
-                            <div
-                                    class="d-flex"
-                                    style="justify-content: space-between"
-                            >
-                                <div class="d-flex align-items-center">
-                                    <div class="weapp-company">
-                                        <div
-                                                class="fs-5 fw-bold"
-                                                style="margin: 1rem"
-                                        >
-                                            [AI 콘텐츠 스타트업] 백엔드
-                                            엔지니어 (3년 이상)
-                                        </div>
-                                        <div
-                                                class="fs-6 fw-nomal"
-                                                style="margin: 1rem"
-                                        >
-                                            JAVA (Back-End) 개발자
-                                        </div>
-                                        <div
-                                                class="text-muted"
-                                                style="margin: 1rem"
-                                        >
-                                            신입
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                        class="weapp-date"
-                                        style="padding: 1rem"
-                                >
-                                    2025.04.17. 16:59
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- 샘플 2 끝 -->
-
-                    <!-- 샘플 2  -->
-                    <div
-                            class="list-group"
-                            style="height: 50%; margin: 1rem"
-                    >
-                        <a
-                                href="#"
-                                class="list-group-item list-group-item-action"
-                        >
-                            <div
-                                    class="d-flex"
-                                    style="justify-content: space-between"
-                            >
-                                <div class="d-flex align-items-center">
-                                    <div class="weapp-company">
-                                        <div
-                                                class="fs-5 fw-bold"
-                                                style="margin: 1rem"
-                                        >
-                                            [AI 콘텐츠 스타트업] 백엔드
-                                            엔지니어 (3년 이상)
-                                        </div>
-                                        <div
-                                                class="fs-6 fw-nomal"
-                                                style="margin: 1rem"
-                                        >
-                                            JAVA (Back-End) 개발자
-                                        </div>
-                                        <div
-                                                class="text-muted"
-                                                style="margin: 1rem"
-                                        >
-                                            신입
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                        class="weapp-date"
-                                        style="padding: 1rem"
-                                >
-                                    2025.04.17. 16:59
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- 샘플 2 끝 -->
-
-                    <!-- 샘플 2  -->
-                    <div
-                            class="list-group"
-                            style="height: 50%; margin: 1rem"
-                    >
-                        <a
-                                href="#"
-                                class="list-group-item list-group-item-action"
-                        >
-                            <div
-                                    class="d-flex"
-                                    style="justify-content: space-between"
-                            >
-                                <div class="d-flex align-items-center">
-                                    <div class="weapp-company">
-                                        <div
-                                                class="fs-5 fw-bold"
-                                                style="margin: 1rem"
-                                        >
-                                            [AI 콘텐츠 스타트업] 백엔드
-                                            엔지니어 (3년 이상)
-                                        </div>
-                                        <div
-                                                class="fs-6 fw-nomal"
-                                                style="margin: 1rem"
-                                        >
-                                            JAVA (Back-End) 개발자
-                                        </div>
-                                        <div
-                                                class="text-muted"
-                                                style="margin: 1rem"
-                                        >
-                                            신입
-                                        </div>
-                                    </div>
-                                </div>
-                                <div
-                                        class="weapp-date"
-                                        style="padding: 1rem"
-                                >
-                                    2025.04.17. 16:59
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- 샘플 2 끝 -->
-
+                    <!-- 페이징 -->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
@@ -269,8 +58,9 @@
                             </li>
                         </ul>
                     </nav>
+
                 </div>
-                <!-- 흰 네모박스 -->
+                <!-- 흰 네모박스 끝 -->
             </div>
         </div>
     </div>

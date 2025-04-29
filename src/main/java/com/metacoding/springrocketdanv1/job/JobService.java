@@ -80,7 +80,8 @@ public class JobService {
                 job.getWorkField().getName(),
                 job.getCompany().getNameKr(),
                 salaryRangeDTO,
-                job.getCompany().getId()
+                job.getCompany().getId(),
+                job.getId()
         );
 
         return detailDto;

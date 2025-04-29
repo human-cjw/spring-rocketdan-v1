@@ -560,22 +560,19 @@ VALUES
 -- =============================================
 -- Application 더미 데이터
 -- =============================================
-INSERT INTO application_tb (id,
-                            status,
+INSERT INTO application_tb (status,
                             user_id,
                             company_id,
                             resume_id,
                             job_id,
                             created_at)
-VALUES (1,
-        '접수',
+VALUES ('서류접수',
         1,
         1,
         1,
         1,
         now()),
-       (2,
-        '검토',
+       ('서류검토',
         2,
         2,
         2,

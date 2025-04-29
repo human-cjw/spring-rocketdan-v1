@@ -15,7 +15,7 @@ public class ResumeRepository {
     public Resume findById(Integer id) {
         return em.find(Resume.class, id);
     }
-
+    
     public List<Resume> findAllByUserId(Integer userId, boolean isDefault) {
         String sql;
 
