@@ -22,7 +22,6 @@ public class CompanyController {
     private final CompanyService companyService;
     private final WorkFieldRepository workFieldRepository;
     private final TechStackRepository techStackRepository;
-    private final CompanyRepository companyRepository;
 
 
     @GetMapping("/company/{id}")
@@ -139,8 +138,8 @@ public class CompanyController {
             status = "접수";
         }
 
-        CompanyResponse.CompanyManageResumePageDTO respDTO = companyService.지원자조회(jobId, status);
-        model.addAttribute("model", respDTO);
+        CompanyResponse.CompanyManageResumePageDTO dto = companyService.지원자조회(jobId, status);
+        model.addAttribute("model", dto);
 
         model.addAttribute("isStatus접수", status.equals("접수"));
         model.addAttribute("isStatus검토", status.equals("검토"));

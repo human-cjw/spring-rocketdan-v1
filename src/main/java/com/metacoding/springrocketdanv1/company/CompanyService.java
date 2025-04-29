@@ -217,6 +217,7 @@ public class CompanyService {
         List<CompanyResponse.CompanyManageResumeDTO> applicationDTOs = new ArrayList<>();
         for (Application app : applications) {
             CompanyResponse.CompanyManageResumeDTO applicationDTO = new CompanyResponse.CompanyManageResumeDTO(
+
                     app.getUser().getUsername(),
                     app.getResume().getTitle(),
                     app.getResume().getCareerLevel(),
@@ -230,6 +231,4 @@ public class CompanyService {
 
         return new CompanyResponse.CompanyManageResumePageDTO(jobId, jobTitle, applicationDTOs);
     }
-
-
 }

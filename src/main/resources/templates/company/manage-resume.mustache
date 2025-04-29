@@ -36,7 +36,9 @@
 
                     {{#model.applications}}
                         <div class="list-group" style="height: 50%; margin: 1rem">
+
                             <a href="/company/acceptance" class="list-group-item list-group-item-action">
+
                                 <div class="d-flex weapp-prj" style="justify-content: space-between">
                                     <div class="d-flex align-items-center">
                                         <div class="weapp-pimg">
@@ -51,6 +53,8 @@
                                     </div>
                                     <div class="text-end" style="padding: 1rem;">
                                         <div class="text-muted" style="font-size: 0.9rem;">{{createdAt}}</div>
+
+                                        <!-- 지원 상태 badge 표시 -->
                                         <div class="mt-2">
                                             {{#isAccepted}}
                                                 <span class="badge bg-success">{{status}}</span>
@@ -61,6 +65,7 @@
                                             {{#isPending}}
                                                 <span class="badge bg-secondary">{{status}}</span>
                                             {{/isPending}}
+
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +78,6 @@
                             지원자가 없습니다.
                         </div>
                     {{/model.applications}}
-
                 </div>
                 <!-- 흰 네모박스 끝 -->
             </div>

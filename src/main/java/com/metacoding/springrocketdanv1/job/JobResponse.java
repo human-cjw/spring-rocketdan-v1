@@ -37,11 +37,12 @@ public class JobResponse {
         private String nameKr;
         private SalaryRangeResponse.SalaryRangeDTO salaryRange;
         private Integer companyId;
+        private Integer jobId;
 
         public DetailDTO(String title, String deadline, String careerLevel,
                          Timestamp createdAt, String description, String location,
                          String employmentType, String workField, String nameKr,
-                         SalaryRangeResponse.SalaryRangeDTO salaryRange, Integer companyId) {
+                         SalaryRangeResponse.SalaryRangeDTO salaryRange, Integer companyId, Integer jobId) {
             this.title = title;
             this.deadline = deadline;
             this.careerLevel = careerLevel;
@@ -53,6 +54,7 @@ public class JobResponse {
             this.nameKr = nameKr;
             this.salaryRange = salaryRange;
             this.companyId = companyId;
+            this.jobId = jobId;
         }
     }
 
