@@ -25,16 +25,17 @@ public class ResumeResponse {
         private String jobGroupId;
         private String enrollmentDate;
         private String graduationDate;
-        private String isDefault;
+        private boolean isDefault;
         private String name;
         private String email;
         private List<Certification> certifications; // 다른 테이블에서 가지고 온 것
         private List<TechStack> resumeTechStacks; // 다른 테이블에서 가지고 온 것
         private List<Career> careers;
         private List<CareerLevelDTO> careerLevels;
-        private List<GenderDTO> genders = new ArrayList<>();
+        private List<GenderDTO> genders;
+        private boolean isOwner;
 
-        public DetailDTO(Resume resume, List<Certification> certifications, List<TechStack> resumeTechStacks, String email, String name, List<Career> careers) {
+        public DetailDTO(Resume resume, List<Certification> certifications, List<TechStack> resumeTechStacks, String email, String name, List<Career> careers, Integer userId) {
             this.id = resume.getId();
             this.title = resume.getTitle();
             this.summary = resume.getSummary();
@@ -52,6 +53,8 @@ public class ResumeResponse {
             this.email = email;
             this.name = name;
             this.careers = careers;
+            this.isDefault = resume.getIsDefault();
+            this.isOwner = resume.getUser().getId().equals(userId);
 
             this.careerLevels = List.of(
                     new CareerLevelDTO("신입", "신입", resume.getCareerLevel().equals("신입")),

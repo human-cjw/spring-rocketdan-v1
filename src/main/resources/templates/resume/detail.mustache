@@ -6,12 +6,15 @@
     <div class="container py-3">
         <div class="d-flex" style="justify-content: space-between">
             <!--1번은 제목이 들어감!-->
-            <h3 class="mb-4 fw-bold">{{model.name}}의 {{model.title}}</h3>
+            <h3 class="mb-4 fw-bold">{{model.name}}의 {{model.title}} {{#model.isDefault}}
+                <span class="badge bg-secondary">기본</span>{{/model.isDefault}}</h3>
 
             <div>
-                <a href="/resume/{{model.id}}/update-form" class="btn btn-outline-primary btn-sm">
-                    수정
-                </a>
+                {{#model.isOwner}}
+                    <a href="/resume/{{model.id}}/update-form" class="btn btn-outline-primary btn-sm">
+                        수정
+                    </a>
+                {{/model.isOwner}}
             </div>
 
 
