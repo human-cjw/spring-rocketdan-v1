@@ -43,4 +43,9 @@ public class ResumeController {
 
         return "resume/list";
     }
+
+    @GetMapping("/resume/save-form")
+    public String saveForm() {
+        return "resume/save-form";
+    }
 }
