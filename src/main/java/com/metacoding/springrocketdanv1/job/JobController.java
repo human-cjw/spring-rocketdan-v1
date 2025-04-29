@@ -53,7 +53,7 @@ public class JobController {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         jobService.등록하기(reqDTO, sessionUserDTO.getCompanyId());
 
-        return "redirect:/company/manage";
+        return "redirect:/company/job";
     }
 
     @GetMapping("/job/{jobId}/update-form")

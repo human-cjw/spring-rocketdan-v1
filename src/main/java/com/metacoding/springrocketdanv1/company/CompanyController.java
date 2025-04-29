@@ -119,7 +119,7 @@ public class CompanyController {
         return "redirect:/company/" + requestDTO.getId();
     }
 
-    @GetMapping("/company/manage")
+    @GetMapping("/company/job")
     public String manage(HttpSession session, Model model) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
 
