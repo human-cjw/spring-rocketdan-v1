@@ -28,8 +28,7 @@ public class ResumeService {
         ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications,
                 resumeTechStacks, resume.getUser().getEmail(), resume.getUser().getUsername(), careers);
 
-        System.out.println(detailDTO.getCertifications());
-        System.out.println(detailDTO.getResumeTechStacks());
+        System.out.println(detailDTO);
 
         return detailDTO;
     }

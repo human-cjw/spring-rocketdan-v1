@@ -17,6 +17,7 @@ public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
+
     @GetMapping("/resume/{id}")
     public String detail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
 

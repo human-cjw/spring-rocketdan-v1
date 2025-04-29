@@ -70,4 +70,5 @@ public class JobController {
         jobService.수정하기(jobId, reqDTO);
         return "redirect:/job/" + jobId;
     }
+
 }
