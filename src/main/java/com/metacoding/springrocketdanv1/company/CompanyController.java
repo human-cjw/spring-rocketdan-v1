@@ -118,4 +118,26 @@ public class CompanyController {
 
         return "redirect:/company/" + requestDTO.getId();
     }
+
+    @GetMapping("/company/job")
+    public String manage(HttpSession session, Model model) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+
+        if (sessionUser == null) {
+            throw new RuntimeException("로그인이 필요합니다.");
+        }
+
+        List<CompanyResponse.CompanyManageJobDTO> respDTO = companyService.기업공고관리(sessionUser.getCompanyId());
+
+        model.addAttribute("model", respDTO);
+
+        return "company/manage-job";
+    }
+
+    @GetMapping("/company/job/{id}")
+    public String manageDetail(@PathVariable("id") Integer jobId, Model model) {
+        CompanyResponse.CompanyManageResumePageDTO respDTO = companyService.지원자조회(jobId);
+        model.addAttribute("model", respDTO);
+        return "company/manage-resume";
+    }
 }

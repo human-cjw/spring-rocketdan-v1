@@ -16,6 +16,8 @@ public class ResumeRepository {
         return em.find(Resume.class, id);
     }
 
+
+    // 오버라이드 이력서 관리 페이지에서 사용
     public List<Resume> findAllByUserId(Integer userId, boolean isDefault) {
         String sql;
 
@@ -30,4 +32,13 @@ public class ResumeRepository {
         query.setParameter("userId", userId);
         return query.getResultList();
     }
+
+    public List<Resume> findAllByUserId(Integer userId) {
+        String sql;
+        sql = "SELECT res FROM Resume res WHERE res.user.id = :userId ORDER BY res.id DESC";
+        Query query = em.createQuery(sql, Resume.class);
+        query.setParameter("userId", userId);
+        return query.getResultList();
+    }
+
 }

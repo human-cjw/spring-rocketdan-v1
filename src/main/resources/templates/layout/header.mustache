@@ -120,8 +120,10 @@
 
         {{#sessionUser.companyId}}
                                 <p class="text-secondary fw-bold mb-2 fs-6">{{sessionUser.companyName}}</p>
+
                                 <li><a href="/company/{{sessionUser.companyId}}" class="nav-link px-0 py-1 text-dark weapp-hover-primary">기업 프로필</a></li>
                                 <li><a href="/company/job" class="nav-link px-0 py-1 text-dark weapp-hover-primary">채용 관리/등록</a></li>
+
                                 {{/sessionUser.companyId}}
                             </ul>
                         </div>
