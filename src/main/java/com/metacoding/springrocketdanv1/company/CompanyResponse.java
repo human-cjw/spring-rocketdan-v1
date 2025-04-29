@@ -73,13 +73,15 @@ public class CompanyResponse {
     }
 
     @Getter
-    public static class CompanyManageDTO {
+    public static class CompanyManageJobDTO {
+        private Integer id;
         private String title;
         private String careerLevel;
         private String createdAt;
         private String jobGroupName;
 
-        public CompanyManageDTO(String title, String careerLevel, LocalDateTime createdAt, String jobGroupName) {
+        public CompanyManageJobDTO(Integer id, String title, String careerLevel, LocalDateTime createdAt, String jobGroupName) {
+            this.id = id;
             this.title = title;
             this.careerLevel = careerLevel;
             this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));

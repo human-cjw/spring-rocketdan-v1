@@ -5,29 +5,40 @@
         <div class="weapp-row">
             <!-- 오른쪽 내용 -->
             <div class="col-md-9">
-                <p class="fs-6 fw-bold mb-3">
-                    아키타입 리서치의 채용 공고
-                </p>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="fs-6 fw-bold mb-0">아키타입 리서치의 채용 공고</p>
+                    <a href="/job/save-form" class="btn btn-primary">공고 등록</a>
+                </div>
 
                 <!-- 흰 네모박스 -->
-                <div class="border rounded bg-white p-5 text-start" style="height: auto">
+                <div class="border rounded bg-white p-5 text-start" style="height: auto;">
 
                     {{#model}}
-                        <div class="border rounded p-4 mb-4 bg-white">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="fs-5 fw-bold mb-2">{{title}}</div>
-                                    <div class="fs-6 mb-2">{{jobGroupName}}</div>
-                                    <div class="text-muted">{{careerLevel}}</div>
+                        <div class="list-group" style="margin: 1rem;">
+                            <a href="/company/job/{{id}}" class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <div class="weapp-company">
+                                            <div class="fs-5 fw-bold" style="margin: 1rem;">
+                                                {{title}}
+                                            </div>
+                                            <div class="fs-6 fw-nomal" style="margin: 1rem;">
+                                                {{jobGroupName}}
+                                            </div>
+                                            <div class="text-muted" style="margin: 1rem;">
+                                                {{careerLevel}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="weapp-date" style="padding: 1rem;">
+                                        {{createdAt}}
+                                    </div>
                                 </div>
-                                <div class="text-muted">
-                                    {{createdAt}}
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     {{/model}}
 
-                    <!-- 페이징 (그대로 유지) -->
+                    <!-- 페이징 -->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled">

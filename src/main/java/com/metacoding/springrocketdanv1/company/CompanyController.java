@@ -112,9 +112,9 @@ public class CompanyController {
             throw new RuntimeException("로그인이 필요합니다.");
         }
 
-        List<CompanyResponse.CompanyManageDTO> resDTO = companyService.기업공고관리(sessionUser.getCompanyId());
+        List<CompanyResponse.CompanyManageJobDTO> respDTO = companyService.기업공고관리(sessionUser.getCompanyId());
 
-        model.addAttribute("model", resDTO);
+        model.addAttribute("model", respDTO);
 
         return "company/manage-job";
     }

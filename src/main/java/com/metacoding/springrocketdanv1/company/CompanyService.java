@@ -1,6 +1,5 @@
 package com.metacoding.springrocketdanv1.company;
 
-import com.metacoding.springrocketdanv1.application.Application;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStackRepository;
 import com.metacoding.springrocketdanv1.job.Job;
@@ -190,20 +189,20 @@ public class CompanyService {
         }
     }
 
-    public List<CompanyResponse.CompanyManageDTO> 기업공고관리(Integer companyId) {
-        List<Application> applicationList = companyRepository.findApplicationsByCompanyId(companyId);
+    @Transactional
+    public List<CompanyResponse.CompanyManageJobDTO> 기업공고관리(Integer companyId) {
+        List<Job> jobList = companyRepository.findJobsByCompanyId(companyId);
 
-        List<CompanyResponse.CompanyManageDTO> companyManageDTOS = new ArrayList<>();
-        for (Application application : applicationList) {
-            Job job = application.getJob(); // Lazy 로딩 (여기서 job 가져옴)
-
-            companyManageDTOS.add(new CompanyResponse.CompanyManageDTO(
+        List<CompanyResponse.CompanyManageJobDTO> companyManageJobDTOS = new ArrayList<>();
+        for (Job job : jobList) {
+            companyManageJobDTOS.add(new CompanyResponse.CompanyManageJobDTO(
+                    job.getId(),
                     job.getTitle(),
                     job.getCareerLevel(),
                     job.getCreatedAt().toLocalDateTime(),
                     job.getJobGroup().getName()
             ));
         }
-        return companyManageDTOS;
+        return companyManageJobDTOS;
     }
 }

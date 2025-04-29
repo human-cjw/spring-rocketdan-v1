@@ -1,6 +1,6 @@
 package com.metacoding.springrocketdanv1.company;
 
-import com.metacoding.springrocketdanv1.application.Application;
+import com.metacoding.springrocketdanv1.job.Job;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -33,10 +33,11 @@ public class CompanyRepository {
                 .getSingleResult();
     }
 
-    public List<Application> findApplicationsByCompanyId(Integer companyId) {
-        String q = "SELECT a FROM Application a WHERE a.company.id = :companyId";
-        return em.createQuery(q, Application.class)
+    public List<Job> findJobsByCompanyId(Integer companyId) {
+        String q = "SELECT j FROM Job j JOIN FETCH j.jobGroup WHERE j.company.id = :companyId ORDER BY j.createdAt DESC";
+        return em.createQuery(q, Job.class)
                 .setParameter("companyId", companyId)
                 .getResultList();
     }
+
 }
