@@ -175,6 +175,7 @@ public class ResumeService {
             }
         }
 
+
         // 4. 깊은 복사해서 새 Certification 리스트 만들기
         List<Certification> certifications = new ArrayList<>();
         if (requestDTO.getCertifications() != null) {

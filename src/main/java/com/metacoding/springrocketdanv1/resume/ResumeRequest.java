@@ -40,7 +40,6 @@ public class ResumeRequest {
             private String companyName; // 이전에 다녔던 기업이름
             private String startDate; // 시작일
             private String endDate; // 종료일
-
         }
 
         @Data

@@ -109,17 +109,18 @@
                         <div class="card m-3 mb-3 p-3">
                             <div class="mb-2">
                                 <label class="form-label">회사명</label>
-                                <input class="form-control" type="text" name="careerCompanyNames"
+                                <input class="form-control" type="text" name="{{companyName}}"
                                        value="{{companyName}}"/>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">입사일</label>
-                                <input class="form-control" type="date" name="careerStartDates"
+                                <input class="form-control" type="date" name="{{startDate}}"
                                        value="{{startDate}}"/>
                             </div>
                             <div class="mb-2">
                                 <label class="form-label">퇴사일</label>
-                                <input class="form-control" type="date" name="careerEndDates" value="{{endDate}}"/>
+                                <input class="form-control" type="date" name="{{endDate}}"
+                                       value="{{endDate}}"/>
                             </div>
                         </div>
                     {{/model.careers}}
@@ -188,23 +189,23 @@
 
                 <!-- 여기에 자격증 항목이 추가된다 -->
                 <div id="certification-container">
-                    {{#model.certifications}}
-                        <div class="card m-3 mb-3 p-3">
-                            <div class="mb-2">
-                                <label class="form-label">자격증 이름</label>
-                                <input class="form-control" type="text" name="certificationNames" value="{{name}}"/>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">발급 기관</label>
-                                <input class="form-control" type="text" name="certificationIssuers" value="{{issuer}}"/>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">취득일</label>
-                                <input class="form-control" type="date" name="certificationDates"
-                                       value="{{issuedDate}}"/>
-                            </div>
+                    <div class="card m-3 mb-3 p-3">
+                        <div class="mb-2">
+                            <label class="form-label">자격증 이름</label>
+                            <input class="form-control" type="text" name="{{name}}"
+                                   value="{{name}}"/>
                         </div>
-                    {{/model.certifications}}
+                        <div class="mb-2">
+                            <label class="form-label">발급 기관</label>
+                            <input class="form-control" type="text" name="{{issuer}}"
+                                   value="{{issuer}}"/>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">취득일</label>
+                            <input class="form-control" type="date" name="{{issuedDate}}"
+                                   value="{{issuedDate}}"/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- 자격증 칸 끝 -->

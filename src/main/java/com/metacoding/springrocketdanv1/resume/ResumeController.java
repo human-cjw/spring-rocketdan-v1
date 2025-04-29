@@ -26,8 +26,6 @@ public class ResumeController {
         Integer userId = sessionUserDTO != null ? sessionUserDTO.getId() : null;
         ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId, userId);
 
-        System.out.println(detailDTO.getCareerLevelTypes());
-
         request.setAttribute("model", detailDTO);
 
         return "resume/detail";
@@ -45,7 +43,7 @@ public class ResumeController {
 
     @PostMapping("/resume/{resumeId}/update")
     public String update(@PathVariable("resumeId") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
-        System.out.println(requestDTO.getIsDefault());
+        System.out.println(requestDTO.getCareers());
 
         // 2. 이력서 수정
         resumeService.이력서수정하기(resumeId, requestDTO);
