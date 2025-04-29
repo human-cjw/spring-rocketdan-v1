@@ -17,8 +17,8 @@ public class ResumeController {
     private final ResumeService resumeService;
     private final HttpSession session;
 
-    @GetMapping("/resume/{id}")
-    public String detail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
+    @GetMapping("/resume/{resumeId}")
+    public String detail(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
 
         ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId);
         System.out.println("🧪 DetailDTO title: " + detailDTO.getTitle());
@@ -27,8 +27,8 @@ public class ResumeController {
         return "resume/detail";
     }
 
-    @GetMapping("/resume/{id}/update-form")
-    public String updateForm(@PathVariable Integer id) {
+    @GetMapping("/resume/{resumeId}/update-form")
+    public String updateForm(@PathVariable("resumeId") Integer id) {
 
         return "resume/update-form";
     }
