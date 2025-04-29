@@ -4,6 +4,7 @@ import com.metacoding.springrocketdanv1.career.Career;
 import com.metacoding.springrocketdanv1.career.CareerRepository;
 import com.metacoding.springrocketdanv1.certification.Certification;
 import com.metacoding.springrocketdanv1.certification.CertificationRepository;
+import com.metacoding.springrocketdanv1.jobTechStack.JobTechStackResponse;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStack;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackRepository;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackResponse;
@@ -190,17 +191,15 @@ public class ResumeService {
             }
         }
         // 5. 깊은 복사해서 새 ResumeTechStack 리스트 만들기
-        List<ResumeTechStack> resumeTechStacks = new ArrayList<>();
-        if (requestDTO.getResumeTechStacks() != null) {
-            for (ResumeRequest.UpdateDTO.ResumeTechStackDTO resumeTechStackDTO : requestDTO.getResumeTechStacks()) {
-                TechStack techStack = techStackRepository.findById(resumeTechStackDTO.getTechStackId()); // id로 찾기
-                ResumeTechStack resumeTechStack = ResumeTechStack.builder()
-                        .techStack(techStack)
-                        .resume(resume)
-                        .build();
-                resumeTechStacks.add(resumeTechStack);
-            }
-        }
+        List<ResumeTechStackResponse.ResumeTechStackUpdateDTO> jobTechStackUpdateDTOs = new ArrayList<>();
+        for (TechStack techStack : techStacks) {
+            jobTechStackUpdateDTOs.add(
+                    new JobTechStackResponse.JobTechStackUpdateDTO(
+                            techStack.getId(),
+                            techStack.getName(),
+                            jobTechStackIds.contains(techStack.getId())
+                    )
+            );
 
         // 6. 각각 저장하기
         for (Career career : careers) {

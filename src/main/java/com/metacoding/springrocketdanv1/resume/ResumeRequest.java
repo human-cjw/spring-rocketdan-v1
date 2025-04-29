@@ -21,7 +21,7 @@ public class ResumeRequest {
         private String graduationDate; // 졸업날짜
         private String careerLevel;
         private List<CertificationDTO> certifications;
-        private List<ResumeTechStackDTO> resumeTechStacks;
+        private List<Integer> techStacks;
         private List<CareerDTO> careers;
         private Boolean isDefault;
         private List<UserDTO> users;
