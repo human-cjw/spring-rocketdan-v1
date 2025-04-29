@@ -22,6 +22,15 @@ public class Board {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    public Board(String title, String content, String password) {
+        this.title = title;
+        this.content = content;
+        this.password = password;
+    }
+
+
+
 /*
     // 유저 FK
     @ManyToOne(fetch = FetchType.LAZY)
