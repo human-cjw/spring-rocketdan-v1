@@ -25,14 +25,14 @@ public class ResumeController {
         return "resume/detail";
     }
 
-    @GetMapping("/resume/{id}/update-form")
-    public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
-
-        ResumeResponse.DetailDTO detailDTO = resumeService.이력서수정하기(resumeId);
-        request.setAttribute("model", detailDTO);
-
-        return "resume/update-form";
-    }
+//    @GetMapping("/resume/{id}/update-form")
+//    public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
+//
+//        ResumeResponse.DetailDTO detailDTO = resumeService.이력서수정하기(resumeId);
+//        request.setAttribute("model", detailDTO);
+//
+//        return "resume/update-form";
+//    }
 
     @PostMapping("/resume/{id}/update")
     public String update(@PathVariable("id") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {

@@ -53,77 +53,95 @@ public class ResumeService {
             resumeTechStacks.add(rts.getTechStack());
         }
 
-        List<ResumeResponse.GraduationTypeDTO> graduationTypeDTOs = new ArrayList<>();
-        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("졸업", "졸업".equals(resume.getGraduationType())));
-        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("재학", "재학".equals(resume.getGraduationType())));
-        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("휴학", "휴학".equals(resume.getGraduationType())));
-        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("졸업 예정", "졸업 예정".equals(resume.getGraduationType())));
+        List<ResumeResponse.GraduationTypeDTO> graduationTypeDTOs = List.of(
+                new ResumeResponse.GraduationTypeDTO("졸업", "졸업".equals(resume.getGraduationType())),
+                new ResumeResponse.GraduationTypeDTO("재학", "재학".equals(resume.getGraduationType())),
+                new ResumeResponse.GraduationTypeDTO("휴학", "휴학".equals(resume.getGraduationType())),
+                new ResumeResponse.GraduationTypeDTO("졸업 예정", "졸업 예정".equals(resume.getGraduationType()))
+        );
 
-        List<ResumeResponse.CareerLevelTypeDTO> careerLevelTypeDTOS = List.of(
+        List<ResumeResponse.CareerLevelTypeDTO> careerLevelTypeDTOs = List.of(
                 new ResumeResponse.CareerLevelTypeDTO("신입", "신입".equals(resume.getCareerLevel())),
+                new ResumeResponse.CareerLevelTypeDTO("경력", "경력".equals(resume.getCareerLevel()))
+        );
 
-        )
+        List<ResumeResponse.GenderTypeDTO> genderTypeDTOs = List.of(
+                new ResumeResponse.GenderTypeDTO("남", "남".equals(resume.getGender())),
+                new ResumeResponse.GenderTypeDTO("여", "여".equals(resume.getGender()))
+        );
+
+        return new ResumeResponse.DetailDTO(
+                resume,
+                certifications,
+                resumeTechStacks,
+                resume.getUser().getEmail(),
+                resume.getUser().getUsername(),
+                careers,
+                resumeTechStackResponseDTOS,
+                graduationTypeDTOs,
+                careerLevelTypeDTOs,
+                genderTypeDTOs
+        );
     }
 
 
-    public ResumeResponse.DetailDTO 이력서수정하기(Integer resumeId) {
-        Resume resume = resumeRepository.findById(resumeId);
-        List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
-        List<ResumeTechStack> resumeTechStackList = resumeTechStackRepository.findAllByResumeId(resumeId);
-        List<Career> careers = careerRepository.findCareersByResumeId(resumeId);
-
-        String careerLevel = resume.getCareerLevel();
-        boolean isCareerLevelNewbie = "신입".equals(resume.getCareerLevel());
-        boolean isCareerLevelOld = "경력".equals(resume.getCareerLevel());
-
+    //    public ResumeResponse.DetailDTO 이력서수정하기(Integer resumeId) {
+//        Resume resume = resumeRepository.findById(resumeId);
+//        List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
+//        List<ResumeTechStack> resumeTechStackList = resumeTechStackRepository.findAllByResumeId(resumeId);
+//        List<Career> careers = careerRepository.findCareersByResumeId(resumeId);
+//
+//        String careerLevel = resume.getCareerLevel();
+//        boolean isCareerLevelNewbie = "신입".equals(resume.getCareerLevel());
+//        boolean isCareerLevelOld = "경력".equals(resume.getCareerLevel());
+//
 //        System.out.println("✅ isCareerLevelNewbie = " + isCareerLevelNewbie);
 //        System.out.println("✅ isCareerLevelOld = " + isCareerLevelOld);
-
-        String gender = resume.getGender();
-        boolean isFemale = "여".equals(gender);
-        boolean isMale = "남".equals(gender);
-
-//        System.out.println(gender);
-//        System.out.println("isFemale = " + isFemale);
+//
+//        String gender = resume.getGender();
+//        boolean isFemale = "여".equals(gender);
+//        boolean isMale = "남".equals(gender);
+//
+//       System.out.println(gender);
+//      System.out.println("isFemale = " + isFemale);
 //        System.out.println("isMale = " + isMale);
-
-        List<TechStack> techStacks = techStackRepository.findAll();
-
-        List<Integer> resumeTechStackIds = new ArrayList<>();
-        for (ResumeTechStack rts : resumeTechStackList) {
-            resumeTechStackIds.add(rts.getTechStack().getId());
-        }
-
-        List<ResumeTechStackResponse.ResumeTechStackResponseDTO> resumeTechStackResponseDTOS = new ArrayList<>();
-        for (TechStack techStack : techStacks) {
-            resumeTechStackResponseDTOS.add(new ResumeTechStackResponse.ResumeTechStackResponseDTO(techStack.getId(),
-                    techStack.getName(), resumeTechStackIds.contains(techStack.getId())));
-        }
-
-        // ResumeTechStack -> TechStack 변환
-
-        List<TechStack> resumeTechStacks = new ArrayList<>();
-        for (ResumeTechStack rts : resumeTechStackList) {
-            resumeTechStacks.add(rts.getTechStack());
-        }
-
-//        System.out.println("유저가 가진 기술" + resumeTechStackIds);
-//        System.out.println("모든 기술" + techStacks);
-
-        List<ResumeResponse.GraduationTypeDTO> graduationTypeDTOs = new ArrayList<>();
-        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("졸업", "졸업".equals(resume.getGraduationType())));
-        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("재학", "재학".equals(resume.getGraduationType())));
-        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("휴학", "휴학".equals(resume.getGraduationType())));
-        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("졸업 예정", "졸업 예정".equals(resume.getGraduationType())));
-
-        ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications, resumeTechStacks,
-                resume.getUser().getEmail(), resume.getUser().getUsername(), careers,
-                isCareerLevelNewbie, isCareerLevelOld, isFemale, isMale, resumeTechStackResponseDTOS, graduationTypeDTOs);
-
-
-        return detailDTO;
-    }
-
+//
+//        List<TechStack> techStacks = techStackRepository.findAll();
+//
+//        List<Integer> resumeTechStackIds = new ArrayList<>();
+//        for (ResumeTechStack rts : resumeTechStackList) {
+//            resumeTechStackIds.add(rts.getTechStack().getId());
+//        }
+//
+//        List<ResumeTechStackResponse.ResumeTechStackResponseDTO> resumeTechStackResponseDTOS = new ArrayList<>();
+//        for (TechStack techStack : techStacks) {
+//            resumeTechStackResponseDTOS.add(new ResumeTechStackResponse.ResumeTechStackResponseDTO(techStack.getId(),
+//                    techStack.getName(), resumeTechStackIds.contains(techStack.getId())));
+//        }
+//
+//        // ResumeTechStack -> TechStack 변환
+//
+//        List<TechStack> resumeTechStacks = new ArrayList<>();
+//        for (ResumeTechStack rts : resumeTechStackList) {
+//            resumeTechStacks.add(rts.getTechStack());
+//        }
+//
+//           System.out.println("유저가 가진 기술" + resumeTechStackIds);
+//           System.out.println("모든 기술" + techStacks);
+//
+//        List<ResumeResponse.GraduationTypeDTO> graduationTypeDTOs = new ArrayList<>();
+//        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("졸업", "졸업".equals(resume.getGraduationType())));
+//        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("재학", "재학".equals(resume.getGraduationType())));
+//        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("휴학", "휴학".equals(resume.getGraduationType())));
+//        graduationTypeDTOs.add(new ResumeResponse.GraduationTypeDTO("졸업 예정", "졸업 예정".equals(resume.getGraduationType())));
+//
+//        ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications, resumeTechStacks,
+//                resume.getUser().getEmail(), resume.getUser().getUsername(), careers,
+//                isCareerLevelNewbie, isCareerLevelOld, isFemale, isMale, resumeTechStackResponseDTOS, graduationTypeDTOs);
+//
+//
+//        return detailDTO;
+//    }
     @Transactional
     public void 이력서수정완료(Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
         Resume resume = resumeRepository.findById(resumeId);

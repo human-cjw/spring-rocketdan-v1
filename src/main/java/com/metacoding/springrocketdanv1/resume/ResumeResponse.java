@@ -34,17 +34,17 @@ public class ResumeResponse {
         private List<Certification> certifications; // 다른 테이블에서 가지고 온 것
         private List<TechStack> resumeTechStacks; // 다른 테이블에서 가지고 온 것 (유저가 갖고 있는거)
         private List<Career> careers;
-        private boolean isCareerLevelNewbie;
-        private boolean isCareerLevelOld;
-        private boolean isFemale;
-        private boolean isMale;
         private List<ResumeTechStackResponse.ResumeTechStackResponseDTO> techStacks;
         private List<GraduationTypeDTO> graduationTypes;
+        private List<CareerLevelTypeDTO> careerLevelTypes;
+        private List<GenderTypeDTO> genderTypes;
 
 
         public DetailDTO(Resume resume, List<Certification> certifications, List<TechStack> resumeTechStacks,
-                         String email, String name, List<Career> careers, boolean isCareerLevelNewbie, boolean isCareerLevelOld,
-                         boolean isFemale, boolean isMale, List<ResumeTechStackResponse.ResumeTechStackResponseDTO> techStacks, List<GraduationTypeDTO> graduationTypes) {
+                         String email, String name, List<Career> careers,
+                         List<ResumeTechStackResponse.ResumeTechStackResponseDTO> techStacks,
+                         List<GraduationTypeDTO> graduationTypes, List<CareerLevelTypeDTO> careerLevelTypes,
+                         List<GenderTypeDTO> genderTypes) {
             this.id = resume.getId();
             this.title = resume.getTitle();
             this.summary = resume.getSummary();
@@ -64,12 +64,10 @@ public class ResumeResponse {
             this.email = email;
             this.name = name;
             this.careers = careers;
-            this.isCareerLevelNewbie = isCareerLevelNewbie;
-            this.isCareerLevelOld = isCareerLevelOld;
-            this.isFemale = isFemale;
-            this.isMale = isMale;
             this.techStacks = techStacks;
             this.graduationTypes = graduationTypes;
+            this.careerLevelTypes = careerLevelTypes;
+            this.genderTypes = genderTypes;
 
         }
 
@@ -87,6 +85,27 @@ public class ResumeResponse {
     }
 
 
+    @Data
+    public static class CareerLevelTypeDTO {
+        private String value;
+        private Boolean isSelected;
+
+        public CareerLevelTypeDTO(String value, Boolean isSelected) {
+            this.value = value;
+            this.isSelected = isSelected;
+        }
+    }
+
+    @Data
+    public static class GenderTypeDTO {
+        private String value;
+        private Boolean isSelected;
+
+        public GenderTypeDTO(String value, Boolean isSelected) {
+            this.value = value;
+            this.isSelected = isSelected;
+        }
+    }
 }
 
 

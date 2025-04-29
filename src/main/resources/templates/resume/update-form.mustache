@@ -55,18 +55,14 @@
                     <h5 class="fw-bold mb-3">성별 & 생년월일</h5>
                     <div class="d-flex align-items-center gap-3 m-3 mb-1">
                         <!-- 성별 선택 칸 시작 -->
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" name="gender" value="남자"
-                                       {{#model.isMale}}checked{{/model.isMale}} /> 남자
-                            </label>
-                        </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" name="gender" value="여자"
-                                       {{#model.isFemale}}checked{{/model.isFemale}} /> 여자
-                            </label>
-                        </div>
+                        {{#model.genderTypes}}
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" name="gender" value="{{value}}"
+                                           {{#isSelected}}checked{{/isSelected}}/> {{value}}
+                                </label>
+                            </div>
+                        {{/model.genderTypes}}
                         <!-- 성별 선택 칸 끝 -->
 
                         <!-- 생년월일 입력 칸 시작 -->
@@ -88,18 +84,14 @@
                     <h5 class="fw-bold mb-3">경력</h5>
                     <div class="d-flex align-items-center gap-3 m-3 mb-1">
                         <!-- 신입 + 경력 옵션 선택 칸 시작 -->
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" name="careerLevel" value="신입"
-                                       {{#model.isCareerLevelNewbie}}checked{{/model.isCareerLevelNewbie}} /> 신입
-                            </label>
-                        </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" name="careerLevel" value="경력"
-                                       {{#model.isCareerLevelOld}}checked{{/model.isCareerLevelOld}} /> 경력
-                            </label>
-                        </div>
+                        {{#model.careerLevelTypes}}
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" name="careerLevel" value="{{value}}"
+                                           {{#isSelected}}checked{{/isSelected}}/> {{value}}
+                                </label>
+                            </div>
+                        {{/model.careerLevelTypes}}
                         <!-- 신입 + 경력 옵션 선택 칸 끝 -->
                     </div>
                 </div>
