@@ -10,10 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -132,5 +129,24 @@ public class CompanyController {
         model.addAttribute("model", respDTO);
 
         return "company/manage-job";
+    }
+
+    @GetMapping("/company/job/{jobId}")
+    public String manageDetail(@PathVariable Integer jobId,
+                               @RequestParam(required = false) String status,
+                               Model model) {
+        if (status == null || status.isBlank()) {
+            status = "접수";
+        }
+
+        CompanyResponse.CompanyManageResumePageDTO respDTO = companyService.지원자조회(jobId, status);
+        model.addAttribute("model", respDTO);
+
+        model.addAttribute("isStatus접수", status.equals("접수"));
+        model.addAttribute("isStatus검토", status.equals("검토"));
+        model.addAttribute("isStatus합격", status.equals("합격"));
+        model.addAttribute("isStatus탈락", status.equals("탈락"));
+
+        return "company/manage-resume";
     }
 }

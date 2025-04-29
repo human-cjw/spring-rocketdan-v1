@@ -4,20 +4,22 @@
     <div class="container">
         <div class="row">
             <!-- 왼쪽 메뉴 -->
-            <div class="col-md-3 mb-4" style="width: 20%;">
+            <div class="col-md-3 mb-4" style="width: 20%">
                 <div class="border rounded-3 bg-white p-3 shadow-sm">
                     <p class="fs-6 fw-bold mb-3">채용 관리</p>
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">모든 지원자</a>
+                            <a class="nav-link {{#isStatus접수}}active{{/isStatus접수}}" href="?status=접수">접수</a>
                         </li>
-                        <hr/>
-                        <li class="nav-item"><a class="nav-link" href="#">서류 접수</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">서류 검토중</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">서류 합격</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">탈락</a></li>
-                        <hr/>
-                        <li class="nav-item"><a class="nav-link" href="#">채용 확정</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link {{#isStatus검토}}active{{/isStatus검토}}" href="?status=검토">검토</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{#isStatus합격}}active{{/isStatus합격}}" href="?status=합격">합격</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{#isStatus탈락}}active{{/isStatus탈락}}" href="?status=탈락">탈락</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -25,28 +27,41 @@
             <!-- 오른쪽 내용 -->
             <div class="col-md-9">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div class="fs-4 fw-bold">{{jobTitle}}</div>
-                    <a href="/job/{{jobId}}" class="btn btn-primary">공고 상세보기</a>
+                    <div class="fs-4 fw-bold">{{model.jobTitle}}</div>
+                    <a href="/job/{{model.jobId}}" class="btn btn-primary">공고 상세보기</a>
                 </div>
 
-                <div class="border rounded bg-white p-4">
+                <!-- 흰 네모박스 -->
+                <div class="border rounded bg-white p-5 text-start" style="height: auto">
+
                     {{#model.applications}}
-                        <div class="list-group mb-3">
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex justify-content-between align-items-center">
+                        <div class="list-group" style="height: 50%; margin: 1rem">
+                            <a href="/company/acceptance" class="list-group-item list-group-item-action">
+                                <div class="d-flex weapp-prj" style="justify-content: space-between">
                                     <div class="d-flex align-items-center">
                                         <div class="weapp-pimg">
                                             <img src="/images/default-profile.png" alt="지원자 사진"
-                                                 style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;">
+                                                 style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
                                         </div>
-                                        <div class="ms-3">
-                                            <div class="fs-5 fw-bold">{{username}}</div>
-                                            <div class="fs-6">{{resumeTitle}}</div>
-                                            <div class="text-muted">{{careerLevel}}</div>
+                                        <div class="weapp-company">
+                                            <div class="fs-5 fw-bold" style="margin: 1rem">{{username}}</div>
+                                            <div class="fs-6 fw-nomal" style="margin: 1rem">{{resumeTitle}}</div>
+                                            <div class="text-muted" style="margin: 1rem">{{careerLevel}}</div>
                                         </div>
                                     </div>
-                                    <div class="text-end text-muted" style="font-size: 0.9rem;">
-                                        {{createdAt}}
+                                    <div class="text-end" style="padding: 1rem;">
+                                        <div class="text-muted" style="font-size: 0.9rem;">{{createdAt}}</div>
+                                        <div class="mt-2">
+                                            {{#isAccepted}}
+                                                <span class="badge bg-success">{{status}}</span>
+                                            {{/isAccepted}}
+                                            {{#isRejected}}
+                                                <span class="badge bg-danger">{{status}}</span>
+                                            {{/isRejected}}
+                                            {{#isPending}}
+                                                <span class="badge bg-secondary">{{status}}</span>
+                                            {{/isPending}}
+                                        </div>
                                     </div>
                                 </div>
                             </a>
@@ -58,7 +73,9 @@
                             지원자가 없습니다.
                         </div>
                     {{/model.applications}}
+
                 </div>
+                <!-- 흰 네모박스 끝 -->
             </div>
         </div>
     </div>
