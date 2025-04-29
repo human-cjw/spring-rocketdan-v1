@@ -238,6 +238,12 @@ public class ResumeService {
         selectedResume.changeDefaultTrue();
 
     }
+
+    public ResumeResponse.ResumeListDTO 이력서목록보기(Integer userId, boolean isDefault) {
+        List<Resume> resumes = resumeRepository.findAllByUserId(userId, isDefault);
+
+        return new ResumeResponse.ResumeListDTO(resumes, isDefault);
+    }
 }
 
 

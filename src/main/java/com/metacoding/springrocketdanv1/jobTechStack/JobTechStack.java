@@ -3,8 +3,10 @@ package com.metacoding.springrocketdanv1.jobTechStack;
 import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
@@ -22,4 +24,11 @@ public class JobTechStack {
     // 기술스택 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private TechStack techStack;
+
+    @Builder
+    public JobTechStack(Integer id, Job job, TechStack techStack) {
+        this.id = id;
+        this.job = job;
+        this.techStack = techStack;
+    }
 }
