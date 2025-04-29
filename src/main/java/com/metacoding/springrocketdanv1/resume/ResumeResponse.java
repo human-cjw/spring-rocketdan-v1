@@ -13,6 +13,7 @@ public class ResumeResponse {
 
     @Data
     public static class UpdateDTO {
+        private Integer id;
         private String title;
         private String summary;
         private String education;
@@ -41,6 +42,7 @@ public class ResumeResponse {
                          List<ResumeTechStackResponse.ResumeTechStackResponseDTO> techStacks,
                          List<GraduationTypeDTO> graduationTypes, List<CareerLevelTypeDTO> careerLevelTypes,
                          List<GenderTypeDTO> genderTypes) {
+            this.id = resume.getId();
             this.title = resume.getTitle();
             this.summary = resume.getSummary();
             this.education = resume.getEducation();

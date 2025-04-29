@@ -225,28 +225,6 @@ public class ResumeService {
         }
     }
 
-/*    @Transactional
-    public void 기본이력서설정(Integer resumeId) {
-        Resume selectedResume = resumeRepository.findById(resumeId);
-        Integer userId = selectedResume.getUser().getId();
-
-        // 2. 해당 유저의 모든 이력서 isDefault = false 로 초기화
-        List<Resume> resumeList = resumeRepository.findAllByUserId(userId);
-        for (Resume resume : resumeList) {
-            resume.setIsDefault(false);
-        }
-
-        // 3. 선택한 이력서만 isDefault = true
-        selectedResume.changeDefaultTrue();
-
-
-        ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications,
-                resumeTechStacks, resume.getUser().getEmail(), resume.getUser().getUsername(), careers, userId);
-
-        return detailDTO;
-
-    }*/
-
     public ResumeResponse.ResumeListDTO 이력서목록보기(Integer userId, boolean isDefault) {
         List<Resume> resumes = resumeRepository.findAllByUserId(userId, isDefault);
 
