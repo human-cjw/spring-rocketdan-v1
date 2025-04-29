@@ -23,10 +23,10 @@ INSERT INTO user_tb (username,
                      user_type,
                      created_at,
                      company_id)
-VALUES ( 'ssar', '1234', 'ssar@example.com', null, 'user', NOW(), null),
-       ( 'cos', '1234', 'cos@example.com', null, 'user', NOW(), null),
-       ( 'love', '1234', 'love@example.com', null, 'company', NOW(), 1),
-       ( 'haha', '1234', 'haha@example.com', null, 'company', NOW(), 2);
+VALUES ('ssar', '1234', 'ssar@example.com', null, 'user', NOW(), null),
+       ('cos', '1234', 'cos@example.com', null, 'user', NOW(), null),
+       ('love', '1234', 'love@example.com', null, 'company', NOW(), 1),
+       ('haha', '1234', 'haha@example.com', null, 'company', NOW(), 2);
 
 -- =============================================
 -- Company 더미 데이터
@@ -177,6 +177,7 @@ VALUES ('백엔드 개발자 이력서',
         '2024-02-01',
         true,
         now()),
+       -- 2번 유저의 프론트 이력서
        ('프론트엔드 개발자 이력서',
         'React와 TypeScript를 주로 사용하는 프론트엔드 개발자입니다. 사용자 경험을 중시하며, 웹 접근성과 반응형 디자인에 관심이 많습니다.',
         '여',
@@ -193,7 +194,25 @@ VALUES ('백엔드 개발자 이력서',
         '2014-03-01',
         '2020-02-01',
         true,
-        now());
+        now()),
+       -- ssar(1번 유저)의 DevOps 엔지니어 이력서(3번)
+       ('DevOps 엔지니어 이력서',
+        'AWS, Docker, Kubernetes 기반의 클라우드 인프라 구축 및 운영 경험. CI/CD, IaC, 모니터링 자동화에 능숙합니다.',
+        '남',
+        '경력',
+        '부산대학교',
+        '1995-01-01',
+        '컴퓨터공학',
+        '졸업',
+        '010-1234-5678',
+        'https://github.com/ssar/devops-portfolio',
+        1, -- user_id (ssar)
+        4, -- salary_range_id (6000-7000)
+        5, -- job_group_id (DevOps 엔지니어)
+        '2014-03-01',
+        '2020-02-01',
+        false, -- 기본 이력서 아님
+        now());;
 
 -- =============================================
 -- Job 더미 데이터
@@ -269,8 +288,16 @@ VALUES
     (2, 13), -- Next.js
     (2, 14), -- HTML/CSS
     (2, 16), -- Docker
-    (2, 18);
--- AWS
+    (2, 18), -- AWS
+
+    -- 3번 ssar의 이력서(DevOps 엔지니어) 주요 기술스택
+    (3, 16), -- Docker
+    (3, 17), -- Kubernetes
+    (3, 18), -- AWS
+    (3, 19), -- GCP
+    (3, 20);
+-- Jenkins;
+
 
 -- =============================================
 -- CompanyTechStack 더미 데이터
@@ -352,6 +379,7 @@ VALUES ('네이버',
         1, -- 백엔드 개발자
         1, -- ssar의 백엔드 개발자 이력서
         now()),
+
        ('네이버',
         '2020-01-01',
         '2022-01-01',
@@ -363,6 +391,20 @@ VALUES ('네이버',
         '2023-02-01',
         2, -- 프론트엔드 개발자
         2, -- cos의 프론트엔드 개발자 이력서
+        now()),
+
+       -- ssar의 DevOps 엔지니어 경력 예시
+       ('네이버',
+        '2020-03-01',
+        '2022-12-31',
+        5, -- DevOps 엔지니어
+        3, -- 3번 이력서
+        now()),
+       ('카카오',
+        '2023-01-01',
+        '2024-02-01',
+        5, -- DevOps 엔지니어
+        3, -- 3번 이력서
         now());
 
 -- =============================================
@@ -388,6 +430,7 @@ VALUES ('정보처리기사',
         '2020-03-01',
         1, -- ssar의 백엔드 개발자 이력서
         now()),
+
        ('정보처리기사',
         '한국산업인력공단',
         '2020-01-01',
@@ -397,7 +440,19 @@ VALUES ('정보처리기사',
         '한국산업인력공단',
         '2020-02-01',
         2, -- cos의 프론트엔드 개발자 이력서
-        now());
+        now()),
+
+       ('AWS Certified DevOps Engineer',
+        'Amazon Web Services',
+        '2022-08-01',
+        3, -- 3번 이력서
+        now()),
+       ('CKA (Certified Kubernetes Administrator)',
+        'Cloud Native Computing Foundation',
+        '2023-03-01',
+        3, -- 3번 이력서
+        now())
+;
 
 -- =============================================
 -- Board 더미 데이터

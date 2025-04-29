@@ -6,6 +6,7 @@ import com.metacoding.springrocketdanv1.techStack.TechStack;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ResumeResponse {
@@ -54,6 +55,38 @@ public class ResumeResponse {
             this.email = email;
             this.name = name;
             this.careers = careers;
+        }
+    }
+
+    @Data
+    public static class ResumeListDTO {
+        private boolean isAll;
+        private boolean isDefault;
+        private List<ResumeItemDTO> resumeItems = new ArrayList<>();
+
+        public ResumeListDTO(List<Resume> resumes, boolean isDefault) {
+            if (isDefault) {
+                this.isDefault = true;
+            } else {
+                this.isAll = true;
+            }
+
+            for (Resume resume : resumes) {
+                this.resumeItems.add(new ResumeItemDTO(resume.getId(), resume.getTitle(), resume.getCreatedAt().toString().substring(0, 10)));
+            }
+        }
+
+        @Data
+        class ResumeItemDTO {
+            private Integer id;
+            private String title;
+            private String createdAt;
+
+            public ResumeItemDTO(Integer id, String title, String createdAt) {
+                this.id = id;
+                this.title = title;
+                this.createdAt = createdAt;
+            }
         }
     }
 }
