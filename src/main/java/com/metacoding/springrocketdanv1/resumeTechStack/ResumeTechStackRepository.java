@@ -18,5 +18,4 @@ public class ResumeTechStackRepository {
                 .setParameter("resumeId", resumeId)
                 .getResultList();
     }
-
 }

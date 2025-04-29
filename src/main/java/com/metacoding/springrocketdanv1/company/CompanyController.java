@@ -144,7 +144,7 @@ public class CompanyController {
         model.addAttribute("isStatus접수", status.equals("접수"));
         model.addAttribute("isStatus검토", status.equals("검토"));
         model.addAttribute("isStatus합격", status.equals("합격"));
-        model.addAttribute("isStatus탈락", status.equals("탈락"));
+        model.addAttribute("isStatus불합격", status.equals("불합격"));
 
         return "company/manage-resume";
     }

@@ -110,7 +110,7 @@ public class CompanyResponse {
             this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             this.status = status;
             this.isAccepted = "합격".equals(status);
-            this.isRejected = "탈락".equals(status);
+            this.isRejected = "불합격".equals(status);
             this.isPending = "접수".equals(status) || "검토".equals(status);
         }
     }

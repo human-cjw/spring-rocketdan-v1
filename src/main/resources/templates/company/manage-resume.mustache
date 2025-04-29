@@ -18,7 +18,7 @@
                             <a class="nav-link {{#isStatus합격}}active{{/isStatus합격}}" href="?status=합격">합격</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{#isStatus탈락}}active{{/isStatus탈락}}" href="?status=탈락">탈락</a>
+                            <a class="nav-link {{#isStatus불합격}}active{{/isStatus불합격}}" href="?status=불합격">불합격</a>
                         </li>
                     </ul>
                 </div>
@@ -36,9 +36,7 @@
 
                     {{#model.applications}}
                         <div class="list-group" style="height: 50%; margin: 1rem">
-
-                            <a href="/company/acceptance" class="list-group-item list-group-item-action">
-
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex weapp-prj" style="justify-content: space-between">
                                     <div class="d-flex align-items-center">
                                         <div class="weapp-pimg">
@@ -53,8 +51,6 @@
                                     </div>
                                     <div class="text-end" style="padding: 1rem;">
                                         <div class="text-muted" style="font-size: 0.9rem;">{{createdAt}}</div>
-
-                                        <!-- 지원 상태 badge 표시 -->
                                         <div class="mt-2">
                                             {{#isAccepted}}
                                                 <span class="badge bg-success">{{status}}</span>
@@ -65,7 +61,6 @@
                                             {{#isPending}}
                                                 <span class="badge bg-secondary">{{status}}</span>
                                             {{/isPending}}
-
                                         </div>
                                     </div>
                                 </div>
@@ -78,6 +73,7 @@
                             지원자가 없습니다.
                         </div>
                     {{/model.applications}}
+
                 </div>
                 <!-- 흰 네모박스 끝 -->
             </div>

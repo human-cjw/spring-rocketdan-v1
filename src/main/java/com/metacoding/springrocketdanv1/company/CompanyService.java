@@ -1,9 +1,13 @@
 package com.metacoding.springrocketdanv1.company;
 
 import com.metacoding.springrocketdanv1.application.Application;
+import com.metacoding.springrocketdanv1.application.ApplicationRepository;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStackRepository;
 import com.metacoding.springrocketdanv1.job.Job;
+import com.metacoding.springrocketdanv1.job.JobRepository;
+import com.metacoding.springrocketdanv1.resume.Resume;
+import com.metacoding.springrocketdanv1.resume.ResumeRepository;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
@@ -29,6 +33,9 @@ public class CompanyService {
     private final WorkFieldRepository workFieldRepository;
     private final CompanyTechStackRepository companyTechStackRepository;
     private final TechStackRepository techStackRepository;
+    private final ApplicationRepository applicationRepository;
+    private final ResumeRepository resumeRepository;
+    private final JobRepository jobRepository;
 
     @PersistenceContext
     private EntityManager em;
@@ -212,22 +219,23 @@ public class CompanyService {
 
     @Transactional
     public CompanyResponse.CompanyManageResumePageDTO 지원자조회(Integer jobId, String status) {
-        List<Application> applications = companyRepository.findApplicationsByJobId(jobId, status);
+        List<Application> applications = applicationRepository.findByJobId(jobId, status);
 
         List<CompanyResponse.CompanyManageResumeDTO> applicationDTOs = new ArrayList<>();
-        for (Application app : applications) {
-            CompanyResponse.CompanyManageResumeDTO applicationDTO = new CompanyResponse.CompanyManageResumeDTO(
 
+        for (Application app : applications) {
+            Resume resume = resumeRepository.findById(app.getResume().getId());  // lazy 대신 직접 조회
+            applicationDTOs.add(new CompanyResponse.CompanyManageResumeDTO(
                     app.getUser().getUsername(),
-                    app.getResume().getTitle(),
-                    app.getResume().getCareerLevel(),
+                    resume.getTitle(),
+                    resume.getCareerLevel(),
                     app.getCreatedAt().toLocalDateTime(),
                     app.getStatus()
-            );
-            applicationDTOs.add(applicationDTO);
+            ));
         }
 
-        String jobTitle = applications.isEmpty() ? "공고 제목 없음" : applications.get(0).getJob().getTitle();
+        Job job = jobRepository.findById(jobId);  // 공고는 한번만 조회
+        String jobTitle = (job != null) ? job.getTitle() : "공고 제목 없음";
 
         return new CompanyResponse.CompanyManageResumePageDTO(jobId, jobTitle, applicationDTOs);
     }

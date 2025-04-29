@@ -40,3 +40,4 @@ public class ResumeRepository {
         return query.getResultList();
     }
 }
+
