@@ -23,6 +23,8 @@ public class ResumeRequest {
         private List<CertificationDTO> certifications;
         private List<ResumeTechStackDTO> resumeTechStacks;
         private List<CareerDTO> careers;
+        private Boolean isDefault;
+        private List<UserDTO> users;
 
         @Data
         public static class CertificationDTO {
@@ -46,6 +48,10 @@ public class ResumeRequest {
             private Integer techStackId;
         }
 
+        @Data
+        public static class UserDTO {
+            private String email;
+        }
     }
 
 

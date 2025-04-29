@@ -98,28 +98,44 @@
             </div>
             <!-- 경력 끝 -->
 
-            <!-- 커리어 칸 시작 -->
+            <!-- 경력 사항 칸 -->
             <div class="bg-white rounded p-4 shadow-sm mb-4">
                 <div>
                     <h5 class="fw-bold mb-3">경력 사항</h5>
-                    {{#model.careers}}
-                        <div class="card m-3 mb-3 p-3">
-                            <div class="mb-2">
-                                <label class="form-label">회사명</label>
-                                <input class="form-control" type="text" name="careerCompanyNames"
-                                       value="{{companyName}}"/>
+
+                    <!-- 여기에 커리어가 추가된다 -->
+                    <div id="career-container">
+                        {{#model.careers}}
+                            <div class="card m-3 mb-3 p-3">
+                                <div class="mb-2">
+                                    <label class="form-label">회사명</label>
+                                    <input class="form-control" type="text" name="careerCompanyNames"
+                                           value="{{companyName}}"/>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">입사일</label>
+                                    <input class="form-control" type="text" name="careerStartDates"
+                                           value="{{startDate}}"/>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">퇴사일</label>
+                                    <input class="form-control" type="text" name="careerEndDates" value="{{endDate}}"/>
+                                </div>
+                                <div class="d-flex" style="justify-content: end">
+                                    <button type="button" class="btn btn-danger btn-sm mt-2"
+                                            onclick="deleteCard(this)">삭제
+                                    </button>
+                                </div>
                             </div>
-                            <div class="mb-2">
-                                <label class="form-label">입사일</label>
-                                <input class="form-control" type="text" name="careerStartDates"
-                                       value="{{startDate}}"/>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label">퇴사일</label>
-                                <input class="form-control" type="text" name="careerEndDates" value="{{endDate}}"/>
-                            </div>
-                        </div>
-                    {{/model.careers}}
+                        {{/model.careers}}
+                    </div>
+                    <!-- 추가 버튼 -->
+                    <div>
+
+                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="addCareer()">
+                        + 경력 추가
+                    </button>
                 </div>
             </div>
             <!-- 커리어 칸 끝 -->
@@ -179,25 +195,37 @@
             <!-- 학력 칸 끝 -->
 
             <!-- 자격증 칸 -->
-            <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <div id="certification-section" class="bg-white rounded p-4 shadow-sm mb-4">
                 <h5 class="fw-bold mb-3">자격증</h5>
-                {{#model.certifications}}
-                    <div class="card m-3 mb-3 p-3">
-                        <div class="mb-2">
-                            <label class="form-label">자격증 이름</label>
-                            <input class="form-control" type="text" name="certificationNames" value="{{name}}"/>
+
+                <!-- 여기에 자격증 항목이 추가된다 -->
+                <div id="certification-container">
+                    {{#model.certifications}}
+                        <div class="card m-3 mb-3 p-3">
+                            <div class="mb-2">
+                                <label class="form-label">자격증 이름</label>
+                                <input class="form-control" type="text" name="certificationNames" value="{{name}}"/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">발급 기관</label>
+                                <input class="form-control" type="text" name="certificationIssuers" value="{{issuer}}"/>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">취득일</label>
+                                <input class="form-control" type="text" name="certificationDates"
+                                       value="{{issuedDate}}"/>
+                            </div>
+                            <div class="d-flex" style="justify-content: end">
+                                <button type="button" class="btn btn-danger btn-sm mt-2"
+                                        onclick="deleteCard(this)">삭제
+                                </button>
+                            </div>
                         </div>
-                        <div class="mb-2">
-                            <label class="form-label">발급 기관</label>
-                            <input class="form-control" type="text" name="certificationIssuers" value="{{issuer}}"/>
-                        </div>
-                        <div class="mb-2">
-                            <label class="form-label">취득일</label>
-                            <input class="form-control" type="text" name="certificationDates"
-                                   value="{{issuedDate}}"/>
-                        </div>
-                    </div>
-                {{/model.certifications}}
+                    {{/model.certifications}}
+                </div>
+                <button type="button" class="btn btn-outline-primary btn-sm mt-2 " onclick="addCertification()">
+                    + 자격증 추가
+                </button>
             </div>
             <!-- 자격증 칸 끝 -->
 
@@ -240,6 +268,67 @@
     </div>
 </div>
 
+<script>
+    function addCareer() {
+        const container = document.getElementById('career-container');
+        const newCareer = `
+        <div class="card m-3 mb-3 p-3">
+            <div class="mb-2">
+                <label class="form-label">회사명</label>
+                <input class="form-control" type="text" name="careerCompanyNames" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">입사일</label>
+                <input class="form-control" type="text" name="careerStartDates" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">퇴사일</label>
+                <input class="form-control" type="text" name="careerEndDates" />
+            </div>
+            <div class="d-flex" style="justify-content: end">
+                 <button type="button" class="btn btn-danger btn-sm mt-2"
+                         onclick="deleteCard(this)">삭제
+                 </button>
+            </div>
+        </div>
+    `;
+        container.innerHTML += newCareer;
+    }
+
+    function addCertification() {
+        const container = document.getElementById('certification-container');
+        const newCertification = `
+        <div class="card m-3 mb-3 p-3">
+            <div class="mb-2">
+                <label class="form-label">자격증 이름</label>
+                <input class="form-control" type="text" name="certificationNames" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">발급 기관</label>
+                <input class="form-control" type="text" name="certificationIssuers" />
+            </div>
+            <div class="mb-2">
+                <label class="form-label">취득일</label>
+                <input class="form-control" type="text" name="certificationDates" />
+            </div>
+            <div class="d-flex" style="justify-content: end">
+                 <button type="button" class="btn btn-danger btn-sm mt-2"
+                         onclick="deleteCard(this)">삭제
+                 </button>
+            </div>
+        </div>
+    `;
+        container.innerHTML += newCertification;
+    }
+
+    function deleteCard(button) {
+        const card = button.closest('.card');
+        if (card) {
+            card.remove();
+        }
+    }
+</script>
 </form>
+
 
 {{> layout/footer }}

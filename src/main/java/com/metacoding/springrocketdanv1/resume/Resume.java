@@ -68,16 +68,12 @@ public class Resume {
 
     }
 
-    public void setIsDefault(Boolean isDefault) {
-        this.isDefault = isDefault;
-    }
-
     public void changeDefaultTrue() {
-
         this.isDefault = true;
     }
 
-    public void changeDefaultFalse() {
-        this.isDefault = false;
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
     }
 }

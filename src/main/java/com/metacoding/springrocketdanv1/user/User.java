@@ -34,13 +34,16 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", unique = true)
     private Company company; // 기본값 null
-
+    
     @Builder
-    public User(String username, String password, String email, String userType, Timestamp createdAt) {
+    public User(Integer id, String username, String password, String email, String fileUrl, String userType, Timestamp createdAt, Company company) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.fileUrl = fileUrl;
         this.userType = userType;
         this.createdAt = createdAt;
+        this.company = company;
     }
 }

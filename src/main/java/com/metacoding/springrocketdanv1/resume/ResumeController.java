@@ -25,27 +25,31 @@ public class ResumeController {
         return "resume/detail";
     }
 
-//    @GetMapping("/resume/{id}/update-form")
-//    public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
-//
-//        ResumeResponse.DetailDTO detailDTO = resumeService.이력서수정하기(resumeId);
-//        request.setAttribute("model", detailDTO);
-//
-//        return "resume/update-form";
-//    }
+    @GetMapping("/resume/{id}/update-form")
+    public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
 
-    @PostMapping("/resume/{id}/update")
-    public String update(@PathVariable("id") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
-        // 수정 요청 처리
+        ResumeResponse.DetailDTO detailDTO = resumeService.이력서수정하기(resumeId);
+        request.setAttribute("model", detailDTO);
+
+        return "resume/update-form";
+    }
+
+
+    @PostMapping("/resume/{resumeId}/update")
+    public String 이력서수정완료(@PathVariable("resumeId") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
+        // 1. 기본 이력서 체크 여부
+        boolean isDefault = Boolean.TRUE.equals(requestDTO.getIsDefault());
+
+        // 2. 이력서 수정
         resumeService.이력서수정완료(resumeId, requestDTO);
 
-        // 상세 페이지로 리다이렉트 (새로고침된 상태로 열림)
-        return "redirect:/resume/" + resumeId;
+        // 3. 만약 isDefault가 true면 이 이력서를 기본 이력서로 설정
+        if (isDefault) {
+            resumeService.기본이력서설정(resumeId);
+        }
+
+        return "redirect:/resume/" + resumeId + "/update";
     }
 
-    @PostMapping("/resume/{id}/default")
-    public String setDefault(@PathVariable("id") Integer resumeId) {
-        resumeService.기본이력서설정(resumeId);
-        return "redirect:/resume/" + resumeId; // 설정 후 상세페이지로 이동
-    }
+
 }
