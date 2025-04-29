@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class CompanyResponse {
@@ -70,6 +72,60 @@ public class CompanyResponse {
             this.id = id;
             this.name = name;
             this.isChecked = isChecked;
+        }
+    }
+
+    @Getter
+    public static class CompanyManageJobDTO {
+        private Integer id;
+        private String title;
+        private String careerLevel;
+        private String createdAt;
+        private String jobGroupName;
+
+        public CompanyManageJobDTO(Integer id, String title, String careerLevel, LocalDateTime createdAt, String jobGroupName) {
+            this.id = id;
+            this.title = title;
+            this.careerLevel = careerLevel;
+            this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            this.jobGroupName = jobGroupName;
+        }
+    }
+
+    @Getter
+    public static class CompanyManageResumeDTO {
+        private String username;
+        private String resumeTitle;
+        private String careerLevel;
+        private String createdAt;
+        private String status;
+        // private boolean isAccepted; // 합격 or 채용 확정
+        // private boolean isRejected; // 탈락
+        private boolean isPending;
+
+        public CompanyManageResumeDTO(String username, String resumeTitle, String careerLevel, LocalDateTime createdAt, String status) {
+            this.username = username;
+            this.resumeTitle = resumeTitle;
+            this.careerLevel = careerLevel;
+            this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            this.status = status;
+//            this.isAccepted = "합격".equals(status) || "채용 확정".equals(status);
+//            this.isRejected = "탈락".equals(status);
+            this.isPending = "접수".equals(status) || "검토".equals(status);
+
+        }
+    }
+
+    @Data
+    public static class CompanyManageResumePageDTO {
+        private Integer jobId;
+        private String jobTitle;
+        private List<CompanyManageResumeDTO> applications;
+
+        public CompanyManageResumePageDTO(Integer jobId, String jobTitle, List<CompanyManageResumeDTO> applications) {
+            this.jobId = jobId;
+            this.jobTitle = jobTitle;
+            this.applications = applications;
         }
     }
 }

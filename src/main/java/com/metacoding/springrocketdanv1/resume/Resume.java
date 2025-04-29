@@ -5,6 +5,7 @@ import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -51,4 +52,26 @@ public class Resume {
     // 직무 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private JobGroup jobGroup;
+
+    @Builder
+    public Resume(Integer id, String title, String summary, String gender, String careerLevel, String education, String birthdate, String major, String graduationType, String phone, String portfolioUrl, String enrollmentDate, String graduationDate, Boolean isDefault, Timestamp createdAt, User user, SalaryRange salaryRange, JobGroup jobGroup) {
+        this.id = id;
+        this.title = title;
+        this.summary = summary;
+        this.gender = gender;
+        this.careerLevel = careerLevel;
+        this.education = education;
+        this.birthdate = birthdate;
+        this.major = major;
+        this.graduationType = graduationType;
+        this.phone = phone;
+        this.portfolioUrl = portfolioUrl;
+        this.enrollmentDate = enrollmentDate;
+        this.graduationDate = graduationDate;
+        this.isDefault = isDefault;
+        this.createdAt = createdAt;
+        this.user = user;
+        this.salaryRange = salaryRange;
+        this.jobGroup = jobGroup;
+    }
 }

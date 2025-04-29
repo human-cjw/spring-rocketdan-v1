@@ -30,7 +30,7 @@ public class Job {
     private String employmentType; // 정규직, 계약직, 인턴, 프리
     private String deadline; // 공고 마감일
     private String status; // 공고 상태. open, closed
-    private String careerLevel; // 0년차, 1년차
+    private String careerLevel; // 신입 or 경력
 
     @CreationTimestamp
     private Timestamp createdAt;

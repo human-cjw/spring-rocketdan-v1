@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class ApplicationRepository {
     private final EntityManager em;
+
+    public void save(Application application) {
+        em.persist(application);
+    }
 }
