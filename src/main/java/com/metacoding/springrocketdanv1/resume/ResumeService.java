@@ -4,9 +4,11 @@ import com.metacoding.springrocketdanv1.career.Career;
 import com.metacoding.springrocketdanv1.career.CareerRepository;
 import com.metacoding.springrocketdanv1.certification.Certification;
 import com.metacoding.springrocketdanv1.certification.CertificationRepository;
+import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
+import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
 import com.metacoding.springrocketdanv1.jobTechStack.JobTechStackResponse;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStack;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackRepository;
@@ -18,6 +20,7 @@ import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.user.UserRepository;
+import com.metacoding.springrocketdanv1.workField.WorkField;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -184,17 +187,49 @@ public class ResumeService {
     public void 이력서수정하기(Integer resumeId, ResumeRequest.UpdateDTO requestDTO, Integer userId) {
         // isDefault를 true로 받았을때
         if (requestDTO.getIsDefault() != null && requestDTO.getIsDefault()) {
-            Resume resumeIsDefaultTrue = resumeRepository.findByIsDefaultTrue();
+            Resume resumeIsDefaultTrue = resumeRepository.findByUserIdAndIsDefaultTrue(userId);
             if (resumeIsDefaultTrue.getId() != resumeId) {
                 resumeIsDefaultTrue.setIsDefaultFalse();
             }
         }
 
         // 이력서 조회하기
-        Resume resume = resumeRepository.findById(resumeId);
-        resume.update(requestDTO);
+        Resume resumePC = resumeRepository.findById(resumeId);
 
+        List<ResumeTechStack> resumeTechStacks = new ArrayList<>();
+        for (Integer techStackId : requestDTO.getTechStackIds()) {
+            TechStack techStack = TechStack.builder().id(techStackId).build();
+            resumeTechStacks.add(
+                    ResumeTechStack.builder()
+                            .resume(resumePC)
+                            .techStack(techStack)
+                            .build()
+            );
+        }
 
+        resumePC.update(requestDTO, resumeTechStacks);
+
+        // 이력서 등록 전 삭제
+        certificationRepository.deleteByResumeId(resumeId);
+
+        Certification certification = Certification.builder()
+                .issuer(requestDTO.getCertificationIssuer())
+                .name(requestDTO.getCertificationName())
+                .issuedDate(requestDTO.getCertificationIssuedDate())
+                .resume(resumePC)
+                .build();
+        certificationRepository.save(certification);
+
+        // 경력 등록 전 삭제
+        careerRepository.deleteByResumeId(resumeId);
+
+        Career career = Career.builder()
+                .resume(resumePC)
+                .companyName(requestDTO.getCareerCompanyName())
+                .startDate(requestDTO.getCareerStartDate())
+                .endDate(requestDTO.getCareerEndDate())
+                .build();
+        careerRepository.save(career);
     }
 
     public ResumeResponse.ResumeListDTO 이력서목록보기(Integer userId, boolean isDefault) {

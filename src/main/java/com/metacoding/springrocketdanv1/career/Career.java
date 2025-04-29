@@ -28,10 +28,6 @@ public class Career {
     @CreationTimestamp
     private Timestamp createdAt;
 
-    // 직군 FK
-    @ManyToOne(fetch = FetchType.LAZY)
-    private JobGroup jobGroup;
-
     // 이력서 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
@@ -43,7 +39,6 @@ public class Career {
         this.startDate = startDate;
         this.endDate = endDate;
         this.createdAt = createdAt;
-        this.jobGroup = jobGroup;
         this.resume = resume;
     }
 }

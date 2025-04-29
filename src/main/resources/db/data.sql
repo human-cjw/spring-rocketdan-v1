@@ -364,28 +364,23 @@ VALUES
 INSERT INTO career_tb (company_name,
                        start_date,
                        end_date,
-                       job_group_id,
                        resume_id,
                        created_at)
 VALUES ('네이버',
         '2020-01-01',
         '2022-01-01',
-        1, -- 백엔드 개발자
         1, -- ssar의 백엔드 개발자 이력서
         now()),
 
        ('네이버',
         '2020-01-01',
         '2022-01-01',
-        2, -- 프론트엔드 개발자
         2, -- cos의 프론트엔드 개발자 이력서
         now()),
 
-       -- ssar의 DevOps 엔지니어 경력 예시
        ('네이버',
         '2020-03-01',
         '2022-12-31',
-        5, -- DevOps 엔지니어
         3, -- 3번 이력서
         now());
 
