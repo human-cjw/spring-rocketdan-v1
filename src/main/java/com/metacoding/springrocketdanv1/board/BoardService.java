@@ -33,5 +33,22 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+    @Transactional
+    public void 글수정하기(BoardRequest.updateDTO reqDTO, Integer boardId) {
+        Board boardPS = boardRepository.findById(boardId);
 
+        boardPS.update(reqDTO.getTitle(), reqDTO.getContent(), reqDTO.getPassword());
+    }
+
+
+    public Board 업데이트글보기(int id) {
+        Board boardPS = boardRepository.findById(id);
+        return boardPS;
+    }
+
+
+    @Transactional
+    public void 글삭제하기(Long id) {
+        boardRepository.deleteById(id);
+    }
 }

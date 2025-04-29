@@ -29,6 +29,12 @@ public class Board {
         this.password = password;
     }
 
+    public void update(String title, String content, String password) {
+        this.title = title;
+        this.content = content;
+        this.password = password;
+    }
+
 
 
 /*

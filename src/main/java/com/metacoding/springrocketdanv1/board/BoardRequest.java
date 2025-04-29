@@ -12,10 +12,10 @@ public class BoardRequest {
 
     }
 
+    @Data
     public static class updateDTO {
         private String title;
         private String content;
         private String password;
-
     }
 }
