@@ -133,4 +133,11 @@ public class CompanyController {
 
         return "company/manage-job";
     }
+
+    @GetMapping("/company/job/{id}")
+    public String manageDetail(@PathVariable("id") Integer jobId, Model model) {
+        CompanyResponse.CompanyManageResumePageDTO respDTO = companyService.지원자조회(jobId);
+        model.addAttribute("model", respDTO);
+        return "company/manage-resume";
+    }
 }

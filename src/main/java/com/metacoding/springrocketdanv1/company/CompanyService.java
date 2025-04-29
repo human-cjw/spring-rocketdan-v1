@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.company;
 
+import com.metacoding.springrocketdanv1.application.Application;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStackRepository;
 import com.metacoding.springrocketdanv1.job.Job;
@@ -41,7 +42,7 @@ public class CompanyService {
         List<String> techStackNames = techStacks.stream()
                 .map(TechStack::getName)
                 .collect(Collectors.toList());
-        
+
         boolean isOwner = false;
 
         String workFieldName = workFieldRepository.findNameById(company.getWorkField().getId());
@@ -207,5 +208,39 @@ public class CompanyService {
             ));
         }
         return companyManageJobDTOS;
+    }
+
+    @Transactional
+    public CompanyResponse.CompanyManageResumePageDTO 지원자조회(Integer jobId) {
+        List<Application> applications = companyRepository.findApplicationsByJobId(jobId);
+
+        if (applications.isEmpty()) {
+            return new CompanyResponse.CompanyManageResumePageDTO(
+                    jobId,
+                    "지원자가 없습니다.",
+                    new ArrayList<>()
+            );
+        }
+
+        // 지원자 전체 리스트 만들기
+        List<CompanyResponse.CompanyManageResumeDTO> applicationDTOs = new ArrayList<>();
+        for (Application app : applications) {
+            applicationDTOs.add(new CompanyResponse.CompanyManageResumeDTO(
+                    app.getUser().getUsername(),
+                    app.getResume().getTitle(),
+                    app.getResume().getCareerLevel(),
+                    app.getCreatedAt().toLocalDateTime(),
+                    app.getStatus()
+            ));
+        }
+
+        // 공고(Job) 제목은 첫 번째 지원자의 job에서 가져오기
+        Job job = applications.get(0).getJob();
+
+        return new CompanyResponse.CompanyManageResumePageDTO(
+                job.getId(),
+                job.getTitle(),
+                applicationDTOs
+        );
     }
 }
