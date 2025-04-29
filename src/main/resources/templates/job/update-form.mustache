@@ -33,21 +33,21 @@
 
                     <label for="jobGroup" class="form-label">지원직무</label>
                     <select class="form-select" id="jobGroup" name="jobGroupId">
-                        {{#model.jobGroupUpdateDTOS}}
+                        {{#model.jobGroupUpdateDTOs}}
                             <option value="{{id}}" {{#isSelected}}selected{{/isSelected}}>{{name}}</option>
-                        {{/model.jobGroupUpdateDTOS}}
+                        {{/model.jobGroupUpdateDTOs}}
                     </select>
                     <br/>
 
                     <label>기술 스택</label>
                     <div>
-                        {{#model.jobTechStackUpdateDTOS}}
+                        {{#model.jobTechStackUpdateDTOs}}
                             <label>
                                 <input type="checkbox" name="techStackIds" value="{{id}}"
                                        {{#isChecked}}checked{{/isChecked}}/>
                                 {{name}}
                             </label>
-                        {{/model.jobTechStackUpdateDTOS}}
+                        {{/model.jobTechStackUpdateDTOs}}
                     </div>
 
                     <label for="careerLevel" class="form-label">경력</label>
@@ -60,17 +60,17 @@
 
                     <label for="workField" class="form-label">업무 분야</label>
                     <select class="form-select" id="workField" name="workFieldId">
-                        {{#model.workFieldUpdateDTOS}}
-                            <option value="{{id}}">{{name}}</option>
-                        {{/model.workFieldUpdateDTOS}}
+                        {{#model.workFieldUpdateDTOs}}
+                            <option value="{{id}}" {{#isSelected}}selected{{/isSelected}}>{{name}}</option>
+                        {{/model.workFieldUpdateDTOs}}
                     </select>
                     <br/>
 
                     <label for="salaryRange" class="form-label">연봉</label>
                     <select class="form-select" id="salaryRange" name="salaryRangeId">
-                        {{#model.salaryRangeUpdateDTOS}}
-                            <option value="{{id}}">{{name}}</option>
-                        {{/model.salaryRangeUpdateDTOS}}
+                        {{#model.salaryRangeUpdateDTOs}}
+                            <option value="{{id}}" {{#isSelected}}selected{{/isSelected}}>{{name}}</option>
+                        {{/model.salaryRangeUpdateDTOs}}
                     </select>
                     <br/>
 

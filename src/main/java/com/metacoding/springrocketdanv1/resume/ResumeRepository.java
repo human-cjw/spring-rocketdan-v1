@@ -40,5 +40,10 @@ public class ResumeRepository {
         query.setParameter("userId", userId);
         return query.getResultList();
     }
-}
 
+    public Resume findByIsDefaultTrue() {
+        String sql = "SELECT res FROM Resume res WHERE res.isDefault = true";
+        Query query = em.createQuery(sql, Resume.class);
+        return (Resume) query.getSingleResult();
+    }
+}

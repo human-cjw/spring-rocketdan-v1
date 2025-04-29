@@ -53,6 +53,29 @@ public class Resume {
     @ManyToOne(fetch = FetchType.LAZY)
     private JobGroup jobGroup;
 
+
+    public void update(ResumeRequest.UpdateDTO requestDTO) {
+        this.title = requestDTO.getTitle();
+        this.summary = requestDTO.getSummary();
+        this.portfolioUrl = requestDTO.getPortfolioUrl();
+        this.gender = requestDTO.getGender();
+        this.education = requestDTO.getEducation();
+        this.birthdate = requestDTO.getBirthdate();
+        this.major = requestDTO.getMajor();
+        this.graduationType = requestDTO.getGraduationType();
+        this.phone = requestDTO.getPhone();
+        this.enrollmentDate = requestDTO.getEnrollmentDate();
+        this.graduationDate = requestDTO.getGraduationDate();
+        this.careerLevel = requestDTO.getCareerLevel();
+        this.isDefault = requestDTO.getIsDefault() != null ? requestDTO.getIsDefault() : false;
+        this.salaryRange = SalaryRange.builder().id(requestDTO.getSalaryRangeId()).build();
+        this.jobGroup = JobGroup.builder().id(requestDTO.getJobGroupId()).build();
+    }
+
+    public void setIsDefaultFalse() {
+        this.isDefault = false;
+    }
+
     @Builder
     public Resume(Integer id, String title, String summary, String gender, String careerLevel, String education, String birthdate, String major, String graduationType, String phone, String portfolioUrl, String enrollmentDate, String graduationDate, Boolean isDefault, Timestamp createdAt, User user, SalaryRange salaryRange, JobGroup jobGroup) {
         this.id = id;
