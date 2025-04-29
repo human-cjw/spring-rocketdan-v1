@@ -29,12 +29,11 @@ public class ResumeService {
     private final TechStackRepository techStackRepository;
     private final UserRepository userRepository;
 
-    public ResumeResponse.DetailDTO 이력서상세보기(Integer resumeId) {
+    public ResumeResponse.DetailDTO 이력서상세보기(Integer resumeId, Integer userId) {
         Resume resume = resumeRepository.findById(resumeId);
         List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
         List<ResumeTechStack> resumeTechStackList = resumeTechStackRepository.findAllByResumeId(resumeId);
         List<Career> careers = careerRepository.findCareersByResumeId(resumeId);
-
         List<TechStack> techStacks = techStackRepository.findAll();
         List<Integer> resumeTechStackIds = new ArrayList<>();
         for (ResumeTechStack rts : resumeTechStackList) {
@@ -83,12 +82,13 @@ public class ResumeService {
                 resumeTechStackResponseDTOS,
                 graduationTypeDTOs,
                 careerLevelTypeDTOs,
-                genderTypeDTOs
+                genderTypeDTOs,
+                userId
         );
     }
 
 
-    public ResumeResponse.DetailDTO 이력서수정보기(Integer resumeId) {
+    public ResumeResponse.UpdateDTO 이력서수정보기(Integer resumeId) {
         Resume resume = resumeRepository.findById(resumeId);
         List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
         List<ResumeTechStack> resumeTechStackList = resumeTechStackRepository.findAllByResumeId(resumeId);
@@ -132,7 +132,7 @@ public class ResumeService {
                 new ResumeResponse.GenderTypeDTO("여", "여".equals(resume.getGender()))
         );
 
-        return new ResumeResponse.DetailDTO(
+        return new ResumeResponse.UpdateDTO(
                 resume,
                 certifications,
                 resumeTechStacks,
@@ -153,6 +153,8 @@ public class ResumeService {
 
         // 1. 기본 Resume 수정
         resume.update(requestDTO);
+
+        // 나머지 다른 이력서 전부 가져와 isDefault = false로 변경
 
         // 2. 기존 Career, Certification, ResumeTechStack 삭제
         careerRepository.deleteByResumeId(resumeId);
@@ -223,7 +225,7 @@ public class ResumeService {
         }
     }
 
-    @Transactional
+/*    @Transactional
     public void 기본이력서설정(Integer resumeId) {
         Resume selectedResume = resumeRepository.findById(resumeId);
         Integer userId = selectedResume.getUser().getId();
@@ -237,7 +239,13 @@ public class ResumeService {
         // 3. 선택한 이력서만 isDefault = true
         selectedResume.changeDefaultTrue();
 
-    }
+
+        ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications,
+                resumeTechStacks, resume.getUser().getEmail(), resume.getUser().getUsername(), careers, userId);
+
+        return detailDTO;
+
+    }*/
 
     public ResumeResponse.ResumeListDTO 이력서목록보기(Integer userId, boolean isDefault) {
         List<Resume> resumes = resumeRepository.findAllByUserId(userId, isDefault);

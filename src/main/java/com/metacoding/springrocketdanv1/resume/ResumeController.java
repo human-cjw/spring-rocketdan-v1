@@ -21,8 +21,11 @@ public class ResumeController {
 
     @GetMapping("/resume/{id}")
     public String detail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
-        ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId);
-        System.out.println("🧪 DetailDTO title: " + detailDTO.getTitle());
+
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        Integer userId = sessionUserDTO != null ? sessionUserDTO.getId() : null;
+        ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId, userId);
+
         request.setAttribute("model", detailDTO);
 
         return "resume/detail";
@@ -31,8 +34,8 @@ public class ResumeController {
     @GetMapping("/resume/{id}/update-form")
     public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
 
-        ResumeResponse.DetailDTO detailDTO = resumeService.이력서수정보기(resumeId);
-        request.setAttribute("model", detailDTO);
+        ResumeResponse.UpdateDTO respDTO = resumeService.이력서수정보기(resumeId);
+        request.setAttribute("model", respDTO);
 
         return "resume/update-form";
     }
@@ -46,11 +49,6 @@ public class ResumeController {
 
         // 2. 이력서 수정
         resumeService.이력서수정하기(resumeId, requestDTO);
-
-        // 3. 만약 isDefault가 true면 이 이력서를 기본 이력서로 설정
-        if (isDefault) {
-            resumeService.기본이력서설정(resumeId);
-        }
 
         return "redirect:/resume/" + resumeId;
     }
