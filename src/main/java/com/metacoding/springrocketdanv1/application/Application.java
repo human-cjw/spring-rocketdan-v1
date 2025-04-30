@@ -33,7 +33,7 @@ public class Application {
     private Timestamp createdAt;
 
     // 이력서 FK
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true) // optional = true -> jpa 에서 null 가능
     private Resume resume;
 
     // 공고 FK
@@ -41,7 +41,7 @@ public class Application {
     private Job job;    // 이력서 FK
 
     // 이력서 주인 FK
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     private User user;
 
     // 공고 주인 FK
