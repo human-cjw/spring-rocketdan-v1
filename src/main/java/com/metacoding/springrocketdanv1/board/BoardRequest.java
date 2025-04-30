@@ -16,6 +16,5 @@ public class BoardRequest {
     public static class updateDTO {
         private String title;
         private String content;
-        private String password;
     }
 }

@@ -34,10 +34,11 @@ public class BoardService {
     }
 
     @Transactional
-    public void 글수정하기(BoardRequest.updateDTO reqDTO, Integer boardId) {
+    public boolean 글수정하기(BoardRequest.updateDTO reqDTO, Integer boardId) {
         Board boardPS = boardRepository.findById(boardId);
 
-        boardPS.update(reqDTO.getTitle(), reqDTO.getContent(), reqDTO.getPassword());
+        boardPS.update(reqDTO.getTitle(), reqDTO.getContent());
+        return true;
     }
 
 

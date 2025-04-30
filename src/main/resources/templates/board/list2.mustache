@@ -18,7 +18,8 @@
                     <div class="text-end d-flex gap-2"
                          style="margin-bottom: 1rem">
                         <input type="hidden" name="boardId" value=""/>
-                        <input type="password" class="form-control" placeholder="Enter password" name="password">
+                        <input type="password" class="form-control" placeholder="Enter password" name="password"
+                               required>
 
                         <button class="btn btn-warning flex-shrink-0"
                         >등록
@@ -50,10 +51,11 @@
                         />
                         <div>익명</div>
                     </div>
-                    <form action="/board/update-form" class="text-end d-flex gap-2"
+                    <form action="/board/update/{{boardId}}" method="post" class="text-end d-flex gap-2"
                           style="margin-bottom: 1rem">
-                        <input type="hidden" name="boardId" value="{{boardId}}"/>
-                        <input type="password" class="form-control" placeholder="Enter password" name="password">
+                        <input type="hidden" name="id" value="{{boardId}}"/>
+                        <input type="password" class="form-control" placeholder="Enter password" name="password"
+                               required>
 
                         <button class="btn btn-warning flex-shrink-0"
                         >수정

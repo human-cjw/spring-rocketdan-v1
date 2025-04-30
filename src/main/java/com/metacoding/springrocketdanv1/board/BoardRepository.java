@@ -13,7 +13,7 @@ public class BoardRepository {
     private final EntityManager em;
 
     public List<Board> findAll() {
-        String sql = "SELECT * FROM board_tb";  // 네이티브 SQL 쿼리
+        String sql = "SELECT * FROM board_tb order by id desc";  // 네이티브 SQL 쿼리
         Query query = em.createNativeQuery(sql, Board.class);
         return query.getResultList();
     }
