@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1._core.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
@@ -18,6 +19,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .setCachePeriod(60 * 60) // 초 단위 => 한시간
                 .resourceChain(true)
                 .addResolver(new PathResourceResolver());
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/user/**")
+                .addPathPatterns("/board/**")
+                .excludePathPatterns("/board/{id:\\d+}")
+                .addPathPatterns("/love/**")
+                .addPathPatterns("/reply/**")
+                .addPathPatterns("/api/**");
     }
 
 }
