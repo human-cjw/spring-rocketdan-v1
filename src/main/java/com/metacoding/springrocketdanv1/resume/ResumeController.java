@@ -7,31 +7,48 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 @RequiredArgsConstructor
 public class ResumeController {
-
     private final ResumeService resumeService;
+    private final ResumeRepository resumeRepository;
     private final HttpSession session;
 
-    @GetMapping("/resume/{id}")
-    public String detail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
+    @GetMapping("/resume/{resumeId}")
+    public String detail(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) request.getSession().getAttribute("sessionUser");
+        Integer userId = sessionUser.getId(); // 세션에서 유저 ID 꺼내기
 
-        ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId);
-        System.out.println("🧪 DetailDTO title: " + detailDTO.getTitle());
+        ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId, userId);
+
         request.setAttribute("model", detailDTO);
-
         return "resume/detail";
     }
 
+
     @GetMapping("/resume/{id}/update-form")
-    public String updateForm(@PathVariable Integer id) {
+    public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
+
+        ResumeResponse.UpdateDTO respDTO = resumeService.이력서수정보기(resumeId);
+
+        request.setAttribute("model", respDTO);
 
         return "resume/update-form";
     }
+
+
+    @PostMapping("/resume/{resumeId}/update")
+    public String update(@PathVariable("resumeId") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        resumeService.이력서수정하기(resumeId, requestDTO, sessionUserDTO.getId());
+
+        return "redirect:/resume/" + resumeId;
+    }
+
 
     @GetMapping("/user/resume")
     public String list(HttpServletRequest request,
@@ -44,8 +61,15 @@ public class ResumeController {
         return "resume/list";
     }
 
+
     @GetMapping("/resume/save-form")
     public String saveForm() {
         return "resume/save-form";
+    }
+
+    @GetMapping("/user/resume/{resumeId}/delete")
+    public void delete(@PathVariable("resumeId") Integer resumeId) {
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        resumeService.이력서삭제(resumeId, sessionUserDTO.getId());
     }
 }

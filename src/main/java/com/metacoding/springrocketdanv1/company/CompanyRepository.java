@@ -41,18 +41,32 @@ public class CompanyRepository {
                 .getResultList();
     }
 
-    public List<Application> findApplicationsByJobId(Integer jobId) {
-        String q = """
-                    SELECT a
-                    FROM Application a
-                    JOIN FETCH a.user u
-                    JOIN FETCH a.resume r
-                    JOIN FETCH r.jobGroup jg
-                    WHERE a.job.id = :jobId
-                """;
+    public void deleteApplicationsByJobId(Integer jobId) {
+        String q = "DELETE FROM Application a WHERE a.job.id = :jobId AND a.resume IS NOT NULL";
+        em.createQuery(q)
+                .setParameter("jobId", jobId)
+                .executeUpdate();
+    }
+
+    public List<Application> findApplicationsByJobIdWhereResumeNotNull(Integer jobId) {
+        String q = "SELECT a FROM Application a WHERE a.job.id = :jobId AND a.resume IS NOT NULL";
         return em.createQuery(q, Application.class)
                 .setParameter("jobId", jobId)
                 .getResultList();
     }
 
+    public void deleteJobBookmarksByJobId(Integer jobId) {
+        String q = "DELETE FROM JobBookmark jb WHERE jb.job.id = :jobId";
+        em.createQuery(q).setParameter("jobId", jobId).executeUpdate();
+    }
+
+    public void deleteJobTechStacksByJobId(Integer jobId) {
+        String q = "DELETE FROM JobTechStack jts WHERE jts.job.id = :jobId";
+        em.createQuery(q).setParameter("jobId", jobId).executeUpdate();
+    }
+
+    public void deleteJobById(Integer jobId) {
+        String q = "DELETE FROM Job j WHERE j.id = :jobId";
+        em.createQuery(q).setParameter("jobId", jobId).executeUpdate();
+    }
 }
