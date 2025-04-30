@@ -4,73 +4,46 @@
     <div class="weapp-container-person-list">
         <div class="weapp-main-wrapper-person-list">
             <div class="weapp-profile-grid-person-list">
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">장지훈</div>
-                    <div class="weapp-company-desc-person-list">백엔드 개발자</div>
-                </div>
 
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">정우성</div>
-                    <div class="weapp-company-desc-person-list">
-                        Backend Engineer
+                {{#models}}
+                    <div class="weapp-profile-card-person-list" style="position: relative;">
+
+                        <!-- 북마크 버튼 -->
+                        <form method="post" action="/resume-bookmark/{{userId}}/toggle" style="position: absolute; top: 10px; right: 10px;">
+                            <button type="submit" style="background: none; border: none;">
+                                <i class="fas fa-bookmark weapp-bookmark-icon-job-list
+                                {{^isBookmarked}} weapp-bookmark-opacity-2 {{/isBookmarked}}"></i>
+                            </button>
+                        </form>
+
+                        {{#fileUrl}}
+                            <img src="{{fileUrl}}" class="weapp-company-logo-person-list"
+                                 onerror="this.src='/images/default-logo.png'" />
+                        {{/fileUrl}}
+                        {{^fileUrl}}
+                            <img src="/images/default-logo.png" class="weapp-company-logo-person-list" />
+                        {{/fileUrl}}
+
+                        <div class="weapp-company-name-person-list">{{username}}</div>
+                        <div class="weapp-company-desc-person-list">{{jobGroupName}}</div>
                     </div>
-                </div>
+                {{/models}}
 
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">김지수</div>
-                    <div class="weapp-company-desc-person-list">CEO</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">김동신</div>
-                    <div class="weapp-company-desc-person-list">CEO</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">한바울</div>
-                    <div class="weapp-company-desc-person-list">
-                        신개념 음원 발매 시스템 셀바이뮤직
-                    </div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">고은지</div>
-                    <div class="weapp-company-desc-person-list">
-                        웹 프론트엔드/백엔드 개발
-                    </div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">조용진</div>
-                    <div class="weapp-company-desc-person-list">개발자</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">배은경</div>
-                    <div class="weapp-company-desc-person-list">인포이사(CEO)</div>
-                </div>
-
-                <div class="weapp-profile-card-person-list">
-                    <img src="#" class="weapp-company-logo-person-list"/>
-                    <div class="weapp-company-name-person-list">김건우</div>
-                    <div class="weapp-company-desc-person-list">개발자</div>
-                </div>
             </div>
         </div>
 
         <!-- 사이드바 -->
         <div class="weapp-sidebar-person-list">
-            <!-- <div class="weapp-register-box">
-    <button>기업 프로필 무료 등록</button>
-  </div> -->
+            <a href="/user/bookmark/person" class="text-decoration-none text-dark">
+                <div class="weapp-bookmark-wrapper-job-list">
+                    <div class="weapp-bookmark-btn-job-list">
+                        <i id="bookIcon" class="fas fa-bookmark"></i>
+                        <span>유저 북마크</span>
+                    </div>
+
+                </div>
+            </a>
+
             <div class="weapp-search-box-person-list">
                 <h3>사람 검색</h3>
                 <div class="weapp-filters-person-list"></div>

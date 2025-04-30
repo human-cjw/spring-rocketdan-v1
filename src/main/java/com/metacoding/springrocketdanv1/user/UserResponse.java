@@ -1,6 +1,8 @@
 package com.metacoding.springrocketdanv1.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 public class UserResponse {
 
@@ -22,6 +24,21 @@ public class UserResponse {
             this.userType = userType;
             this.companyId = companyId;
             this.companyName = companyName;
+        }
+    }
+
+    @Data
+    public static class PersonListDTO {
+        private Integer userId;
+        private String username;
+        private String jobGroupName;
+        private String fileUrl;
+
+        public PersonListDTO(Integer userId, String username, String jobGroupName, String fileUrl) {
+            this.userId = userId;
+            this.username = username;
+            this.jobGroupName = jobGroupName;
+            this.fileUrl = fileUrl;
         }
     }
 }

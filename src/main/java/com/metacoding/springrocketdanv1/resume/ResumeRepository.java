@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.resume;
 
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -62,5 +63,13 @@ public class ResumeRepository {
     public Resume save(Resume resume) {
         em.persist(resume);
         return resume;
+    }
+
+    public List<Resume> findDefaultResumes() {
+        String q = "SELECT r FROM Resume r " +
+                "JOIN FETCH r.user u " +
+                "JOIN FETCH r.jobGroup jg " +
+                "WHERE r.isDefault = true";
+        return em.createQuery(q, Resume.class).getResultList();
     }
 }

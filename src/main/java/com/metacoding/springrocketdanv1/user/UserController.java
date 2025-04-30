@@ -1,10 +1,13 @@
 package com.metacoding.springrocketdanv1.user;
 
+import org.springframework.ui.Model;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,5 +42,12 @@ public class UserController {
     @GetMapping("/join-form")
     public String joinform() {
         return "user/join-form";
+    }
+
+    @GetMapping("/person")
+    public String personList(Model model) {
+        List<UserResponse.PersonListDTO> dtoList = userService.사람리스트조회();
+        model.addAttribute("models", dtoList);
+        return "/person/list";
     }
 }

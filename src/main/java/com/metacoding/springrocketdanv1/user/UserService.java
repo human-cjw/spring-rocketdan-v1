@@ -2,15 +2,22 @@ package com.metacoding.springrocketdanv1.user;
 
 import com.metacoding.springrocketdanv1.company.Company;
 import com.metacoding.springrocketdanv1.company.CompanyRepository;
+import com.metacoding.springrocketdanv1.jobBookmark.JobBookmarkRepository;
+import com.metacoding.springrocketdanv1.resume.Resume;
+import com.metacoding.springrocketdanv1.resume.ResumeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
+    private final ResumeRepository resumeRepository;
 
     @Transactional
     public void 회원가입(UserRequest.JoinDTO joinDTO) {
@@ -43,5 +50,21 @@ public class UserService {
         );
 
         return sessionUserDTO;
+    }
+
+    public List<UserResponse.PersonListDTO> 사람리스트조회() {
+        List<Resume> resumes = resumeRepository.findDefaultResumes();
+
+        List<UserResponse.PersonListDTO> dtoList = new ArrayList<>();
+        for (Resume r : resumes) {
+            dtoList.add(new UserResponse.PersonListDTO(
+                    r.getUser().getId(),
+                    r.getUser().getUsername(),
+                    r.getJobGroup().getName(),
+                    r.getUser().getFileUrl()
+            ));
+        }
+
+        return dtoList;
     }
 }
