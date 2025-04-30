@@ -51,13 +51,13 @@
                         />
                         <div>익명</div>
                     </div>
-                    <form action="/board/update/{{boardId}}" method="post" class="text-end d-flex gap-2"
-                          style="margin-bottom: 1rem">
-                        <input type="hidden" name="id" value="{{boardId}}"/>
-                        <input type="password" class="form-control" placeholder="Enter password" name="password"
+                    <form method="post" class="text-end d-flex gap-2"
+                          style="margin-bottom: 1rem" onsubmit="verifyPassword(event)">
+                        <input type="hidden" id="id" name="id" value="{{boardId}}"/>
+                        <input type="password" id="password" class="form-control" placeholder="Enter password" name="password"
                                required>
 
-                        <button onclick="verifyPassword()" class="btn btn-warning flex-shrink-0"
+                        <button type="submit" class="btn btn-warning flex-shrink-0"
                         >수정
                         </button>
 
@@ -77,18 +77,21 @@
     </main>
 
     <script>
-        async function verifyPassword() {
+        async function verifyPassword(event) {
+        event.preventDefault();
+
             var password = document.getElementById("password").value; // 사용자가 입력한 비밀번호
             var postId = document.getElementById("id").value; // 게시물 ID
 
             // 서버에 비밀번호 확인 요청
             try {
-                const response = await fetch(`/board/update/${postId}?password=${password}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
+const response = await fetch(`/board/update/${postId}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: `password=${encodeURIComponent(password)}`
+});
 
                 const data = await response.json();
 

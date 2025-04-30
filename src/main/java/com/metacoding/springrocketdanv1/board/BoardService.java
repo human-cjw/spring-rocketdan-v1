@@ -17,13 +17,10 @@ import java.util.Map;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public ResponseEntity<Map<String, String>> verifyPassword(@PathVariable Integer id, @RequestParam String password) {
-        // 게시물 조회
+    public Map<String, String> verifyPassword(Integer id, String password) {
         Board board = boardRepository.findById(id);
 
         Map<String, String> response = new HashMap<>();
-
-        // 비밀번호 비교 (암호화 되어있다면 암호화 비교 필요)
         if (board.getPassword().equals(password)) {
             response.put("status", "success");
             response.put("message", "비밀번호가 맞습니다.");
@@ -31,9 +28,9 @@ public class BoardService {
             response.put("status", "error");
             response.put("message", "비밀번호가 틀렸습니다.");
         }
-
-        return ResponseEntity.ok(response);
+        return response;
     }
+
 
     public List<BoardResponse.BoardDTO> 글목록보기() {
         List<Board> boardList = boardRepository.findAll();

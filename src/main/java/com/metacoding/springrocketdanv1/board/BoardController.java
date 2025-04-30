@@ -7,12 +7,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
-    private final BoardRepository boardRepository;
+
+    @PostMapping("/board/update/{id}")
+    public @ResponseBody Map<String, String> verifyPassword(@PathVariable Integer id,
+                                              @RequestParam String password) {
+        return boardService.verifyPassword(id, password);
+    }
 
     @GetMapping("/board")
     public String list(Model model) {
@@ -26,7 +32,6 @@ public class BoardController {
         boardService.글쓰기(board);
         return "redirect:/board";
     }
-
 
     @GetMapping("/board/update-form/{id}")
     public String updateForm(@PathVariable("id") int id, HttpServletRequest request) { // form 에서 boardId를 가져와야 함, password 값을 가져와서 해당 보드의 비번과 일치하는지 비교해야함(서비스에서)
@@ -47,5 +52,4 @@ public class BoardController {
         boardService.글삭제하기(id);
         return "redirect:/board";
     }
-
 }
