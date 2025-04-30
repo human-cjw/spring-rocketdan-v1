@@ -1,5 +1,8 @@
 package com.metacoding.springrocketdanv1._core.interceptor;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception401;
+import com.metacoding.springrocketdanv1._core.error.ex.ExceptionApi401;
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -12,7 +15,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         System.out.println("uri: " + uri);
 
         HttpSession session = request.getSession();
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
 
         if (sessionUser == null) {
             if (uri.contains("/api")) {

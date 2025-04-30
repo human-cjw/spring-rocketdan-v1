@@ -1,9 +1,7 @@
 package com.metacoding.springrocketdanv1._core.error;
 
-import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
-import com.metacoding.springrocketdanv1._core.error.ex.Exception401;
-import com.metacoding.springrocketdanv1._core.error.ex.Exception403;
-import com.metacoding.springrocketdanv1._core.error.ex.Exception404;
+import com.metacoding.springrocketdanv1._core.Resp;
+import com.metacoding.springrocketdanv1._core.error.ex.*;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -17,7 +15,8 @@ public class GlobalExceptionHandler {
         String html = """
                 <script>
                     alert('${msg}');
-                </script>이
+                    history.back();
+                </script>
                 """.replace("${msg}", e.getMessage());
         return html; // 브라우저는 html text를 받으면 해석한다
     }
@@ -34,6 +33,12 @@ public class GlobalExceptionHandler {
         return html;
     }
 
+    // 401 -> 인증 안됐을때
+    @ExceptionHandler(ExceptionApi401.class)
+    public Resp<?> exApi401(ExceptionApi401 e) {
+        return Resp.fail(401, e.getMessage());
+    }
+
     // 403 -> 권한 없음
     @ExceptionHandler(Exception403.class)
     public String ex403(Exception403 e) {
@@ -45,6 +50,11 @@ public class GlobalExceptionHandler {
         return html;
     }
 
+    // 403 -> 권한 없음
+    @ExceptionHandler(ExceptionApi403.class)
+    public Resp<?> exApi403(ExceptionApi403 e) {
+        return Resp.fail(403, e.getMessage());
+    }
 
     // 404 -> 자원 없음
     @ExceptionHandler(Exception404.class)
@@ -55,6 +65,12 @@ public class GlobalExceptionHandler {
                 </script>
                 """.replace("${msg}", e.getMessage());
         return html;
+    }
+
+    // 404 -> 자원 없음
+    @ExceptionHandler(ExceptionApi404.class)
+    public Resp<?> exApi404(ExceptionApi404 e) {
+        return Resp.fail(404, e.getMessage());
     }
 
     @ExceptionHandler(Exception.class) // 알지 못하는 모든 에러를 처리하는 방법

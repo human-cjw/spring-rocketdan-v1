@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.application;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.job.JobRepository;
 import com.metacoding.springrocketdanv1.resume.Resume;
@@ -31,7 +32,7 @@ public class ApplicationService {
 
         Application applicationPC = applicationRepository.findByCompanyIdWithUserId(companyId, userId);
         if (applicationPC != null) {
-            throw new RuntimeException("400 잘못된 요청입니다");
+            throw new Exception400("잘못된 요청입니다");
         }
 
         // 이력서 조회하기
