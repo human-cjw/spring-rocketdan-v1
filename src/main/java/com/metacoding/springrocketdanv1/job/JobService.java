@@ -1,5 +1,7 @@
 package com.metacoding.springrocketdanv1.job;
 
+import com.metacoding.springrocketdanv1.jobBookmark.JobBookmark;
+import com.metacoding.springrocketdanv1.jobBookmark.JobBookmarkRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
@@ -28,6 +30,7 @@ public class JobService {
     private final WorkFieldRepository workFieldRepository;
     private final SalaryRangeRepository salaryRangeRepository;
     private final JobGroupRepository jobGroupRepository;
+    private final JobBookmarkRepository jobBookmarkRepository;
 
     public List<JobResponse.DTO> 글목록보기() {
         List<Job> jobs = jobRepository.findAll();  // 모든 Job 조회
@@ -46,45 +49,35 @@ public class JobService {
         return jobDTOs;  // 변환된 DTO 리스트 반환
     }
 
-    public JobResponse.DetailDTO 글상세보기(Integer id) {
-        // jobId로 Job을 조회합니다.
-        Job job = jobRepository.findById(id);
-
-
-        // 만약 job이 null이라면, 예외를 던지거나 처리할 수 있습니다.
+    public JobResponse.DetailDTO 글상세보기(Integer jobId, Integer userId) {
+        Job job = jobRepository.findById(jobId);
         if (job == null) {
-            throw new RuntimeException(id + "번 게시물을 찾을 수 없습니다."); // 예시로 RuntimeException을 던지며 처리
+            throw new RuntimeException("공고를 찾을 수 없습니다.");
         }
 
-        // SalaryRange 조회
         SalaryRange salaryRange = job.getSalaryRange();
         SalaryRangeResponse.SalaryRangeDTO salaryRangeDTO = null;
-
-        // SalaryRange가 있을 경우, SalaryRangeDTO로 변환
         if (salaryRange != null) {
             salaryRangeDTO = new SalaryRangeResponse.SalaryRangeDTO(
-                    salaryRange.getMinSalary(),
-                    salaryRange.getMaxSalary()
+                    salaryRange.getMinSalary(), salaryRange.getMaxSalary()
             );
         }
 
-        // JobDetailDTO 생성
-        JobResponse.DetailDTO detailDto = new JobResponse.DetailDTO(
-                job.getTitle(),
-                job.getDeadline(),
-                job.getCareerLevel(),
-                job.getCreatedAt(),
-                job.getDescription(),
-                job.getLocation(),
-                job.getEmploymentType(),
-                job.getWorkField().getName(),
-                job.getCompany().getNameKr(),
-                salaryRangeDTO,
-                job.getCompany().getId(),
-                job.getId()
+        JobResponse.DetailDTO dto = new JobResponse.DetailDTO(
+                job.getTitle(), job.getDeadline(), job.getCareerLevel(),
+                job.getCreatedAt(), job.getDescription(), job.getLocation(),
+                job.getEmploymentType(), job.getWorkField().getName(),
+                job.getCompany().getNameKr(), salaryRangeDTO,
+                job.getCompany().getId(), job.getId()
         );
 
-        return detailDto;
+        // 북마크 여부 판단
+        if (userId != null) {
+            JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(userId, jobId);
+            dto.setBookmarked(bookmark != null);
+        }
+
+        return dto;
     }
 
 

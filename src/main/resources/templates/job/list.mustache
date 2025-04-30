@@ -7,7 +7,16 @@
 
                 {{#models}}
                     <div class="weapp-profile-card-job-list">
-                        <i class="fas fa-bookmark weapp-bookmark-icon-job-list"></i>
+
+                        <!-- 북마크 토글 버튼 -->
+                        <form method="post" action="/job/{{id}}/bookmark" style="display:inline;">
+                            <button type="submit" style="background:none; border:none;">
+                                <i class="fas fa-bookmark weapp-bookmark-icon-job-list
+
+                                    {{^isBookmarked}}weapp-bookmark-opacity-2{{/isBookmarked}}"></i>
+                            </button>
+                        </form>
+
                         <img src="#" class="weapp-company-logo-job-list"/>
                         <div class="weapp-company-name-job-list">
                             <a href="http://localhost:8080/job/{{id}}">{{title}}</a>
@@ -17,24 +26,21 @@
                     </div>
                 {{/models}}
 
-
             </div>
         </div>
 
         <!-- 사이드바 -->
         <div class="weapp-sidebar-job-list">
-            <div class="weapp-bookmark-wrapper-job-list">
-                <div class="weapp-bookmark-btn-job-list">
-
-
-                    <i id="bookIcon" class="fas fa-bookmark"
-                    ></i>
-
-
-                    <span>채용공고 북마크</span>
+            <a href="/user/bookmark" class="text-decoration-none text-dark">
+                <div class="weapp-bookmark-wrapper-job-list">
+                    <div class="weapp-bookmark-btn-job-list">
+                        <i id="bookIcon" class="fas fa-bookmark"></i>
+                        <span>채용공고 북마크</span>
+                    </div>
+                    <!-- 북마크 개수 동적 출력 -->
+                    <div class="weapp-bookmark-count-job-list">{{bookmarkCount}}</div>
                 </div>
-                <div class="weapp-bookmark-count-job-list">0</div>
-            </div>
+            </a>
 
             <div class="weapp-search-box-job-list">
                 <h3>기업 검색</h3>

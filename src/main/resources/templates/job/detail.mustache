@@ -68,14 +68,19 @@
 
                     <div class="weapp-book-out-job-detail">
                         <!-- ajax 용 버튼 -->
-                        <div class="weapp-book-job-detail">
-                            <i class="fa-regular fa-bookmark"></i>
-                            <div>공고 북마크</div>
-                        </div>
+                        <form method="post" action="/job/{{jobDetail.jobId}}/bookmark">
+                            <button type="submit"
+                                    style="background: none; border: 1px solid #ccc; border-radius: 6px; padding: 8px 12px; display: flex; align-items: center; gap: 6px;">
+                                <i class="fas fa-bookmark
+                                    {{#jobDetail.bookmarked}} text-primary {{/jobDetail.bookmarked}}
+                                    {{^jobDetail.bookmarked}} text-secondary {{/jobDetail.bookmarked}}">
+                                </i>
+                                <div>공고 북마크</div>
+                            </button>
+                        </form>
                     </div>
 
                 </div>
-
 
                 <div>
                     <div class="weapp-r-recru-job-detail">채용 문의 담당자</div>

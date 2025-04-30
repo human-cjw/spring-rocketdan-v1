@@ -39,6 +39,8 @@ public class JobResponse {
         private Integer companyId;
         private Integer jobId;
 
+        private boolean bookmarked;
+
         public DetailDTO(String title, String deadline, String careerLevel,
                          Timestamp createdAt, String description, String location,
                          String employmentType, String workField, String nameKr,
@@ -55,6 +57,14 @@ public class JobResponse {
             this.salaryRange = salaryRange;
             this.companyId = companyId;
             this.jobId = jobId;
+        }
+
+        public boolean isBookmarked() {
+            return bookmarked;
+        }
+
+        public void setBookmarked(boolean bookmarked) {
+            this.bookmarked = bookmarked;
         }
     }
 
