@@ -244,15 +244,13 @@
             <!-- 기술 스택 칸 끝 -->
             <div class="d-flex justify-content-between gap-1">
                 <div>
-                    {{^model.isDefault}}
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" name="isDefault" value="true"
-                                   id="isDefaultCheckbox" {{#model.isDefault}}checked{{/model.isDefault}}>
-                            <label class="form-check-label" for="isDefaultCheckbox">
-                                기본 이력서로 설정
-                            </label>
-                        </div>
-                    {{/model.isDefault}}
+                    <div class="form-check mb-3 {{#model.isDefault}}d-none{{/model.isDefault}}">
+                        <input class="form-check-input" type="checkbox" name="isDefault" value="true"
+                               id="isDefaultCheckbox" {{#model.isDefault}}checked{{/model.isDefault}}>
+                        <label class="form-check-label" for="isDefaultCheckbox">
+                            기본 이력서로 설정
+                        </label>
+                    </div>
                 </div>
                 <button type="submit"
                         class="btn btn-outline-primary btn-sm d-inline-flex align-items-center justify-content-center"
