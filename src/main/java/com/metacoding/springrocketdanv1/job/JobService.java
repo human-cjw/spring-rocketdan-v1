@@ -53,13 +53,13 @@ public class JobService {
         Job job = jobRepository.findById(id);
         if (job == null) throw new RuntimeException(id + "번 공고가 없습니다.");
 
-        // 만약 job이 null이라면, 예외를 던지거나 처리할 수 있습니다.
-        if (job == null) {
-            throw new RuntimeException(id + "번 게시물을 찾을 수 없습니다."); // 예시로 RuntimeException을 던지며 처리
-        }
+        // 기본 DTO 구성
+        SalaryRange salaryRange = job.getSalaryRange();
+        SalaryRangeResponse.SalaryRangeDTO salaryRangeDTO = (salaryRange != null)
+                ? new SalaryRangeResponse.SalaryRangeDTO(salaryRange.getMinSalary(), salaryRange.getMaxSalary())
+                : null;
 
-        // JobDetailDTO 생성
-        JobResponse.DetailDTO respDTO = new JobResponse.DetailDTO(
+        JobResponse.DetailDTO dto = new JobResponse.DetailDTO(
                 job.getTitle(),
                 job.getDeadline(),
                 job.getCareerLevel(),
@@ -78,12 +78,11 @@ public class JobService {
 
         if (sessionUserId != null) {
             JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(sessionUserId, job.getId());
-            respDTO.setBookmarked(bookmark != null);
+            dto.setBookmarked(bookmark != null);
         }
 
-        return respDTO;
+        return dto;
     }
-
 
     public JobResponse.JobSaveDTO 등록보기() {
         List<TechStack> techStacks = techStackRepository.findAll();
