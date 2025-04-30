@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1.application;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +38,23 @@ public class ApplicationRepository {
 
     public Application findById(Integer id) {
         return em.find(Application.class, id);
+    }
+
+    public Application findByCompanyIdWithUserId(Integer companyId, Integer userId) {
+        String q = """
+                    SELECT a
+                    FROM Application a
+                    WHERE a.company.id = :companyId
+                    AND a.user.id = :userId
+                """;
+        Query query = em.createQuery(q, Application.class);
+        query.setParameter("companyId", companyId);
+        query.setParameter("userId", userId);
+
+        try {
+            return (Application) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
