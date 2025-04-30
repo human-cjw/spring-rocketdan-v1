@@ -20,12 +20,12 @@ public class ResumeTechStackRepositoryTest {
         Integer resumeId = 1;
 
         // when
-        List<TechStack> techStacks = resumeTechStackRepository.findAllByResumeId(resumeId);
+        List<ResumeTechStack> resumeTechStacks = resumeTechStackRepository.findAllByResumeId(resumeId);
 
         // eye
 
-        for (TechStack techStack : techStacks) {
-            System.out.println(techStack);
+        for (ResumeTechStack resumeTechStack : resumeTechStacks) {
+            System.out.println("결과==================" + resumeTechStacks);
         }
     }
 }

@@ -53,19 +53,25 @@ public class JobService {
         Job job = jobRepository.findById(id);
         if (job == null) throw new RuntimeException(id + "번 공고가 없습니다.");
 
-        // 기본 DTO 구성
-        SalaryRange salaryRange = job.getSalaryRange();
-        SalaryRangeResponse.SalaryRangeDTO salaryRangeDTO = (salaryRange != null)
-                ? new SalaryRangeResponse.SalaryRangeDTO(salaryRange.getMinSalary(), salaryRange.getMaxSalary())
-                : null;
+        // 만약 job이 null이라면, 예외를 던지거나 처리할 수 있습니다.
+        if (job == null) {
+            throw new RuntimeException(id + "번 게시물을 찾을 수 없습니다."); // 예시로 RuntimeException을 던지며 처리
+        }
 
+        // JobDetailDTO 생성
         JobResponse.DetailDTO respDTO = new JobResponse.DetailDTO(
-                job.getTitle(), job.getDeadline(), job.getCareerLevel(),
-                job.getCreatedAt(), job.getDescription(), job.getLocation(),
-                job.getEmploymentType(), job.getWorkField().getName(),
+                job.getTitle(),
+                job.getDeadline(),
+                job.getCareerLevel(),
+                job.getCreatedAt(),
+                job.getDescription(),
+                job.getLocation(),
+                job.getEmploymentType(),
+                job.getWorkField().getName(),
                 job.getCompany().getNameKr(),
                 job.getSalaryRange(),
-                job.getCompany().getId(), job.getId(),
+                job.getCompany().getId(),
+                job.getId(),
                 job.getCompany().getContactManager(),
                 job.getCompany().getPhone()
         );

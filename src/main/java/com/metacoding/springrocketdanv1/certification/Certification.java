@@ -2,6 +2,7 @@ package com.metacoding.springrocketdanv1.certification;
 
 import com.metacoding.springrocketdanv1.resume.Resume;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,5 +28,13 @@ public class Certification {
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
 
-
+    @Builder
+    public Certification(Integer id, String name, String issuer, String issuedDate, Timestamp createdAt, Resume resume) {
+        this.id = id;
+        this.name = name;
+        this.issuer = issuer;
+        this.issuedDate = issuedDate;
+        this.createdAt = createdAt;
+        this.resume = resume;
+    }
 }

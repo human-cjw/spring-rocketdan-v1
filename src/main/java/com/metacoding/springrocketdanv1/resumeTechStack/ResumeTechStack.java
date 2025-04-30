@@ -3,6 +3,7 @@ package com.metacoding.springrocketdanv1.resumeTechStack;
 import com.metacoding.springrocketdanv1.resume.Resume;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,11 @@ public class ResumeTechStack {
     // 기술스택 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private TechStack techStack;
+
+    @Builder
+    public ResumeTechStack(Integer id, Resume resume, TechStack techStack) {
+        this.id = id;
+        this.resume = resume;
+        this.techStack = techStack;
+    }
 }

@@ -31,7 +31,7 @@
             <div class="col-md-9">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <p class="fs-6 fw-bold mb-3">모든 이력서</p>
-                    <a class="btn btn-primary" href="/resume/save">이력서 만들기</a>
+                    <a class="btn btn-primary" href="/resume/save-form">이력서 만들기</a>
                 </div>
                 <!-- 흰 네모박스 -->
                 <div
@@ -41,7 +41,7 @@
                     <!-- 샘플 1 -->
                     {{#model.resumeItems}}
                         <div
-                                class="list-group"
+                                class="list-group d-flex flex-row align-items-center gap-2"
                                 style="height: 50%; margin: 1rem"
                         >
                             <a
@@ -70,6 +70,9 @@
                                     </div>
                                 </div>
                             </a>
+                            <button onclick="deleteResume({{id}})" class="btn btn-danger" style="white-space: nowrap;">
+                                삭제
+                            </button>
                         </div>
                     {{/model.resumeItems}}
                     <!-- 샘플 1 끝 -->
@@ -79,5 +82,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    async function deleteResume(resumeId) {
+        if (confirm("삭제하시겠습니까?")) {
+            let response = await fetch(`/user/resume/${resumeId}/delete`)
+            location.reload();
+        }
+    }
+</script>
 
 {{> layout/footer }}

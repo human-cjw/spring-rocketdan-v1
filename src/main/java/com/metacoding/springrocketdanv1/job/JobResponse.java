@@ -39,6 +39,7 @@ public class JobResponse {
         private Integer jobId;
         private String contactManager;
         private String companyPhone;
+
         private boolean Bookmarked;
 
         public DetailDTO(String title, String deadline, String careerLevel,
@@ -62,21 +63,23 @@ public class JobResponse {
             this.companyPhone = companyPhone;
 
         }
+
         public void setBookmarked(boolean Bookmarked) {
             this.Bookmarked = Bookmarked;
         }
-            class SalaryRangeDTO {
-                private String label;
-                private String minSalary;
-                private String maxSalary;
 
-                public SalaryRangeDTO(SalaryRange salaryRange) {
-                    this.label = salaryRange.getLabel();
-                    this.minSalary = salaryRange.getMinSalary().toString();
-                    this.maxSalary = salaryRange.getMaxSalary().toString();
-                }
+        class SalaryRangeDTO {
+            private String label;
+            private String minSalary;
+            private String maxSalary;
+
+            public SalaryRangeDTO(SalaryRange salaryRange) {
+                this.label = salaryRange.getLabel();
+                this.minSalary = salaryRange.getMinSalary().toString();
+                this.maxSalary = salaryRange.getMaxSalary().toString();
             }
         }
+    }
 
     @Data
     public static class JobSaveDTO {

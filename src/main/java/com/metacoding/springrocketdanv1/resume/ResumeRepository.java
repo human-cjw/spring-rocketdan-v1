@@ -40,5 +40,27 @@ public class ResumeRepository {
         query.setParameter("userId", userId);
         return query.getResultList();
     }
-}
 
+    public Resume findByUserIdAndIsDefaultTrue(Integer userId) {
+        String sql = "SELECT res FROM Resume res WHERE res.user.id = :userId AND res.isDefault = true";
+        Query query = em.createQuery(sql, Resume.class);
+        query.setParameter("userId", userId);
+
+        try {
+            return (Resume) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void deleteById(Integer resumeId) {
+        em.createQuery("DELETE FROM Resume r WHERE r.id = :resumeId")
+                .setParameter("resumeId", resumeId)
+                .executeUpdate();
+    }
+
+    public Resume save(Resume resume) {
+        em.persist(resume);
+        return resume;
+    }
+}

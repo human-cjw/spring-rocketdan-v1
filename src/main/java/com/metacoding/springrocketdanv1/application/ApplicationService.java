@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,9 +19,63 @@ public class ApplicationService {
     private final JobRepository jobRepository;
     private final ResumeRepository resumeRepository;
 
+    public List<ApplicationResponse.ProcessDTO> 입사지원현황보기(Integer userId) {
+        List<Application> applications = applicationRepository.findByUserId(userId);
+
+        List<ApplicationResponse.ProcessDTO> processDTOs = new ArrayList<>();
+        for (Application application : applications) {
+            processDTOs.add(new ApplicationResponse.ProcessDTO(application));
+        }
+
+        return processDTOs;
+    }
+
+    public List<ApplicationResponse.ApplicationManageDTO> 내지원목록보기(Integer userId, String status) {
+        List<Application> applications = applicationRepository.findByUserIdStatus(userId, status);
+
+        List<ApplicationResponse.ApplicationManageDTO> applicationManageDTOS = new ArrayList<>();
+        for (Application application : applications) {
+
+            ApplicationResponse.ApplicationManageDTO.JobDTO jobDTO = new ApplicationResponse.ApplicationManageDTO
+                    .JobDTO(application.getJob());
+            ApplicationResponse.ApplicationManageDTO.ResumeDTO resumeDTO = new ApplicationResponse.ApplicationManageDTO
+                    .ResumeDTO(application.getResume());
+            ApplicationResponse.ApplicationManageDTO.CompanyDTO companyDTO = new ApplicationResponse.ApplicationManageDTO
+                    .CompanyDTO(application.getCompany());
+            ApplicationResponse.ApplicationManageDTO.UserDTO userDTO = new ApplicationResponse.ApplicationManageDTO
+                    .UserDTO(application.getUser());
+
+            String formattedCreatedAt = application.getCreatedAt().toString().substring(0, 16);
+
+            ApplicationResponse.ApplicationManageDTO applicationManageDTO = new ApplicationResponse.ApplicationManageDTO(
+                    application.getId(),
+                    application.getStatus(),
+                    formattedCreatedAt,
+                    jobDTO,
+                    resumeDTO,
+                    companyDTO,
+                    userDTO
+            );
+            applicationManageDTOS.add(applicationManageDTO);
+        }
+        return applicationManageDTOS;
+    }
+
     public ApplicationResponse.ApplyDTO 지원보기(Integer jobId, UserResponse.SessionUserDTO user) {
+
+        // 이미 지원한 회사인지 확인
+        // 지원 테이블에서 회사 아이디 유저 아이디 같은게 있는지 확인
+
         // 공고 조회하기
         Job jobPC = jobRepository.findById(jobId);
+
+        Integer companyId = jobPC.getCompany().getId();
+        Integer userId = user.getId();
+
+        Application applicationPC = applicationRepository.findByCompanyIdWithUserId(companyId, userId);
+        if (applicationPC != null) {
+            throw new RuntimeException("400 잘못된 요청입니다");
+        }
 
         // 이력서 조회하기
         List<Resume> resumes = resumeRepository.findAllByUserId(user.getId());

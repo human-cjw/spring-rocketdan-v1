@@ -264,7 +264,7 @@ public class CompanyService {
         List<Career> careers = careerRepository.findCareersByResumeId(resume.getId());
 
         // 5. 이력서 기술스택 조회
-        List<TechStack> techStacks = resumeTechStackRepository.findAllByResumeId(resume.getId());
+        List<TechStack> techStacks = resumeTechStackRepository.findAllByResumeIdWithTechStack(resume.getId());
 
         // 6. DTO 조립
         return new CompanyResponse.CompanyacceptanceDTO(resume, careers, techStacks);

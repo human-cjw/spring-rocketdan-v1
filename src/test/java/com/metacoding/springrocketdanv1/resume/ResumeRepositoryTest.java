@@ -14,10 +14,10 @@ public class ResumeRepositoryTest {
     @Test
     public void findById_test() {
         //given
-        Integer user = 1;
+        Integer resumeId = 1;
 
         // when
-        Resume resume = resumeRepository.findById(user);
+        Resume resume = resumeRepository.findById(resumeId);
 
         // eye
         System.out.println("출력 : " + resume);
