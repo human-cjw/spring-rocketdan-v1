@@ -16,8 +16,9 @@ public class CompanyInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        Integer companyId = sessionUser.getCompanyId();
 
-        if (sessionUser == null) {
+        if (companyId == null) {
             if (uri.contains("/api")) {
                 throw new ExceptionApi401("기업 인증이 필요합니다");
             } else {
