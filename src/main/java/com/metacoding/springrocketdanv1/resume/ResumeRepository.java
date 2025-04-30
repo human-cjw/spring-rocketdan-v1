@@ -16,6 +16,7 @@ public class ResumeRepository {
         return em.find(Resume.class, id);
     }
 
+
     // 오버라이드 이력서 관리 페이지에서 사용
     public List<Resume> findAllByUserId(Integer userId, boolean isDefault) {
         String sql;

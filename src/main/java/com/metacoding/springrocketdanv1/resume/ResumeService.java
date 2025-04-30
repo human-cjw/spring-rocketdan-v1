@@ -19,18 +19,15 @@ public class ResumeService {
     private final ResumeTechStackRepository resumeTechStackRepository;
     private final CareerRepository careerRepository;
 
-    public ResumeResponse.DetailDTO 이력서상세보기(Integer resumeId) {
+    public ResumeResponse.DetailDTO 이력서상세보기(Integer resumeId, Integer userId) {
         Resume resume = resumeRepository.findById(resumeId);
         List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);
         List<TechStack> resumeTechStacks = resumeTechStackRepository.findAllByResumeId(resumeId);
         List<Career> careers = careerRepository.findCareersByResumeId(resumeId);
 
         ResumeResponse.DetailDTO detailDTO = new ResumeResponse.DetailDTO(resume, certifications,
-                resumeTechStacks, resume.getUser().getEmail(), resume.getUser().getUsername(), careers);
-
-        System.out.println(detailDTO.getCertifications());
-        System.out.println(detailDTO.getResumeTechStacks());
-
+                resumeTechStacks, resume.getUser().getEmail(), resume.getUser().getUsername(), careers, userId);
+        
         return detailDTO;
     }
 

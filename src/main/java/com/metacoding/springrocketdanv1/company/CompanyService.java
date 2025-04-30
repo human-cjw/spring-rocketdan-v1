@@ -42,6 +42,7 @@ public class CompanyService {
     private final CareerRepository careerRepository;
     private final ResumeTechStackRepository resumeTechStackRepository;
 
+
     @PersistenceContext
     private EntityManager em;
 

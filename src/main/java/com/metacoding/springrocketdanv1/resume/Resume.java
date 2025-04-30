@@ -27,7 +27,7 @@ public class Resume {
     @Column(columnDefinition = "text")
     private String summary; // 자기소개
     private String gender; // 남 여
-    private String careerLevel; // 0년차, 1년차, 2년차
+    private String careerLevel; // 신입, 경력
     private String education; // 학력사항
     private String birthdate; // 생년월일
     private String major; // 전공

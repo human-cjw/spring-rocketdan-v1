@@ -137,6 +137,7 @@ public class CompanyController {
         if (status == null || status.isBlank()) {
             status = "접수";
         }
+
         CompanyResponse.CompanyManageResumePageDTO dto = companyService.지원자조회(jobId, status);
         model.addAttribute("model", dto);
         model.addAttribute("isStatus접수", status.equals("접수"));

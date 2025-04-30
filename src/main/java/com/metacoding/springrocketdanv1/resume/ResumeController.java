@@ -19,11 +19,11 @@ public class ResumeController {
 
     @GetMapping("/resume/{resumeId}")
     public String detail(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) request.getSession().getAttribute("sessionUser");
+        Integer userId = sessionUser.getId(); // 세션에서 유저 ID 꺼내기
 
-        ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId);
-        System.out.println("🧪 DetailDTO title: " + detailDTO.getTitle());
+        ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId, userId);
         request.setAttribute("model", detailDTO);
-
         return "resume/detail";
     }
 
