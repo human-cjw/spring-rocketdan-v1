@@ -1,16 +1,39 @@
 package com.metacoding.springrocketdanv1.board;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+
+    public ResponseEntity<Map<String, String>> verifyPassword(@PathVariable Integer id, @RequestParam String password) {
+        // 게시물 조회
+        Board board = boardRepository.findById(id);
+
+        Map<String, String> response = new HashMap<>();
+
+        // 비밀번호 비교 (암호화 되어있다면 암호화 비교 필요)
+        if (board.getPassword().equals(password)) {
+            response.put("status", "success");
+            response.put("message", "비밀번호가 맞습니다.");
+        } else {
+            response.put("status", "error");
+            response.put("message", "비밀번호가 틀렸습니다.");
+        }
+
+        return ResponseEntity.ok(response);
+    }
 
     public List<BoardResponse.BoardDTO> 글목록보기() {
         List<Board> boardList = boardRepository.findAll();

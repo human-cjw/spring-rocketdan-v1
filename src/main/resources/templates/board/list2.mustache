@@ -39,7 +39,7 @@
             <hr/>
         </div>
 
-        {{#model}}
+        {{#models}}
             <div class="card p-3 mt-4 mb-4 shadow-sm">
                 <div class="d-flex" style="justify-content: space-between">
                     <div class="d-flex align-items-center mb-3">
@@ -57,7 +57,7 @@
                         <input type="password" class="form-control" placeholder="Enter password" name="password"
                                required>
 
-                        <button class="btn btn-warning flex-shrink-0"
+                        <button onclick="verifyPassword()" class="btn btn-warning flex-shrink-0"
                         >수정
                         </button>
 
@@ -73,8 +73,35 @@
                 </form>
                 <hr/>
             </div>
-        {{/model}}
+        {{/models}}
     </main>
+
+    <script>
+        async function verifyPassword() {
+            var password = document.getElementById("password").value; // 사용자가 입력한 비밀번호
+            var postId = document.getElementById("id").value; // 게시물 ID
+
+            // 서버에 비밀번호 확인 요청
+            try {
+                const response = await fetch(`/board/update/${postId}?password=${password}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.status === "success") {
+                    window.location.href = "/board/update-form/" + postId; // 비밀번호가 맞으면 수정 페이지로 리다이렉트
+                } else {
+                    alert(data.message); // 비밀번호가 틀리면 알림 띄우기
+                }
+            } catch (error) {
+                alert("서버와 연결할 수 없습니다.");
+            }
+        }
+    </script>
 </div>
 
 {{> layout/footer }}

@@ -17,7 +17,7 @@ public class BoardController {
     @GetMapping("/board")
     public String list(Model model) {
         List<BoardResponse.BoardDTO> boardDTOList = boardService.글목록보기();
-        model.addAttribute("model", boardDTOList);
+        model.addAttribute("models", boardDTOList);
         return "board/list2";
     }
 
@@ -27,19 +27,6 @@ public class BoardController {
         return "redirect:/board";
     }
 
-    @PostMapping("/board/update/{id}")
-    public String verifyPassword(@PathVariable Integer id, @RequestParam String password) {
-        // 게시물 조회
-        Board board = boardRepository.findById(id);
-
-        // 비밀번호 비교 (암호화 되어있다면 암호화 비교 필요)
-        if (board.getPassword().equals(password)) {
-            return "redirect:/board/update-form/" + id; // 수정 페이지로 리다이렉트
-        } else {
-
-            return "redirect:/board"; // 비밀번호 입력 페이지로 돌아가기
-        }
-    }
 
     @GetMapping("/board/update-form/{id}")
     public String updateForm(@PathVariable("id") int id, HttpServletRequest request) { // form 에서 boardId를 가져와야 함, password 값을 가져와서 해당 보드의 비번과 일치하는지 비교해야함(서비스에서)
