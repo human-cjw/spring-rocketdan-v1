@@ -2,7 +2,6 @@ package com.metacoding.springrocketdanv1.resume;
 
 
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
-import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStack;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.user.User;

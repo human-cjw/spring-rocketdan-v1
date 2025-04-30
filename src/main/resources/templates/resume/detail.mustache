@@ -49,188 +49,140 @@
 
         <!-- 성별 & 생년월일 -->
         <div class="bg-white rounded p-4 shadow-sm mb-4">
-            <<<<<<< HEAD
-            <div>
-                <h5 class="fw-bold mb-3">성별 & 생년월일</h5>
-                <div
-                        class="d-flex align-items-center gap-3 m-3 mb-1"
-                >
-                    <!-- 성별 선택 칸 시작 -->
-                    <form>
-                        {{#model.genders}}
-                            <div class="form-check-inline">
-                                <label
-                                        class="form-check-label"
-                                        for="radio1"
-                                >
-                                    <input
-                                            type="radio"
-                                            class="form-check-input"
-                                            id="radio1"
-                                            value="{{value}}"
-                                            {{#isChecked}}checked{{/isChecked}}
-                                            disabled
-                                    />{{name}}
-                                </label>
-                            </div>
-                        {{/model.genders}}
-                    </form>
-                    <!-- 성별 선택 칸 끝 -->
-                    <!-- 생년월일 입력 칸 시작 -->
-                    <div>
-                        <div class="input-group">
-                            <input
-                                    type="text"
-                                    name="professional"
-                                    class="form-control"
-                                    placeholder={{model.birthdate}}
-                                    style="pointer-events: none"
-                            />
-                        </div>
-                        =======
-                        <h5 class="fw-bold mb-3">성별 & 생년월일</h5>
-                        <div class="d-flex align-items-center gap-3 m-3 mb-1">
-                            {{#model.genderTypes}}
-                                <div class="form-check-inline">
-                                    <label class="form-check-label">
-                                        <input type="radio" class="form-check-input" name="gender" value="{{value}}"
-                                               {{#isSelected}}checked{{/isSelected}} disabled>
-                                        {{value}}
-                                    </label>
-                                    >>>>>>> master
-                                </div>
-                            {{/model.genderTypes}}
-                            <div>
-                                <input type="text" class="form-control" placeholder="{{model.birthdate}}"
-                                       style="pointer-events: none">
-                            </div>
-                        </div>
+
+            <h5 class="fw-bold mb-3">성별 & 생년월일</h5>
+            <div class="d-flex align-items-center gap-3 m-3 mb-1">
+                {{#model.genderTypes}}
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="gender" value="{{value}}"
+                                   {{#isSelected}}checked{{/isSelected}} disabled>
+                            {{value}}
+                        </label>
+
                     </div>
+                {{/model.genderTypes}}
+                <div>
+                    <input type="text" class="form-control" placeholder="{{model.birthdate}}"
+                           style="pointer-events: none">
+                </div>
+            </div>
+        </div>
 
-                    <!-- 경력 -->
-                    <div class="bg-white rounded p-4 shadow-sm mb-4">
-                        <<<<<<< HEAD
-                        <div>
-                            <h5 class="fw-bold mb-3">경력</h5>
-                            <div
-                                    class="d-flex align-items-center gap-3 m-3 mb-1"
-                            >
-                                <!-- 신입 + 경력 옵션 선택 칸 시작 -->
-                                <form>
-                                    {{#model.careerLevels}}
-                                        <div class="form-check-inline">
-                                            <label
-                                                    class="form-check-label"
-                                                    for="radio1"
-                                            >
-                                                <input
-                                                        type="radio"
-                                                        class="form-check-input"
-                                                        id="radio1"
-                                                        value="{{value}}"
-                                                        {{#isChecked}}checked{{/isChecked}}
-                                                        disabled
-                                                />{{name}}
-                                            </label>
-                                        </div>
-                                    {{/model.careerLevels}}
-                                </form>
-                                <!-- 신입 + 경력 옵션 선택 칸 끝 -->
-                            </div>
-                            =======
-                            <h5 class="fw-bold mb-3">경력</h5>
-                            <div class="d-flex align-items-center gap-3 m-3 mb-1">
-                                {{#model.careerLevelTypes}}
-                                    <div class="form-check-inline">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="careerLevel"
-                                                   value="{{value}}"
-                                                   {{#isSelected}}checked{{/isSelected}} disabled>
-                                            {{value}}
-                                        </label>
-                                    </div>
-                                {{/model.careerLevelTypes}}
-                                >>>>>>> master
-                            </div>
+        <!-- 경력 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">경력</h5>
+            <div class="d-flex align-items-center gap-3 m-3 mb-1">
+                {{#model.careerLevelTypes}}
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="careerLevel"
+                                   value="{{value}}"
+                                   {{#isSelected}}checked{{/isSelected}} disabled>
+                            {{value}}
+                        </label>
+                    </div>
+                {{/model.careerLevelTypes}}
+            </div>
+        </div>
+
+        <!-- 경력 사항 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">경력 사항</h5>
+            <div class="card m-3 mb-1">
+                <div class="m-3 mb-1 text-muted">
+                    {{#model.careers}}
+                        <p class="fw-bold fs-6 mb-1">{{companyName}}</p>
+                        <div class="d-flex gap-2 mb-3">
+                            <p class="fs-6 mb-0">{{startDate}}</p>
+                            <p class="fs-6 mb-0">~</p>
+                            <p class="fs-6 mb-0">{{endDate}}</p>
                         </div>
+                    {{/model.careers}}
+                </div>
+            </div>
+        </div>
 
-                        <!-- 경력 사항 -->
-                        <div class="bg-white rounded p-4 shadow-sm mb-4">
-                            <h5 class="fw-bold mb-3">경력 사항</h5>
-                            <div class="card m-3 mb-1">
-                                <div class="m-3 mb-1 text-muted">
-                                    {{#model.careers}}
-                                        <p class="fw-bold fs-6 mb-1">{{companyName}}</p>
-                                        <div class="d-flex gap-2 mb-3">
-                                            <p class="fs-6 mb-0">{{startDate}}</p>
-                                            <p class="fs-6 mb-0">~</p>
-                                            <p class="fs-6 mb-0">{{endDate}}</p>
-                                        </div>
-                                    {{/model.careers}}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 학력 -->
-                        <div class="bg-white rounded p-4 shadow-sm mb-4">
-                            <h5 class="fw-bold mb-3">학력</h5>
-                            <div class="d-flex m-3 mb-1" style="gap: 0.5rem;">
-                                <div class="align-items-center">
-                                    <label class="mb-2">학교*</label>
-                                    <input type="text" class="form-control" value="{{model.education}}" disabled>
-                                </div>
-                                <div class="align-items-center">
-                                    <label class="mb-2">전공*</label>
-                                    <input type="text" class="form-control" value="{{model.major}}" disabled>
-                                </div>
-                                <div class="align-items-center">
-                                    <label class="mb-2">재학 기간*</label>
-                                    <div class="d-flex align-items-center">
-                                        <input type="text" class="form-control" value="{{model.enrollmentDate}}"
-                                               disabled>
-                                        <div class="px-3">-</div>
-                                        <input type="text" class="form-control" value="{{model.graduationDate}}"
-                                               disabled>
-                                    </div>
-                                </div>
-                                <div class="align-items-center">
-                                    <label class="mb-2">상태*</label>
-                                    {{#model.graduationTypes}}
-                                        {{#isSelected}}
-                                            <input type="text" class="form-control" value="{{value}}" disabled>
-                                        {{/isSelected}}
-                                    {{/model.graduationTypes}}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 자격증 -->
-                        <div class="bg-white rounded p-4 shadow-sm mb-4">
-                            <h5 class="fw-bold mb-3">자격증</h5>
-                            <div class="card m-3 mb-1">
-                                <div class="m-3 mb-1 text-muted">
-                                    {{#model.certifications}}
-                                        <p class="fw-bold fs-6">{{name}}</p>
-                                        <p class="fs-6">{{issuer}}</p>
-                                        <p class="fs-6">{{issuedDate}} 취득</p>
-                                    {{/model.certifications}}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 기술 스택 -->
-                        <div class="bg-white rounded p-4 shadow-sm mb-4">
-                            <h5 class="fw-bold mb-3">기술 스택</h5>
-                            <div class="d-flex align-items-center gap-3 m-3 mb-1">
-                                <div class="d-flex flex-wrap gap-2">
-                                    {{#model.resumeTechStacks}}
-                                        <span class="border rounded-pill px-3 py-1 text-muted">{{name}}</span>
-                                    {{/model.resumeTechStacks}}
-                                </div>
-                            </div>
-                        </div>
-
+        <!-- 학력 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">학력</h5>
+            <div class="d-flex m-3 mb-1" style="gap: 0.5rem;">
+                <div class="align-items-center">
+                    <label class="mb-2">학교*</label>
+                    <input type="text" class="form-control" value="{{model.education}}" disabled>
+                </div>
+                <div class="align-items-center">
+                    <label class="mb-2">전공*</label>
+                    <input type="text" class="form-control" value="{{model.major}}" disabled>
+                </div>
+                <div class="align-items-center">
+                    <label class="mb-2">재학 기간*</label>
+                    <div class="d-flex align-items-center">
+                        <input type="text" class="form-control" value="{{model.enrollmentDate}}"
+                               disabled>
+                        <div class="px-3">-</div>
+                        <input type="text" class="form-control" value="{{model.graduationDate}}"
+                               disabled>
                     </div>
                 </div>
+                <div class="align-items-center">
+                    <label class="mb-2">상태*</label>
+                    {{#model.graduationTypes}}
+                        {{#isSelected}}
+                            <input type="text" class="form-control" value="{{value}}" disabled>
+                        {{/isSelected}}
+                    {{/model.graduationTypes}}
+                </div>
+            </div>
+        </div>
+
+        <!-- 자격증 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">자격증</h5>
+            <div class="card m-3 mb-1">
+                <div class="m-3 mb-1 text-muted">
+                    {{#model.certifications}}
+                        <p class="fw-bold fs-6">{{name}}</p>
+                        <p class="fs-6">{{issuer}}</p>
+                        <p class="fs-6">{{issuedDate}} 취득</p>
+                    {{/model.certifications}}
+                </div>
+            </div>
+        </div>
+
+        <!-- 직무 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">지원직무</h5>
+            <div class="card m-3 mb-1">
+                <div class="m-3 mb-1 text-muted">
+                    <p class="fw-bold fs-6">{{model.jobGroupName}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 희망 연봉 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">희망 연봉</h5>
+            <div class="card m-3 mb-1">
+                <div class="m-3 mb-1 text-muted">
+                    <p class="fw-bold fs-6">{{model.salaryRangeLabel}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 기술 스택 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">기술 스택</h5>
+            <div class="d-flex align-items-center gap-3 m-3 mb-1">
+                <div class="d-flex flex-wrap gap-2">
+                    {{#model.resumeTechStacks}}
+                        <span class="border rounded-pill px-3 py-1 text-muted">{{name}}</span>
+                    {{/model.resumeTechStacks}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 {{> layout/footer }}
