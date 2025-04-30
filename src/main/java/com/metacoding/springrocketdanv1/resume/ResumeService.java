@@ -38,6 +38,7 @@ public class ResumeService {
     private final ApplicationRepository applicationRepository;
     private final ResumeBookmarkRepository resumeBookmarkRepository;
 
+
     public ResumeResponse.DetailDTO 이력서상세보기(Integer resumeId, Integer userId) {
         Resume resume = resumeRepository.findById(resumeId);
         List<Certification> certifications = certificationRepository.findCertificationsByResumeId(resumeId);

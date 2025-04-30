@@ -58,4 +58,8 @@ public class Application {
         this.user = user;
         this.company = company;
     }
+
+    public void updateStatus(String newStatus) {
+        this.status = newStatus;
+    }
 }

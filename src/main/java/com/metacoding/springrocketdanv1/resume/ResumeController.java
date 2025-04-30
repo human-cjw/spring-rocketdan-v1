@@ -18,18 +18,17 @@ public class ResumeController {
     private final ResumeRepository resumeRepository;
     private final HttpSession session;
 
+    @GetMapping("/resume/{resumeId}")
+    public String detail(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) request.getSession().getAttribute("sessionUser");
+        Integer userId = sessionUser.getId(); // 세션에서 유저 ID 꺼내기
 
-    @GetMapping("/resume/{id}")
-    public String detail(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
-
-        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        Integer userId = sessionUserDTO != null ? sessionUserDTO.getId() : null;
         ResumeResponse.DetailDTO detailDTO = resumeService.이력서상세보기(resumeId, userId);
 
         request.setAttribute("model", detailDTO);
-
         return "resume/detail";
     }
+
 
     @GetMapping("/resume/{id}/update-form")
     public String updateForm(@PathVariable("id") Integer resumeId, HttpServletRequest request) {
@@ -67,5 +66,4 @@ public class ResumeController {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         resumeService.이력서삭제(resumeId, sessionUserDTO.getId());
     }
-
 }

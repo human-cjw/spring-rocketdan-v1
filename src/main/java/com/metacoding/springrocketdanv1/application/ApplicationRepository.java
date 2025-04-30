@@ -28,9 +28,14 @@ public class ApplicationRepository {
                 .getResultList();
     }
 
+
     public void updateByResumeId(Integer resumeId) {
         em.createQuery("UPDATE Application a SET a.resume = null, a.user = null WHERE a.resume.id = :resumeId")
                 .setParameter("resumeId", resumeId)
                 .executeUpdate();
+    }
+
+    public Application findById(Integer id) {
+        return em.find(Application.class, id);
     }
 }

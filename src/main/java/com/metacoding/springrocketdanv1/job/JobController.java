@@ -27,8 +27,8 @@ public class JobController {
         return "job/list";
     }
 
-    @GetMapping("/job/{id}")
-    public String show(@PathVariable Integer id, Model model) {
+    @GetMapping("/job/{jobId}")
+    public String show(@PathVariable("jobId") Integer id, Model model) {
         // JobDetail을 조회
         JobResponse.DetailDTO jobDetail = jobService.글상세보기(id);
 
