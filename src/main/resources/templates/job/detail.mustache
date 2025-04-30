@@ -12,25 +12,25 @@
                                     class="weapp-img2-1-job-detail"
                             />
                         </div>
-                        <a href="https://localhost:8080/company/{{jobDetail.companyId}}">{{nameKr}} &gt;</a>
+                        <a href="/company/{{model.companyId}}">{{model.nameKr}} &gt;</a>
 
                     </div>
                 </a>
                 <div class="weapp-l-2-job-detail">
-                    {{jobDetail.title}}
+                    {{model.title}}
                 </div>
                 <div class="weapp-l-3-job-detail">
-                    {{jobDetail.deadline}} 마감 | {{jobDetail.careerLevel}} | {{jobDetail.createdAt}} 등록일
+                    {{model.deadline}} 마감 | {{model.careerLevel}} | {{model.createdAt}} 등록
                 </div>
                 <div class="weapp-l-4-job-detail">주요업무</div>
                 <div>
-                    {{jobDetail.description}}
+                    {{model.description}}
                 </div>
             </div>
             <div class="weapp-sum-job-detail">
                 <div class="weapp-right-box-job-detail">
 
-                    <a href="/user/job/{{jobDetail.jobId}}/apply-form">
+                    <a href="/user/job/{{model.jobId}}/apply-form">
                         <div class="weapp-r-1-job-detail btn-primary btn">
                             지원하기
                         </div>
@@ -38,32 +38,32 @@
 
                     <div class="weapp-inner-box1-job-detail">
                         <div>마감</div>
-                        <div>{{jobDetail.deadline}}</div>
+                        <div>{{model.deadline}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>지역</div>
-                        <div>{{jobDetail.location}}</div>
+                        <div>{{model.location}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>고용형태</div>
-                        <div>{{jobDetail.employmentType}}</div>
+                        <div>{{model.employmentType}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>경력</div>
-                        <div>{{jobDetail.careerLevel}}</div>
+                        <div>{{model.careerLevel}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>산업분야</div>
-                        <div>{{jobDetail.workField}}</div>
+                        <div>{{model.workField}}</div>
                     </div>
                     <div class="weapp-inner-box1-job-detail">
                         <div>연봉</div>
-                        <div>{{salaryRange.minSalary}} ~ {{salaryRange.maxSalary}}</div>
+                        <div>{{model.salaryRange.minSalary}} ~ {{model.salaryRange.maxSalary}}</div>
                     </div>
 
                     <div class="weapp-inner-box1-job-detail">
                         <div>근무지</div>
-                        <div>{{jobDetail.location}}</div>
+                        <div>{{model.location}}</div>
                     </div>
 
                     <div class="weapp-book-out-job-detail">
@@ -85,10 +85,10 @@
                         <img src="user.webp" class="weapp-img1-1-job-detail"/>
                     </div>
                     <div>
-                        <div>김태희</div>
-                        <div class="weapp-tuter-job-detail">튜터 리크루터</div>
+                        <div>{{model.contactManager}}</div>
+                        <div class="weapp-tuter-job-detail">{{model.nameKr}}</div>
+                        <div class="weapp-tuter-job-detail">{{model.companyPhone}}</div>
                     </div>
-                    <div class="weapp-message-job-detail">메시지</div>
                 </div>
             </div>
         </div>

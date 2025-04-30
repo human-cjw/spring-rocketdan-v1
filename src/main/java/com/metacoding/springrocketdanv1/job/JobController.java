@@ -30,12 +30,10 @@ public class JobController {
     @GetMapping("/job/{jobId}")
     public String show(@PathVariable("jobId") Integer id, Model model) {
         // JobDetail을 조회
-        JobResponse.DetailDTO jobDetail = jobService.글상세보기(id);
+        JobResponse.DetailDTO respDTO = jobService.글상세보기(id);
 
         // model에 데이터 추가
-        model.addAttribute("jobDetail", jobDetail);
-        model.addAttribute("nameKr", jobDetail.getNameKr());
-        model.addAttribute("salaryRange", jobDetail.getSalaryRange());
+        model.addAttribute("model", respDTO);
 
         // job/detail 뷰 반환
         return "job/detail";
