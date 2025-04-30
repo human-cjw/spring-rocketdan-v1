@@ -69,7 +69,7 @@ public class ResumeService {
                 new ResumeResponse.GraduationTypeDTO("졸업", "졸업".equals(resume.getGraduationType())),
                 new ResumeResponse.GraduationTypeDTO("재학", "재학".equals(resume.getGraduationType())),
                 new ResumeResponse.GraduationTypeDTO("휴학", "휴학".equals(resume.getGraduationType())),
-                new ResumeResponse.GraduationTypeDTO("졸업 예정", "졸업 예정".equals(resume.getGraduationType()))
+                new ResumeResponse.GraduationTypeDTO("졸업예정", "졸업예정".equals(resume.getGraduationType()))
         );
 
         List<ResumeResponse.CareerLevelTypeDTO> careerLevelTypeDTOs = List.of(
@@ -251,6 +251,45 @@ public class ResumeService {
         resumeBookmarkRepository.deleteByResumeId(resumeId);
         // 이력서 삭제
         resumeRepository.deleteById(resumeId);
+    }
+
+    public ResumeResponse.SaveDTO 이력서등록보기() {
+        List<TechStack> techStacks = techStackRepository.findAll();
+        List<SalaryRange> salaryRanges = salaryRangeRepository.findAll();
+        List<JobGroup> jobGroups = jobGroupRepository.findAll();
+
+        return new ResumeResponse.SaveDTO(techStacks, salaryRanges, jobGroups);
+    }
+
+    @Transactional
+    public void 이력서등록(Integer userId, ResumeRequest.SaveDTO reqDTO) {
+        // 엔티티 생성
+        Resume resume = reqDTO.toEntity(userId);
+        // isDefault가 true인 resume 다가져와서 false로 만들기
+        Resume resumeIsDefaultTruePC = resumeRepository.findByUserIdAndIsDefaultTrue(userId);
+        if (resumeIsDefaultTruePC != null) {
+            resumeIsDefaultTruePC.setIsDefaultFalse();
+        }
+        // 이력서 등록
+        Resume resumePC = resumeRepository.save(resume);
+        // 자격증 생성
+        Certification certification = Certification.builder()
+                .resume(resumePC)
+                .name(reqDTO.getCertificationName())
+                .issuer(reqDTO.getCertificationIssuer())
+                .issuedDate(reqDTO.getCertificationIssuedDate())
+                .build();
+        // 자격증 등록
+        certificationRepository.save(certification);
+        // 경력 생성
+        Career career = Career.builder()
+                .resume(resumePC)
+                .companyName(reqDTO.getCareerCompanyName())
+                .startDate(reqDTO.getCareerStartDate())
+                .endDate(reqDTO.getCareerEndDate())
+                .build();
+        // 경력 등록
+        careerRepository.save(career);
     }
 }
 

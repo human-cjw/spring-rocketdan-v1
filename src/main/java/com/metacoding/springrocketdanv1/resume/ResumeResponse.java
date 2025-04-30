@@ -2,14 +2,17 @@ package com.metacoding.springrocketdanv1.resume;
 
 import com.metacoding.springrocketdanv1.career.Career;
 import com.metacoding.springrocketdanv1.certification.Certification;
+import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackResponse;
+import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResumeResponse {
 
@@ -93,7 +96,6 @@ public class ResumeResponse {
         private String phone;
         private String portfolioUrl;
         private String createdAt;
-        private String jobGroupId;
         private String enrollmentDate;
         private String graduationDate;
         private boolean isDefault;
@@ -107,6 +109,8 @@ public class ResumeResponse {
         private List<CareerLevelTypeDTO> careerLevelTypes;
         private List<GenderTypeDTO> genderTypes;
         private boolean isOwner;
+        private String salaryRangeLabel;
+        private String jobGroupName;
 
         public DetailDTO(Resume resume, List<Certification> certifications, List<TechStack> resumeTechStacks,
                          String email, String name, List<Career> careers,
@@ -136,9 +140,9 @@ public class ResumeResponse {
             this.genderTypes = genderTypes;
             this.isDefault = resume.getIsDefault();
             this.isOwner = resume.getUser().getId().equals(userId);
+            this.salaryRangeLabel = resume.getSalaryRange().getLabel();
+            this.jobGroupName = resume.getJobGroup().getName();
         }
-
-
     }
 
     @Data
@@ -151,7 +155,6 @@ public class ResumeResponse {
             this.isSelected = isSelected;
         }
     }
-
 
     @Data
     public static class CareerLevelTypeDTO {
@@ -172,8 +175,6 @@ public class ResumeResponse {
         public GenderTypeDTO(String value, Boolean isSelected) {
             this.value = value;
             this.isSelected = isSelected;
-
-
         }
     }
 
@@ -205,6 +206,64 @@ public class ResumeResponse {
                 this.id = id;
                 this.title = title;
                 this.createdAt = createdAt;
+            }
+        }
+    }
+
+    @Data
+    public static class SaveDTO {
+        private List<TechStackSaveDTO> techStacks;
+        private List<SalaryRangeSaveDTO> salaryRanges;
+        private List<JobGroupSaveDTO> jobGroups;
+
+        public SaveDTO(List<TechStack> techStacks,
+                       List<SalaryRange> salaryRanges,
+                       List<JobGroup> jobGroups) {
+
+            this.techStacks = techStacks.stream()
+                    .map(ts -> new TechStackSaveDTO(ts))
+                    .collect(Collectors.toList());
+
+            this.salaryRanges = salaryRanges.stream()
+                    .map(sr -> new SalaryRangeSaveDTO(sr))
+                    .collect(Collectors.toList());
+
+            this.jobGroups = jobGroups.stream()
+                    .map(jg -> new JobGroupSaveDTO(jg))
+                    .collect(Collectors.toList());
+        }
+
+        class JobGroupSaveDTO {
+            private Integer id;
+            private String name;
+
+            public JobGroupSaveDTO(JobGroup jobGroup) {
+                this.id = jobGroup.getId();
+                this.name = jobGroup.getName();
+            }
+        }
+
+        class SalaryRangeSaveDTO {
+            private Integer id;
+            private Integer minSalary;
+            private Integer maxSalary;
+            private String label;
+
+            public SalaryRangeSaveDTO(SalaryRange salaryRange) {
+                this.id = salaryRange.getId();
+                this.minSalary = salaryRange.getMinSalary();
+                this.maxSalary = salaryRange.getMaxSalary();
+                this.label = salaryRange.getLabel();
+            }
+        }
+
+        class TechStackSaveDTO {
+            private Integer id;
+            private String name;
+
+            public TechStackSaveDTO(TechStack techStack) {
+                this.id = techStack.getId();
+                this.name = techStack.getName();
             }
         }
     }
