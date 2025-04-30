@@ -166,4 +166,16 @@ public class CompanyController {
         companyService.지원상태수정(applicationId, "불합격");
         return "redirect:/company/application/" + applicationId;
     }
+
+    @PostMapping("/company/job/{jobId}/delete")
+    public String deleteJob(@PathVariable Integer jobId, HttpSession session) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        if (sessionUser == null || !"company".equals(sessionUser.getUserType())) {
+            return "redirect:/login-form";
+        }
+
+        companyService.공고삭제(jobId);
+
+        return "redirect:/company/job";
+    }
 }

@@ -275,4 +275,19 @@ public class CompanyService {
         Application application = applicationRepository.findById(applicationId);
         application.updateStatus(newStatus);
     }
+
+    @Transactional
+    public void 공고삭제(Integer jobId) {
+        // 1. 지원 내역 삭제
+        companyRepository.deleteApplicationsByJobId(jobId);
+
+        // 2. 북마크 삭제
+        companyRepository.deleteJobBookmarksByJobId(jobId);
+
+        // 3. 기술스택 연결 삭제
+        companyRepository.deleteJobTechStacksByJobId(jobId);
+
+        // 4. 최종 공고 삭제
+        companyRepository.deleteJobById(jobId);
+    }
 }
