@@ -24,8 +24,8 @@ public class CompanyController {
     private final TechStackRepository techStackRepository;
 
 
-    @GetMapping("/company/{id}")
-    public String detail(@PathVariable("id") Integer companyId, Model model, HttpSession session) {
+    @GetMapping("/company/{companyId}")
+    public String detail(@PathVariable("companyId") Integer companyId, Model model, HttpSession session) {
         CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(companyId);
 
         // 현재 로그인한 유저 정보 가져오기
@@ -140,12 +140,42 @@ public class CompanyController {
 
         CompanyResponse.CompanyManageResumePageDTO dto = companyService.지원자조회(jobId, status);
         model.addAttribute("model", dto);
-
         model.addAttribute("isStatus접수", status.equals("접수"));
         model.addAttribute("isStatus검토", status.equals("검토"));
         model.addAttribute("isStatus합격", status.equals("합격"));
         model.addAttribute("isStatus불합격", status.equals("불합격"));
 
         return "company/manage-resume";
+    }
+
+    @GetMapping("/company/application/{applicationId}")
+    public String acceptance(@PathVariable("applicationId") Integer applicationId, Model model) {
+        CompanyResponse.CompanyacceptanceDTO respDTO = companyService.지원서상세보기(applicationId);
+        model.addAttribute("model", respDTO);
+        return "company/acceptance";
+    }
+
+    @PostMapping("/company/application/{applicationId}/accept")
+    public String accept(@PathVariable("applicationId") Integer applicationId) {
+        companyService.지원상태수정(applicationId, "합격");
+        return "redirect:/company/application/" + applicationId;
+    }
+
+    @PostMapping("/company/application/{applicationId}/reject")
+    public String reject(@PathVariable("applicationId") Integer applicationId) {
+        companyService.지원상태수정(applicationId, "불합격");
+        return "redirect:/company/application/" + applicationId;
+    }
+
+    @PostMapping("/company/job/{jobId}/delete")
+    public String deleteJob(@PathVariable Integer jobId, HttpSession session) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        if (sessionUser == null || !"company".equals(sessionUser.getUserType())) {
+            return "redirect:/login-form";
+        }
+
+        companyService.공고삭제(jobId);
+
+        return "redirect:/company/job";
     }
 }

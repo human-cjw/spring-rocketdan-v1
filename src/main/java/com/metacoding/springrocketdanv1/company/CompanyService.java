@@ -2,12 +2,15 @@ package com.metacoding.springrocketdanv1.company;
 
 import com.metacoding.springrocketdanv1.application.Application;
 import com.metacoding.springrocketdanv1.application.ApplicationRepository;
+import com.metacoding.springrocketdanv1.career.Career;
+import com.metacoding.springrocketdanv1.career.CareerRepository;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStack;
 import com.metacoding.springrocketdanv1.companyTechStack.CompanyTechStackRepository;
 import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.job.JobRepository;
 import com.metacoding.springrocketdanv1.resume.Resume;
 import com.metacoding.springrocketdanv1.resume.ResumeRepository;
+import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackRepository;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.User;
@@ -36,6 +39,9 @@ public class CompanyService {
     private final ApplicationRepository applicationRepository;
     private final ResumeRepository resumeRepository;
     private final JobRepository jobRepository;
+    private final CareerRepository careerRepository;
+    private final ResumeTechStackRepository resumeTechStackRepository;
+
 
     @PersistenceContext
     private EntityManager em;
@@ -226,6 +232,7 @@ public class CompanyService {
         for (Application app : applications) {
             Resume resume = resumeRepository.findById(app.getResume().getId());  // lazy 대신 직접 조회
             applicationDTOs.add(new CompanyResponse.CompanyManageResumeDTO(
+                    app.getId(),
                     app.getUser().getUsername(),
                     resume.getTitle(),
                     resume.getCareerLevel(),
@@ -238,5 +245,49 @@ public class CompanyService {
         String jobTitle = (job != null) ? job.getTitle() : "공고 제목 없음";
 
         return new CompanyResponse.CompanyManageResumePageDTO(jobId, jobTitle, applicationDTOs);
+    }
+
+    @Transactional
+    public CompanyResponse.CompanyacceptanceDTO 지원서상세보기(Integer applicationId) {
+        // 1. 지원서 조회
+        Application application = applicationRepository.findById(applicationId);
+
+        // 2. 상태가 "접수"면 "검토"로 변경
+        if ("접수".equals(application.getStatus())) {
+            application.updateStatus("검토");
+        }
+
+        // 3. 이력서 조회
+        Resume resume = resumeRepository.findById(application.getResume().getId());
+
+        // 4. 커리어 조회
+        List<Career> careers = careerRepository.findCareersByResumeId(resume.getId());
+
+        // 5. 이력서 기술스택 조회
+        List<TechStack> techStacks = resumeTechStackRepository.findAllByResumeIdWithTechStack(resume.getId());
+
+        // 6. DTO 조립
+        return new CompanyResponse.CompanyacceptanceDTO(resume, careers, techStacks);
+    }
+
+    @Transactional
+    public void 지원상태수정(Integer applicationId, String newStatus) {
+        Application application = applicationRepository.findById(applicationId);
+        application.updateStatus(newStatus);
+    }
+
+    @Transactional
+    public void 공고삭제(Integer jobId) {
+        // 1. 지원 내역 삭제
+        companyRepository.deleteApplicationsByJobId(jobId);
+
+        // 2. 북마크 삭제
+        companyRepository.deleteJobBookmarksByJobId(jobId);
+
+        // 3. 기술스택 연결 삭제
+        companyRepository.deleteJobTechStacksByJobId(jobId);
+
+        // 4. 최종 공고 삭제
+        companyRepository.deleteJobById(jobId);
     }
 }

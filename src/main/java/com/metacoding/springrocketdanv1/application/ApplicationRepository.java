@@ -27,4 +27,8 @@ public class ApplicationRepository {
                 .setParameter("status", status)
                 .getResultList();
     }
+
+    public Application findById(Integer id) {
+        return em.find(Application.class, id);
+    }
 }
