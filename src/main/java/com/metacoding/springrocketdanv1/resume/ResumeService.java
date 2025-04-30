@@ -1,15 +1,14 @@
 package com.metacoding.springrocketdanv1.resume;
 
+import com.metacoding.springrocketdanv1.application.ApplicationRepository;
 import com.metacoding.springrocketdanv1.career.Career;
 import com.metacoding.springrocketdanv1.career.CareerRepository;
 import com.metacoding.springrocketdanv1.certification.Certification;
 import com.metacoding.springrocketdanv1.certification.CertificationRepository;
-import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
-import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
-import com.metacoding.springrocketdanv1.jobTechStack.JobTechStackResponse;
+import com.metacoding.springrocketdanv1.resumeBookmark.ResumeBookmarkRepository;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStack;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackRepository;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackResponse;
@@ -18,12 +17,9 @@ import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeRepository;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
-import com.metacoding.springrocketdanv1.user.User;
-import com.metacoding.springrocketdanv1.user.UserRepository;
-import com.metacoding.springrocketdanv1.workField.WorkField;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +35,9 @@ public class ResumeService {
     private final TechStackRepository techStackRepository;
     private final SalaryRangeRepository salaryRangeRepository;
     private final JobGroupRepository jobGroupRepository;
+    private final ApplicationRepository applicationRepository;
+    private final ResumeBookmarkRepository resumeBookmarkRepository;
+
 
     public ResumeResponse.DetailDTO 이력서상세보기(Integer resumeId, Integer userId) {
         Resume resume = resumeRepository.findById(resumeId);
@@ -236,6 +235,22 @@ public class ResumeService {
         List<Resume> resumes = resumeRepository.findAllByUserId(userId, isDefault);
 
         return new ResumeResponse.ResumeListDTO(resumes, isDefault);
+    }
+
+    @Transactional
+    public void 이력서삭제(Integer resumeId, Integer userId) {
+        // 자격증 삭제
+        certificationRepository.deleteByResumeId(resumeId);
+        // 경력 삭제
+        careerRepository.deleteByResumeId(resumeId);
+        // 지원 업데이트 resume_id -> null, user_id -> null
+        applicationRepository.updateByResumeId(resumeId);
+        // 이력서가 가지고 있는 resume_tech_stack 전부 삭제
+        resumeTechStackRepository.deleteByResumeId(resumeId);
+        // 이력서 북마크 삭제
+        resumeBookmarkRepository.deleteByResumeId(resumeId);
+        // 이력서 삭제
+        resumeRepository.deleteById(resumeId);
     }
 }
 

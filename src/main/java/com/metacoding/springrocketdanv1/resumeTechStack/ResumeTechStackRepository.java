@@ -15,6 +15,7 @@ public class ResumeTechStackRepository {
     public List<TechStack> findAllByResumeIdWithTechStack(Integer resumeId) {
         String q = "SELECT r.techStack FROM ResumeTechStack r WHERE r.resume.id = :resumeId";
         return em.createQuery(q, TechStack.class)
+
                 .setParameter("resumeId", resumeId)
                 .getResultList();
     }

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class ResumeController {
     private final ResumeService resumeService;
+    private final ResumeRepository resumeRepository;
     private final HttpSession session;
-
 
     @GetMapping("/resume/{resumeId}")
     public String detail(@PathVariable("resumeId") Integer resumeId, HttpServletRequest request) {
@@ -61,4 +61,9 @@ public class ResumeController {
         return "resume/list";
     }
 
+    @GetMapping("/user/resume/{resumeId}/delete")
+    public void delete(@PathVariable("resumeId") Integer resumeId) {
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        resumeService.이력서삭제(resumeId, sessionUserDTO.getId());
+    }
 }

@@ -47,4 +47,10 @@ public class ResumeRepository {
         query.setParameter("userId", userId);
         return (Resume) query.getSingleResult();
     }
+
+    public void deleteById(Integer resumeId) {
+        em.createQuery("DELETE FROM Resume r WHERE r.id = :resumeId")
+                .setParameter("resumeId", resumeId)
+                .executeUpdate();
+    }
 }

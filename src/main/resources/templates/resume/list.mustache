@@ -41,7 +41,7 @@
                     <!-- 샘플 1 -->
                     {{#model.resumeItems}}
                         <div
-                                class="list-group"
+                                class="list-group d-flex flex-row align-items-center gap-2"
                                 style="height: 50%; margin: 1rem"
                         >
                             <a
@@ -70,6 +70,9 @@
                                     </div>
                                 </div>
                             </a>
+                            <button onclick="deleteResume({{id}})" class="btn btn-danger" style="white-space: nowrap;">
+                                삭제
+                            </button>
                         </div>
                     {{/model.resumeItems}}
                     <!-- 샘플 1 끝 -->
@@ -79,5 +82,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    async function deleteResume(resumeId) {
+        if (confirm("삭제하시겠습니까?")) {
+            let response = await fetch(`/user/resume/${resumeId}/delete`)
+            location.reload();
+        }
+    }
+</script>
 
 {{> layout/footer }}
