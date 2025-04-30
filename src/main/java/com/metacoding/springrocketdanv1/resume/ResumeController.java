@@ -62,8 +62,9 @@ public class ResumeController {
     }
 
     @GetMapping("/user/resume/{resumeId}/delete")
-    public void delete(@PathVariable("resumeId") Integer resumeId) {
+    public String delete(@PathVariable("resumeId") Integer resumeId) {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         resumeService.이력서삭제(resumeId, sessionUserDTO.getId());
+        return "redirect:/user/resume";
     }
 }

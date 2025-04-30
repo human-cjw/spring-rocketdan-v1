@@ -56,18 +56,6 @@ public class JobService {
             throw new RuntimeException(id + "번 게시물을 찾을 수 없습니다."); // 예시로 RuntimeException을 던지며 처리
         }
 
-        // SalaryRange 조회
-        SalaryRange salaryRange = job.getSalaryRange();
-        SalaryRangeResponse.SalaryRangeDTO salaryRangeDTO = null;
-
-        // SalaryRange가 있을 경우, SalaryRangeDTO로 변환
-        if (salaryRange != null) {
-            salaryRangeDTO = new SalaryRangeResponse.SalaryRangeDTO(
-                    salaryRange.getMinSalary(),
-                    salaryRange.getMaxSalary()
-            );
-        }
-
         // JobDetailDTO 생성
         JobResponse.DetailDTO detailDto = new JobResponse.DetailDTO(
                 job.getTitle(),
@@ -79,9 +67,11 @@ public class JobService {
                 job.getEmploymentType(),
                 job.getWorkField().getName(),
                 job.getCompany().getNameKr(),
-                salaryRangeDTO,
+                job.getSalaryRange(),
                 job.getCompany().getId(),
-                job.getId()
+                job.getId(),
+                job.getCompany().getContactManager(),
+                job.getCompany().getPhone()
         );
 
         return detailDto;
