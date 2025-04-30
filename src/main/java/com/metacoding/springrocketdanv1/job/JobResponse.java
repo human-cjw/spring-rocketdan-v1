@@ -20,7 +20,6 @@ public class JobResponse {
         private int id;
         private String title;
         private String careerLevel;
-
         private String nameKr;
     }
 
@@ -29,44 +28,55 @@ public class JobResponse {
         private String title;
         private String deadline;
         private String careerLevel;
-        private Timestamp createdAt;
+        private String createdAt;
         private String description;
         private String location;
         private String employmentType;
         private String workField;
         private String nameKr;
-        private SalaryRangeResponse.SalaryRangeDTO salaryRange;
+        private SalaryRangeDTO salaryRange;
         private Integer companyId;
         private Integer jobId;
-
-        private boolean bookmarked;
+        private String contactManager;
+        private String companyPhone;
+        private boolean Bookmarked;
 
         public DetailDTO(String title, String deadline, String careerLevel,
                          Timestamp createdAt, String description, String location,
                          String employmentType, String workField, String nameKr,
-                         SalaryRangeResponse.SalaryRangeDTO salaryRange, Integer companyId, Integer jobId) {
+                         SalaryRange salaryRange, Integer companyId, Integer jobId,
+                         String contactManager, String companyPhone) {
             this.title = title;
             this.deadline = deadline;
             this.careerLevel = careerLevel;
-            this.createdAt = createdAt;
+            this.createdAt = createdAt.toString().substring(0, 10);
             this.description = description;
             this.location = location;
             this.employmentType = employmentType;
             this.workField = workField;
             this.nameKr = nameKr;
-            this.salaryRange = salaryRange;
+            this.salaryRange = new SalaryRangeDTO(salaryRange);
             this.companyId = companyId;
             this.jobId = jobId;
-        }
+            this.contactManager = contactManager;
+            this.companyPhone = companyPhone;
 
-        public boolean isBookmarked() {
-            return bookmarked;
         }
+        public void setBookmarked(boolean Bookmarked) {
+            this.Bookmarked = Bookmarked;
+        }
+            class SalaryRangeDTO {
+                private String label;
+                private String minSalary;
+                private String maxSalary;
 
-        public void setBookmarked(boolean bookmarked) {
-            this.bookmarked = bookmarked;
+                public SalaryRangeDTO(SalaryRange salaryRange) {
+                    this.label = salaryRange.getLabel();
+                    this.minSalary = salaryRange.getMinSalary().toString();
+                    this.maxSalary = salaryRange.getMaxSalary().toString();
+                }
+            }
         }
-    }
 
     @Data
     public static class JobSaveDTO {

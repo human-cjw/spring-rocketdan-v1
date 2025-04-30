@@ -30,17 +30,19 @@ public class JobController {
     }
 
     @GetMapping("/job/{jobId}")
-    public String show(@PathVariable("jobId") Integer id, HttpSession session, Model model) {
+    public String show(@PathVariable("jobId") Integer jobId, Model model, HttpSession session) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        Integer userId = (sessionUser != null) ? sessionUser.getId() : null;
+        Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
 
-        JobResponse.DetailDTO jobDetail = jobService.글상세보기(id, userId);
+        JobResponse.DetailDTO dto = jobService.글상세보기(jobId, sessionUserId);
 
-        model.addAttribute("jobDetail", jobDetail);
-        model.addAttribute("nameKr", jobDetail.getNameKr());
-        model.addAttribute("salaryRange", jobDetail.getSalaryRange());
+        model.addAttribute("jobDetail", dto);
+        model.addAttribute("nameKr", dto.getNameKr());
+        model.addAttribute("salaryRange", dto.getSalaryRange());
+
         return "job/detail";
     }
+
 
     @GetMapping("/job/save-form")
     public String saveForm(HttpServletRequest request) {

@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1.jobBookmark;
 
 
+import com.metacoding.springrocketdanv1.job.JobResponse;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -66,5 +67,19 @@ public class JobBookmarkController {
     public String deleteBookmark(@PathVariable("bookmarkId") Integer bookmarkId) {
         jobBookmarkService.북마크삭제(bookmarkId);
         return "redirect:/user/bookmark";
+    }
+
+    @PostMapping("/job-bookmark/{jobId}/toggle")
+    public String toggleFromDetail(@PathVariable Integer jobId, HttpSession session) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        if (sessionUser == null) return "redirect:/login";
+
+        JobBookmarkRequest.SaveDTO dto = new JobBookmarkRequest.SaveDTO();
+        dto.setJobId(jobId);
+
+        jobBookmarkService.북마크토글(dto, sessionUser.getId());
+
+        // 현재 상세 페이지를 그대로 다시 보여주도록 redirect
+        return "redirect:/job/" + jobId;
     }
 }

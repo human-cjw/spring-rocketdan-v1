@@ -49,35 +49,33 @@ public class JobService {
         return jobDTOs;  // 변환된 DTO 리스트 반환
     }
 
-    public JobResponse.DetailDTO 글상세보기(Integer jobId, Integer userId) {
-        Job job = jobRepository.findById(jobId);
-        if (job == null) {
-            throw new RuntimeException("공고를 찾을 수 없습니다.");
-        }
+    public JobResponse.DetailDTO 글상세보기(Integer id, Integer sessionUserId) {
+        Job job = jobRepository.findById(id);
+        if (job == null) throw new RuntimeException(id + "번 공고가 없습니다.");
 
+        // 기본 DTO 구성
         SalaryRange salaryRange = job.getSalaryRange();
-        SalaryRangeResponse.SalaryRangeDTO salaryRangeDTO = null;
-        if (salaryRange != null) {
-            salaryRangeDTO = new SalaryRangeResponse.SalaryRangeDTO(
-                    salaryRange.getMinSalary(), salaryRange.getMaxSalary()
-            );
-        }
+        SalaryRangeResponse.SalaryRangeDTO salaryRangeDTO = (salaryRange != null)
+                ? new SalaryRangeResponse.SalaryRangeDTO(salaryRange.getMinSalary(), salaryRange.getMaxSalary())
+                : null;
 
-        JobResponse.DetailDTO dto = new JobResponse.DetailDTO(
+        JobResponse.DetailDTO respDTO = new JobResponse.DetailDTO(
                 job.getTitle(), job.getDeadline(), job.getCareerLevel(),
                 job.getCreatedAt(), job.getDescription(), job.getLocation(),
                 job.getEmploymentType(), job.getWorkField().getName(),
-                job.getCompany().getNameKr(), salaryRangeDTO,
-                job.getCompany().getId(), job.getId()
+                job.getCompany().getNameKr(),
+                job.getSalaryRange(),
+                job.getCompany().getId(), job.getId(),
+                job.getCompany().getContactManager(),
+                job.getCompany().getPhone()
         );
 
-        // 북마크 여부 판단
-        if (userId != null) {
-            JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(userId, jobId);
-            dto.setBookmarked(bookmark != null);
+        if (sessionUserId != null) {
+            JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(sessionUserId, job.getId());
+            respDTO.setBookmarked(bookmark != null);
         }
 
-        return dto;
+        return respDTO;
     }
 
 

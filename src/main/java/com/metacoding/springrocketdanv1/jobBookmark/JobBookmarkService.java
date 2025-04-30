@@ -17,6 +17,7 @@ public class JobBookmarkService {
     private final UserRepository userRepository;
     private final JobRepository jobRepository;
 
+    @Transactional
     public void 북마크토글(JobBookmarkRequest.SaveDTO reqDTO, Integer sessionUserId) {
         JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(sessionUserId, reqDTO.getJobId());
 
