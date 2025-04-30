@@ -49,6 +49,7 @@
 
         <!-- 성별 & 생년월일 -->
         <div class="bg-white rounded p-4 shadow-sm mb-4">
+
             <h5 class="fw-bold mb-3">성별 & 생년월일</h5>
             <div class="d-flex align-items-center gap-3 m-3 mb-1">
                 {{#model.genderTypes}}
@@ -58,6 +59,7 @@
                                    {{#isSelected}}checked{{/isSelected}} disabled>
                             {{value}}
                         </label>
+
                     </div>
                 {{/model.genderTypes}}
                 <div>
@@ -74,7 +76,8 @@
                 {{#model.careerLevelTypes}}
                     <div class="form-check-inline">
                         <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="careerLevel" value="{{value}}"
+                            <input type="radio" class="form-check-input" name="careerLevel"
+                                   value="{{value}}"
                                    {{#isSelected}}checked{{/isSelected}} disabled>
                             {{value}}
                         </label>
@@ -115,9 +118,11 @@
                 <div class="align-items-center">
                     <label class="mb-2">재학 기간*</label>
                     <div class="d-flex align-items-center">
-                        <input type="text" class="form-control" value="{{model.enrollmentDate}}" disabled>
+                        <input type="text" class="form-control" value="{{model.enrollmentDate}}"
+                               disabled>
                         <div class="px-3">-</div>
-                        <input type="text" class="form-control" value="{{model.graduationDate}}" disabled>
+                        <input type="text" class="form-control" value="{{model.graduationDate}}"
+                               disabled>
                     </div>
                 </div>
                 <div class="align-items-center">
@@ -141,6 +146,26 @@
                         <p class="fs-6">{{issuer}}</p>
                         <p class="fs-6">{{issuedDate}} 취득</p>
                     {{/model.certifications}}
+                </div>
+            </div>
+        </div>
+
+        <!-- 직무 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">지원직무</h5>
+            <div class="card m-3 mb-1">
+                <div class="m-3 mb-1 text-muted">
+                    <p class="fw-bold fs-6">{{model.jobGroupName}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 희망 연봉 -->
+        <div class="bg-white rounded p-4 shadow-sm mb-4">
+            <h5 class="fw-bold mb-3">희망 연봉</h5>
+            <div class="card m-3 mb-1">
+                <div class="m-3 mb-1 text-muted">
+                    <p class="fw-bold fs-6">{{model.salaryRangeLabel}}</p>
                 </div>
             </div>
         </div>

@@ -21,7 +21,7 @@ public class ResumeTechStackRepository {
     }
 
     public List<ResumeTechStack> findAllByResumeId(Integer resumeId) {
-        String q = "SELECT r. FROM ResumeTechStack r WHERE r.resume.id = :resumeId";
+        String q = "SELECT r FROM ResumeTechStack r WHERE r.resume.id = :resumeId";
         return em.createQuery(q, ResumeTechStack.class)
                 .setParameter("resumeId", resumeId)
                 .getResultList();

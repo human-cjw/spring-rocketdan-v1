@@ -61,10 +61,25 @@ public class ResumeController {
         return "resume/list";
     }
 
+
+    @GetMapping("/resume/save-form")
+    public String saveForm(HttpServletRequest request) {
+        ResumeResponse.SaveDTO respDTO = resumeService.이력서등록보기();
+        request.setAttribute("model", respDTO);
+        return "resume/save-form";
+    }
+
     @GetMapping("/user/resume/{resumeId}/delete")
     public String delete(@PathVariable("resumeId") Integer resumeId) {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         resumeService.이력서삭제(resumeId, sessionUserDTO.getId());
+        return "redirect:/user/resume";
+    }
+
+    @PostMapping("/resume/save")
+    public String save(ResumeRequest.SaveDTO reqDTO) {
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        resumeService.이력서등록(sessionUserDTO.getId(), reqDTO);
         return "redirect:/user/resume";
     }
 }
