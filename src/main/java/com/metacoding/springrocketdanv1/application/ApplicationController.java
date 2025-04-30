@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ApplicationController {
@@ -48,6 +50,10 @@ public class ApplicationController {
     @GetMapping("/user/application")
     public String userApplication(HttpServletRequest request) {
         // 유저 지원 관리 페이지 데이터 가져와서 DTO로 던져주기
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        List<ApplicationResponse.ApplicationManageDTO> applicationManageDTOS = applicationService.내지원목록보기(sessionUserDTO.getId());
+        request.setAttribute("applicationManageDTOS", applicationManageDTOS);
+        
         return "user/application/list";
     }
 }
