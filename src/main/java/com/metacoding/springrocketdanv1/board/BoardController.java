@@ -14,9 +14,10 @@ import java.util.Map;
 public class BoardController {
     private final BoardService boardService;
 
+
     @PostMapping("/board/update/{id}")
     public @ResponseBody Map<String, String> verifyPassword(@PathVariable Integer id,
-                                              @RequestParam String password) {
+                                                            @RequestParam String password) {
         return boardService.verifyPassword(id, password);
     }
 
@@ -52,4 +53,5 @@ public class BoardController {
         boardService.글삭제하기(id);
         return "redirect:/board";
     }
+
 }

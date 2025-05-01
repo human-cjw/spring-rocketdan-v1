@@ -1,7 +1,7 @@
 package com.metacoding.springrocketdanv1.user;
 
-import com.metacoding.springrocketdanv1.company.Company;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,12 +25,22 @@ public class User {
     @Column(nullable = false)
     private String userType; // 일반유저, 기업유저 값 : user or company
 
+    // 기업 fk
+    private Integer companyId; // userType이 user 면 null
+
     @CreationTimestamp
     private Timestamp createdAt;
 
-    // 기업 fk
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", unique = true)
-    private Company company; // 기본값 null
 
+    @Builder
+    public User(Integer id, String username, String password, String email, String fileUrl, String userType, Integer companyId, Timestamp createdAt) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.fileUrl = fileUrl;
+        this.userType = userType;
+        this.companyId = companyId;
+        this.createdAt = createdAt;
+    }
 }

@@ -3,12 +3,15 @@ package com.metacoding.springrocketdanv1.career;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.resume.Resume;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
+@ToString
 @NoArgsConstructor
 @Getter
 @Entity
@@ -25,12 +28,17 @@ public class Career {
     @CreationTimestamp
     private Timestamp createdAt;
 
-    // 직군 FK
-    @ManyToOne(fetch = FetchType.LAZY)
-    private JobGroup jobGroup;
-
     // 이력서 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private Resume resume;
 
+    @Builder
+    public Career(Integer id, String companyName, String startDate, String endDate, Timestamp createdAt, JobGroup jobGroup, Resume resume) {
+        this.id = id;
+        this.companyName = companyName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.createdAt = createdAt;
+        this.resume = resume;
+    }
 }

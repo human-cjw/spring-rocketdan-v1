@@ -1,6 +1,9 @@
 package com.metacoding.springrocketdanv1._core.config;
 
+import com.metacoding.springrocketdanv1._core.interceptor.CompanyInterceptor;
+import com.metacoding.springrocketdanv1._core.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.PathResourceResolver;
@@ -20,4 +23,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResolver(new PathResourceResolver());
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/user/**")
+                .addPathPatterns("/company/**")
+                .excludePathPatterns("/company")
+                .excludePathPatterns("/company/{id:\\d+}");
+
+        registry.addInterceptor(new CompanyInterceptor())
+                .addPathPatterns("/company/update-form")
+                .addPathPatterns("/company/update")
+                .addPathPatterns("/job/**")
+                .excludePathPatterns("/job")
+                .excludePathPatterns("/job/{id:\\d+}");
+    }
 }

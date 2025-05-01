@@ -1,10 +1,84 @@
 package com.metacoding.springrocketdanv1.application;
 
+import com.metacoding.springrocketdanv1.user.UserResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ApplicationController {
     private final ApplicationService applicationService;
+    private final HttpSession session;
+
+    @GetMapping("/user/job/{jobId}/apply-form")
+    public String applyForm(@PathVariable("jobId") Integer jobId,
+                            HttpServletRequest request) {
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+
+        ApplicationResponse.ApplyDTO respDTO = applicationService.지원보기(jobId, sessionUserDTO);
+
+        request.setAttribute("model", respDTO);
+
+        return "user/application/apply-form";
+    }
+
+    @PostMapping("/user/job/{jobId}/apply/save")
+    public String applySave(@PathVariable("jobId") Integer jobId,
+                            ApplicationRequest.SaveDTO reqDTO) {
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        applicationService.지원하기(jobId, reqDTO, sessionUserDTO.getId());
+        return "redirect:/user/job/" + jobId + "/apply-done";
+    }
+
+    @GetMapping("/user/job/{jobId}/apply-done")
+    public String applyDone(@PathVariable("jobId") Integer jobId,
+                            HttpServletRequest request) {
+        ApplicationResponse.ApplyDoneDTO respDTO = applicationService.지원완료(jobId);
+
+        request.setAttribute("model", respDTO);
+
+        return "user/application/apply-done";
+    }
+
+    @GetMapping("/user/application")
+    public String userApplication(@RequestParam(required = false) String status, HttpServletRequest request) {
+        // 유저 지원 관리 페이지 데이터 가져와서 DTO로 던져주기
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        List<ApplicationResponse.ApplicationManageDTO> applicationManageDTOS = applicationService.내지원목록보기(sessionUserDTO.getId(), status);
+        request.setAttribute("applicationManageDTOS", applicationManageDTOS);
+
+        request.setAttribute("isAll", status == null);
+        request.setAttribute("isApplied", "접수".equals(status));
+        request.setAttribute("isReviewing", "검토".equals(status));
+        request.setAttribute("isPassed", "합격".equals(status));
+        request.setAttribute("isRejected", "탈락".equals(status));
+
+        return "user/application/list";
+    }
+
+    @GetMapping("/user/application/process")
+    public String userApplicationProcess(HttpServletRequest request) {
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+
+        List<ApplicationResponse.ProcessDTO> processDTOS = applicationService.입사지원현황보기(sessionUserDTO.getId());
+        request.setAttribute("processDTOS", processDTOS);
+
+        if (processDTOS.size() > 0) {
+            String status = processDTOS.get(0).getStatus();
+            request.setAttribute("isApplied", "접수".equals(status));
+            request.setAttribute("isReviewing", "검토".equals(status));
+            request.setAttribute("isPassed", "합격".equals(status));
+            request.setAttribute("isRejected", "탈락".equals(status));
+        }
+
+        return "user/application/process";
+    }
 }
