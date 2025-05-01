@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1.job;
 
 
+import com.metacoding.springrocketdanv1.jobBookmark.JobBookmarkService;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,26 +19,30 @@ import java.util.List;
 public class JobController {
     private final JobService jobService;
     private final HttpSession session;
+    private final JobBookmarkService jobBookmarkService;
 
     @GetMapping("/")
     public String list(Model models, JobResponse.DTO dto) {
         List<JobResponse.DTO> jobllist = jobService.글목록보기();
         models.addAttribute("models", jobllist);
         models.addAttribute("nameKr", dto.getNameKr());
-        return "job/list";
+        return "redirect:/job";
     }
 
     @GetMapping("/job/{jobId}")
-    public String show(@PathVariable("jobId") Integer id, Model model) {
-        // JobDetail을 조회
-        JobResponse.DetailDTO respDTO = jobService.글상세보기(id);
+    public String show(@PathVariable("jobId") Integer jobId, Model model, HttpSession session) {
+        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
 
-        // model에 데이터 추가
-        model.addAttribute("model", respDTO);
+        JobResponse.DetailDTO dto = jobService.글상세보기(jobId, sessionUserId);
 
-        // job/detail 뷰 반환
+        model.addAttribute("jobDetail", dto);
+        model.addAttribute("nameKr", dto.getNameKr());
+        model.addAttribute("salaryRange", dto.getSalaryRange());
+
         return "job/detail";
     }
+
 
     @GetMapping("/job/save-form")
     public String saveForm(HttpServletRequest request) {
@@ -68,5 +73,4 @@ public class JobController {
         jobService.수정하기(jobId, reqDTO);
         return "redirect:/job/" + jobId;
     }
-
 }

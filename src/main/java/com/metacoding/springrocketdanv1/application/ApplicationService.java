@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +19,42 @@ public class ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final JobRepository jobRepository;
     private final ResumeRepository resumeRepository;
+
+    public ApplicationResponse.ProcessDTO2 입사지원현황보기(Integer userId, Integer jobId) {
+        Application applicationPS = applicationRepository.findByUserIdAndJobId(userId, jobId);
+        return new ApplicationResponse.ProcessDTO2(applicationPS);
+    }
+
+    public List<ApplicationResponse.ApplicationManageDTO> 내지원목록보기(Integer userId, String status) {
+        List<Application> applications = applicationRepository.findByUserIdStatus(userId, status);
+
+        List<ApplicationResponse.ApplicationManageDTO> applicationManageDTOS = new ArrayList<>();
+        for (Application application : applications) {
+
+            ApplicationResponse.ApplicationManageDTO.JobDTO jobDTO = new ApplicationResponse.ApplicationManageDTO
+                    .JobDTO(application.getJob());
+            ApplicationResponse.ApplicationManageDTO.ResumeDTO resumeDTO = new ApplicationResponse.ApplicationManageDTO
+                    .ResumeDTO(application.getResume());
+            ApplicationResponse.ApplicationManageDTO.CompanyDTO companyDTO = new ApplicationResponse.ApplicationManageDTO
+                    .CompanyDTO(application.getCompany());
+            ApplicationResponse.ApplicationManageDTO.UserDTO userDTO = new ApplicationResponse.ApplicationManageDTO
+                    .UserDTO(application.getUser());
+
+            String formattedCreatedAt = application.getCreatedAt().toString().substring(0, 16);
+
+            ApplicationResponse.ApplicationManageDTO applicationManageDTO = new ApplicationResponse.ApplicationManageDTO(
+                    application.getId(),
+                    application.getStatus(),
+                    formattedCreatedAt,
+                    jobDTO,
+                    resumeDTO,
+                    companyDTO,
+                    userDTO
+            );
+            applicationManageDTOS.add(applicationManageDTO);
+        }
+        return applicationManageDTOS;
+    }
 
     public ApplicationResponse.ApplyDTO 지원보기(Integer jobId, UserResponse.SessionUserDTO user) {
 

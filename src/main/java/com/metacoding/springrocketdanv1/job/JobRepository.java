@@ -32,4 +32,5 @@ public class JobRepository {
         query.setParameter("jobId", jobId);  // 파라미터 설정
         return (Job) query.getSingleResult();
     }
+
 }
