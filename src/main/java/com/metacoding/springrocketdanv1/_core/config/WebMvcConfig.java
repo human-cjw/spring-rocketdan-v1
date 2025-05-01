@@ -28,6 +28,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/user/**")
                 .addPathPatterns("/company/**")
+                .addPathPatterns("/job/{id:\\d+}/bookmark")
                 .excludePathPatterns("/company")
                 .excludePathPatterns("/company/{id:\\d+}");
 
@@ -36,6 +37,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/company/update")
                 .addPathPatterns("/job/**")
                 .excludePathPatterns("/job")
-                .excludePathPatterns("/job/{id:\\d+}");
+                .excludePathPatterns("/job/{id:\\d+}")
+                .excludePathPatterns("/job/{id:\\d+}/bookmark");
     }
 }
