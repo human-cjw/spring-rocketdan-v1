@@ -51,7 +51,6 @@ public class JobBookmarkController {
     @GetMapping("/user/bookmark")
     public String bookmarkList(HttpSession session, Model model) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        if (sessionUser == null) return "redirect:/login";
 
         List<JobBookmarkResponse.BookmarkListDTO> dtoList =
                 jobBookmarkService.getBookmarkList(sessionUser.getId());
@@ -70,7 +69,6 @@ public class JobBookmarkController {
     @PostMapping("/job-bookmark/{jobId}/toggle")
     public String toggleFromDetail(@PathVariable Integer jobId, HttpSession session) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        if (sessionUser == null) return "redirect:/login";
 
         JobBookmarkRequest.SaveDTO dto = new JobBookmarkRequest.SaveDTO();
         dto.setJobId(jobId);
