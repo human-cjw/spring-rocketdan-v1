@@ -73,7 +73,8 @@ public class JobService {
                 job.getCompany().getId(),
                 job.getId(),
                 job.getCompany().getContactManager(),
-                job.getCompany().getPhone()
+                job.getCompany().getPhone(),
+                job.getJobTechStacks()
         );
 
         if (sessionUserId != null) {
