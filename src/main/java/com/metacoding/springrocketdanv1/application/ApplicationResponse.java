@@ -1,13 +1,152 @@
 package com.metacoding.springrocketdanv1.application;
 
+import com.metacoding.springrocketdanv1.company.Company;
 import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.resume.Resume;
+import com.metacoding.springrocketdanv1.user.User;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationResponse {
+
+    @Data
+    public static class ProcessDTO {
+        private Integer id;
+        private String status;
+        private String createdAt;
+        private JobDTO job;
+        private ResumeDTO resume;
+        private CompanyDTO company;
+        private UserDTO user;
+
+        public ProcessDTO(Application application) {
+            this.id = application.getId();
+            this.status = application.getStatus();
+            this.createdAt = application.getCreatedAt().toString().substring(0, 16);
+            this.job = new JobDTO(application.getJob());
+            this.resume = new ResumeDTO(application.getResume());
+            this.company = new CompanyDTO(application.getCompany());
+            this.user = new UserDTO(application.getUser());
+        }
+
+        @Data
+        public static class JobDTO {
+            private Integer id;
+            private String title;
+            private String careerLevel;
+
+            public JobDTO(Job job) {
+                this.id = job.getId();
+                this.title = job.getTitle();
+                this.careerLevel = job.getCareerLevel();
+            }
+        }
+
+        @Data
+        public static class ResumeDTO {
+            private Integer id;
+            private String title;
+
+            public ResumeDTO(Resume resume) {
+                this.id = resume.getId();
+                this.title = resume.getTitle();
+            }
+        }
+
+        @Data
+        public static class CompanyDTO {
+            private Integer id;
+            private String nameKr;
+            private String nameEn;
+
+            public CompanyDTO(Company company) {
+                this.id = company.getId();
+                this.nameKr = company.getNameKr();
+                this.nameEn = company.getNameEn();
+            }
+        }
+
+        @Data
+        public static class UserDTO {
+            private Integer id;
+            private String username;
+
+            public UserDTO(User user) {
+                this.id = user.getId();
+                this.username = user.getUsername();
+            }
+        }
+    }
+
+    @Data
+    public static class ApplicationManageDTO {
+        private Integer id;
+        private String status; // 지원 상태. 접수, 검토, 합격, 탈락
+        private String createdAt;
+        private JobDTO job;
+        private ResumeDTO resume;
+        private CompanyDTO company;
+        private UserDTO user;
+
+
+        public ApplicationManageDTO(Integer id, String status, String createdAt, JobDTO job, ResumeDTO resume, CompanyDTO company, UserDTO user) {
+            this.id = id;
+            this.status = status;
+            this.createdAt = createdAt;
+            this.job = job;
+            this.resume = resume;
+            this.company = company;
+            this.user = user;
+        }
+
+        @Data
+        public static class JobDTO {
+            private Integer id;
+            private String title;
+            private String careerLevel;
+
+            public JobDTO(Job job) {
+                this.id = job.getId();
+                this.title = job.getTitle();
+                this.careerLevel = job.getCareerLevel();
+            }
+        }
+
+        @Data
+        public static class ResumeDTO {
+            private Integer id;
+            private String title;
+
+            public ResumeDTO(Resume resume) {
+                this.id = resume.getId();
+                this.title = resume.getTitle();
+            }
+        }
+
+        @Data
+        public static class CompanyDTO {
+            private Integer id;
+            private String nameKr;
+
+            public CompanyDTO(Company company) {
+                this.id = company.getId();
+                this.nameKr = company.getNameKr();
+            }
+        }
+
+        @Data
+        public static class UserDTO {
+            private Integer id;
+            private String username;
+
+            public UserDTO(User user) {
+                this.id = user.getId();
+                this.username = user.getUsername();
+            }
+        }
+    }
 
     @Data
     public static class ApplyDTO {

@@ -32,4 +32,9 @@ public class JobBookmark {
     // 공고 FK
     @ManyToOne(fetch = FetchType.LAZY)
     private Job job;
+
+    public JobBookmark(User user, Job job) {
+        this.user = user;
+        this.job = job;
+    }
 }

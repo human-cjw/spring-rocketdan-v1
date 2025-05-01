@@ -27,7 +27,7 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String status; // 지원 상태. 접수, 검토, 합격, 탈락
+    private String status; // 지원 상태. 접수, 검토, 합격, 불합격
 
     @CreationTimestamp
     private Timestamp createdAt;

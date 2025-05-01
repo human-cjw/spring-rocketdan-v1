@@ -12,6 +12,37 @@ import java.util.List;
 public class ApplicationRepository {
     private final EntityManager em;
 
+    public List<Application> findByUserId(Integer userId) {
+        String q = """
+                    SELECT a
+                    FROM Application a
+                    JOIN FETCH a.job
+                    JOIN FETCH a.resume
+                    JOIN FETCH a.company
+                    JOIN FETCH a.user
+                    WHERE a.user.id = :userId
+                """;
+        return em.createQuery(q, Application.class)
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+
+    public List<Application> findByUserIdStatus(Integer userId, String status) {
+        String q = """
+                    SELECT a FROM Application a
+                    JOIN FETCH a.job
+                    JOIN FETCH a.resume
+                    JOIN FETCH a.company
+                    JOIN FETCH a.user
+                    WHERE a.user.id = :userId
+                    AND (:status IS NULL OR a.status = :status)
+                """;
+        return em.createQuery(q, Application.class)
+                .setParameter("userId", userId)
+                .setParameter("status", status)
+                .getResultList();
+    }
+
     public void save(Application application) {
         em.persist(application);
     }

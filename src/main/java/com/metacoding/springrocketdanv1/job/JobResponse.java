@@ -20,7 +20,6 @@ public class JobResponse {
         private int id;
         private String title;
         private String careerLevel;
-
         private String nameKr;
     }
 
@@ -41,6 +40,8 @@ public class JobResponse {
         private String contactManager;
         private String companyPhone;
 
+        private boolean Bookmarked;
+
         public DetailDTO(String title, String deadline, String careerLevel,
                          Timestamp createdAt, String description, String location,
                          String employmentType, String workField, String nameKr,
@@ -60,6 +61,11 @@ public class JobResponse {
             this.jobId = jobId;
             this.contactManager = contactManager;
             this.companyPhone = companyPhone;
+
+        }
+
+        public void setBookmarked(boolean Bookmarked) {
+            this.Bookmarked = Bookmarked;
         }
 
         class SalaryRangeDTO {

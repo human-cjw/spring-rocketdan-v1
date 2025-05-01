@@ -105,9 +105,12 @@
     top: 20px;
     right: 20px;
     color: #0d6efd;
-    opacity: 0.2;
     font-size: 18px;
     cursor: pointer;
+}
+
+.weapp-bookmark-opacity-2 {
+    opacity: 0.2;
 }
 
 .weapp-location-job-list {

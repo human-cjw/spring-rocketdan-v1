@@ -1,9 +1,12 @@
 package com.metacoding.springrocketdanv1.user;
 
+import com.metacoding.springrocketdanv1.jobBookmark.JobBookmark;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,6 +33,13 @@ public class UserRepository {
                         "where u.id = :id", User.class);
         query.setParameter("id", id);
         return (User) query.getSingleResult();
+    }
 
+    public List<JobBookmark> findJobBookmarksByUserId(Integer userId) {
+        String q = "SELECT jb FROM JobBookmark jb " +
+                "WHERE jb.user.id = :userId";
+        return em.createQuery(q, JobBookmark.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 }

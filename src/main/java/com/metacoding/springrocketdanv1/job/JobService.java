@@ -1,5 +1,7 @@
 package com.metacoding.springrocketdanv1.job;
 
+import com.metacoding.springrocketdanv1.jobBookmark.JobBookmark;
+import com.metacoding.springrocketdanv1.jobBookmark.JobBookmarkRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
@@ -28,6 +30,7 @@ public class JobService {
     private final WorkFieldRepository workFieldRepository;
     private final SalaryRangeRepository salaryRangeRepository;
     private final JobGroupRepository jobGroupRepository;
+    private final JobBookmarkRepository jobBookmarkRepository;
 
     public List<JobResponse.DTO> 글목록보기() {
         List<Job> jobs = jobRepository.findAll();  // 모든 Job 조회
@@ -46,18 +49,17 @@ public class JobService {
         return jobDTOs;  // 변환된 DTO 리스트 반환
     }
 
-    public JobResponse.DetailDTO 글상세보기(Integer id) {
-        // jobId로 Job을 조회합니다.
+    public JobResponse.DetailDTO 글상세보기(Integer id, Integer sessionUserId) {
         Job job = jobRepository.findById(id);
+        if (job == null) throw new RuntimeException(id + "번 공고가 없습니다.");
 
+        // 기본 DTO 구성
+        SalaryRange salaryRange = job.getSalaryRange();
+        SalaryRangeResponse.SalaryRangeDTO salaryRangeDTO = (salaryRange != null)
+                ? new SalaryRangeResponse.SalaryRangeDTO(salaryRange.getMinSalary(), salaryRange.getMaxSalary())
+                : null;
 
-        // 만약 job이 null이라면, 예외를 던지거나 처리할 수 있습니다.
-        if (job == null) {
-            throw new RuntimeException(id + "번 게시물을 찾을 수 없습니다."); // 예시로 RuntimeException을 던지며 처리
-        }
-
-        // JobDetailDTO 생성
-        JobResponse.DetailDTO detailDto = new JobResponse.DetailDTO(
+        JobResponse.DetailDTO dto = new JobResponse.DetailDTO(
                 job.getTitle(),
                 job.getDeadline(),
                 job.getCareerLevel(),
@@ -74,9 +76,13 @@ public class JobService {
                 job.getCompany().getPhone()
         );
 
-        return detailDto;
-    }
+        if (sessionUserId != null) {
+            JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(sessionUserId, job.getId());
+            dto.setBookmarked(bookmark != null);
+        }
 
+        return dto;
+    }
 
     public JobResponse.JobSaveDTO 등록보기() {
         List<TechStack> techStacks = techStackRepository.findAll();
