@@ -26,7 +26,7 @@ public class BoardRepository {
         return em.find(Board.class, id);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         Board board = em.find(Board.class, id);
         if (board != null) {
             em.remove(board);

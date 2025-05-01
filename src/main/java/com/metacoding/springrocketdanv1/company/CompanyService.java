@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.company;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.application.Application;
 import com.metacoding.springrocketdanv1.application.ApplicationRepository;
 import com.metacoding.springrocketdanv1.career.Career;
@@ -47,7 +48,6 @@ public class CompanyService {
     private EntityManager em;
 
     // 기업 상세보기
-    @Transactional(readOnly = true)
     public CompanyResponse.CompanyResponseDTO 기업상세(Integer companyId) {
         Company company = companyRepository.findById(companyId);
 
@@ -81,7 +81,6 @@ public class CompanyService {
     }
 
     // 기업 리스트
-    @Transactional(readOnly = true)
     public List<Company> 기업리스트() {
         return companyRepository.findAll();
     }
@@ -131,7 +130,6 @@ public class CompanyService {
     }
 
     // 내 기업 조회 (업데이트 폼)
-    @Transactional(readOnly = true)
     public CompanyResponse.UpdateFormDTO 내기업조회(Integer userId) {
         Company company = companyRepository.findByUserId(userId);
 
@@ -183,6 +181,10 @@ public class CompanyService {
 
         Company company = companyRepository.findById(dto.getId());
 
+        if (company == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
+
         // workFieldId로 조회
         WorkField workField = workFieldRepository.findById(dto.getWorkFieldId());
         if (workField == null) {
@@ -206,7 +208,6 @@ public class CompanyService {
         }
     }
 
-    @Transactional
     public List<CompanyResponse.CompanyManageJobDTO> 기업공고관리(Integer companyId) {
         List<Job> jobList = companyRepository.findJobsByCompanyId(companyId);
 
@@ -223,7 +224,6 @@ public class CompanyService {
         return companyManageJobDTOS;
     }
 
-    @Transactional
     public CompanyResponse.CompanyManageResumePageDTO 지원자조회(Integer jobId, String status) {
         List<Application> applications = applicationRepository.findByJobId(jobId, status);
 
@@ -252,6 +252,10 @@ public class CompanyService {
         // 1. 지원서 조회
         Application application = applicationRepository.findById(applicationId);
 
+        if (application == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
+
         // 2. 상태가 "접수"면 "검토"로 변경
         if ("접수".equals(application.getStatus())) {
             application.updateStatus("검토");
@@ -273,8 +277,9 @@ public class CompanyService {
     @Transactional
     public Integer 지원상태수정(Integer applicationId, String newStatus) {
         Application applicationPS = applicationRepository.findById(applicationId);
-        System.out.println("지원테이블에서 이거 찾음" + applicationPS.getId());
-        System.out.println(applicationPS.getId());
+        if (applicationPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         applicationPS.updateStatus(newStatus);
         return applicationPS.getJob().getId();
     }
@@ -282,6 +287,10 @@ public class CompanyService {
     @Transactional
     public void 공고삭제(Integer jobId) {
         // 1. 지원 내역 삭제
+        Job jobPS = jobRepository.findById(jobId);
+        if (jobPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         companyRepository.deleteApplicationsByJobId(jobId);
 
         // 2. 북마크 삭제

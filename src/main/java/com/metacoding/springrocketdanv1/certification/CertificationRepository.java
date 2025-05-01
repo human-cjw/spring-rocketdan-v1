@@ -27,4 +27,15 @@ public class CertificationRepository {
     public void save(Certification certification) {
         em.persist(certification);
     }
+
+    public Certification findByResumeId(Integer resumeId) {
+        String q = "SELECT c FROM Certification c WHERE c.resume.id = :resumeId";
+        try {
+            return em.createQuery(q, Certification.class)
+                    .setParameter("resumeId", resumeId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
