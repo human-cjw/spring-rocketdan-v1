@@ -12,6 +12,40 @@ import java.util.List;
 public class ApplicationResponse {
 
     @Data
+    public static class ProcessDTO2 {
+        private Integer jobId;
+        private String nameEn;
+        private String nameKr;
+        private String jobTitle;
+        private String jobCareerLevel;
+        List<StateDTO> states;
+
+        public ProcessDTO2(Application application) {
+            this.jobId = application.getJob().getId();
+            this.nameEn = application.getJob().getCompany().getNameEn();
+            this.nameKr = application.getJob().getCompany().getNameKr();
+            this.jobTitle = application.getJob().getTitle();
+            this.jobCareerLevel = application.getJob().getCareerLevel();
+            this.states = List.of(
+                    new StateDTO("접수", application.getStatus().equals("접수")),
+                    new StateDTO("검토", application.getStatus().equals("검토")),
+                    new StateDTO("합격", application.getStatus().equals("합격")),
+                    new StateDTO("불합격", application.getStatus().equals("불합격"))
+            );
+        }
+
+        class StateDTO {
+            private String status; // 접수, 검토, 합격, 불합격
+            private boolean isChecked;
+
+            public StateDTO(String status, boolean isChecked) {
+                this.status = status;
+                this.isChecked = isChecked;
+            }
+        }
+    }
+
+    @Data
     public static class ProcessDTO {
         private Integer id;
         private String status;
