@@ -16,7 +16,10 @@ public class CompanyInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        Integer companyId = sessionUser.getCompanyId();
+        Integer companyId = null;
+        if (sessionUser != null) {
+            companyId = sessionUser.getCompanyId();
+        }
 
         if (companyId == null) {
             if (uri.contains("/api")) {
