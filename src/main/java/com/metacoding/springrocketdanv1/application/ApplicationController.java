@@ -59,25 +59,17 @@ public class ApplicationController {
         request.setAttribute("isApplied", "접수".equals(status));
         request.setAttribute("isReviewing", "검토".equals(status));
         request.setAttribute("isPassed", "합격".equals(status));
-        request.setAttribute("isRejected", "탈락".equals(status));
+        request.setAttribute("isRejected", "불합격".equals(status));
 
         return "user/application/list";
     }
 
-    @GetMapping("/user/application/process")
-    public String userApplicationProcess(HttpServletRequest request) {
+    @GetMapping("/user/application/process/job/{jobId}")
+    public String userApplicationProcess(HttpServletRequest request, @PathVariable("jobId") Integer jobId) {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
 
-        List<ApplicationResponse.ProcessDTO> processDTOS = applicationService.입사지원현황보기(sessionUserDTO.getId());
-        request.setAttribute("processDTOS", processDTOS);
-
-        if (processDTOS.size() > 0) {
-            String status = processDTOS.get(0).getStatus();
-            request.setAttribute("isApplied", "접수".equals(status));
-            request.setAttribute("isReviewing", "검토".equals(status));
-            request.setAttribute("isPassed", "합격".equals(status));
-            request.setAttribute("isRejected", "탈락".equals(status));
-        }
+        ApplicationResponse.ProcessDTO2 respDTO = applicationService.입사지원현황보기(sessionUserDTO.getId(), jobId);
+        request.setAttribute("model", respDTO);
 
         return "user/application/process";
     }

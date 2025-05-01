@@ -20,15 +20,9 @@ public class ApplicationService {
     private final JobRepository jobRepository;
     private final ResumeRepository resumeRepository;
 
-    public List<ApplicationResponse.ProcessDTO> 입사지원현황보기(Integer userId) {
-        List<Application> applications = applicationRepository.findByUserId(userId);
-
-        List<ApplicationResponse.ProcessDTO> processDTOs = new ArrayList<>();
-        for (Application application : applications) {
-            processDTOs.add(new ApplicationResponse.ProcessDTO(application));
-        }
-
-        return processDTOs;
+    public ApplicationResponse.ProcessDTO2 입사지원현황보기(Integer userId, Integer jobId) {
+        Application applicationPS = applicationRepository.findByUserIdAndJobId(userId, jobId);
+        return new ApplicationResponse.ProcessDTO2(applicationPS);
     }
 
     public List<ApplicationResponse.ApplicationManageDTO> 내지원목록보기(Integer userId, String status) {

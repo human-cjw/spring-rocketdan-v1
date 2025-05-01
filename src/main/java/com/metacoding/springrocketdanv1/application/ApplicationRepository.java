@@ -88,4 +88,26 @@ public class ApplicationRepository {
             return null;
         }
     }
+
+    public Application findByUserIdAndJobId(Integer userId, Integer jobId) {
+        String q = """
+                    SELECT a
+                    FROM Application a
+                    JOIN FETCH a.job
+                    JOIN FETCH a.resume
+                    JOIN FETCH a.company
+                    WHERE a.user.id = :userId
+                        AND a.job.id = :jobId
+                """;
+
+        try {
+            return em.createQuery(q, Application.class)
+                    .setParameter("userId", userId)
+                    .setParameter("jobId", jobId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
 }
