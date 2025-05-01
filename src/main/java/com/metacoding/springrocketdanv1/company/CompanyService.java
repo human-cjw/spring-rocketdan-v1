@@ -267,13 +267,16 @@ public class CompanyService {
         List<TechStack> techStacks = resumeTechStackRepository.findAllByResumeIdWithTechStack(resume.getId());
 
         // 6. DTO 조립
-        return new CompanyResponse.CompanyacceptanceDTO(resume, careers, techStacks);
+        return new CompanyResponse.CompanyacceptanceDTO(resume, careers, techStacks, applicationId);
     }
 
     @Transactional
-    public void 지원상태수정(Integer applicationId, String newStatus) {
-        Application application = applicationRepository.findById(applicationId);
-        application.updateStatus(newStatus);
+    public Integer 지원상태수정(Integer applicationId, String newStatus) {
+        Application applicationPS = applicationRepository.findById(applicationId);
+        System.out.println("지원테이블에서 이거 찾음" + applicationPS.getId());
+        System.out.println(applicationPS.getId());
+        applicationPS.updateStatus(newStatus);
+        return applicationPS.getJob().getId();
     }
 
     @Transactional

@@ -152,8 +152,8 @@ public class CompanyResponse {
         private List<String> careerCompanyNames; // 커리어 회사명 리스트
         private List<String> techStackNames; // 기술스택 이름 리스트
 
-        public CompanyacceptanceDTO(Resume resume, List<Career> careers, List<TechStack> techStacks) {
-            this.applicationId = resume.getId();
+        public CompanyacceptanceDTO(Resume resume, List<Career> careers, List<TechStack> techStacks, Integer applicationId) {
+            this.applicationId = applicationId;
             this.username = resume.getUser().getUsername();
             this.resumeTitle = resume.getTitle();
             this.summary = resume.getSummary();

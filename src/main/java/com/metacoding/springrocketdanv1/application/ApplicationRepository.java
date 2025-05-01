@@ -46,6 +46,7 @@ public class ApplicationRepository {
     public void save(Application application) {
         em.persist(application);
     }
+    
 
     public List<Application> findByJobId(Integer jobId, String status) {
         String q = """
