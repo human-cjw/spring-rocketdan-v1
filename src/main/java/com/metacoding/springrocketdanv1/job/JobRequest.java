@@ -21,11 +21,13 @@ public class JobRequest {
         private String description;
         @Pattern(regexp = "^^[가-힣]{2,20}\\s[가-힣]{1,10}\\s[가-힣]{1,20}$", message = "주소는 두 단어만 작성해 주세요. 예)서울특별시 구로구 디지털로")
         private String location;
+        @Pattern(regexp = "^(정규직|계약직|인턴|프리랜서)$", message = "정규직|계약직|인턴|프리랜서 중 하나로 입력해 주세요")
         private String employmentType;
         private String deadline;
         private String status;
         private Integer jobGroupId;
         private Integer workFieldId;
+        @Pattern(regexp = "^(경력|신입)$", message = "경력|신입 중 하나를 넣어주세요")
         private String careerLevel;
         private Integer salaryRangeId;
         private List<Integer> techStackIds;
