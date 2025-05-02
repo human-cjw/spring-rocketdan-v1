@@ -20,15 +20,15 @@ public class JobRequest {
     public static class JobSaveDTO {
         @NotBlank(message = "제목은 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,]{2,20}$",
-                message = "제목은 특수문자 포함 2자 이상 20자 이하로 입력해 주세요."
+                regexp = "^.{2,30}$",
+                message = "제목은 2자 이상 30자 이하로 입력해 주세요."
         )
         private String title;
 
         @NotBlank(message = "설명은 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,300}$",
-                message = "설명은 특수문자 포함 2자 이상 300자 이하로 입력해 주세요."
+                regexp = "^.{2,1000}$",
+                message = "설명은 2자 이상 1000자 이하로 입력해 주세요."
         )
         private String description;
 
@@ -122,15 +122,15 @@ public class JobRequest {
 
         @NotBlank(message = "제목은 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,30}$",
-                message = "제목은 특수문자 포함 2자 이상 30자 이하로 입력해 주세요."
+                regexp = "^.{2,30}$",
+                message = "제목은 2자 이상 30자 이하로 입력해 주세요."
         )
         private String title;
 
         @NotBlank(message = "설명은 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,1000}$",
-                message = "설명은 특수문자 포함 2자 이상 1000자 이하로 입력해 주세요."
+                regexp = "^.{2,1000}$",
+                message = "설명은 2자 이상 1000자 이하로 입력해 주세요."
         )
         private String description;
 

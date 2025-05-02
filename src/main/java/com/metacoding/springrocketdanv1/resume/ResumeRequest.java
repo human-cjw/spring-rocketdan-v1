@@ -17,19 +17,19 @@ public class ResumeRequest {
 
         @NotBlank(message = "제목은 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,20}$",
-                message = "제목은 2자 이상 20자 이하의 한글, 영문, 숫자, 특수문자만 가능합니다."
+                regexp = "^.{2,30}$",
+                message = "제목은 2자 이상 30자 이하로 입력해 주세요."
         )
         private String title;
 
         @NotBlank(message = "자기소개는 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,300}$",
-                message = "설명은 2자 이상 300자 이하의 한글, 영문, 숫자, 특수문자만 가능합니다."
+                regexp = "^.{2,1000}$",
+                message = "설명은 2자 이상 1000자 이하로 입력해 주세요."
         )
         private String summary;
 
-        @Size(max = 300, message = "포트폴리오 주소는 최대 300자까지 입력 가능합니다.")
+        @Size(max = 255, message = "포트폴리오 주소는 최대 255 입력 가능합니다.")
         private String portfolioUrl;
 
         @Pattern(
@@ -133,19 +133,19 @@ public class ResumeRequest {
     public static class SaveDTO {
         @NotBlank(message = "제목은 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,20}$",
-                message = "제목은 2자 이상 20자 이하의 한글, 영문, 숫자, 특수문자만 가능합니다."
+                regexp = "^.{2,30}$",
+                message = "제목은 2자 이상 30자 이하로 입력해 주세요."
         )
         private String title;
 
         @NotBlank(message = "자기소개는 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,500}$",
-                message = "자기소개는 2자 이상 500자 이하로 입력해 주세요."
+                regexp = "^.{2,1000}$",
+                message = "설명은 2자 이상 1000자 이하로 입력해 주세요."
         )
         private String summary;
 
-        @Size(max = 300, message = "포트폴리오 주소는 최대 300자까지 입력 가능합니다.")
+        @Size(max = 255, message = "포트폴리오 주소는 최대 255자 입력 가능합니다.")
         private String portfolioUrl;
 
         @Pattern(
