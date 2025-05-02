@@ -13,7 +13,9 @@
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="weapp-l-2-job-detail">{{jobDetail.title}}</div>
-                    <a href="/job/{{jobDetail.jobId}}/update-form" class="btn btn-primary">업데이트</a>
+                    {{#jobDetail.isOwner}}
+                        <a href="/job/{{jobDetail.jobId}}/update-form" class="btn btn-primary">업데이트</a>
+                    {{/jobDetail.isOwner}}
                 </div>
                 <div class="weapp-l-3-job-detail">{{jobDetail.deadline}} | {{jobDetail.careerLevel}}
                     | {{jobDetail.createdAt}}</div>
