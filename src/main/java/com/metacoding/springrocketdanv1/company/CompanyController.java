@@ -7,9 +7,11 @@ import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -79,7 +81,7 @@ public class CompanyController {
     }
 
     @PostMapping("/company/save")
-    public String save(@ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, HttpSession session) {
+    public String save(@Valid @ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, Errors errors, HttpSession session) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         Company savedCompany = companyService.기업등록(requestDTO, sessionUser);
         return "redirect:/company/" + savedCompany.getId();
@@ -106,7 +108,7 @@ public class CompanyController {
 
 
     @PostMapping("/company/update")
-    public String update(@ModelAttribute CompanyRequest.UpdateDTO requestDTO, HttpSession session) {
+    public String update(@Valid @ModelAttribute CompanyRequest.UpdateDTO requestDTO, Errors errors, HttpSession session) {
 
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
 

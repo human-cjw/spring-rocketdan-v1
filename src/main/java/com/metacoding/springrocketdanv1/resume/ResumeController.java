@@ -3,8 +3,10 @@ package com.metacoding.springrocketdanv1.resume;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +44,7 @@ public class ResumeController {
 
 
     @PostMapping("/resume/{resumeId}/update")
-    public String update(@PathVariable("resumeId") Integer resumeId, ResumeRequest.UpdateDTO requestDTO) {
+    public String update(@PathVariable("resumeId") Integer resumeId, @Valid ResumeRequest.UpdateDTO requestDTO, Errors errors) {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         resumeService.이력서수정하기(resumeId, requestDTO, sessionUserDTO.getId());
 
@@ -77,7 +79,7 @@ public class ResumeController {
     }
 
     @PostMapping("/resume/save")
-    public String save(ResumeRequest.SaveDTO reqDTO) {
+    public String save(@Valid ResumeRequest.SaveDTO reqDTO, Errors errors) {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         resumeService.이력서등록(sessionUserDTO.getId(), reqDTO);
         return "redirect:/user/resume";
