@@ -36,7 +36,10 @@ public class CompanyRequest {
         private String startDate;
 
         @NotBlank(message = "사업자 등록번호는 필수입니다.")
-        @Pattern(regexp = "^\\d{3}-\\d{2}-\\d{5}$", message = "사업자 등록번호는 000-00-00000 형식이어야 합니다.")
+        @Pattern(
+                regexp = "^\\d{10}$",
+                message = "사업자 등록번호는 10자리 숫자여야 합니다."
+        )
         private String businessNumber;
 
         @NotEmpty(message = "기술 스택은 하나 이상 선택해야 합니다.")
@@ -46,8 +49,8 @@ public class CompanyRequest {
         @Email(message = "이메일 형식이 올바르지 않습니다.")
         private String email;
 
-        @NotBlank(message = "담당자 연락처는 필수입니다.")
-        @Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "연락처는 010-xxxx-xxxx 형식이어야 합니다.")
+        @NotBlank(message = "이름은 필수입니다.")
+        @Pattern(regexp = "^[가-힣a-zA-Z]{2,30}$", message = "이름은 2자 이상 30자 이하로 한글 또는 영문만 가능합니다.")
         private String contactManager;
 
         @NotBlank(message = "주소는 필수입니다.")
