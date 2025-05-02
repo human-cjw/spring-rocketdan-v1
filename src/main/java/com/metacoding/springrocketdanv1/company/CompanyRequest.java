@@ -53,6 +53,14 @@ public class CompanyRequest {
         @Pattern(regexp = "^[가-힣a-zA-Z]{2,30}$", message = "이름은 2자 이상 30자 이하로 한글 또는 영문만 가능합니다.")
         private String contactManager;
 
+        @NotBlank(message = "대표번호는 필수입니다.")
+        @Pattern(regexp = "^\\d{3}\\d{4}\\d{4}$", message = "대표번호는 11자리 숫자여야 합니다.")
+        private String phone; // 대표번호
+
+        @NotBlank(message = "대표명은 필수입니다.")
+        @Pattern(regexp = "^[가-힣a-zA-Z]{2,30}$", message = "대표명은 2자 이상 30자 이하로 한글, 영문만 가능합니다.")
+        private String ceo; // 대표명
+
         @NotBlank(message = "주소는 필수입니다.")
         @Size(max = 100, message = "주소는 100자 이내여야 합니다.")
         private String address;
@@ -76,6 +84,8 @@ public class CompanyRequest {
                             .id(sessionUserDTO.getId())
                             .build())
                     .workField(workField)
+                    .phone(phone)
+                    .ceo(ceo)
                     .build();
 
             for (TechStack techStack : techStackList) {
@@ -112,22 +122,30 @@ public class CompanyRequest {
         private String startDate;
 
         @NotBlank(message = "사업자 등록번호는 필수입니다.")
-        @Pattern(regexp = "^\\d{3}-\\d{2}-\\d{5}$", message = "사업자 등록번호는 000-00-00000 형식이어야 합니다.")
+        @Pattern(regexp = "^\\d{10}$", message = "사업자 등록번호는 10자리 숫자여야 합니다.")
         private String businessNumber;
 
         @NotBlank(message = "이메일은 필수입니다.")
         @Email(message = "올바른 이메일 형식이 아닙니다.")
         private String email;
 
-        @NotBlank(message = "담당자 연락처는 필수입니다.")
-        @Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "연락처는 010-xxxx-xxxx 형식이어야 합니다.")
-        private String contactManager;
+        @NotBlank(message = "담당자 이름은 필수입니다.")
+        @Pattern(regexp = "^[가-힣a-zA-Z]{2,30}$", message = "대표명은 2자 이상 30자 이하로 한글, 영문만 가능합니다.")
+        private String contactManager; // 담당자 이름
+
+        @NotBlank(message = "대표번호는 필수입니다.")
+        @Pattern(regexp = "^\\d{3}\\d{4}\\d{4}$", message = "대표번호는 11자리 숫자여야 합니다.")
+        private String phone; // 대표번호
+
+        @NotBlank(message = "대표명은 필수입니다.")
+        @Pattern(regexp = "^[가-힣a-zA-Z]{2,30}$", message = "대표명은 2자 이상 30자 이하로 한글, 영문만 가능합니다.")
+        private String ceo; // 대표명
 
         @NotBlank(message = "주소는 필수입니다.")
         @Size(max = 100, message = "주소는 100자 이내여야 합니다.")
         private String address;
 
-        @NotNull(message = "업무 분야 ID는 필수입니다.")
+        @NotNull(message = "업무 분야 선택은 필수입니다.")
         private Integer workFieldId;
 
         @NotEmpty(message = "기술 스택은 하나 이상 입력되어야 합니다.")

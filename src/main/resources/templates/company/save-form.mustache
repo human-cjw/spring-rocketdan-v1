@@ -27,12 +27,12 @@
 
                     <label>기술 스택</label>
                     <div>
-                        {{#techStacks}}
+                        {{#model.techStacks}}
                             <label>
                                 <input type="checkbox" name="techStack[]" value="{{name}}"/>
                                 {{name}}
                             </label>
-                        {{/techStacks}}
+                        {{/model.techStacks}}
                     </div>
 
                     <label>기업 공식 이메일</label>
@@ -41,11 +41,24 @@
                     <label>문의 담당자</label>
                     <input type="text" name="contactManager" placeholder="담당자"/>
 
+                    <label>대표연락처</label>
+                    <input type="number" name="phone" placeholder="대표연락처"/>
+
+                    <label>대표자명</label>
+                    <input type="text" name="ceo" placeholder="대표자명"/>
+
                     <label>사무실</label>
                     <input type="text" name="address" placeholder="사무실 주소"/>
 
                     <label>산업 분야</label>
-                    <input type="text" name="workFieldName" placeholder="산업 분야 입력"/>
+                    <div>
+                        {{#model.workFields}}
+                            <label>
+                                <input type="radio" name="workFieldName" value="{{name}}"/>
+                                {{name}}
+                            </label>
+                        {{/model.workFields}}
+                    </div>
 
                     <div class="submit-btn-wrapper-company-save">
                         <button

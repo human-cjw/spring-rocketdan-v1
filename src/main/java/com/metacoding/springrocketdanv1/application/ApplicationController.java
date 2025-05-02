@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.application;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,6 +25,10 @@ public class ApplicationController {
     public String applyForm(@PathVariable("jobId") Integer jobId,
                             HttpServletRequest request) {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+
+        if (sessionUserDTO.getCompanyId() != null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
 
         ApplicationResponse.ApplyDTO respDTO = applicationService.지원보기(jobId, sessionUserDTO);
 

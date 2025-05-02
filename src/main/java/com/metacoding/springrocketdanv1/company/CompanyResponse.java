@@ -3,6 +3,7 @@ package com.metacoding.springrocketdanv1.company;
 import com.metacoding.springrocketdanv1.career.Career;
 import com.metacoding.springrocketdanv1.resume.Resume;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
+import com.metacoding.springrocketdanv1.workField.WorkField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -14,6 +15,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CompanyResponse {
+
+    @Data
+    public static class CompanySaveFormDTO {
+        private List<WorkField> workFields;
+        private List<TechStack> techStacks;
+
+        public CompanySaveFormDTO(List<WorkField> workFields, List<TechStack> techStacks) {
+            this.workFields = workFields;
+            this.techStacks = techStacks;
+        }
+    }
 
     @Getter
     @Setter
@@ -53,6 +65,8 @@ public class CompanyResponse {
         private String workFieldName;
         private List<CompanyResponse.TechStackDTO> techStacks;
         private List<CompanyResponse.WorkFieldDTO> workFields;
+        private String phone;
+        private String ceo;
     }
 
     @Data

@@ -51,9 +51,9 @@ public class JobService {
         return jobDTOs;  // 변환된 DTO 리스트 반환
     }
 
-    public JobResponse.DetailDTO 글상세보기(Integer id, UserResponse.SessionUserDTO sessionUserDTO) {
-        Job job = jobRepository.findById(id);
-        if (job == null) throw new RuntimeException(id + "번 공고가 없습니다.");
+    public JobResponse.DetailDTO 글상세보기(Integer jobId, UserResponse.SessionUserDTO sessionUserDTO) {
+        Job job = jobRepository.findById(jobId);
+        if (job == null) throw new RuntimeException(jobId + "번 공고가 없습니다.");
 
         // 기본 DTO 구성
         SalaryRange salaryRange = job.getSalaryRange();
@@ -80,7 +80,7 @@ public class JobService {
                 sessionUserDTO
         );
 
-        if (sessionUserDTO.getId() != null) {
+        if (sessionUserDTO != null) {
             JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(sessionUserDTO.getId(), job.getId());
             dto.setBookmarked(bookmark != null);
         }
