@@ -4,6 +4,7 @@ import com.metacoding.springrocketdanv1.company.Company;
 import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.resume.Resume;
 import com.metacoding.springrocketdanv1.user.User;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 public class ApplicationRequest {
@@ -12,6 +13,7 @@ public class ApplicationRequest {
     public static class SaveDTO {
         private Integer resumeId;
         private Integer companyId;
+        @Pattern(regexp = "^(접수|검토|합격|불합격)$", message = "접수|검토|합격|불합격 중 하나로 입력해 주세요")
         private String status;
 
         public Application toEntity(Integer jobId, Integer userId) {

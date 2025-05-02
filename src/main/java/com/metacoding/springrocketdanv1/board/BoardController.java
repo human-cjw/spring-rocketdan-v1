@@ -29,7 +29,7 @@ public class BoardController {
     }
 
     @PostMapping("/board/save")
-    public String writeBoard(@ModelAttribute BoardRequest.saveDTO board) {
+    public String writeBoard(@ModelAttribute BoardRequest.SaveDTO board) {
         boardService.글쓰기(board);
         return "redirect:/board";
     }
@@ -42,7 +42,7 @@ public class BoardController {
     }
 
     @PostMapping("/board/{id}/update")
-    public String update(@PathVariable("id") Integer id, BoardRequest.updateDTO reqDTO) { // <- form 에서 boardId와 title, content 가져와야함
+    public String update(@PathVariable("id") Integer id, BoardRequest.UpdateDTO reqDTO) { // <- form 에서 boardId와 title, content 가져와야함
         boardService.글수정하기(reqDTO, id);
 
         return "redirect:/board";
