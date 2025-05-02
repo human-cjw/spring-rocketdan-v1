@@ -5,6 +5,7 @@ import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.util.List;
@@ -14,16 +15,47 @@ public class CompanyRequest {
 
     @Data
     public static class CompanySaveDTO {
+        @NotBlank(message = "한글 이름은 필수입니다.")
+        @Size(min = 2, max = 20, message = "한글 이름은 2자 이상 20자 이하여야 합니다.")
         private String nameKr;
+
+        @NotBlank(message = "영문 이름은 필수입니다.")
+        @Size(min = 2, max = 20, message = "영문 이름은 2자 이상 20자 이하여야 합니다.")
         private String nameEn;
+
+        @NotBlank(message = "회사 소개는 필수입니다.")
+        @Size(max = 1000, message = "회사 소개는 1000자 이내여야 합니다.")
         private String introduction;
+
+        @NotBlank(message = "한 줄 소개는 필수입니다.")
+        @Size(min = 2, max = 50, message = "한 줄 소개는 2자 이상 50자 이하여야 합니다.")
         private String oneLineIntro;
+
+        @NotBlank(message = "설립일은 필수입니다.")
+        @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "설립일은 yyyy-MM-dd 형식이어야 합니다.")
         private String startDate;
+
+        @NotBlank(message = "사업자 등록번호는 필수입니다.")
+        @Pattern(regexp = "^\\d{3}-\\d{2}-\\d{5}$", message = "사업자 등록번호는 000-00-00000 형식이어야 합니다.")
         private String businessNumber;
-        private List<String> techStack;
+
+        @NotEmpty(message = "기술 스택은 하나 이상 선택해야 합니다.")
+        private List<@NotBlank(message = "기술 스택 항목은 비어 있을 수 없습니다.") String> techStack;
+
+        @NotBlank(message = "이메일은 필수입니다.")
+        @Email(message = "이메일 형식이 올바르지 않습니다.")
         private String email;
+
+        @NotBlank(message = "담당자 연락처는 필수입니다.")
+        @Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "연락처는 010-xxxx-xxxx 형식이어야 합니다.")
         private String contactManager;
+
+        @NotBlank(message = "주소는 필수입니다.")
+        @Size(max = 100, message = "주소는 100자 이내여야 합니다.")
         private String address;
+
+        @NotBlank(message = "업무 분야는 필수입니다.")
+        @Size(max = 50, message = "업무 분야는 50자 이내여야 합니다.")
         private String workFieldName;
 
         public Company toEntity(UserResponse.SessionUserDTO sessionUserDTO, WorkField workField, List<TechStack> techStackList) {
@@ -55,16 +87,47 @@ public class CompanyRequest {
     @Data
     public static class UpdateDTO {
         private Integer id;
+
+        @NotBlank(message = "한글 이름은 필수입니다.")
+        @Size(min = 2, max = 20, message = "한글 이름은 2자 이상 20자 이하여야 합니다.")
         private String nameKr;
+
+        @NotBlank(message = "영문 이름은 필수입니다.")
+        @Size(min = 2, max = 20, message = "영문 이름은 2자 이상 20자 이하여야 합니다.")
         private String nameEn;
+
+        @NotBlank(message = "한 줄 소개는 필수입니다.")
+        @Size(min = 2, max = 50, message = "한 줄 소개는 2자 이상 50자 이하여야 합니다.")
         private String oneLineIntro;
+
+        @NotBlank(message = "회사 소개는 필수입니다.")
+        @Size(max = 1000, message = "회사 소개는 1000자 이내여야 합니다.")
         private String introduction;
+
+        @NotBlank(message = "설립일은 필수입니다.")
+        @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "설립일은 yyyy-MM-dd 형식이어야 합니다.")
         private String startDate;
+
+        @NotBlank(message = "사업자 등록번호는 필수입니다.")
+        @Pattern(regexp = "^\\d{3}-\\d{2}-\\d{5}$", message = "사업자 등록번호는 000-00-00000 형식이어야 합니다.")
         private String businessNumber;
+
+        @NotBlank(message = "이메일은 필수입니다.")
+        @Email(message = "올바른 이메일 형식이 아닙니다.")
         private String email;
+
+        @NotBlank(message = "담당자 연락처는 필수입니다.")
+        @Pattern(regexp = "^010-\\d{4}-\\d{4}$", message = "연락처는 010-xxxx-xxxx 형식이어야 합니다.")
         private String contactManager;
+
+        @NotBlank(message = "주소는 필수입니다.")
+        @Size(max = 100, message = "주소는 100자 이내여야 합니다.")
         private String address;
+
+        @NotNull(message = "업무 분야 ID는 필수입니다.")
         private Integer workFieldId;
-        private List<String> techStack;
+
+        @NotEmpty(message = "기술 스택은 하나 이상 입력되어야 합니다.")
+        private List<@NotBlank(message = "기술 스택 항목은 비어 있을 수 없습니다.") String> techStack;
     }
 }

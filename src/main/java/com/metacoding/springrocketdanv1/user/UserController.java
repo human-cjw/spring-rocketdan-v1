@@ -1,8 +1,10 @@
 package com.metacoding.springrocketdanv1.user;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(UserRequest.LoginDTO loginDTO) {
+    public String login(@Valid UserRequest.LoginDTO loginDTO, Errors errors) {
         UserResponse.SessionUserDTO sessionUserDTO = userService.로그인(loginDTO);
         session.setAttribute("sessionUser", sessionUserDTO);
         return "redirect:/";
@@ -31,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(UserRequest.JoinDTO joinDTO) {
+    public String join(@Valid UserRequest.JoinDTO joinDTO, Errors errors) {
         userService.회원가입(joinDTO);
         return "redirect:/login-form";
     }

@@ -2,11 +2,8 @@ package com.metacoding.springrocketdanv1.board;
 
 import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +43,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void 글쓰기(BoardRequest.saveDTO boardDTO) {
+    public void 글쓰기(BoardRequest.SaveDTO boardDTO) {
         // BoardRequest.saveDTO 객체를 Board 엔티티 객체로 변환
         Board board = new Board(boardDTO.getTitle(), boardDTO.getContent(), boardDTO.getPassword());
 
@@ -55,7 +52,7 @@ public class BoardService {
     }
 
     @Transactional
-    public boolean 글수정하기(BoardRequest.updateDTO reqDTO, Integer boardId) {
+    public boolean 글수정하기(BoardRequest.UpdateDTO reqDTO, Integer boardId) {
         Board boardPS = boardRepository.findById(boardId);
         if (boardPS == null) {
             throw new Exception400("잘못된 요청입니다");
