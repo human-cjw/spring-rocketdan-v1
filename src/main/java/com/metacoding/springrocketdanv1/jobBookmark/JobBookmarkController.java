@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1.jobBookmark;
 
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception403;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -69,6 +70,9 @@ public class JobBookmarkController {
     @PostMapping("/job-bookmark/{jobId}/toggle")
     public String toggleFromDetail(@PathVariable Integer jobId, HttpSession session) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+        if (sessionUser == null) {
+            throw new Exception403("권한이 없습니다");
+        }
 
         JobBookmarkRequest.SaveDTO dto = new JobBookmarkRequest.SaveDTO();
         dto.setJobId(jobId);
