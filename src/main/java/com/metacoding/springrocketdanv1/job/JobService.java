@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.job;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.jobBookmark.JobBookmark;
 import com.metacoding.springrocketdanv1.jobBookmark.JobBookmarkRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
@@ -202,7 +203,10 @@ public class JobService {
 
     @Transactional
     public void 수정하기(Integer jobId, JobRequest.JobUpdateDTO reqDTO) {
-        Job jobPC = jobRepository.findByIdJoinJobTechStackJoinTechStack(jobId);
+        Job jobPS = jobRepository.findByIdJoinJobTechStackJoinTechStack(jobId);
+        if (jobPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         SalaryRange salaryRange = SalaryRange.builder().id(reqDTO.getSalaryRangeId()).build();
         WorkField workField = WorkField.builder().id(reqDTO.getWorkFieldId()).build();
         JobGroup jobGroup = JobGroup.builder().id(reqDTO.getJobGroupId()).build();
@@ -212,13 +216,13 @@ public class JobService {
             TechStack techStack = TechStack.builder().id(techStackId).build();
             jobTechStacks.add(
                     JobTechStack.builder()
-                            .job(jobPC)
+                            .job(jobPS)
                             .techStack(techStack)
                             .build()
             );
         }
 
-        jobPC.update(
+        jobPS.update(
                 reqDTO.getTitle(),
                 reqDTO.getDescription(),
                 reqDTO.getLocation(),
