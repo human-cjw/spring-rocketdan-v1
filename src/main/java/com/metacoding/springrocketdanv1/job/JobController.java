@@ -33,10 +33,10 @@ public class JobController {
 
     @GetMapping("/job/{jobId}")
     public String show(@PathVariable("jobId") Integer jobId, Model model, HttpSession session) {
-        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
 
-        JobResponse.DetailDTO dto = jobService.글상세보기(jobId, sessionUserId);
+        JobResponse.DetailDTO dto = jobService.글상세보기(jobId, sessionUserDTO);
+        System.out.println(dto.isOwner());
 
         model.addAttribute("jobDetail", dto);
         model.addAttribute("nameKr", dto.getNameKr());
