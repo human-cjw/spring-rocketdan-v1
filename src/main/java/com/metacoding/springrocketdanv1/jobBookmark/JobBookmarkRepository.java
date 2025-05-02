@@ -37,7 +37,7 @@ public class JobBookmarkRepository {
     }
 
     public List<JobBookmark> findAllByUserId(Integer userId) {
-        return em.createQuery("SELECT jb FROM JobBookmark jb JOIN FETCH jb.job j JOIN FETCH j.company c WHERE jb.user.id = :userId", JobBookmark.class)
+        return em.createQuery("SELECT jb FROM JobBookmark jb JOIN FETCH jb.job j JOIN FETCH j.company c WHERE jb.user.id = :userId ORDER BY jb.id DESC", JobBookmark.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }
