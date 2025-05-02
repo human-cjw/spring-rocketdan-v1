@@ -18,7 +18,7 @@ public class CompanyRepository {
     }
 
     public List<Company> findAll() {
-        String q = "SELECT c FROM Company c";
+        String q = "SELECT c FROM Company c ORDER BY c.id DESC";
         return em.createQuery(q, Company.class).getResultList();
     }
 
@@ -49,7 +49,7 @@ public class CompanyRepository {
     }
 
     public List<Application> findApplicationsByJobIdWhereResumeNotNull(Integer jobId) {
-        String q = "SELECT a FROM Application a WHERE a.job.id = :jobId AND a.resume IS NOT NULL";
+        String q = "SELECT a FROM Application a WHERE a.job.id = :jobId AND a.resume IS NOT NULL ORDER BY a.id DESC";
         return em.createQuery(q, Application.class)
                 .setParameter("jobId", jobId)
                 .getResultList();

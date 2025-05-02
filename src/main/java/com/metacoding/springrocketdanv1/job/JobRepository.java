@@ -13,7 +13,7 @@ public class JobRepository {
     private final EntityManager em;
 
     public List<Job> findAll() {
-        String sql = "SELECT * FROM job_tb";  // 네이티브 SQL 쿼리
+        String sql = "SELECT * FROM job_tb ORDER BY id DESC";  // 네이티브 SQL 쿼리
         Query query = em.createNativeQuery(sql, Job.class);
         return query.getResultList();
     }
