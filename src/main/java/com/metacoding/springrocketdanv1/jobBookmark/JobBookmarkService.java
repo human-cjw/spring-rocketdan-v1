@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.jobBookmark;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.job.Job;
 import com.metacoding.springrocketdanv1.job.JobRepository;
 import com.metacoding.springrocketdanv1.user.User;
@@ -54,10 +55,11 @@ public class JobBookmarkService {
 
     @Transactional
     public void 북마크삭제(Integer bookmarkId) {
-        JobBookmark bookmark = jobBookmarkRepository.findById(bookmarkId);
-        if (bookmark != null) {
-            jobBookmarkRepository.delete(bookmark);
+        JobBookmark bookmarkPS = jobBookmarkRepository.findById(bookmarkId);
+        if (bookmarkPS == null) {
+            throw new Exception400("잘못된 요청입니다");
         }
+        jobBookmarkRepository.delete(bookmarkPS);
     }
 
 }

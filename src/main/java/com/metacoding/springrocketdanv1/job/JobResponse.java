@@ -2,6 +2,7 @@ package com.metacoding.springrocketdanv1.job;
 
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
+import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
 import com.metacoding.springrocketdanv1.jobTechStack.JobTechStackResponse;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
@@ -11,6 +12,7 @@ import com.metacoding.springrocketdanv1.workField.WorkFieldResponse;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobResponse {
@@ -39,6 +41,7 @@ public class JobResponse {
         private Integer jobId;
         private String contactManager;
         private String companyPhone;
+        private List<String> jobTechStacks = new ArrayList<>();
 
         private boolean Bookmarked;
 
@@ -46,7 +49,7 @@ public class JobResponse {
                          Timestamp createdAt, String description, String location,
                          String employmentType, String workField, String nameKr,
                          SalaryRange salaryRange, Integer companyId, Integer jobId,
-                         String contactManager, String companyPhone) {
+                         String contactManager, String companyPhone, List<JobTechStack> jobTechStacks) {
             this.title = title;
             this.deadline = deadline;
             this.careerLevel = careerLevel;
@@ -62,6 +65,9 @@ public class JobResponse {
             this.contactManager = contactManager;
             this.companyPhone = companyPhone;
 
+            for (JobTechStack jobTechStack : jobTechStacks) {
+                this.jobTechStacks.add(jobTechStack.getTechStack().getName());
+            }
         }
 
         public void setBookmarked(boolean Bookmarked) {

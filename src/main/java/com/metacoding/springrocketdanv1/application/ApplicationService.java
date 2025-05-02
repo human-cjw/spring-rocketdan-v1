@@ -81,6 +81,10 @@ public class ApplicationService {
 
     @Transactional
     public void 지원하기(Integer jobId, ApplicationRequest.SaveDTO reqDTO, Integer userId) {
+        Application applicationPS = applicationRepository.findByJobIdWithUserId(jobId, userId);
+        if (applicationPS != null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         Application application = reqDTO.toEntity(jobId, userId);
 
         applicationRepository.save(application);

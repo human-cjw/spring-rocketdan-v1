@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.user;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.company.Company;
 import com.metacoding.springrocketdanv1.company.CompanyRepository;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,10 @@ public class UserService {
 
     @Transactional
     public void 회원가입(UserRequest.JoinDTO joinDTO) {
+        User userPS = userRepository.findByUsername(joinDTO.getUsername());
+        if (userPS != null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         userRepository.save(joinDTO.toEntity());
     }
 
