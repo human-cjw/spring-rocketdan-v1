@@ -1,5 +1,7 @@
 package com.metacoding.springrocketdanv1.resume;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
+import com.metacoding.springrocketdanv1.application.Application;
 import com.metacoding.springrocketdanv1.application.ApplicationRepository;
 import com.metacoding.springrocketdanv1.career.Career;
 import com.metacoding.springrocketdanv1.career.CareerRepository;
@@ -8,6 +10,7 @@ import com.metacoding.springrocketdanv1.certification.CertificationRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
+import com.metacoding.springrocketdanv1.resumeBookmark.ResumeBookmark;
 import com.metacoding.springrocketdanv1.resumeBookmark.ResumeBookmarkRepository;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStack;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackRepository;
@@ -187,43 +190,59 @@ public class ResumeService {
         // isDefault를 true로 받았을때
         if (requestDTO.getIsDefault() != null && requestDTO.getIsDefault()) {
             Resume resumeIsDefaultTrue = resumeRepository.findByUserIdAndIsDefaultTrue(userId);
+            if (resumeIsDefaultTrue == null) {
+                throw new Exception400("잘못된 요청입니다");
+            }
             if (resumeIsDefaultTrue.getId() != resumeId) {
                 resumeIsDefaultTrue.setIsDefaultFalse();
             }
         }
 
         // 이력서 조회하기
-        Resume resumePC = resumeRepository.findById(resumeId);
+        Resume resumePS = resumeRepository.findById(resumeId);
+
+        if (resumePS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
 
         List<ResumeTechStack> resumeTechStacks = new ArrayList<>();
         for (Integer techStackId : requestDTO.getTechStackIds()) {
             TechStack techStack = TechStack.builder().id(techStackId).build();
             resumeTechStacks.add(
                     ResumeTechStack.builder()
-                            .resume(resumePC)
+                            .resume(resumePS)
                             .techStack(techStack)
                             .build()
             );
         }
 
-        resumePC.update(requestDTO, resumeTechStacks);
+        resumePS.update(requestDTO, resumeTechStacks);
 
         // 이력서 등록 전 삭제
+        Certification certificationPS = certificationRepository.findByResumeId(resumeId);
+        if (certificationPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
+
         certificationRepository.deleteByResumeId(resumeId);
 
         Certification certification = Certification.builder()
                 .issuer(requestDTO.getCertificationIssuer())
                 .name(requestDTO.getCertificationName())
                 .issuedDate(requestDTO.getCertificationIssuedDate())
-                .resume(resumePC)
+                .resume(resumePS)
                 .build();
         certificationRepository.save(certification);
 
         // 경력 등록 전 삭제
+        Career careerPS = careerRepository.findByResumeId(resumeId);
+        if (careerPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         careerRepository.deleteByResumeId(resumeId);
 
         Career career = Career.builder()
-                .resume(resumePC)
+                .resume(resumePS)
                 .companyName(requestDTO.getCareerCompanyName())
                 .startDate(requestDTO.getCareerStartDate())
                 .endDate(requestDTO.getCareerEndDate())
@@ -240,16 +259,40 @@ public class ResumeService {
     @Transactional
     public void 이력서삭제(Integer resumeId, Integer userId) {
         // 자격증 삭제
+        Certification certificationPS = certificationRepository.findByResumeId(resumeId);
+        if (certificationPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         certificationRepository.deleteByResumeId(resumeId);
         // 경력 삭제
+        Career careerPS = careerRepository.findByResumeId(resumeId);
+        if (careerPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         careerRepository.deleteByResumeId(resumeId);
         // 지원 업데이트 resume_id -> null, user_id -> null
+        List<Application> applicationsPS = applicationRepository.findAllByResumeId(resumeId);
+        if (applicationsPS.size() < 1) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         applicationRepository.updateByResumeId(resumeId);
         // 이력서가 가지고 있는 resume_tech_stack 전부 삭제
+        List<ResumeTechStack> resumeTechStacksPS = resumeTechStackRepository.findAllByResumeId(resumeId);
+        if (resumeTechStacksPS.size() < 1) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         resumeTechStackRepository.deleteByResumeId(resumeId);
         // 이력서 북마크 삭제
+        List<ResumeBookmark> resumeBookmarksPS = resumeBookmarkRepository.findAllByResumeId(resumeId);
+        if (resumeBookmarksPS.size() < 1) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         resumeBookmarkRepository.deleteByResumeId(resumeId);
         // 이력서 삭제
+        Resume resumePS = resumeRepository.findById(resumeId);
+        if (resumePS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         resumeRepository.deleteById(resumeId);
     }
 
@@ -271,10 +314,10 @@ public class ResumeService {
             resumeIsDefaultTruePC.setIsDefaultFalse();
         }
         // 이력서 등록
-        Resume resumePC = resumeRepository.save(resume);
+        Resume resumePS = resumeRepository.save(resume);
         // 자격증 생성
         Certification certification = Certification.builder()
-                .resume(resumePC)
+                .resume(resumePS)
                 .name(reqDTO.getCertificationName())
                 .issuer(reqDTO.getCertificationIssuer())
                 .issuedDate(reqDTO.getCertificationIssuedDate())
@@ -283,7 +326,7 @@ public class ResumeService {
         certificationRepository.save(certification);
         // 경력 생성
         Career career = Career.builder()
-                .resume(resumePC)
+                .resume(resumePS)
                 .companyName(reqDTO.getCareerCompanyName())
                 .startDate(reqDTO.getCareerStartDate())
                 .endDate(reqDTO.getCareerEndDate())

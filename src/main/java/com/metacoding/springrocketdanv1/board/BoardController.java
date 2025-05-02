@@ -49,7 +49,7 @@ public class BoardController {
     }
 
     @PostMapping("/board/delete")
-    public String delete(@RequestParam("id") Long id) { // boardId를 가져와서 삭제
+    public String delete(@RequestParam("id") Integer id) { // boardId를 가져와서 삭제
         boardService.글삭제하기(id);
         return "redirect:/board";
     }

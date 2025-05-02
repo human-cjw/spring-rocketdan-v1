@@ -16,6 +16,17 @@
                     | {{jobDetail.createdAt}}</div>
                 <div class="weapp-l-4-job-detail">주요업무</div>
                 <div>{{jobDetail.description}}</div>
+                <!-- 기술 스택 -->
+                <div class="bg-white rounded pt-4 pb-4 mt-4 mt-4">
+                    <h5 class="fw-bold mb-3">요구 기술 스택</h5>
+                    <div class="d-flex align-items-center gap-3 m-3 mb-1">
+                        <div class="d-flex flex-wrap gap-2">
+                            {{#jobDetail.jobTechStacks}}
+                                <span class="border rounded-pill px-3 py-1 text-muted">{{.}}</span>
+                            {{/jobDetail.jobTechStacks}}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="weapp-sum-job-detail">

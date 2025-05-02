@@ -145,6 +145,8 @@ public class CompanyController {
         model.addAttribute("isStatus합격", status.equals("합격"));
         model.addAttribute("isStatus불합격", status.equals("불합격"));
 
+        System.out.println("지원자 확인" + dto);
+
         return "company/manage-resume";
     }
 
@@ -157,14 +159,16 @@ public class CompanyController {
 
     @PostMapping("/company/application/{applicationId}/accept")
     public String accept(@PathVariable("applicationId") Integer applicationId) {
-        companyService.지원상태수정(applicationId, "합격");
-        return "redirect:/company/application/" + applicationId;
+        System.out.println("컨트롤러 확인용 합격" + applicationId);
+        Integer jobId = companyService.지원상태수정(applicationId, "합격");
+        return "redirect:/company/job/" + jobId;
     }
 
     @PostMapping("/company/application/{applicationId}/reject")
     public String reject(@PathVariable("applicationId") Integer applicationId) {
-        companyService.지원상태수정(applicationId, "불합격");
-        return "redirect:/company/application/" + applicationId;
+        System.out.println("컨트롤러 확인용 불합격" + applicationId);
+        Integer jobId = companyService.지원상태수정(applicationId, "불합격");
+        return "redirect:/company/job/" + jobId;
     }
 
     @PostMapping("/company/job/{jobId}/delete")
