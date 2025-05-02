@@ -36,6 +36,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/company/update")
                 .addPathPatterns("/job/**")
                 .excludePathPatterns("/job")
-                .excludePathPatterns("/job/{id:\\d+}");
+                .excludePathPatterns("/job/{id:\\d+}")
+                .excludePathPatterns("/job/{id:\\d+}/bookmark");
     }
 }

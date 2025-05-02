@@ -2,6 +2,7 @@ package com.metacoding.springrocketdanv1.jobBookmark;
 
 
 import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
+import com.metacoding.springrocketdanv1._core.error.ex.Exception403;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,7 @@ public class JobBookmarkController {
 
         Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
 
-        List<JobBookmarkResponse.JobListWithBookmarkDTO> dtoList =
-                jobBookmarkService.getAllJobsWithBookmarkInfo(sessionUserId); // null이면 북마크 표시 없이
+        List<JobBookmarkResponse.JobListWithBookmarkDTO> dtoList = jobBookmarkService.getAllJobsWithBookmarkInfo(sessionUserId); // null이면 북마크 표시 없이
 
         Long bookmarkCount = (sessionUserId != null) ? jobBookmarkService.count(sessionUserId) : 0L;
 
@@ -57,8 +57,7 @@ public class JobBookmarkController {
             throw new Exception400("잘못된 요청입니다");
         }
 
-        List<JobBookmarkResponse.BookmarkListDTO> dtoList =
-                jobBookmarkService.getBookmarkList(sessionUser.getId());
+        List<JobBookmarkResponse.BookmarkListDTO> dtoList = jobBookmarkService.getBookmarkList(sessionUser.getId());
 
         model.addAttribute("model", dtoList);
 
@@ -74,6 +73,10 @@ public class JobBookmarkController {
     @PostMapping("/job-bookmark/{jobId}/toggle")
     public String toggleFromDetail(@PathVariable Integer jobId, HttpSession session) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+
+        if (sessionUser == null) {
+            throw new Exception403("권한이 없습니다");
+        }
 
         JobBookmarkRequest.SaveDTO dto = new JobBookmarkRequest.SaveDTO();
         dto.setJobId(jobId);
