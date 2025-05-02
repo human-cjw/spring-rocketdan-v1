@@ -3,6 +3,7 @@ package com.metacoding.springrocketdanv1.user;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 public class UserRequest {
@@ -15,8 +16,8 @@ public class UserRequest {
 
         @NotBlank(message = "비밀번호는 필수입니다.")
         @Pattern(
-                regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-])[A-Za-z\\d!@#$%^&*()_+=\\-]{4,20}$",
-                message = "비밀번호는 영문, 숫자, 특수문자를 포함한 4자 이상 20자 이하입니다."
+                regexp = "^[A-Za-z\\d!@#$%^&*()_+=\\-]{4,20}$",
+                message = "비밀번호는 4자 이상 20자 이하로 숫자, 영문, 특수문자를 포함할 수 있습니다."
         )
         private String password;
 
@@ -43,7 +44,7 @@ public class UserRequest {
         private String username;
 
         @NotBlank(message = "비밀번호는 필수입니다.")
-        @jakarta.validation.constraints.Size(min = 4, max = 20, message = "비밀번호는 4자 이상 20자 이하입니다.")
+        @Size(min = 4, max = 20, message = "비밀번호는 4자 이상 20자 이하입니다.")
         private String password;
     }
 }
