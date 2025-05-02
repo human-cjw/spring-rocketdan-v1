@@ -11,7 +11,10 @@
                     <a href="/company/{{jobDetail.companyId}}">{{jobDetail.nameKr}} &gt;</a>
                 </div>
 
-                <div class="weapp-l-2-job-detail">{{jobDetail.title}}</div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="weapp-l-2-job-detail">{{jobDetail.title}}</div>
+                    <a href="/job/{{jobDetail.jobId}}/update-form" class="btn btn-primary">업데이트</a>
+                </div>
                 <div class="weapp-l-3-job-detail">{{jobDetail.deadline}} | {{jobDetail.careerLevel}}
                     | {{jobDetail.createdAt}}</div>
                 <div class="weapp-l-4-job-detail">주요업무</div>

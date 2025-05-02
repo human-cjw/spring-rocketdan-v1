@@ -118,10 +118,10 @@ public class JobResponse {
 
         private List<CareerLevel> careerLevels;
         private List<EmploymentType> employmentTypes;
-        private List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOS;
-        private List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOS;
-        private List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOS;
-        private List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOS;
+        private List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOs;
+        private List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOs;
+        private List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOs;
+        private List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOs;
 
         public JobUpdateDTO(
                 Integer id,
@@ -132,10 +132,10 @@ public class JobResponse {
                 String status,
                 List<CareerLevel> careerLevels,
                 List<EmploymentType> employmentTypes,
-                List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOS,
-                List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOS,
-                List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOS,
-                List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOS
+                List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOs,
+                List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOs,
+                List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOs,
+                List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOs
         ) {
             this.id = id;
             this.title = title;
@@ -145,10 +145,10 @@ public class JobResponse {
             this.status = status;
             this.careerLevels = careerLevels;
             this.employmentTypes = employmentTypes;
-            this.jobTechStackUpdateDTOS = jobTechStackUpdateDTOS;
-            this.workFieldUpdateDTOS = workFieldUpdateDTOS;
-            this.salaryRangeUpdateDTOS = salaryRangeUpdateDTOS;
-            this.jobGroupUpdateDTOS = jobGroupUpdateDTOS;
+            this.jobTechStackUpdateDTOs = jobTechStackUpdateDTOs;
+            this.workFieldUpdateDTOs = workFieldUpdateDTOs;
+            this.salaryRangeUpdateDTOs = salaryRangeUpdateDTOs;
+            this.jobGroupUpdateDTOs = jobGroupUpdateDTOs;
         }
 
         public static class EmploymentType {
