@@ -43,7 +43,7 @@ public class ApplicationService {
             String formattedCreatedAt = application.getCreatedAt().toString().substring(0, 16);
 
             ApplicationResponse.ApplicationManageDTO applicationManageDTO = new ApplicationResponse.ApplicationManageDTO(
-                    application.getId(),
+                    application.getJob().getId(),
                     application.getStatus(),
                     formattedCreatedAt,
                     jobDTO,
