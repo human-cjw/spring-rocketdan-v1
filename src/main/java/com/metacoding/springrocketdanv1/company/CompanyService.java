@@ -87,7 +87,7 @@ public class CompanyService {
 
     // 기업 등록
     @Transactional
-    public Company 기업등록(CompanyRequest.CompanySaveDTO requestDTO, UserResponse.SessionUserDTO sessionUser) {
+    public UserResponse.SessionUserDTO 기업등록(CompanyRequest.CompanySaveDTO requestDTO, UserResponse.SessionUserDTO sessionUser) {
         // 산업분야 조회 또는 저장
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
         if (workField == null) {
@@ -107,7 +107,7 @@ public class CompanyService {
 
         // 회사 + 연관 기술 스택 cascade 저장
         Company company = requestDTO.toEntity(sessionUser, workField, techStackList);
-        companyRepository.save(company);
+        Company companyPS = companyRepository.save(company);
 
         // 세션에서 넘어온 User가 아니라, DB에서 영속 객체를 다시 가져옴
         User user = em.find(User.class, sessionUser.getId());
@@ -120,13 +120,14 @@ public class CompanyService {
 
             Field companyIdField = User.class.getDeclaredField("companyId");
             companyIdField.setAccessible(true);
-            companyIdField.set(user, company.getId());
+            companyIdField.set(user, companyPS.getId());
 
         } catch (Exception e) {
             throw new RuntimeException("User 업데이트 실패", e);
         }
+        UserResponse.SessionUserDTO sessionUserDTO = new UserResponse.SessionUserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getFileUrl(), user.getUserType(), companyPS.getId(), companyPS.getNameKr());
 
-        return company;
+        return sessionUserDTO;
     }
 
     // 내 기업 조회 (업데이트 폼)
@@ -171,6 +172,8 @@ public class CompanyService {
         dto.setAddress(company.getAddress());
         dto.setTechStacks(techStackDTOs);
         dto.setWorkFields(workFieldDTOs);
+        dto.setPhone(company.getPhone());
+        dto.setCeo(company.getCeo());
 
         return dto;
     }
@@ -301,5 +304,12 @@ public class CompanyService {
 
         // 4. 최종 공고 삭제
         companyRepository.deleteJobById(jobId);
+    }
+
+    public CompanyResponse.CompanySaveFormDTO 등록보기() {
+        List<WorkField> workFields = workFieldRepository.findAll();
+        List<TechStack> techStacks = techStackRepository.findAll();
+
+        return new CompanyResponse.CompanySaveFormDTO(workFields, techStacks);
     }
 }

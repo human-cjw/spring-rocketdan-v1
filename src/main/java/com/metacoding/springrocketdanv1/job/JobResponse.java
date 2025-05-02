@@ -44,6 +44,7 @@ public class JobResponse {
         private String companyPhone;
         private List<String> jobTechStacks = new ArrayList<>();
         private boolean isOwner;
+        private Integer phone;
 
         private boolean Bookmarked;
 
@@ -66,7 +67,9 @@ public class JobResponse {
             this.jobId = jobId;
             this.contactManager = contactManager;
             this.companyPhone = companyPhone;
-            this.isOwner = companyId.equals(sessionUserDTO.getCompanyId());
+            if (sessionUserDTO != null) {
+                this.isOwner = sessionUserDTO.getCompanyId() == null ? false : sessionUserDTO.getCompanyId().equals(companyId);
+            }
 
             for (JobTechStack jobTechStack : jobTechStacks) {
                 this.jobTechStacks.add(jobTechStack.getTechStack().getName());

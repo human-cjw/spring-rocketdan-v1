@@ -1,6 +1,7 @@
 package com.metacoding.springrocketdanv1.jobBookmark;
 
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +52,10 @@ public class JobBookmarkController {
     @GetMapping("/user/bookmark")
     public String bookmarkList(HttpSession session, Model model) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+
+        if (sessionUser.getCompanyId() != null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
 
         List<JobBookmarkResponse.BookmarkListDTO> dtoList =
                 jobBookmarkService.getBookmarkList(sessionUser.getId());

@@ -1,9 +1,7 @@
 package com.metacoding.springrocketdanv1.company;
 
-import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.UserResponse;
-import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -64,27 +62,18 @@ public class CompanyController {
     }
 
     @GetMapping("/company/save-form")
-    public String saveForm(HttpSession session, Model model) {
-        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            // 로그인 안했으면 로그인 페이지로 리다이렉트
-            return "redirect:/login-form";
-        }
+    public String saveForm(Model model) {
 
-        List<WorkField> workFields = workFieldRepository.findAll();
-        List<TechStack> techStacks = techStackRepository.findAll();
-
-        model.addAttribute("workFields", workFields);
-        model.addAttribute("techStacks", techStacks);
-
+        model.addAttribute("model", companyService.등록보기());
         return "company/save-form";
     }
 
     @PostMapping("/company/save")
     public String save(@Valid @ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, Errors errors, HttpSession session) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        Company savedCompany = companyService.기업등록(requestDTO, sessionUser);
-        return "redirect:/company/" + savedCompany.getId();
+        UserResponse.SessionUserDTO sessionUserDTO = companyService.기업등록(requestDTO, sessionUser);
+        session.setAttribute("sessionUser", sessionUserDTO);
+        return "redirect:/company/" + sessionUserDTO.getCompanyId();
     }
 
     @GetMapping("/company/update-form")
