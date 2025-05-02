@@ -233,6 +233,9 @@ public class CompanyService {
         List<CompanyResponse.CompanyManageResumeDTO> applicationDTOs = new ArrayList<>();
 
         for (Application app : applications) {
+            System.out.println(app);
+            if (app.getResume() == null) continue;
+
             Resume resume = resumeRepository.findById(app.getResume().getId());  // lazy 대신 직접 조회
             applicationDTOs.add(new CompanyResponse.CompanyManageResumeDTO(
                     app.getId(),

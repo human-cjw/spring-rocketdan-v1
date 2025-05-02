@@ -261,36 +261,39 @@ public class ResumeService {
         // 자격증 삭제
         Certification certificationPS = certificationRepository.findByResumeId(resumeId);
         if (certificationPS == null) {
+            System.out.println("1");
             throw new Exception400("잘못된 요청입니다");
         }
         certificationRepository.deleteByResumeId(resumeId);
         // 경력 삭제
         Career careerPS = careerRepository.findByResumeId(resumeId);
         if (careerPS == null) {
+            System.out.println("2");
             throw new Exception400("잘못된 요청입니다");
         }
         careerRepository.deleteByResumeId(resumeId);
         // 지원 업데이트 resume_id -> null, user_id -> null
         List<Application> applicationsPS = applicationRepository.findAllByResumeId(resumeId);
-        if (applicationsPS.size() < 1) {
-            throw new Exception400("잘못된 요청입니다");
+        if (applicationsPS.size() > 0) {
+            applicationRepository.updateByResumeId(resumeId);
         }
-        applicationRepository.updateByResumeId(resumeId);
+
         // 이력서가 가지고 있는 resume_tech_stack 전부 삭제
         List<ResumeTechStack> resumeTechStacksPS = resumeTechStackRepository.findAllByResumeId(resumeId);
         if (resumeTechStacksPS.size() < 1) {
+            System.out.println("4");
             throw new Exception400("잘못된 요청입니다");
         }
         resumeTechStackRepository.deleteByResumeId(resumeId);
         // 이력서 북마크 삭제
         List<ResumeBookmark> resumeBookmarksPS = resumeBookmarkRepository.findAllByResumeId(resumeId);
-        if (resumeBookmarksPS.size() < 1) {
-            throw new Exception400("잘못된 요청입니다");
+        if (resumeBookmarksPS.size() > 0) {
+            resumeBookmarkRepository.deleteByResumeId(resumeId);
         }
-        resumeBookmarkRepository.deleteByResumeId(resumeId);
         // 이력서 삭제
         Resume resumePS = resumeRepository.findById(resumeId);
         if (resumePS == null) {
+            System.out.println("6");
             throw new Exception400("잘못된 요청입니다");
         }
         resumeRepository.deleteById(resumeId);
