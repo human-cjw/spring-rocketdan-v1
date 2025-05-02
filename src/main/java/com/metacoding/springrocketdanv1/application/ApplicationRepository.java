@@ -47,6 +47,7 @@ public class ApplicationRepository {
         em.persist(application);
     }
 
+
     public List<Application> findByJobId(Integer jobId, String status) {
         String q = """
                     SELECT a
@@ -109,5 +110,24 @@ public class ApplicationRepository {
             return null;
         }
 
+    }
+
+    public Application findByJobIdWithUserId(Integer jobId, Integer userId) {
+        String q = "SELECT a FROM Application a WHERE a.job.id = :jobId AND a.user.id = :userId";
+        try {
+            return (Application) em.createQuery(q, Application.class)
+                    .setParameter("jobId", jobId)
+                    .setParameter("userId", userId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Application> findAllByResumeId(Integer resumeId) {
+        String q = "SELECT a FROM Application a WHERE a.resume.id = :resumeId";
+        return em.createQuery(q, Application.class)
+                .setParameter("resumeId", resumeId)
+                .getResultList();
     }
 }

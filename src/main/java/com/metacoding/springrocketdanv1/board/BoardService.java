@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.board;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,9 @@ public class BoardService {
     @Transactional
     public boolean 글수정하기(BoardRequest.updateDTO reqDTO, Integer boardId) {
         Board boardPS = boardRepository.findById(boardId);
+        if (boardPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
 
         boardPS.update(reqDTO.getTitle(), reqDTO.getContent());
         return true;
@@ -69,7 +73,11 @@ public class BoardService {
 
 
     @Transactional
-    public void 글삭제하기(Long id) {
+    public void 글삭제하기(Integer id) {
+        Board boardPS = boardRepository.findById(id);
+        if (boardPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         boardRepository.deleteById(id);
     }
 }
