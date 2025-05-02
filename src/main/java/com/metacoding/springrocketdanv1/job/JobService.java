@@ -196,6 +196,8 @@ public class JobService {
                 jobGroupUpdateDTOs
         );
 
+        System.out.println(respDTO);
+
         return respDTO;
     }
 
