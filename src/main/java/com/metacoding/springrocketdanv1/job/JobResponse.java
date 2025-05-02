@@ -2,15 +2,18 @@ package com.metacoding.springrocketdanv1.job;
 
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroupResponse;
+import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
 import com.metacoding.springrocketdanv1.jobTechStack.JobTechStackResponse;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldResponse;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobResponse {
@@ -39,6 +42,9 @@ public class JobResponse {
         private Integer jobId;
         private String contactManager;
         private String companyPhone;
+        private List<String> jobTechStacks = new ArrayList<>();
+        private boolean isOwner;
+        private Integer phone;
 
         private boolean Bookmarked;
 
@@ -46,7 +52,7 @@ public class JobResponse {
                          Timestamp createdAt, String description, String location,
                          String employmentType, String workField, String nameKr,
                          SalaryRange salaryRange, Integer companyId, Integer jobId,
-                         String contactManager, String companyPhone) {
+                         String contactManager, String companyPhone, List<JobTechStack> jobTechStacks, UserResponse.SessionUserDTO sessionUserDTO) {
             this.title = title;
             this.deadline = deadline;
             this.careerLevel = careerLevel;
@@ -61,7 +67,13 @@ public class JobResponse {
             this.jobId = jobId;
             this.contactManager = contactManager;
             this.companyPhone = companyPhone;
+            if (sessionUserDTO != null) {
+                this.isOwner = sessionUserDTO.getCompanyId() == null ? false : sessionUserDTO.getCompanyId().equals(companyId);
+            }
 
+            for (JobTechStack jobTechStack : jobTechStacks) {
+                this.jobTechStacks.add(jobTechStack.getTechStack().getName());
+            }
         }
 
         public void setBookmarked(boolean Bookmarked) {
@@ -112,10 +124,10 @@ public class JobResponse {
 
         private List<CareerLevel> careerLevels;
         private List<EmploymentType> employmentTypes;
-        private List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOS;
-        private List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOS;
-        private List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOS;
-        private List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOS;
+        private List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOs;
+        private List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOs;
+        private List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOs;
+        private List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOs;
 
         public JobUpdateDTO(
                 Integer id,
@@ -126,10 +138,10 @@ public class JobResponse {
                 String status,
                 List<CareerLevel> careerLevels,
                 List<EmploymentType> employmentTypes,
-                List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOS,
-                List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOS,
-                List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOS,
-                List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOS
+                List<JobTechStackResponse.JobTechStackUpdateDTO> jobTechStackUpdateDTOs,
+                List<WorkFieldResponse.WorkFieldUpdateDTO> workFieldUpdateDTOs,
+                List<SalaryRangeResponse.SalaryRangeUpdateDTO> salaryRangeUpdateDTOs,
+                List<JobGroupResponse.JobGroupUpdateDTO> jobGroupUpdateDTOs
         ) {
             this.id = id;
             this.title = title;
@@ -139,10 +151,10 @@ public class JobResponse {
             this.status = status;
             this.careerLevels = careerLevels;
             this.employmentTypes = employmentTypes;
-            this.jobTechStackUpdateDTOS = jobTechStackUpdateDTOS;
-            this.workFieldUpdateDTOS = workFieldUpdateDTOS;
-            this.salaryRangeUpdateDTOS = salaryRangeUpdateDTOS;
-            this.jobGroupUpdateDTOS = jobGroupUpdateDTOS;
+            this.jobTechStackUpdateDTOs = jobTechStackUpdateDTOs;
+            this.workFieldUpdateDTOs = workFieldUpdateDTOs;
+            this.salaryRangeUpdateDTOs = salaryRangeUpdateDTOs;
+            this.jobGroupUpdateDTOs = jobGroupUpdateDTOs;
         }
 
         public static class EmploymentType {

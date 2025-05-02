@@ -45,6 +45,12 @@
                     <label>문의 담당자</label>
                     <input type="text" name="contactManager" placeholder="담당자" value="{{model.contactManager}}"/>
 
+                    <label>대표연락처</label>
+                    <input type="number" name="phone" placeholder="대표연락처" value="{{model.phone}}"/>
+
+                    <label>대표자명</label>
+                    <input type="text" name="ceo" placeholder="대표자명" value="{{model.ceo}}"/>
+
                     <label>사무실</label>
                     <input type="text" name="address" placeholder="사무실 주소" value="{{model.address}}"/>
 
@@ -58,7 +64,7 @@
                             </label>
                         {{/model.workFields}}
                     </div>
-                    
+
                     <div class="submit-btn-wrapper-company-save">
                         <button type="submit" class="weapp-submit-btn-company-save btn btn-primary">
                             수정 완료

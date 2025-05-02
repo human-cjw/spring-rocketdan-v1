@@ -5,9 +5,11 @@ import com.metacoding.springrocketdanv1.jobBookmark.JobBookmarkService;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,10 +33,10 @@ public class JobController {
 
     @GetMapping("/job/{jobId}")
     public String show(@PathVariable("jobId") Integer jobId, Model model, HttpSession session) {
-        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        Integer sessionUserId = (sessionUser != null) ? sessionUser.getId() : null;
+        UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
 
-        JobResponse.DetailDTO dto = jobService.글상세보기(jobId, sessionUserId);
+        JobResponse.DetailDTO dto = jobService.글상세보기(jobId, sessionUserDTO);
+        System.out.println(dto.isOwner());
 
         model.addAttribute("jobDetail", dto);
         model.addAttribute("nameKr", dto.getNameKr());
@@ -52,7 +54,7 @@ public class JobController {
     }
 
     @PostMapping("/job/save")
-    public String save(JobRequest.JobSaveDTO reqDTO) {
+    public String save(@Valid JobRequest.JobSaveDTO reqDTO, Errors errors) {
         UserResponse.SessionUserDTO sessionUserDTO = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
         jobService.등록하기(reqDTO, sessionUserDTO.getCompanyId());
 
@@ -69,7 +71,7 @@ public class JobController {
 
     @PostMapping("/job/{jobId}/update")
     public String update(@PathVariable("jobId") Integer jobId,
-                         JobRequest.JobUpdateDTO reqDTO) {
+                         @Valid JobRequest.JobUpdateDTO reqDTO, Errors errors) {
         jobService.수정하기(jobId, reqDTO);
         return "redirect:/job/" + jobId;
     }

@@ -47,6 +47,7 @@ public class ApplicationRepository {
         em.persist(application);
     }
 
+
     public List<Application> findByJobId(Integer jobId, String status) {
         String q = """
                     SELECT a
@@ -87,5 +88,46 @@ public class ApplicationRepository {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public Application findByUserIdAndJobId(Integer userId, Integer jobId) {
+        String q = """
+                    SELECT a
+                    FROM Application a
+                    JOIN FETCH a.job
+                    JOIN FETCH a.resume
+                    JOIN FETCH a.company
+                    WHERE a.user.id = :userId
+                        AND a.job.id = :jobId
+                """;
+
+        try {
+            return em.createQuery(q, Application.class)
+                    .setParameter("userId", userId)
+                    .setParameter("jobId", jobId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    public Application findByJobIdWithUserId(Integer jobId, Integer userId) {
+        String q = "SELECT a FROM Application a WHERE a.job.id = :jobId AND a.user.id = :userId";
+        try {
+            return (Application) em.createQuery(q, Application.class)
+                    .setParameter("jobId", jobId)
+                    .setParameter("userId", userId)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Application> findAllByResumeId(Integer resumeId) {
+        String q = "SELECT a FROM Application a WHERE a.resume.id = :resumeId";
+        return em.createQuery(q, Application.class)
+                .setParameter("resumeId", resumeId)
+                .getResultList();
     }
 }

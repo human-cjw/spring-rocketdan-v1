@@ -1,15 +1,15 @@
 package com.metacoding.springrocketdanv1.company;
 
-import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.UserResponse;
-import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,27 +62,18 @@ public class CompanyController {
     }
 
     @GetMapping("/company/save-form")
-    public String saveForm(HttpSession session, Model model) {
-        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        if (sessionUser == null) {
-            // 로그인 안했으면 로그인 페이지로 리다이렉트
-            return "redirect:/login-form";
-        }
+    public String saveForm(Model model) {
 
-        List<WorkField> workFields = workFieldRepository.findAll();
-        List<TechStack> techStacks = techStackRepository.findAll();
-
-        model.addAttribute("workFields", workFields);
-        model.addAttribute("techStacks", techStacks);
-
+        model.addAttribute("model", companyService.등록보기());
         return "company/save-form";
     }
 
     @PostMapping("/company/save")
-    public String save(@ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, HttpSession session) {
+    public String save(@Valid @ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, Errors errors, HttpSession session) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        Company savedCompany = companyService.기업등록(requestDTO, sessionUser);
-        return "redirect:/company/" + savedCompany.getId();
+        UserResponse.SessionUserDTO sessionUserDTO = companyService.기업등록(requestDTO, sessionUser);
+        session.setAttribute("sessionUser", sessionUserDTO);
+        return "redirect:/company/" + sessionUserDTO.getCompanyId();
     }
 
     @GetMapping("/company/update-form")
@@ -106,7 +97,7 @@ public class CompanyController {
 
 
     @PostMapping("/company/update")
-    public String update(@ModelAttribute CompanyRequest.UpdateDTO requestDTO, HttpSession session) {
+    public String update(@Valid @ModelAttribute CompanyRequest.UpdateDTO requestDTO, Errors errors, HttpSession session) {
 
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
 
@@ -145,6 +136,8 @@ public class CompanyController {
         model.addAttribute("isStatus합격", status.equals("합격"));
         model.addAttribute("isStatus불합격", status.equals("불합격"));
 
+        System.out.println("지원자 확인" + dto);
+
         return "company/manage-resume";
     }
 
@@ -157,14 +150,16 @@ public class CompanyController {
 
     @PostMapping("/company/application/{applicationId}/accept")
     public String accept(@PathVariable("applicationId") Integer applicationId) {
-        companyService.지원상태수정(applicationId, "합격");
-        return "redirect:/company/application/" + applicationId;
+        System.out.println("컨트롤러 확인용 합격" + applicationId);
+        Integer jobId = companyService.지원상태수정(applicationId, "합격");
+        return "redirect:/company/job/" + jobId;
     }
 
     @PostMapping("/company/application/{applicationId}/reject")
     public String reject(@PathVariable("applicationId") Integer applicationId) {
-        companyService.지원상태수정(applicationId, "불합격");
-        return "redirect:/company/application/" + applicationId;
+        System.out.println("컨트롤러 확인용 불합격" + applicationId);
+        Integer jobId = companyService.지원상태수정(applicationId, "불합격");
+        return "redirect:/company/job/" + jobId;
     }
 
     @PostMapping("/company/job/{jobId}/delete")

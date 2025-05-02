@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -89,6 +88,8 @@ public class Company {
         this.businessNumber = dto.getBusinessNumber();
         this.email = dto.getEmail();
         this.contactManager = dto.getContactManager();
+        this.phone = dto.getPhone();
+        this.ceo = dto.getCeo();
         this.address = dto.getAddress();
         this.workField = workField;
     }

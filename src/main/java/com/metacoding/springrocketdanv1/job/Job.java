@@ -6,7 +6,9 @@ import com.metacoding.springrocketdanv1.jobTechStack.JobTechStack;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRange;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -27,7 +29,7 @@ public class Job {
     @Column(columnDefinition = "text")
     private String description; // 공고 설명
     private String location; // 근무지
-    private String employmentType; // 정규직, 계약직, 인턴, 프리
+    private String employmentType; // 정규직, 계약직, 인턴, 프리랜서
     private String deadline; // 공고 마감일
     private String status; // 공고 상태. open, closed
     private String careerLevel; // 신입 or 경력

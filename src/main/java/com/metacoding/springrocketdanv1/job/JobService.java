@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.job;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.jobBookmark.JobBookmark;
 import com.metacoding.springrocketdanv1.jobBookmark.JobBookmarkRepository;
 import com.metacoding.springrocketdanv1.jobGroup.JobGroup;
@@ -12,6 +13,7 @@ import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeRepository;
 import com.metacoding.springrocketdanv1.salaryRange.SalaryRangeResponse;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
 import com.metacoding.springrocketdanv1.workField.WorkFieldResponse;
@@ -49,9 +51,9 @@ public class JobService {
         return jobDTOs;  // 변환된 DTO 리스트 반환
     }
 
-    public JobResponse.DetailDTO 글상세보기(Integer id, Integer sessionUserId) {
-        Job job = jobRepository.findById(id);
-        if (job == null) throw new RuntimeException(id + "번 공고가 없습니다.");
+    public JobResponse.DetailDTO 글상세보기(Integer jobId, UserResponse.SessionUserDTO sessionUserDTO) {
+        Job job = jobRepository.findById(jobId);
+        if (job == null) throw new RuntimeException(jobId + "번 공고가 없습니다.");
 
         // 기본 DTO 구성
         SalaryRange salaryRange = job.getSalaryRange();
@@ -73,11 +75,13 @@ public class JobService {
                 job.getCompany().getId(),
                 job.getId(),
                 job.getCompany().getContactManager(),
-                job.getCompany().getPhone()
+                job.getCompany().getPhone(),
+                job.getJobTechStacks(),
+                sessionUserDTO
         );
 
-        if (sessionUserId != null) {
-            JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(sessionUserId, job.getId());
+        if (sessionUserDTO != null) {
+            JobBookmark bookmark = jobBookmarkRepository.findByUserIdAndJobId(sessionUserDTO.getId(), job.getId());
             dto.setBookmarked(bookmark != null);
         }
 
@@ -196,12 +200,17 @@ public class JobService {
                 jobGroupUpdateDTOs
         );
 
+        System.out.println(respDTO);
+
         return respDTO;
     }
 
     @Transactional
     public void 수정하기(Integer jobId, JobRequest.JobUpdateDTO reqDTO) {
-        Job jobPC = jobRepository.findByIdJoinJobTechStackJoinTechStack(jobId);
+        Job jobPS = jobRepository.findByIdJoinJobTechStackJoinTechStack(jobId);
+        if (jobPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         SalaryRange salaryRange = SalaryRange.builder().id(reqDTO.getSalaryRangeId()).build();
         WorkField workField = WorkField.builder().id(reqDTO.getWorkFieldId()).build();
         JobGroup jobGroup = JobGroup.builder().id(reqDTO.getJobGroupId()).build();
@@ -211,13 +220,13 @@ public class JobService {
             TechStack techStack = TechStack.builder().id(techStackId).build();
             jobTechStacks.add(
                     JobTechStack.builder()
-                            .job(jobPC)
+                            .job(jobPS)
                             .techStack(techStack)
                             .build()
             );
         }
 
-        jobPC.update(
+        jobPS.update(
                 reqDTO.getTitle(),
                 reqDTO.getDescription(),
                 reqDTO.getLocation(),

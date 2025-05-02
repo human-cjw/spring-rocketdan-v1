@@ -41,30 +41,30 @@
                     <!-- 샘플 1 시작 -->
                     {{#applicationManageDTOS}}
                         <div class="list-group" style="height: 50%; margin: 1rem">
-                            <a href="/user/application/process?id={{id}}" class="list-group-item
+                            <a href="/user/application/process/job/{{id}}" class="list-group-item
                             list-group-item-action">
-                            <div class="d-flex" style="justify-content: space-between">
-                                <div class="d-flex align-items-center mb-3">
-                                    <img
-                                            src="https://image.rocketpunch.com/company/205394/archetype-research_logo_1734688840.png?s=100x100&t=inside"
-                                            alt="아키타입 리서치 logo"
-                                    />
-                                    <div class="weapp-company">
-                                        <div class="fs-5 fw-bold" style="margin: 1rem">
-                                            {{job.title}}
-                                        </div>
-                                        <div class="fs-6 fw-nomal" style="margin: 1rem">
-                                            {{company.nameKr}}
-                                        </div>
-                                        <div class="text-muted" style="margin: 1rem">
-                                            {{job.careerLevel}}
+                                <div class="d-flex" style="justify-content: space-between">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img
+                                                src="https://image.rocketpunch.com/company/205394/archetype-research_logo_1734688840.png?s=100x100&t=inside"
+                                                alt="아키타입 리서치 logo"
+                                        />
+                                        <div class="weapp-company">
+                                            <div class="fs-5 fw-bold" style="margin: 1rem">
+                                                {{job.title}}
+                                            </div>
+                                            <div class="fs-6 fw-nomal" style="margin: 1rem">
+                                                {{company.nameKr}}
+                                            </div>
+                                            <div class="text-muted" style="margin: 1rem">
+                                                {{job.careerLevel}}
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="weapp-date" style="padding: 1rem">
+                                        {{createdAt}}
+                                    </div>
                                 </div>
-                                <div class="weapp-date" style="padding: 1rem">
-                                    {{createdAt}}
-                                </div>
-                            </div>
                             </a>
                         </div>
                     {{/applicationManageDTOS}}

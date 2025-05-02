@@ -20,15 +20,9 @@ public class ApplicationService {
     private final JobRepository jobRepository;
     private final ResumeRepository resumeRepository;
 
-    public List<ApplicationResponse.ProcessDTO> 입사지원현황보기(Integer userId) {
-        List<Application> applications = applicationRepository.findByUserId(userId);
-
-        List<ApplicationResponse.ProcessDTO> processDTOs = new ArrayList<>();
-        for (Application application : applications) {
-            processDTOs.add(new ApplicationResponse.ProcessDTO(application));
-        }
-
-        return processDTOs;
+    public ApplicationResponse.ProcessDTO2 입사지원현황보기(Integer userId, Integer jobId) {
+        Application applicationPS = applicationRepository.findByUserIdAndJobId(userId, jobId);
+        return new ApplicationResponse.ProcessDTO2(applicationPS);
     }
 
     public List<ApplicationResponse.ApplicationManageDTO> 내지원목록보기(Integer userId, String status) {
@@ -87,6 +81,10 @@ public class ApplicationService {
 
     @Transactional
     public void 지원하기(Integer jobId, ApplicationRequest.SaveDTO reqDTO, Integer userId) {
+        Application applicationPS = applicationRepository.findByJobIdWithUserId(jobId, userId);
+        if (applicationPS != null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         Application application = reqDTO.toEntity(jobId, userId);
 
         applicationRepository.save(application);

@@ -1,5 +1,6 @@
 package com.metacoding.springrocketdanv1.company;
 
+import com.metacoding.springrocketdanv1._core.error.ex.Exception400;
 import com.metacoding.springrocketdanv1.application.Application;
 import com.metacoding.springrocketdanv1.application.ApplicationRepository;
 import com.metacoding.springrocketdanv1.career.Career;
@@ -47,7 +48,6 @@ public class CompanyService {
     private EntityManager em;
 
     // 기업 상세보기
-    @Transactional(readOnly = true)
     public CompanyResponse.CompanyResponseDTO 기업상세(Integer companyId) {
         Company company = companyRepository.findById(companyId);
 
@@ -81,14 +81,13 @@ public class CompanyService {
     }
 
     // 기업 리스트
-    @Transactional(readOnly = true)
     public List<Company> 기업리스트() {
         return companyRepository.findAll();
     }
 
     // 기업 등록
     @Transactional
-    public Company 기업등록(CompanyRequest.CompanySaveDTO requestDTO, UserResponse.SessionUserDTO sessionUser) {
+    public UserResponse.SessionUserDTO 기업등록(CompanyRequest.CompanySaveDTO requestDTO, UserResponse.SessionUserDTO sessionUser) {
         // 산업분야 조회 또는 저장
         WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
         if (workField == null) {
@@ -108,7 +107,7 @@ public class CompanyService {
 
         // 회사 + 연관 기술 스택 cascade 저장
         Company company = requestDTO.toEntity(sessionUser, workField, techStackList);
-        companyRepository.save(company);
+        Company companyPS = companyRepository.save(company);
 
         // 세션에서 넘어온 User가 아니라, DB에서 영속 객체를 다시 가져옴
         User user = em.find(User.class, sessionUser.getId());
@@ -121,17 +120,17 @@ public class CompanyService {
 
             Field companyIdField = User.class.getDeclaredField("companyId");
             companyIdField.setAccessible(true);
-            companyIdField.set(user, company.getId());
+            companyIdField.set(user, companyPS.getId());
 
         } catch (Exception e) {
             throw new RuntimeException("User 업데이트 실패", e);
         }
+        UserResponse.SessionUserDTO sessionUserDTO = new UserResponse.SessionUserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getFileUrl(), user.getUserType(), companyPS.getId(), companyPS.getNameKr());
 
-        return company;
+        return sessionUserDTO;
     }
 
     // 내 기업 조회 (업데이트 폼)
-    @Transactional(readOnly = true)
     public CompanyResponse.UpdateFormDTO 내기업조회(Integer userId) {
         Company company = companyRepository.findByUserId(userId);
 
@@ -173,6 +172,8 @@ public class CompanyService {
         dto.setAddress(company.getAddress());
         dto.setTechStacks(techStackDTOs);
         dto.setWorkFields(workFieldDTOs);
+        dto.setPhone(company.getPhone());
+        dto.setCeo(company.getCeo());
 
         return dto;
     }
@@ -182,6 +183,10 @@ public class CompanyService {
     public void 기업수정(CompanyRequest.UpdateDTO dto) {
 
         Company company = companyRepository.findById(dto.getId());
+
+        if (company == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
 
         // workFieldId로 조회
         WorkField workField = workFieldRepository.findById(dto.getWorkFieldId());
@@ -206,7 +211,6 @@ public class CompanyService {
         }
     }
 
-    @Transactional
     public List<CompanyResponse.CompanyManageJobDTO> 기업공고관리(Integer companyId) {
         List<Job> jobList = companyRepository.findJobsByCompanyId(companyId);
 
@@ -223,7 +227,6 @@ public class CompanyService {
         return companyManageJobDTOS;
     }
 
-    @Transactional
     public CompanyResponse.CompanyManageResumePageDTO 지원자조회(Integer jobId, String status) {
         List<Application> applications = applicationRepository.findByJobId(jobId, status);
 
@@ -252,6 +255,10 @@ public class CompanyService {
         // 1. 지원서 조회
         Application application = applicationRepository.findById(applicationId);
 
+        if (application == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
+
         // 2. 상태가 "접수"면 "검토"로 변경
         if ("접수".equals(application.getStatus())) {
             application.updateStatus("검토");
@@ -267,18 +274,26 @@ public class CompanyService {
         List<TechStack> techStacks = resumeTechStackRepository.findAllByResumeIdWithTechStack(resume.getId());
 
         // 6. DTO 조립
-        return new CompanyResponse.CompanyacceptanceDTO(resume, careers, techStacks);
+        return new CompanyResponse.CompanyacceptanceDTO(resume, careers, techStacks, applicationId);
     }
 
     @Transactional
-    public void 지원상태수정(Integer applicationId, String newStatus) {
-        Application application = applicationRepository.findById(applicationId);
-        application.updateStatus(newStatus);
+    public Integer 지원상태수정(Integer applicationId, String newStatus) {
+        Application applicationPS = applicationRepository.findById(applicationId);
+        if (applicationPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
+        applicationPS.updateStatus(newStatus);
+        return applicationPS.getJob().getId();
     }
 
     @Transactional
     public void 공고삭제(Integer jobId) {
         // 1. 지원 내역 삭제
+        Job jobPS = jobRepository.findById(jobId);
+        if (jobPS == null) {
+            throw new Exception400("잘못된 요청입니다");
+        }
         companyRepository.deleteApplicationsByJobId(jobId);
 
         // 2. 북마크 삭제
@@ -289,5 +304,12 @@ public class CompanyService {
 
         // 4. 최종 공고 삭제
         companyRepository.deleteJobById(jobId);
+    }
+
+    public CompanyResponse.CompanySaveFormDTO 등록보기() {
+        List<WorkField> workFields = workFieldRepository.findAll();
+        List<TechStack> techStacks = techStackRepository.findAll();
+
+        return new CompanyResponse.CompanySaveFormDTO(workFields, techStacks);
     }
 }

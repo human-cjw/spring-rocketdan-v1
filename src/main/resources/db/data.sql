@@ -195,56 +195,56 @@ VALUES
 ('user50', '1234', 'user50@example.com', NULL, 'user', NOW(), NULL),
 
 -- 기업유저 50명
-('company01', '1234', 'company01@example.com', NULL, 'company', NOW(), NULL),
-('company02', '1234', 'company02@example.com', NULL, 'company', NOW(), NULL),
-('company03', '1234', 'company03@example.com', NULL, 'company', NOW(), NULL),
-('company04', '1234', 'company04@example.com', NULL, 'company', NOW(), NULL),
-('company05', '1234', 'company05@example.com', NULL, 'company', NOW(), NULL),
-('company06', '1234', 'company06@example.com', NULL, 'company', NOW(), NULL),
-('company07', '1234', 'company07@example.com', NULL, 'company', NOW(), NULL),
-('company08', '1234', 'company08@example.com', NULL, 'company', NOW(), NULL),
-('company09', '1234', 'company09@example.com', NULL, 'company', NOW(), NULL),
-('company10', '1234', 'company10@example.com', NULL, 'company', NOW(), NULL),
-('company11', '1234', 'company11@example.com', NULL, 'company', NOW(), NULL),
-('company12', '1234', 'company12@example.com', NULL, 'company', NOW(), NULL),
-('company13', '1234', 'company13@example.com', NULL, 'company', NOW(), NULL),
-('company14', '1234', 'company14@example.com', NULL, 'company', NOW(), NULL),
-('company15', '1234', 'company15@example.com', NULL, 'company', NOW(), NULL),
-('company16', '1234', 'company16@example.com', NULL, 'company', NOW(), NULL),
-('company17', '1234', 'company17@example.com', NULL, 'company', NOW(), NULL),
-('company18', '1234', 'company18@example.com', NULL, 'company', NOW(), NULL),
-('company19', '1234', 'company19@example.com', NULL, 'company', NOW(), NULL),
-('company20', '1234', 'company20@example.com', NULL, 'company', NOW(), NULL),
-('company21', '1234', 'company21@example.com', NULL, 'company', NOW(), NULL),
-('company22', '1234', 'company22@example.com', NULL, 'company', NOW(), NULL),
-('company23', '1234', 'company23@example.com', NULL, 'company', NOW(), NULL),
-('company24', '1234', 'company24@example.com', NULL, 'company', NOW(), NULL),
-('company25', '1234', 'company25@example.com', NULL, 'company', NOW(), NULL),
-('company26', '1234', 'company26@example.com', NULL, 'company', NOW(), NULL),
-('company27', '1234', 'company27@example.com', NULL, 'company', NOW(), NULL),
-('company28', '1234', 'company28@example.com', NULL, 'company', NOW(), NULL),
-('company29', '1234', 'company29@example.com', NULL, 'company', NOW(), NULL),
-('company30', '1234', 'company30@example.com', NULL, 'company', NOW(), NULL),
-('company31', '1234', 'company31@example.com', NULL, 'company', NOW(), NULL),
-('company32', '1234', 'company32@example.com', NULL, 'company', NOW(), NULL),
-('company33', '1234', 'company33@example.com', NULL, 'company', NOW(), NULL),
-('company34', '1234', 'company34@example.com', NULL, 'company', NOW(), NULL),
-('company35', '1234', 'company35@example.com', NULL, 'company', NOW(), NULL),
-('company36', '1234', 'company36@example.com', NULL, 'company', NOW(), NULL),
-('company37', '1234', 'company37@example.com', NULL, 'company', NOW(), NULL),
-('company38', '1234', 'company38@example.com', NULL, 'company', NOW(), NULL),
-('company39', '1234', 'company39@example.com', NULL, 'company', NOW(), NULL),
-('company40', '1234', 'company40@example.com', NULL, 'company', NOW(), NULL),
-('company41', '1234', 'company41@example.com', NULL, 'company', NOW(), NULL),
-('company42', '1234', 'company42@example.com', NULL, 'company', NOW(), NULL),
-('company43', '1234', 'company43@example.com', NULL, 'company', NOW(), NULL),
-('company44', '1234', 'company44@example.com', NULL, 'company', NOW(), NULL),
-('company45', '1234', 'company45@example.com', NULL, 'company', NOW(), NULL),
-('company46', '1234', 'company46@example.com', NULL, 'company', NOW(), NULL),
-('company47', '1234', 'company47@example.com', NULL, 'company', NOW(), NULL),
-('company48', '1234', 'company48@example.com', NULL, 'company', NOW(), NULL),
-('company49', '1234', 'company49@example.com', NULL, 'company', NOW(), NULL),
-('company50', '1234', 'company50@example.com', NULL, 'company', NOW(), NULL);
+('company01', '1234', 'company01@example.com', NULL, 'company', NOW(), 1),
+('company02', '1234', 'company02@example.com', NULL, 'company', NOW(), 2),
+('company03', '1234', 'company03@example.com', NULL, 'company', NOW(), 3),
+('company04', '1234', 'company04@example.com', NULL, 'company', NOW(), 4),
+('company05', '1234', 'company05@example.com', NULL, 'company', NOW(), 5),
+('company06', '1234', 'company06@example.com', NULL, 'company', NOW(), 6),
+('company07', '1234', 'company07@example.com', NULL, 'company', NOW(), 7),
+('company08', '1234', 'company08@example.com', NULL, 'company', NOW(), 8),
+('company09', '1234', 'company09@example.com', NULL, 'company', NOW(), 9),
+('company10', '1234', 'company10@example.com', NULL, 'company', NOW(), 10),
+('company11', '1234', 'company11@example.com', NULL, 'company', NOW(), 11),
+('company12', '1234', 'company12@example.com', NULL, 'company', NOW(), 12),
+('company13', '1234', 'company13@example.com', NULL, 'company', NOW(), 13),
+('company14', '1234', 'company14@example.com', NULL, 'company', NOW(), 14),
+('company15', '1234', 'company15@example.com', NULL, 'company', NOW(), 15),
+('company16', '1234', 'company16@example.com', NULL, 'company', NOW(), 16),
+('company17', '1234', 'company17@example.com', NULL, 'company', NOW(), 17),
+('company18', '1234', 'company18@example.com', NULL, 'company', NOW(), 18),
+('company19', '1234', 'company19@example.com', NULL, 'company', NOW(), 19),
+('company20', '1234', 'company20@example.com', NULL, 'company', NOW(), 20),
+('company21', '1234', 'company21@example.com', NULL, 'company', NOW(), 21),
+('company22', '1234', 'company22@example.com', NULL, 'company', NOW(), 22),
+('company23', '1234', 'company23@example.com', NULL, 'company', NOW(), 23),
+('company24', '1234', 'company24@example.com', NULL, 'company', NOW(), 24),
+('company25', '1234', 'company25@example.com', NULL, 'company', NOW(), 25),
+('company26', '1234', 'company26@example.com', NULL, 'company', NOW(), 26),
+('company27', '1234', 'company27@example.com', NULL, 'company', NOW(), 27),
+('company28', '1234', 'company28@example.com', NULL, 'company', NOW(), 28),
+('company29', '1234', 'company29@example.com', NULL, 'company', NOW(), 29),
+('company30', '1234', 'company30@example.com', NULL, 'company', NOW(), 30),
+('company31', '1234', 'company31@example.com', NULL, 'company', NOW(), 31),
+('company32', '1234', 'company32@example.com', NULL, 'company', NOW(), 32),
+('company33', '1234', 'company33@example.com', NULL, 'company', NOW(), 33),
+('company34', '1234', 'company34@example.com', NULL, 'company', NOW(), 34),
+('company35', '1234', 'company35@example.com', NULL, 'company', NOW(), 35),
+('company36', '1234', 'company36@example.com', NULL, 'company', NOW(), 36),
+('company37', '1234', 'company37@example.com', NULL, 'company', NOW(), 37),
+('company38', '1234', 'company38@example.com', NULL, 'company', NOW(), 38),
+('company39', '1234', 'company39@example.com', NULL, 'company', NOW(), 39),
+('company40', '1234', 'company40@example.com', NULL, 'company', NOW(), 40),
+('company41', '1234', 'company41@example.com', NULL, 'company', NOW(), 41),
+('company42', '1234', 'company42@example.com', NULL, 'company', NOW(), 42),
+('company43', '1234', 'company43@example.com', NULL, 'company', NOW(), 43),
+('company44', '1234', 'company44@example.com', NULL, 'company', NOW(), 44),
+('company45', '1234', 'company45@example.com', NULL, 'company', NOW(), 45),
+('company46', '1234', 'company46@example.com', NULL, 'company', NOW(), 46),
+('company47', '1234', 'company47@example.com', NULL, 'company', NOW(), 47),
+('company48', '1234', 'company48@example.com', NULL, 'company', NOW(), 48),
+('company49', '1234', 'company49@example.com', NULL, 'company', NOW(), 49),
+('company50', '1234', 'company50@example.com', NULL, 'company', NOW(), 50);
 
 
 -- =============================================
@@ -2383,60 +2383,22 @@ VALUES ('정보처리기사', '한국산업인력공단', '2020-02-01', 1, NOW()
 -- =============================================
 -- Board 더미 데이터
 -- =============================================
-INSERT INTO board_tb (title,
-                      content,
-                      user_id,
-                      created_at)
-VALUES ('첫 번째 게시글',
-        '이것은 첫 번째 게시글의 내용입니다.',
-        1,
-        now()),
-       ('스프링 프로젝트 질문',
-        '스프링 관련 질문이 있습니다. 답변 부탁드려요!',
-        2,
-        now()),
-       ('부산 개발자 모임 안내',
-        '부산에서 열리는 개발자 모임에 초대합니다.',
-        3,
-        now()),
-       ('자바 공부 방법',
-        '효과적인 자바 공부 방법을 공유합니다.',
-        1,
-        now()),
-       ('프로젝트 팀원 모집',
-        '함께 프로젝트할 팀원을 모집합니다.',
-        2,
-        now());
+INSERT INTO board_tb (title, content, created_at, password)
+VALUES ('첫 번째 게시글', '이것은 첫 번째 게시글의 내용입니다.', NOW(), 1234),
+       ('스프링 프로젝트 질문', '스프링 관련 질문이 있습니다. 답변 부탁드려요!', NOW(), 1234),
+       ('부산 개발자 모임 안내', '부산에서 열리는 개발자 모임에 초대합니다.', NOW(), 1234),
+       ('자바 공부 방법', '효과적인 자바 공부 방법을 공유합니다.', NOW(), 1234),
+       ('프로젝트 팀원 모집', '함께 프로젝트할 팀원을 모집합니다.', NOW(), 1234);
+
 
 -- =============================================
 -- Love 더미 데이터 (작성자 본인 제외)
 -- =============================================
-INSERT INTO love_tb (user_id, board_id)
-VALUES (2, 1), -- 2번 유저가 1번 게시글(작성자 1) 좋아요
-       (1, 3), -- 1번 유저가 3번 게시글(작성자 3) 좋아요
-       (2, 3);
--- 2번 유저가 3번 게시글(작성자 3) 좋아요
+
 
 -- =============================================
 -- Reply 더미 데이터
 -- =============================================
-INSERT INTO reply_tb (content,
-                      user_id,
-                      board_id,
-                      created_at)
-VALUES ('첫 번째 게시글 감사합니다!',
-        2,
-        1, -- 2번 유저가 1번 게시글(작성자 1)에 댓글
-        now()),
-       ('좋은 정보네요!',
-        3,
-        1, -- 3번 유저가 1번 게시글(작성자 1)에 댓글
-        now()),
-       ('저도 궁금했는데 답변 기다립니다.',
-        1,
-        2, -- 1번 유저가 2번 게시글(작성자 2)에 댓글
-        now());
-
 
 -- =============================================
 -- JobBookmark 더미 데이터
