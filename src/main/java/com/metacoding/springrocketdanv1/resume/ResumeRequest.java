@@ -140,8 +140,8 @@ public class ResumeRequest {
 
         @NotBlank(message = "자기소개는 필수입니다.")
         @Pattern(
-                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,300}$",
-                message = "자기소개는 2자 이상 300자 이하로 입력해 주세요."
+                regexp = "^[a-zA-Z0-9가-힣()\\[\\]{}\\/!@#$%^&*\\-+=~\\.,\\s]{2,500}$",
+                message = "자기소개는 2자 이상 500자 이하로 입력해 주세요."
         )
         private String summary;
 
