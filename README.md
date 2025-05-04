@@ -1,8 +1,177 @@
-내용작성 공간
+# 휴먼클라우드 웹 - 미니 프로젝트 1 : 1조 - Rocketdan
 
-# create table
+<hr/>
 
-```sql
+- 자바와 스프링부트, HTML/CSS를 활용한 웹 서버 제작 프로젝트입니다.
+- 전체 개발 기간 : 2025. 04. 11 ~ 2025. 05. 02
+
+<br/>
+
+![Main 화면](docs/images/main.png)
+
+⬆ 영상 들어갈 자리
+
+# 👥 팀 멤버
+
+| 이름  | 역할 | GitHub                                       |
+|-----|----|----------------------------------------------|
+| 최재원 | 팀장 | [@jjack-1](https://github.com/jjack-1)       |
+| 김건우 | 팀원 | [@GUNWO0](https://github.com/GUNWO0)         |
+| 김세리 | 팀원 | [@roni243](https://github.com/roni243)       |
+| 이연호 | 팀원 | [@yh88888888](https://github.com/yh88888888) |
+| 조하은 | 팀원 | [@TaengGyul](https://github.com/TaengGyul)   |
+
+# ⚙️ 기술 스택
+
+## 🛠️ 사용 기술
+
+<div align="left" style="display: flex; flex-wrap: wrap;">
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="50" /><br/>HTML
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="50" /><br/>CSS
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="50" /><br/>JavaScript
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="50" /><br/>Bootstrap
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/handlebars/handlebars-original.svg" width="50" /><br/>Mustache
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50" /><br/>Java
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" width="50" /><br/>Spring Boot
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" width="50" /><br/>H2
+    </div>
+</div>
+
+## 🧰 개발 환경
+
+<div align="left">
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" width="50" /><br/>IntelliJ
+    </div>
+</div>
+
+## 🤝 협업 도구
+
+<div align="left">
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="50" /><br/>Git
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="50" /><br/>GitHub
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" width="50" /><br/>Notion
+    </div>
+    <div style="display: inline-block; text-align: center; margin: 10px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" width="50" /><br/>Slack
+    </div>
+</div>
+
+# 📋 프로젝트 업무 분담
+
+<table style="width: 100%; text-align: start; font-size: 16px; border-collapse: collapse;">
+    <thead style="background-color: #f2f2f2;">
+        <tr>
+            <th style="padding: 10px; border: 1px solid #ddd;">담당자</th>
+            <th style="padding: 10px; border: 1px solid #ddd;">프로젝트 업무 분담</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">최재원</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <ul>
+                    <li>프로젝트 계획 및 관리</li>
+                    <li>팀 리딩 및 커뮤니케이션</li>
+                    <li>헤더 및 네비게이션 개발</li>
+                    <li>이력서 관련 페이지 및 기능 개발</li>
+                    <li>채용공고 관련 페이지 및 기능 개발</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">김건우</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <ul>
+                    <li>기업 관련 페이지 및 기능 개발</li>
+                    <li>채용공고 관련 페이지 및 기능 개발</li>
+                    <li>유저의 공고 북마크 기능 개발</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">김세리</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <ul>
+                    <li>채용공고 관련 페이지 및 기능 개발</li>
+                    <li>게시판 관련 페이지 및 기능 개발</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">이연호</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <ul>
+                    <li>로그인 관련 페이지 및 기능 개발</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;">조하은</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">
+                <ul>
+                    <li>이력서 관련 페이지 및 기능 개발</li>
+                    <li>더미 데이터 이미지 등록</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+# 주요 기능
+
+### 공통
+- 회원가입, 로그인
+- 게시판 - 등록, 수정, 삭제
+- 게시판 목록 보기
+- 유효성 검사
+- 인증 체크
+
+### 유저
+- 이력서 - 등록, 수정, 삭제
+- 이력서 목록 보기
+- 이력서 상세 보기
+- 이력서 지원 하기
+- 이력서 지원 내역
+- 공고 북마크
+
+### 기업
+- 기업 - 등록, 수정, 삭제
+- 기업 목록 보기
+- 기업 상세 보기
+- 채용공고 - 등록, 수정, 삭제
+- 채용공고 목록 보기
+- 채용공고 상세 보기
+- 이력서 지원 받기
+- 이력서 지원 응답
+
+# 테이블 구조
+
+![table](docs/images/table.png)
+
+# 테이블 생성
+
+```h2
 
 create table application_tb
 (
@@ -124,25 +293,6 @@ create table job_tech_stack_tb
     primary key (id)
 )
 
-create table love_tb
-(
-    board_id integer,
-    id       integer generated by default as identity,
-    user_id  integer,
-    primary key (id),
-    constraint uk_user_board unique (user_id, board_id)
-)
-
-create table reply_tb
-(
-    board_id   integer,
-    id         integer generated by default as identity,
-    user_id    integer,
-    created_at timestamp(6),
-    content    varchar(255),
-    primary key (id)
-)
-
 create table resume_bookmark_tb
 (
     company_id integer,
@@ -220,3 +370,27 @@ create table work_field_tb
     primary key (id)
 )
 ```
+
+# 보완할 점
+
+### 알림
+
+- 기업 - 유저가 지원할 경우 기업에게 알림 기능
+- 유저 - 기업이 지원상태를 변경할 경우 유저에게 알림 기능
+
+### 페이징
+
+- 다수의 데이터를 페이지 별로 깔끔하게 만들어 주는 기능
+
+### 검색
+
+- 기업, 공고, 유저를 각각 따로 검색하는 기능
+- 기술스택, 주소, 연봉에 따라 검색하는 기능
+- 통합 검색 기능
+
+# 느낀점
+
+- 개발 시작할 때 팀원들과 함께 전반적인 프로젝트의 전체적인 진행 방향을 같이 확인해서 협업이 좀더 잘 이루어지게 하고 싶다
+- 임무 배정시 좀더 세밀한 임무목록을 작성해서 팀원들이 좀더 신속하게 개발을 할 수 있도록 만들고 싶다
+- 회의를 할때 코드리뷰를 같이 하면서 팀원들이 좀더 코드를 잘 만들어서 수정 보완이 잘 될 수 있도록 만들고 싶다 
+- 프로젝트의 진행에 대한 설계를 좀 더 잘하고 싶다. 설계를 더 잘하면 프로젝트의 진행 속도가 좀 더 나아질 것 같다
