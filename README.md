@@ -25,57 +25,38 @@
 
 ## 🛠️ 사용 기술
 
-<div align="left" style="display: flex; flex-wrap: wrap;">
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="50" /><br/>HTML
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="50" /><br/>CSS
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="50" /><br/>JavaScript
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="50" /><br/>Bootstrap
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/handlebars/handlebars-original.svg" width="50" /><br/>Mustache
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50" /><br/>Java
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" width="50" /><br/>Spring Boot
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" width="50" /><br/>H2
-    </div>
-</div>
+<table>
+    <tr>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="50"/><br/>HTML</td>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="50"/><br/>CSS</td>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="50"/><br/>JavaScript</td>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" width="50"/><br/>Bootstrap</td>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/handlebars/handlebars-original.svg" width="50"/><br/>Mustache</td>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50"/><br/>Java</td>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" width="50"/><br/>Spring Boot</td>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" width="50"/><br/>H2</td>
+    </tr>
+</table>
+
 
 ## 🧰 개발 환경
 
-<div align="left">
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" width="50" /><br/>IntelliJ
-    </div>
-</div>
+<table>
+    <tr>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" width="50"/><br/>IntelliJ</td>
+    </tr>
+</table>
 
 ## 🤝 협업 도구
 
-<div align="left">
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="50" /><br/>Git
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="50" /><br/>GitHub
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" width="50" /><br/>Notion
-    </div>
-    <div style="display: inline-block; text-align: center; margin: 10px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" width="50" /><br/>Slack
-    </div>
-</div>
+<table>
+    <tr>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="50"/><br/>Git</td>
+        <td align="center"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="50"/><br/>GitHub</td>
+        <td align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" width="50"/><br/>Notion</td>
+        <td align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" width="50"/><br/>Slack</td>
+    </tr>
+</table>
 
 # 📋 프로젝트 업무 분담
 
