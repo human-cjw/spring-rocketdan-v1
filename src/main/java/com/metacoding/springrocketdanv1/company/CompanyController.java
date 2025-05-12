@@ -3,11 +3,9 @@ package com.metacoding.springrocketdanv1.company;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -26,51 +24,32 @@ public class CompanyController {
 
 
     @GetMapping("/company/{companyId}")
-    public String detail(@PathVariable("companyId") Integer companyId, Model model, HttpSession session) {
-        CompanyResponse.CompanyResponseDTO responseDTO = companyService.기업상세(companyId);
-
-        // 현재 로그인한 유저 정보 가져오기
+    public String detail(@PathVariable Integer companyId, HttpSession session, Model model) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
 
-        boolean isOwner = false;
-        if (sessionUser != null) {
-            if ("company".equals(sessionUser.getUserType()) && sessionUser.getCompanyId() != null) {
-                if (sessionUser.getCompanyId().equals(companyId)) {
-                    isOwner = true;
-                }
-            }
-        }
+        CompanyResponse.DetailDTO respDTO = companyService.기업상세(companyId, sessionUser);
 
-        responseDTO.setOwner(isOwner);
-
-        model.addAttribute("model", responseDTO);
-        return "company/detail";
+        model.addAttribute("model", respDTO);
+        return null;
     }
 
     @GetMapping("/company")
-    public String list(HttpServletRequest request, HttpSession session, Model model) {
-        List<Company> companyList = companyService.기업리스트();
-        request.setAttribute("models", companyList);
-
+    public String list(HttpSession session) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        if (sessionUser != null) {
-            model.addAttribute("isCompany", "company".equals(sessionUser.getUserType()));
-        } else {
-            model.addAttribute("isCompany", false);
-        }
-
-        return "company/list";
+        CompanyResponse.ListDTO respDTO = companyService.기업리스트(sessionUser);
+        return null;
     }
 
-    @PostMapping("/api/company")
-    public ResponseEntity<?> saveCompany(
-            @RequestBody @Valid CompanyRequest.CompanySaveDTO reqDTO,
-            HttpSession session
-    ) {
-        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        CompanyResponse.SaveDTO respDTO = companyService.기업등록(reqDTO, sessionUser);
-        return ResponseEntity.ok(respDTO);
-    }
+
+//    @PostMapping("/api/company")
+//    public ResponseEntity<?> saveCompany(
+//            @RequestBody @Valid CompanyRequest.CompanySaveDTO reqDTO,
+//            HttpSession session
+//    ) {
+//        UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
+//        CompanyResponse.SaveDTO respDTO = companyService.기업등록(reqDTO, sessionUser);
+//        return ResponseEntity.ok(respDTO);
+//    }
 
     @GetMapping("/company/update-form")
     public String updateForm(HttpSession session, Model model) {

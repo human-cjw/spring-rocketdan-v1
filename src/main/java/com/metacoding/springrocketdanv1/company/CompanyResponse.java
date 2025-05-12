@@ -3,6 +3,7 @@ package com.metacoding.springrocketdanv1.company;
 import com.metacoding.springrocketdanv1.career.Career;
 import com.metacoding.springrocketdanv1.resume.Resume;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
+import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,24 +16,124 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CompanyResponse {
-
     @Data
-    @AllArgsConstructor
-    public static class SaveDTO {
+    public static class DTO {
         private Integer id;
         private String nameKr;
+        private String nameEn;
+        private String ceo;
         private String businessNumber;
         private String email;
-        private List<String> techStacks;
+        private String phone;
+        private String address;
+        private String introduction;
+        private String oneLineIntro;
+        private String homepageUrl;
+        private String logoImageUrl;
+        private String infoImageUrl;
+        private String contactManager;
+        private String startDate;
+        private String workFieldName;
+        private List<TechStackDTO> techStacks;
 
-        public SaveDTO(Company company, List<TechStack> techStackList) {
+        public DTO(Company company, String workFieldName, List<TechStack> techStackList) {
             this.id = company.getId();
             this.nameKr = company.getNameKr();
+            this.nameEn = company.getNameEn();
+            this.ceo = company.getCeo();
             this.businessNumber = company.getBusinessNumber();
             this.email = company.getEmail();
+            this.phone = company.getPhone();
+            this.address = company.getAddress();
+            this.introduction = company.getIntroduction();
+            this.oneLineIntro = company.getOneLineIntro();
+            this.homepageUrl = company.getHomepageUrl();
+            this.logoImageUrl = company.getLogoImageUrl();
+            this.infoImageUrl = company.getInfoImageUrl();
+            this.contactManager = company.getContactManager();
+            this.startDate = company.getStartDate();
+            this.workFieldName = workFieldName;
             this.techStacks = techStackList.stream()
-                    .map(techStack -> techStack.getName())
+                    .map(tech -> new TechStackDTO(tech.getName()))
                     .toList();
+        }
+
+        @Data
+        public static class TechStackDTO {
+            private final String name;
+        }
+    }
+
+    @Data
+    public static class DetailDTO {
+        private String nameKr;
+        private String nameEn;
+        private String ceo;
+        private String businessNumber;
+        private String email;
+        private String phone;
+        private String address;
+        private String introduction;
+        private String oneLineIntro;
+        private String homepageUrl;
+        private String logoImageUrl;
+        private String infoImageUrl;
+        private String contactManager;
+        private String startDate;
+        private String workFieldName;
+        private List<String> techStacks;
+        private boolean isOwner;
+
+        public DetailDTO(Company company, List<TechStack> techStackList, String workFieldName, UserResponse.SessionUserDTO sessionUser) {
+            this.nameKr = company.getNameKr();
+            this.nameEn = company.getNameEn();
+            this.ceo = company.getCeo();
+            this.businessNumber = company.getBusinessNumber();
+            this.email = company.getEmail();
+            this.phone = company.getPhone();
+            this.address = company.getAddress();
+            this.introduction = company.getIntroduction();
+            this.oneLineIntro = company.getOneLineIntro();
+            this.homepageUrl = company.getHomepageUrl();
+            this.logoImageUrl = company.getLogoImageUrl();
+            this.infoImageUrl = company.getInfoImageUrl();
+            this.contactManager = company.getContactManager();
+            this.startDate = company.getStartDate();
+            this.workFieldName = workFieldName;
+            this.techStacks = techStackList.stream().map(TechStack::getName).toList();
+
+            this.isOwner = sessionUser != null
+                    && "company".equals(sessionUser.getUserType())
+                    && sessionUser.getCompanyId() != null
+                    && sessionUser.getCompanyId().equals(company.getId());
+        }
+    }
+
+    @Data
+    public static class ListDTO {
+        private List<DTO> companies;
+        private boolean isCompany;
+
+        public ListDTO(List<Company> companies, UserResponse.SessionUserDTO sessionUser) {
+            this.companies = companies.stream()
+                    .map(company -> new DTO(company))
+                    .toList();
+            this.isCompany = sessionUser != null && "company".equals(sessionUser.getUserType());
+        }
+
+        @Data
+        public static class DTO {
+            private Integer id;
+            private String nameKr;
+            private String nameEn;
+            private String oneLineIntro;
+
+            public DTO(Company company) {
+                this.id = company.getId();
+                this.nameKr = company.getNameKr();
+                this.nameEn = company.getNameEn();
+                this.oneLineIntro = company.getOneLineIntro();
+            }
         }
     }
 

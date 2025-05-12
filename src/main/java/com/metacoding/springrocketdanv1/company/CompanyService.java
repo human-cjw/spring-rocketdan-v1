@@ -14,7 +14,6 @@ import com.metacoding.springrocketdanv1.resume.ResumeRepository;
 import com.metacoding.springrocketdanv1.resumeTechStack.ResumeTechStackRepository;
 import com.metacoding.springrocketdanv1.techStack.TechStack;
 import com.metacoding.springrocketdanv1.techStack.TechStackRepository;
-import com.metacoding.springrocketdanv1.user.User;
 import com.metacoding.springrocketdanv1.user.UserResponse;
 import com.metacoding.springrocketdanv1.workField.WorkField;
 import com.metacoding.springrocketdanv1.workField.WorkFieldRepository;
@@ -46,70 +45,45 @@ public class CompanyService {
     @PersistenceContext
     private EntityManager em;
 
-    // 기업 상세보기
-    public CompanyResponse.CompanyResponseDTO 기업상세(Integer companyId) {
+    public CompanyResponse.DetailDTO 기업상세(Integer companyId, UserResponse.SessionUserDTO sessionUser) {
         Company company = companyRepository.findById(companyId);
-
         List<TechStack> techStacks = companyTechStackRepository.findByCompanyId(companyId);
-        List<String> techStackNames = techStacks.stream()
-                .map(TechStack::getName)
-                .collect(Collectors.toList());
-
-        boolean isOwner = false;
-
         String workFieldName = workFieldRepository.findNameById(company.getWorkField().getId());
-        return new CompanyResponse.CompanyResponseDTO(
-                company.getNameKr(),
-                company.getNameEn(),
-                company.getCeo(),
-                company.getBusinessNumber(),
-                company.getEmail(),
-                company.getPhone(),
-                company.getAddress(),
-                company.getIntroduction(),
-                company.getOneLineIntro(),
-                company.getHomepageUrl(),
-                company.getLogoImageUrl(),
-                company.getInfoImageUrl(),
-                company.getContactManager(),
-                company.getStartDate(),
-                workFieldName,
-                techStackNames,
-                isOwner
-        );
+
+        return new CompanyResponse.DetailDTO(company, techStacks, workFieldName, sessionUser);
     }
 
-    // 기업 리스트
-    public List<Company> 기업리스트() {
-        return companyRepository.findAll();
+    public CompanyResponse.ListDTO 기업리스트(UserResponse.SessionUserDTO sessionUser) {
+        List<Company> companyList = companyRepository.findAll();
+        return new CompanyResponse.ListDTO(companyList, sessionUser);
     }
 
     // 기업 등록
-    @Transactional
-    public CompanyResponse.SaveDTO 기업등록(CompanyRequest.CompanySaveDTO reqDTO, UserResponse.SessionUserDTO sessionUser) {
-        // 1. 산업 분야 조회 or 저장
-        WorkField workField = workFieldRepository.findByName(reqDTO.getWorkFieldName());
-        if (workField == null) {
-            workField = workFieldRepository.save(WorkField.builder().name(reqDTO.getWorkFieldName()).build());
-        }
-
-        // 2. 기술 스택 조회
-        List<TechStack> techStackList = reqDTO.getTechStack().stream()
-                .map(name -> techStackRepository.findByName(name))
-                .filter(techStack -> techStack != null)
-                .toList();
-
-        // 3. 엔티티 생성
-        Company company = reqDTO.toEntity(sessionUser, workField, techStackList);
-        Company companyPS = companyRepository.save(company);
-
-        // 4. User 엔티티 조회 및 업데이트는 허용된 메서드로만
-        User user = em.find(User.class, sessionUser.getId());
-        user.updateToCompany(companyPS.getId());
-
-        // 5. 응답 DTO 리턴
-        return new CompanyResponse.SaveDTO(companyPS, techStackList);
-    }
+//    @Transactional
+//    public CompanyResponse.SaveDTO 기업등록(CompanyRequest.CompanySaveDTO reqDTO, UserResponse.SessionUserDTO sessionUser) {
+//        // 1. 산업 분야 조회 or 저장
+//        WorkField workField = workFieldRepository.findByName(reqDTO.getWorkFieldName());
+//        if (workField == null) {
+//            workField = workFieldRepository.save(WorkField.builder().name(reqDTO.getWorkFieldName()).build());
+//        }
+//
+//        // 2. 기술 스택 조회
+//        List<TechStack> techStackList = reqDTO.getTechStack().stream()
+//                .map(name -> techStackRepository.findByName(name))
+//                .filter(techStack -> techStack != null)
+//                .toList();
+//
+//        // 3. 엔티티 생성
+//        Company company = reqDTO.toEntity(sessionUser, workField, techStackList);
+//        Company companyPS = companyRepository.save(company);
+//
+//        // 4. User 엔티티 조회 및 업데이트는 허용된 메서드로만
+//        User user = em.find(User.class, sessionUser.getId());
+//        user.updateToCompany(companyPS.getId());
+//
+//        // 5. 응답 DTO 리턴
+//        return new CompanyResponse.SaveDTO(companyPS, techStackList);
+//    }
 
     // 내 기업 조회 (업데이트 폼)
     public CompanyResponse.UpdateFormDTO 내기업조회(Integer userId) {
