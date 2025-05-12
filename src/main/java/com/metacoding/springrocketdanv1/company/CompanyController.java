@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -61,19 +62,14 @@ public class CompanyController {
         return "company/list";
     }
 
-    @GetMapping("/company/save-form")
-    public String saveForm(Model model) {
-
-        model.addAttribute("model", companyService.등록보기());
-        return "company/save-form";
-    }
-
-    @PostMapping("/company/save")
-    public String save(@Valid @ModelAttribute CompanyRequest.CompanySaveDTO requestDTO, Errors errors, HttpSession session) {
+    @PostMapping("/api/company")
+    public ResponseEntity<?> saveCompany(
+            @RequestBody @Valid CompanyRequest.CompanySaveDTO reqDTO,
+            HttpSession session
+    ) {
         UserResponse.SessionUserDTO sessionUser = (UserResponse.SessionUserDTO) session.getAttribute("sessionUser");
-        UserResponse.SessionUserDTO sessionUserDTO = companyService.기업등록(requestDTO, sessionUser);
-        session.setAttribute("sessionUser", sessionUserDTO);
-        return "redirect:/company/" + sessionUserDTO.getCompanyId();
+        CompanyResponse.SaveDTO respDTO = companyService.기업등록(reqDTO, sessionUser);
+        return ResponseEntity.ok(respDTO);
     }
 
     @GetMapping("/company/update-form")

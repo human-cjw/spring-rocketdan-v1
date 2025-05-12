@@ -17,6 +17,26 @@ import java.util.stream.Collectors;
 public class CompanyResponse {
 
     @Data
+    @AllArgsConstructor
+    public static class SaveDTO {
+        private Integer id;
+        private String nameKr;
+        private String businessNumber;
+        private String email;
+        private List<String> techStacks;
+
+        public SaveDTO(Company company, List<TechStack> techStackList) {
+            this.id = company.getId();
+            this.nameKr = company.getNameKr();
+            this.businessNumber = company.getBusinessNumber();
+            this.email = company.getEmail();
+            this.techStacks = techStackList.stream()
+                    .map(techStack -> techStack.getName())
+                    .toList();
+        }
+    }
+
+    @Data
     public static class CompanySaveFormDTO {
         private List<WorkField> workFields;
         private List<TechStack> techStacks;

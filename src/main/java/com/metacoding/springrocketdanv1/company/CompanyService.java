@@ -24,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,47 +86,29 @@ public class CompanyService {
 
     // 기업 등록
     @Transactional
-    public UserResponse.SessionUserDTO 기업등록(CompanyRequest.CompanySaveDTO requestDTO, UserResponse.SessionUserDTO sessionUser) {
-        // 산업분야 조회 또는 저장
-        WorkField workField = workFieldRepository.findByName(requestDTO.getWorkFieldName());
+    public CompanyResponse.SaveDTO 기업등록(CompanyRequest.CompanySaveDTO reqDTO, UserResponse.SessionUserDTO sessionUser) {
+        // 1. 산업 분야 조회 or 저장
+        WorkField workField = workFieldRepository.findByName(reqDTO.getWorkFieldName());
         if (workField == null) {
-            workField = workFieldRepository.save(WorkField.builder().name(requestDTO.getWorkFieldName()).build());
+            workField = workFieldRepository.save(WorkField.builder().name(reqDTO.getWorkFieldName()).build());
         }
 
-        // 기술 스택 조회
-        List<TechStack> techStackList = new ArrayList<>();
-        if (requestDTO.getTechStack() != null) {
-            for (String name : requestDTO.getTechStack()) {
-                TechStack ts = techStackRepository.findByName(name);
-                if (ts != null) {
-                    techStackList.add(ts);
-                }
-            }
-        }
+        // 2. 기술 스택 조회
+        List<TechStack> techStackList = reqDTO.getTechStack().stream()
+                .map(name -> techStackRepository.findByName(name))
+                .filter(techStack -> techStack != null)
+                .toList();
 
-        // 회사 + 연관 기술 스택 cascade 저장
-        Company company = requestDTO.toEntity(sessionUser, workField, techStackList);
+        // 3. 엔티티 생성
+        Company company = reqDTO.toEntity(sessionUser, workField, techStackList);
         Company companyPS = companyRepository.save(company);
 
-        // 세션에서 넘어온 User가 아니라, DB에서 영속 객체를 다시 가져옴
+        // 4. User 엔티티 조회 및 업데이트는 허용된 메서드로만
         User user = em.find(User.class, sessionUser.getId());
+        user.updateToCompany(companyPS.getId());
 
-        try {
-            // userType, companyId 수정
-            Field userTypeField = User.class.getDeclaredField("userType");
-            userTypeField.setAccessible(true);
-            userTypeField.set(user, "company");
-
-            Field companyIdField = User.class.getDeclaredField("companyId");
-            companyIdField.setAccessible(true);
-            companyIdField.set(user, companyPS.getId());
-
-        } catch (Exception e) {
-            throw new RuntimeException("User 업데이트 실패", e);
-        }
-        UserResponse.SessionUserDTO sessionUserDTO = new UserResponse.SessionUserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getFileUrl(), user.getUserType(), companyPS.getId(), companyPS.getNameKr());
-
-        return sessionUserDTO;
+        // 5. 응답 DTO 리턴
+        return new CompanyResponse.SaveDTO(companyPS, techStackList);
     }
 
     // 내 기업 조회 (업데이트 폼)

@@ -43,4 +43,9 @@ public class User {
         this.companyId = companyId;
         this.createdAt = createdAt;
     }
+
+    public void updateToCompany(Integer companyId) {
+        this.userType = "company";
+        this.companyId = companyId;
+    }
 }
